@@ -44,7 +44,7 @@ export default function QuickActions(props: IProps) {
                     History
                 </TextMenuButton>
             </Grid>
-            <Grid
+            {/* <Grid
                 paddingY={0}
             >
                 <TextMenuButton>
@@ -57,7 +57,7 @@ export default function QuickActions(props: IProps) {
                 <TextMenuButton>
                     Auto
                 </TextMenuButton>
-            </Grid>
+            </Grid> */}
             <Grid
                 paddingY={0}
             >
@@ -76,13 +76,13 @@ export default function QuickActions(props: IProps) {
                     Load
                 </TextMenuButton>
             </Grid>
-            <Grid
+            {/* <Grid
                 paddingY={0}
             >
                 <TextMenuButton>
                     Prefs
                 </TextMenuButton>
-            </Grid>
+            </Grid> */}
         </Grid>
     );
 }
