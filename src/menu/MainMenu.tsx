@@ -1,5 +1,5 @@
+import { addImage, clearAllGameDatas, GameStepManager, GameWindowManager } from '@drincs/pixi-vn';
 import { Grid } from '@mui/joy';
-import { addImage, clearAllGameDatas, GameStepManager, GameWindowManager } from 'pixi-vm';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MenuButton from '../components/MenuButton';
