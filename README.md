@@ -1,3 +1,3 @@
-# Pixi'VM
+# Pixi'VM + React Template
 
-Pixi'VM is a npm package that is used to create visual novels using pixi.js.
+This is a template for a web application using Pixi'VM and React.
