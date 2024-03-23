@@ -55,9 +55,9 @@ export default function DialogueMenuInterface(props: IProps) {
                             <DialogueMenuButton
                                 loading={loading}
                                 onClick={() => {
+                                    setLoading(true)
+                                    clearMenuOptions()
                                     if (item.type == LabelRunModeEnum.OpenByCall) {
-                                        setLoading(true)
-                                        clearMenuOptions()
                                         GameStepManager.callLabel(item.label)
                                             .then(() => {
                                                 afterClick && afterClick()
@@ -67,6 +67,21 @@ export default function DialogueMenuInterface(props: IProps) {
                                                 setLoading(false)
                                                 console.error(e)
                                             })
+                                    }
+                                    else if (item.type == LabelRunModeEnum.OpenByJump) {
+                                        GameStepManager.jumpLabel(item.label)
+                                            .then(() => {
+                                                afterClick && afterClick()
+                                                setLoading(false)
+                                            })
+                                            .catch((e) => {
+                                                setLoading(false)
+                                                console.error(e)
+                                            })
+                                    }
+                                    else {
+                                        setLoading(false)
+                                        console.error("Unsupported label run mode")
                                     }
                                 }}
                                 sx={{
