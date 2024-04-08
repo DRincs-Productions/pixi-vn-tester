@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AppImports from './AppImports';
-import DialogueInterface from './screens/DialogueInterface';
-import HistoryInterface from './screens/HistoryInterface';
+import Dialogue from './screens/Dialogue';
+import History from './screens/History';
 import MainMenu from './screens/MainMenu';
+import Settings from './screens/Settings';
 
 function App() {
     const [update, setUpdate] = useState(0)
@@ -15,10 +16,13 @@ function App() {
                     updateInterface={() => setUpdate((p) => p + 1)}
                 />} />
                 <Route key={"game"} path={"/game"}
-                    element={<DialogueInterface upadateInterface={update} />}
+                    element={<Dialogue upadateInterface={update} />}
                 />
                 <Route key={"history"} path={"/history"}
-                    element={<HistoryInterface />}
+                    element={<History />}
+                />
+                <Route key={"settings"} path={"/settings"}
+                    element={<Settings />}
                 />
             </Routes>
         </AppImports>

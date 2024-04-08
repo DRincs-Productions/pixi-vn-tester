@@ -83,13 +83,15 @@ export default function QuickActions(props: IProps) {
                     Load
                 </TextMenuButton>
             </Grid>
-            {/* <Grid
+            <Grid
                 paddingY={0}
             >
-                <TextMenuButton>
+                <TextMenuButton
+                    to="/settings"
+                >
                     Prefs
                 </TextMenuButton>
-            </Grid> */}
+            </Grid>
         </Grid>
     );
 }

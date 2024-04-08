@@ -9,14 +9,14 @@ import Typography from '@mui/joy/Typography';
 import { useEffect, useState } from 'react';
 import DragHandleDivider from '../components/DragHandleDivider';
 import { resizeWindowsHandler } from '../utility/ComponentUtility';
-import DialogueMenuInterface from './DialogueMenuInterface';
+import DialogueMenu from './DialogueMenu';
 import QuickActions from './QuickActions';
 
 type IProps = {
     upadateInterface: number
 }
 
-export default function DialogueInterface(props: IProps) {
+export default function Dialogue(props: IProps) {
     const { upadateInterface } = props
     const [windowSize, setWindowSize] = useState({
         x: 0,
@@ -72,7 +72,7 @@ export default function DialogueInterface(props: IProps) {
                 afterLoad={() => setUpdate((p) => p + 1)}
                 canGoBack={canGoBack}
             />
-            {menu && <DialogueMenuInterface
+            {menu && <DialogueMenu
                 dialogueWindowHeight={windowSize.y + 50}
                 fullscreen={text ? false : true}
                 menu={menu}

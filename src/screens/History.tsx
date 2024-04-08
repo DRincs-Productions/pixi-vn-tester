@@ -6,7 +6,7 @@ import { Box, Chip, CssVarsProvider, IconButton, Input, Sheet, Stack, Typography
 import Avatar from '@mui/joy/Avatar';
 import { useState } from 'react';
 
-export default function HistoryInterface() {
+export default function History() {
     const [searchString, setSearchString] = useState("")
 
     return (
