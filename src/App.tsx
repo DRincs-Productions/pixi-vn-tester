@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AppImports from './AppImports';
-import DialogueInterface from './menu/DialogueInterface';
-import HistoryInterface from './menu/HistoryInterface';
-import MainMenu from './menu/MainMenu';
+import DialogueInterface from './screens/DialogueInterface';
+import HistoryInterface from './screens/HistoryInterface';
+import MainMenu from './screens/MainMenu';
 
 function App() {
     const [update, setUpdate] = useState(0)
