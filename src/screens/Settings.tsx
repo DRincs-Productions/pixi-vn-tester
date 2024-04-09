@@ -3,7 +3,9 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormHelperText, FormLabel, IconButton, ModalClose, Sheet, Stack, ToggleButtonGroup, Tooltip, Typography, useColorScheme } from "@mui/joy";
+import { HuePicker } from 'react-color';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { usePrimaryColorProvider } from '../providers/ThemeProvider';
 
 export interface ISettingsProps {
     open: boolean
@@ -11,7 +13,8 @@ export interface ISettingsProps {
 }
 
 export default function Settings({ open, setOpen }: ISettingsProps) {
-    const { mode, setMode, } = useColorScheme();
+    const { mode, setMode } = useColorScheme();
+    const { primaryColor, setPrimaryColor } = usePrimaryColorProvider()
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -81,18 +84,19 @@ export default function Settings({ open, setOpen }: ISettingsProps) {
                         </Tooltip>
                     </ToggleButtonGroup>
 
-                    {/* <Box>
+                    <Box>
                         <FormLabel sx={{ typography: 'title-sm' }}>
                             Primary color
                         </FormLabel>
                         <FormHelperText sx={{ typography: 'body-sm' }}>
                             Choose the primary color for the theme.
                         </FormHelperText>
-                    </Box> */}
-                    {/* react-color */}
-                    {/* <HuePicker
-                        width='100%'
-                    /> */}
+                    </Box>
+                    <HuePicker
+                        width='95%'
+                        color={primaryColor}
+                        onChange={(color) => setPrimaryColor(color.hex)}
+                    />
                 </DialogContent>
                 {location.pathname !== '/' && <>
                     <Divider sx={{ mt: 'auto' }} />
