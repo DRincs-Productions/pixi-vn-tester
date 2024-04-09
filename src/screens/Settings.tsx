@@ -1,7 +1,9 @@
 import AutoModeIcon from '@mui/icons-material/AutoMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormHelperText, FormLabel, IconButton, ModalClose, Sheet, Stack, ToggleButtonGroup, Tooltip, Typography, useColorScheme } from "@mui/joy";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export interface ISettingsProps {
     open: boolean
@@ -10,6 +12,8 @@ export interface ISettingsProps {
 
 export default function Settings({ open, setOpen }: ISettingsProps) {
     const { mode, setMode, } = useColorScheme();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     return (
         <Drawer
@@ -90,21 +94,27 @@ export default function Settings({ open, setOpen }: ISettingsProps) {
                         width='100%'
                     /> */}
                 </DialogContent>
-
-                <Divider sx={{ mt: 'auto' }} />
-                <Stack
-                    direction="row"
-                    justifyContent="space-between"
-                    useFlexGap
-                    spacing={1}
-                >
-                    <Button
-                        variant="outlined"
-                        color="danger"
+                {location.pathname !== '/' && <>
+                    <Divider sx={{ mt: 'auto' }} />
+                    <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        useFlexGap
+                        spacing={1}
                     >
-                        Go In Main Menu
-                    </Button>
-                </Stack>
+                        <Button
+                            variant="outlined"
+                            color="danger"
+                            startDecorator={<ExitToAppIcon />}
+                            onClick={() => {
+                                navigate('/')
+                                setOpen(false)
+                            }}
+                        >
+                            Return to main menu
+                        </Button>
+                    </Stack>
+                </>}
             </Sheet>
         </Drawer>
     );
