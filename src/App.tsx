@@ -8,23 +8,29 @@ import Settings from './screens/Settings';
 
 function App() {
     const [update, setUpdate] = useState(0)
+    const [openSettings, setOpenSettings] = useState(false)
 
     return (
         <AppImports>
             <Routes>
                 <Route key={"main_menu"} path={"/"} element={<MainMenu
                     updateInterface={() => setUpdate((p) => p + 1)}
+                    openSettings={() => setOpenSettings(true)}
                 />} />
                 <Route key={"game"} path={"/game"}
-                    element={<Dialogue upadateInterface={update} />}
+                    element={<Dialogue
+                        upadateInterface={update}
+                        openSettings={() => setOpenSettings(true)}
+                    />}
                 />
                 <Route key={"history"} path={"/history"}
                     element={<History />}
                 />
-                <Route key={"settings"} path={"/settings"}
-                    element={<Settings />}
-                />
             </Routes>
+            <Settings
+                open={openSettings}
+                setOpen={setOpenSettings}
+            />
         </AppImports>
     )
 }

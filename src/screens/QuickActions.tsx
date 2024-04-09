@@ -6,12 +6,14 @@ import { goBack, loadGameSave, saveGame } from '../utility/ActionsUtility';
 type IProps = {
     afterLoad?: () => void
     canGoBack: boolean
+    openSettings: () => void
 }
 
 export default function QuickActions(props: IProps) {
     const {
         afterLoad,
-        canGoBack = true
+        canGoBack = true,
+        openSettings,
     } = props
     const navigate = useNavigate();
     return (
@@ -87,7 +89,7 @@ export default function QuickActions(props: IProps) {
                 paddingY={0}
             >
                 <TextMenuButton
-                    to="/settings"
+                    onClick={openSettings}
                 >
                     Prefs
                 </TextMenuButton>

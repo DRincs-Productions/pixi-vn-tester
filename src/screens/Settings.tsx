@@ -1,58 +1,111 @@
-import CloseIcon from '@mui/icons-material/Close';
-import { Box, CssVarsProvider, IconButton, Sheet, Stack, Typography } from "@mui/joy";
+import AutoModeIcon from '@mui/icons-material/AutoMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormHelperText, FormLabel, IconButton, ModalClose, Sheet, Stack, ToggleButtonGroup, Tooltip, Typography, useColorScheme } from "@mui/joy";
 
-export default function HistoryInterface() {
+export interface ISettingsProps {
+    open: boolean
+    setOpen: (value: boolean) => void
+}
+
+export default function Settings({ open, setOpen }: ISettingsProps) {
+    const { mode, setMode, } = useColorScheme();
+
     return (
-        <CssVarsProvider disableTransitionOnChange>
+        <Drawer
+            size="md"
+            variant="plain"
+            open={open}
+            onClose={() => setOpen(false)}
+            slotProps={{
+                content: {
+                    sx: {
+                        bgcolor: 'transparent',
+                        p: { md: 3, sm: 0 },
+                        boxShadow: 'none',
+                    },
+                },
+            }}
+        >
             <Sheet
-                component="main"
                 sx={{
-                    height: "100%",
-                    width: "100%",
-                    display: "grid",
-                    gridTemplateColumns: "auto",
-                    gridTemplateRows: "auto 1fr auto",
-                    pointerEvents: "auto",
+                    borderRadius: 'md',
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                    height: '100%',
+                    overflow: 'auto',
                 }}
             >
-                <IconButton
-                    sx={{
-                        position: "absolute",
-                        top: 0,
-                        right: 0,
-                        m: 2,
-                    }}
-                    onClick={() => {
-                        window.history.back();
-                    }}
-                >
-                    <CloseIcon />
-                </IconButton>
+                <DialogTitle>Settings</DialogTitle>
+                <ModalClose />
+                <Divider sx={{ mt: 'auto' }} />
+                <DialogContent sx={{ gap: 2 }}>
+                    <Typography level="title-md" fontWeight="bold" sx={{ mt: 2 }}>
+                        Theme
+                    </Typography>
+                    <Box>
+                        <FormLabel sx={{ typography: 'title-sm' }}>
+                            Theme mode
+                        </FormLabel>
+                        <FormHelperText sx={{ typography: 'body-sm' }}>
+                            Choose between light, dark, or system theme mode.
+                        </FormHelperText>
+                    </Box>
+                    <ToggleButtonGroup
+                        value={mode}
+                        onChange={(_, newValue) => {
+                            if (newValue)
+                                setMode(newValue)
+                        }}
+                    >
+                        <Tooltip title="Light Mode">
+                            <IconButton value="light">
+                                <LightModeIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="System Mode">
+                            <IconButton value="system">
+                                <AutoModeIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Dark Mode">
+                            <IconButton value="dark">
+                                <DarkModeIcon />
+                            </IconButton>
+                        </Tooltip>
+                    </ToggleButtonGroup>
+
+                    {/* <Box>
+                        <FormLabel sx={{ typography: 'title-sm' }}>
+                            Primary color
+                        </FormLabel>
+                        <FormHelperText sx={{ typography: 'body-sm' }}>
+                            Choose the primary color for the theme.
+                        </FormHelperText>
+                    </Box> */}
+                    {/* react-color */}
+                    {/* <HuePicker
+                        width='100%'
+                    /> */}
+                </DialogContent>
+
+                <Divider sx={{ mt: 'auto' }} />
                 <Stack
-                    sx={{
-                        px: 2,
-                        py: 2,
-                        borderBottom: "1px solid",
-                        borderColor: "divider",
-                    }}
+                    direction="row"
+                    justifyContent="space-between"
+                    useFlexGap
+                    spacing={1}
                 >
-                    <Stack sx={{ mb: 2 }}>
-                        <Typography level="h2">Settings</Typography>
-                    </Stack>
+                    <Button
+                        variant="outlined"
+                        color="danger"
+                    >
+                        Go In Main Menu
+                    </Button>
                 </Stack>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flex: 1,
-                        minHeight: 0,
-                        px: 2,
-                        py: 3,
-                        overflowY: 'scroll',
-                        flexDirection: 'column-reverse',
-                    }}
-                >
-                </Box>
             </Sheet>
-        </CssVarsProvider >
+        </Drawer>
     );
 }

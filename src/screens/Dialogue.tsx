@@ -14,10 +14,10 @@ import QuickActions from './QuickActions';
 
 type IProps = {
     upadateInterface: number
+    openSettings: () => void
 }
 
-export default function Dialogue(props: IProps) {
-    const { upadateInterface } = props
+export default function Dialogue({ upadateInterface, openSettings }: IProps) {
     const [windowSize, setWindowSize] = useState({
         x: 0,
         y: 300 * GameWindowManager.screenScale,
@@ -71,6 +71,7 @@ export default function Dialogue(props: IProps) {
             <QuickActions
                 afterLoad={() => setUpdate((p) => p + 1)}
                 canGoBack={canGoBack}
+                openSettings={openSettings}
             />
             {menu && <DialogueMenu
                 dialogueWindowHeight={windowSize.y + 50}
