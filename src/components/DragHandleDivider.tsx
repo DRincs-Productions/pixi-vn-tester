@@ -31,9 +31,9 @@ export default function DragHandleDivider(props: DragHandleDividerProps) {
                     height: 13,
                     width: 40,
                     transform: orientation === "vertical" ? "rotate(90deg)" : undefined,
+                    color: useTheme().palette.neutral[700],
                 }}
                 onMouseDown={onMouseDown}
-                color="primary"
             />
         </Divider>
     );
