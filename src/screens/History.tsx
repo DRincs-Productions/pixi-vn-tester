@@ -3,7 +3,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { Box, Chip, Input, Stack, Typography } from "@mui/joy";
 import Avatar from '@mui/joy/Avatar';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import ModalDialogCustom from '../components/ModalDialog';
 
 interface HistoryProps {
@@ -71,11 +71,10 @@ export default function History({ open, setOpen }: HistoryProps) {
                             return data.character?.toLowerCase().includes(searchString.toLowerCase()) || data.text?.toLowerCase().includes(searchString.toLowerCase())
                         })
                         .map((data, index) => {
-                            return <>
+                            return <React.Fragment key={index}>
                                 <Stack
                                     direction="row"
                                     spacing={1.5}
-                                    key={"text" + index}
                                 >
                                     <Avatar
                                         size="sm"
@@ -89,12 +88,12 @@ export default function History({ open, setOpen }: HistoryProps) {
                                 <Stack
                                     direction="row"
                                     spacing={0.5}
-                                    key={index}
                                 >
                                     <Box sx={{ flex: 1 }}>
                                         {data.choices && data.choices.map((choice, index) => {
                                             if (choice.isResponse) {
                                                 return <Chip
+                                                    key={"choices-success" + index}
                                                     color="success"
                                                     endDecorator={<CheckIcon />}
                                                 >
@@ -110,7 +109,7 @@ export default function History({ open, setOpen }: HistoryProps) {
                                         })}
                                     </Box>
                                 </Stack>
-                            </>
+                            </React.Fragment>
                         })}
                 </Stack>
             </Box>

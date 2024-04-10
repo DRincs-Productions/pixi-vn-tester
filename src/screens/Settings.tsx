@@ -175,8 +175,9 @@ export default function Settings({ open, setOpen }: SettingsProps) {
                 >
                     Attention
                 </Typography>}
-                actions={[
+                actions={<>
                     <Button
+                        key={'exit'}
                         color='danger'
                         variant="outlined"
                         onClick={() => {
@@ -187,16 +188,16 @@ export default function Settings({ open, setOpen }: SettingsProps) {
                         startDecorator={<ExitToAppIcon />}
                     >
                         Exit
-                    </Button>,
+                    </Button>
                     <Button
+                        key={'cancel'}
                         color="neutral"
                         variant="plain"
                         onClick={() => setOpenYouSure(false)}
                     >
                         Cancel
                     </Button>
-                ]}
-
+                </>}
             >
                 <Typography>
                     Are you sure you want to return to the main menu? All unsaved progress will be lost.
