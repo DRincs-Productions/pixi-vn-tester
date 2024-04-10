@@ -9,15 +9,15 @@ import Typography from '@mui/joy/Typography';
 import { useEffect, useState } from 'react';
 import DragHandleDivider from '../components/DragHandleDivider';
 import { resizeWindowsHandler } from '../utility/ComponentUtility';
-import DialogueMenuInterface from './DialogueMenuInterface';
+import DialogueMenu from './DialogueMenu';
 import QuickActions from './QuickActions';
 
 type IProps = {
     upadateInterface: number
+    openSettings: () => void
 }
 
-export default function DialogueInterface(props: IProps) {
-    const { upadateInterface } = props
+export default function Dialogue({ upadateInterface, openSettings }: IProps) {
     const [windowSize, setWindowSize] = useState({
         x: 0,
         y: 300 * GameWindowManager.screenScale,
@@ -71,8 +71,9 @@ export default function DialogueInterface(props: IProps) {
             <QuickActions
                 afterLoad={() => setUpdate((p) => p + 1)}
                 canGoBack={canGoBack}
+                openSettings={openSettings}
             />
-            {menu && <DialogueMenuInterface
+            {menu && <DialogueMenu
                 dialogueWindowHeight={windowSize.y + 50}
                 fullscreen={text ? false : true}
                 menu={menu}

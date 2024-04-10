@@ -8,10 +8,11 @@ import { loadGameSave } from '../utility/ActionsUtility';
 
 type IProps = {
     updateInterface: () => void
+    openSettings: () => void
 }
 
 export default function MainMenu(props: IProps) {
-    const { updateInterface } = props
+    const { updateInterface, openSettings } = props
     const navigate = useNavigate();
     useEffect(() => {
         clearAllGameDatas()
@@ -54,7 +55,7 @@ export default function MainMenu(props: IProps) {
             </Grid>
             <Grid>
                 <MenuButton
-                    disabled
+                    onClick={openSettings}
                 >
                     Preferences
                 </MenuButton>
