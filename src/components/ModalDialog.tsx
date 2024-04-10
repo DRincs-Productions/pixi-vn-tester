@@ -1,6 +1,4 @@
-import { DialogActions, Divider, ModalClose } from '@mui/joy';
-import DialogContent from '@mui/joy/DialogContent';
-import DialogTitle from '@mui/joy/DialogTitle';
+import { DialogActions, DialogContent, Divider, ModalClose } from '@mui/joy';
 import Modal from '@mui/joy/Modal';
 import ModalDialog, { ModalDialogProps } from '@mui/joy/ModalDialog';
 import * as React from 'react';
@@ -62,9 +60,7 @@ export default function ModalDialogCustom(props: ModalDialogCustomProps) {
                         {...rest}
                     >
                         <ModalClose />
-                        <DialogTitle>
-                            {head}
-                        </DialogTitle>
+                        {head}
                         <Divider />
                         <DialogContent>
                             {children}
