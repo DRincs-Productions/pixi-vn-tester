@@ -1,13 +1,13 @@
 import DragHandleIcon from '@mui/icons-material/DragHandle';
 import { Divider, DividerProps, DividerTypeMap, useTheme } from "@mui/joy";
 
-interface IProps extends DividerProps<DividerTypeMap['defaultComponent'], {
+interface DragHandleDividerProps extends DividerProps<DividerTypeMap['defaultComponent'], {
     component?: React.ElementType;
 }> {
     onMouseDown: React.MouseEventHandler<any>
 }
 
-export default function DragHandleDivider(props: IProps) {
+export default function DragHandleDivider(props: DragHandleDividerProps) {
     const {
         onMouseDown,
         orientation,
