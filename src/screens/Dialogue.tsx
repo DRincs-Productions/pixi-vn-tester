@@ -7,17 +7,15 @@ import CardContent from '@mui/joy/CardContent';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { afterLoadEventState } from '../atoms/afterLoadEventState';
 import { canGoBackState } from '../atoms/canGoBackState';
+import { nextStepEventState } from '../atoms/nextStepEventState';
 import DragHandleDivider from '../components/DragHandleDivider';
 import { resizeWindowsHandler } from '../utility/ComponentUtility';
 import DialogueMenu from './DialogueMenu';
 
-type IProps = {
-    upadateInterface: number
-}
-
-export default function Dialogue({ upadateInterface }: IProps) {
+export default function Dialogue() {
     const [windowSize, setWindowSize] = useState({
         x: 0,
         y: 300 * GameWindowManager.screenScale,
@@ -31,8 +29,9 @@ export default function Dialogue({ upadateInterface }: IProps) {
     const [text, setText] = useState<string | undefined>(undefined)
     const [character, setCharacter] = useState<CharacterModelBase | undefined>(undefined)
     const [menu, setMenu] = useState<ChoiceMenuOptionsType | undefined>(undefined)
-    const [update, setUpdate] = useState(0)
     const setCanGoBack = useSetRecoilState(canGoBackState);
+    const afterLoadEvent = useRecoilValue(afterLoadEventState);
+    const [nextStepEvent, notifyNextStepEvent] = useRecoilState(nextStepEventState);
 
     useEffect(() => {
         let dial = getDialogue()
@@ -51,13 +50,13 @@ export default function Dialogue({ upadateInterface }: IProps) {
         let m = getChoiceMenuOptions()
         setMenu(m)
         setCanGoBack(GameStepManager.canGoBack)
-    }, [upadateInterface, update])
+    }, [afterLoadEvent, nextStepEvent])
 
     function nextOnClick() {
         setLoading(true)
         GameStepManager.runNextStep()
             .then(() => {
-                setUpdate((p) => p + 1)
+                notifyNextStepEvent((p) => p + 1)
                 setLoading(false)
             })
             .catch((e) => {
@@ -73,7 +72,7 @@ export default function Dialogue({ upadateInterface }: IProps) {
                 dialogueWindowHeight={windowSize.y + 50}
                 fullscreen={text ? false : true}
                 menu={menu}
-                afterClick={() => setUpdate((p) => p + 1)}
+                afterClick={() => notifyNextStepEvent((p) => p + 1)}
             />}
             <Box
                 sx={{
