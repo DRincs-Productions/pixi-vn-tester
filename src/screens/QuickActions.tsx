@@ -7,6 +7,7 @@ type IProps = {
     afterLoad?: () => void
     canGoBack: boolean
     openSettings: () => void
+    openHistory: () => void
 }
 
 export default function QuickActions(props: IProps) {
@@ -14,6 +15,7 @@ export default function QuickActions(props: IProps) {
         afterLoad,
         canGoBack = true,
         openSettings,
+        openHistory,
     } = props
     const navigate = useNavigate();
     return (
@@ -48,7 +50,7 @@ export default function QuickActions(props: IProps) {
                 paddingY={0}
             >
                 <TextMenuButton
-                    to="/history"
+                    onClick={openHistory}
                 >
                     History
                 </TextMenuButton>

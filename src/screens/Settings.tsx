@@ -9,12 +9,12 @@ import { HuePicker } from 'react-color';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEditColorProvider } from '../providers/ThemeProvider';
 
-export interface ISettingsProps {
+interface SettingsProps {
     open: boolean
     setOpen: (value: boolean) => void
 }
 
-export default function Settings({ open, setOpen }: ISettingsProps) {
+export default function Settings({ open, setOpen }: SettingsProps) {
     const { mode, setMode } = useColorScheme();
     const { primaryColor, setPrimaryColor, setSolidColor, solidColor } = useEditColorProvider()
     const navigate = useNavigate();

@@ -9,6 +9,7 @@ import Settings from './screens/Settings';
 function App() {
     const [update, setUpdate] = useState(0)
     const [openSettings, setOpenSettings] = useState(false)
+    const [openHistory, setOpenHistory] = useState(false)
 
     return (
         <AppImports>
@@ -21,15 +22,17 @@ function App() {
                     element={<Dialogue
                         upadateInterface={update}
                         openSettings={() => setOpenSettings(true)}
+                        openHistory={() => setOpenHistory(true)}
                     />}
-                />
-                <Route key={"history"} path={"/history"}
-                    element={<History />}
                 />
             </Routes>
             <Settings
                 open={openSettings}
                 setOpen={setOpenSettings}
+            />
+            <History
+                open={openHistory}
+                setOpen={setOpenHistory}
             />
         </AppImports>
     )
