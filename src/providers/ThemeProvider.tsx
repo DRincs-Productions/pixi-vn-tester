@@ -5,17 +5,23 @@ import ShadeGenerator from 'shade-generator';
 type Iprops = {
     children: React.ReactNode
 }
+type solidColor = "black" | "white"
 
-const PrimaryColorContext = createContext<{
+const ColorContext = createContext<{
     primaryColor: string,
-    setPrimaryColor: (color: string) => void
+    setPrimaryColor: (color: string) => void,
+    solidColor: solidColor,
+    setSolidColor: (color: solidColor) => void,
+
 }>({
     primaryColor: "",
-    setPrimaryColor: () => { }
+    setPrimaryColor: () => { },
+    solidColor: "white",
+    setSolidColor: () => { },
 })
 
-export function usePrimaryColorProvider() {
-    const context = useContext(PrimaryColorContext);
+export function useEditColorProvider() {
+    const context = useContext(ColorContext);
     if (context === undefined) {
         throw new Error("usePrimaryColorProvider must be used within a PrimaryColorProvider")
     }
@@ -57,6 +63,7 @@ function get10ColorShades(color: string) {
 
 export default function MyThemeProvider({ children }: Iprops) {
     const [primaryColor, setPrimaryColor] = useState('#1c73ff')
+    const [solidColor, setSolidColor] = useState<solidColor>("white")
 
 
     // Build the theme: https://mui.com/joy-ui/customization/theme-builder
@@ -68,6 +75,7 @@ export default function MyThemeProvider({ children }: Iprops) {
                     palette: {
                         primary: {
                             ...colors,
+                            solidColor: solidColor === "black" ? "var(--joy-palette-common-black)" : "var(--joy-palette-common-white)",
                         },
                     },
                 },
@@ -75,23 +83,26 @@ export default function MyThemeProvider({ children }: Iprops) {
                     palette: {
                         primary: {
                             ...colors,
+                            solidColor: solidColor === "black" ? "var(--joy-palette-common-black)" : "var(--joy-palette-common-white)",
                         },
                     },
                 },
             },
         })
-    }, [primaryColor])
+    }, [primaryColor, solidColor])
 
     return (
         <CssVarsProvider
             theme={theme}
         >
-            <PrimaryColorContext.Provider value={{
+            <ColorContext.Provider value={{
                 primaryColor: primaryColor,
                 setPrimaryColor: setPrimaryColor,
+                solidColor: solidColor,
+                setSolidColor: setSolidColor,
             }}>
                 {children}
-            </PrimaryColorContext.Provider>
+            </ColorContext.Provider>
         </CssVarsProvider>
     );
 }

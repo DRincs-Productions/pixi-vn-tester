@@ -2,10 +2,12 @@ import AutoModeIcon from '@mui/icons-material/AutoMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import ModeNightIcon from '@mui/icons-material/ModeNight';
+import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
 import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormHelperText, FormLabel, IconButton, ModalClose, Sheet, Stack, ToggleButtonGroup, Tooltip, Typography, useColorScheme } from "@mui/joy";
 import { HuePicker } from 'react-color';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { usePrimaryColorProvider } from '../providers/ThemeProvider';
+import { useEditColorProvider } from '../providers/ThemeProvider';
 
 export interface ISettingsProps {
     open: boolean
@@ -14,7 +16,7 @@ export interface ISettingsProps {
 
 export default function Settings({ open, setOpen }: ISettingsProps) {
     const { mode, setMode } = useColorScheme();
-    const { primaryColor, setPrimaryColor } = usePrimaryColorProvider()
+    const { primaryColor, setPrimaryColor, setSolidColor, solidColor } = useEditColorProvider()
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -97,6 +99,40 @@ export default function Settings({ open, setOpen }: ISettingsProps) {
                         color={primaryColor}
                         onChange={(color) => setPrimaryColor(color.hex)}
                     />
+
+                    <Box>
+                        <FormLabel sx={{ typography: 'title-sm' }}>
+                            Solid Color
+                        </FormLabel>
+                        <FormHelperText sx={{ typography: 'body-sm' }}>
+                            Choose the solid color for the theme. It can be black or white and will be contrasting with the primary color.
+                            So if the primary color is dark, the solid color will be white, and vice versa.
+                        </FormHelperText>
+                    </Box>
+                    <ToggleButtonGroup
+                        value={solidColor}
+                        onChange={(_, newValue) => {
+                            if (newValue)
+                                setSolidColor(newValue)
+                        }}
+                    >
+                        <Tooltip title="White">
+                            <IconButton value="white">
+                                <WbIncandescentIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Black">
+                            <IconButton value="black">
+                                <ModeNightIcon />
+                            </IconButton>
+                        </Tooltip>
+                    </ToggleButtonGroup>
+                    <ToggleButtonGroup
+                        color="primary"
+                        variant="solid"
+                    >
+                        <Button>Example</Button>
+                    </ToggleButtonGroup>
                 </DialogContent>
                 {location.pathname !== '/' && <>
                     <Divider sx={{ mt: 'auto' }} />
