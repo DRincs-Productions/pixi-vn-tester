@@ -2,18 +2,20 @@ import { addImage, clearAllGameDatas, GameStepManager, GameWindowManager } from 
 import { Grid } from '@mui/joy';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { openSettingsState } from '../atoms/openSettingsState';
 import MenuButton from '../components/MenuButton';
 import { StartLabel } from '../label/StartLabel';
 import { loadGameSave } from '../utility/ActionsUtility';
 
 type IProps = {
     updateInterface: () => void
-    openSettings: () => void
 }
 
 export default function MainMenu(props: IProps) {
-    const { updateInterface, openSettings } = props
+    const { updateInterface } = props
     const navigate = useNavigate();
+    const setOpenSettings = useSetRecoilState(openSettingsState);
     useEffect(() => {
         clearAllGameDatas()
         let bg = addImage("background_main_menu", "https://andreannaking.com/wp-content/uploads/2021/12/Download-Beautiful-Nature-Landscape-Hd-Wallpaper-Full-HD-Wallpapers.jpg")
@@ -55,7 +57,7 @@ export default function MainMenu(props: IProps) {
             </Grid>
             <Grid>
                 <MenuButton
-                    onClick={openSettings}
+                    onClick={() => { setOpenSettings(true) }}
                 >
                     Preferences
                 </MenuButton>

@@ -1,23 +1,25 @@
 import { Grid } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { canGoBackState } from '../atoms/canGoBackState';
+import { openHistoryState } from '../atoms/openHistoryState';
+import { openSettingsState } from '../atoms/openSettingsState';
 import TextMenuButton from '../components/TextMenuButton';
 import { goBack, loadGameSave, saveGame } from '../utility/ActionsUtility';
 
 type IProps = {
     afterLoad?: () => void
-    canGoBack: boolean
-    openSettings: () => void
-    openHistory: () => void
 }
 
 export default function QuickActions(props: IProps) {
     const {
         afterLoad,
-        canGoBack = true,
-        openSettings,
-        openHistory,
     } = props
+    const setOpenSettings = useSetRecoilState(openSettingsState);
+    const setOpenHistory = useSetRecoilState(openHistoryState);
     const navigate = useNavigate();
+    const canGoBack = useRecoilValue(canGoBackState)
+
     return (
         <Grid
             container
@@ -50,7 +52,7 @@ export default function QuickActions(props: IProps) {
                 paddingY={0}
             >
                 <TextMenuButton
-                    onClick={openHistory}
+                    onClick={() => setOpenHistory(true)}
                 >
                     History
                 </TextMenuButton>
@@ -91,7 +93,7 @@ export default function QuickActions(props: IProps) {
                 paddingY={0}
             >
                 <TextMenuButton
-                    onClick={openSettings}
+                    onClick={() => setOpenSettings(true)}
                 >
                     Prefs
                 </TextMenuButton>

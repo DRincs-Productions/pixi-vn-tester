@@ -7,18 +7,17 @@ import CardContent from '@mui/joy/CardContent';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { canGoBackState } from '../atoms/canGoBackState';
 import DragHandleDivider from '../components/DragHandleDivider';
 import { resizeWindowsHandler } from '../utility/ComponentUtility';
 import DialogueMenu from './DialogueMenu';
-import QuickActions from './QuickActions';
 
 type IProps = {
     upadateInterface: number
-    openSettings: () => void
-    openHistory: () => void
 }
 
-export default function Dialogue({ upadateInterface, openSettings, openHistory }: IProps) {
+export default function Dialogue({ upadateInterface }: IProps) {
     const [windowSize, setWindowSize] = useState({
         x: 0,
         y: 300 * GameWindowManager.screenScale,
@@ -33,7 +32,8 @@ export default function Dialogue({ upadateInterface, openSettings, openHistory }
     const [character, setCharacter] = useState<CharacterModelBase | undefined>(undefined)
     const [menu, setMenu] = useState<ChoiceMenuOptionsType | undefined>(undefined)
     const [update, setUpdate] = useState(0)
-    const [canGoBack, setCanGoBack] = useState(GameStepManager.canGoBack);
+    const setCanGoBack = useSetRecoilState(canGoBackState);
+
     useEffect(() => {
         let dial = getDialogue()
         if (dial) {
@@ -69,12 +69,6 @@ export default function Dialogue({ upadateInterface, openSettings, openHistory }
 
     return (
         <>
-            <QuickActions
-                afterLoad={() => setUpdate((p) => p + 1)}
-                canGoBack={canGoBack}
-                openSettings={openSettings}
-                openHistory={openHistory}
-            />
             {menu && <DialogueMenu
                 dialogueWindowHeight={windowSize.y + 50}
                 fullscreen={text ? false : true}

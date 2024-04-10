@@ -1,4 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import MyThemeProvider from './providers/ThemeProvider';
 
 type Iprops = {
@@ -8,9 +9,11 @@ type Iprops = {
 export default function AppImports(props: Iprops) {
     return (
         <BrowserRouter>
-            <MyThemeProvider>
-                {props.children}
-            </MyThemeProvider>
+            <RecoilRoot>
+                <MyThemeProvider>
+                    {props.children}
+                </MyThemeProvider>
+            </RecoilRoot>
         </BrowserRouter>
     );
 }

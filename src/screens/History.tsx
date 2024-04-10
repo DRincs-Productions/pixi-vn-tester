@@ -4,14 +4,12 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { Box, Chip, Input, Stack, Typography } from "@mui/joy";
 import Avatar from '@mui/joy/Avatar';
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { openHistoryState } from '../atoms/openHistoryState';
 import ModalDialogCustom from '../components/ModalDialog';
 
-interface HistoryProps {
-    open: boolean
-    setOpen: (value: boolean) => void
-}
-
-export default function History({ open, setOpen }: HistoryProps) {
+export default function History() {
+    const [open, setOpen] = useRecoilState(openHistoryState);
     const [searchString, setSearchString] = useState("")
 
     return (

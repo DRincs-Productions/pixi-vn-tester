@@ -8,20 +8,19 @@ import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormHelperTex
 import { useState } from 'react';
 import { HuePicker } from 'react-color';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { openSettingsState } from '../atoms/openSettingsState';
 import ModalDialogCustom from '../components/ModalDialog';
 import { useEditColorProvider } from '../providers/ThemeProvider';
 
-interface SettingsProps {
-    open: boolean
-    setOpen: (value: boolean) => void
-}
-
-export default function Settings({ open, setOpen }: SettingsProps) {
+export default function Settings() {
+    const [open, setOpen] = useRecoilState(openSettingsState);
     const { mode, setMode } = useColorScheme();
     const { primaryColor, setPrimaryColor, setSolidColor, solidColor } = useEditColorProvider()
     const navigate = useNavigate();
     const location = useLocation();
     const [openYouSure, setOpenYouSure] = useState(false)
+
 
     return (
         <>
