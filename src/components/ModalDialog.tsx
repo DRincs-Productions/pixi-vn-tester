@@ -11,7 +11,7 @@ interface ModalDialogCustomProps extends ModalDialogProps {
     setOpen: (open: boolean) => void;
     children?: React.ReactNode;
     head?: string | React.ReactNode;
-    actions?: React.ReactNode;
+    actions?: React.ReactNode[];
 }
 
 export default function ModalDialogCustom(props: ModalDialogCustomProps) {
