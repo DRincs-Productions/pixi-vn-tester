@@ -5,13 +5,13 @@ import ShadeGenerator from 'shade-generator';
 type Iprops = {
     children: React.ReactNode
 }
-type solidColor = "black" | "white"
+type SolidColorType = "black" | "white"
 
 const ColorContext = createContext<{
     primaryColor: string,
     setPrimaryColor: (color: string) => void,
-    solidColor: solidColor,
-    setSolidColor: (color: solidColor) => void,
+    solidColor: SolidColorType,
+    setSolidColor: (color: SolidColorType) => void,
 
 }>({
     primaryColor: "",
@@ -62,12 +62,16 @@ function get10ColorShades(color: string) {
 }
 
 export default function MyThemeProvider({ children }: Iprops) {
-    const [primaryColor, setPrimaryColor] = useState('#1c73ff')
-    const [solidColor, setSolidColor] = useState<solidColor>("white")
+    const [primaryColor, setPrimaryColor] = useState(localStorage.getItem("primaryColor") || '#1c73ff')
+    const [solidColor, setSolidColor] = useState<SolidColorType>(localStorage.getItem("solidColor") as SolidColorType || "white")
 
 
     // Build the theme: https://mui.com/joy-ui/customization/theme-builder
     const theme = useMemo(() => {
+        // Debouncing
+        localStorage.setItem("primaryColor", primaryColor)
+        localStorage.setItem("solidColor", solidColor)
+
         let colors = get10ColorShades(primaryColor)
         return extendTheme({
             colorSchemes: {

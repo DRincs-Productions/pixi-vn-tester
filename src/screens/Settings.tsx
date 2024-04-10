@@ -51,7 +51,7 @@ export default function Settings({ open, setOpen }: ISettingsProps) {
                 <ModalClose />
                 <Divider sx={{ mt: 'auto' }} />
                 <DialogContent sx={{ gap: 2 }}>
-                    <Typography level="title-md" fontWeight="bold" sx={{ mt: 2 }}>
+                    <Typography level="title-md" fontWeight="bold">
                         Theme
                     </Typography>
                     <Box>
@@ -98,6 +98,13 @@ export default function Settings({ open, setOpen }: ISettingsProps) {
                         width='95%'
                         color={primaryColor}
                         onChange={(color) => setPrimaryColor(color.hex)}
+                        styles={{
+                            default: {
+                                picker: {
+                                    minHeight: '15px',
+                                },
+                            },
+                        }}
                     />
 
                     <Box>
