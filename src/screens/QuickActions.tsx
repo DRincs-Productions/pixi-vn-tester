@@ -6,7 +6,7 @@ import { canGoBackState } from '../atoms/canGoBackState';
 import { openHistoryState } from '../atoms/openHistoryState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import TextMenuButton from '../components/TextMenuButton';
-import { goBack, loadGameSave, saveGame } from '../utility/ActionsUtility';
+import { goBack, loadGameSave, quickLoadGame, quickSaveGame, saveGame } from '../utility/ActionsUtility';
 
 export default function QuickActions() {
     const setOpenSettings = useSetRecoilState(openSettingsState);
@@ -80,6 +80,24 @@ export default function QuickActions() {
                     onClick={() => loadGameSave(navigate, () => notifyLoadEvent((prev) => prev + 1))}
                 >
                     Load
+                </TextMenuButton>
+            </Grid>
+            <Grid
+                paddingY={0}
+            >
+                <TextMenuButton
+                    onClick={quickSaveGame}
+                >
+                    Q.Save
+                </TextMenuButton>
+            </Grid>
+            <Grid
+                paddingY={0}
+            >
+                <TextMenuButton
+                    onClick={() => quickLoadGame(navigate, () => notifyLoadEvent((prev) => prev + 1))}
+                >
+                    Q.Load
                 </TextMenuButton>
             </Grid>
             <Grid
