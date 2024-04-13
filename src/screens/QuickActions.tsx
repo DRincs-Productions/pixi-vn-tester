@@ -9,7 +9,7 @@ import { openHistoryState } from '../atoms/openHistoryState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TextMenuButton from '../components/TextMenuButton';
-import { goBack, loadGameSave, quickLoadGame, quickSaveGame, saveGame } from '../utility/ActionsUtility';
+import { addQuickSave, goBack, loadGameSave, loadQuickSave, saveGame } from '../utility/ActionsUtility';
 
 export default function QuickActions() {
     const setOpenSettings = useSetRecoilState(openSettingsState);
@@ -91,7 +91,7 @@ export default function QuickActions() {
                     paddingY={0}
                 >
                     <TextMenuButton
-                        onClick={quickSaveGame}
+                        onClick={addQuickSave}
                     >
                         Q.Save
                     </TextMenuButton>
@@ -132,7 +132,7 @@ export default function QuickActions() {
                         color='primary'
                         variant="outlined"
                         onClick={() => {
-                            quickLoadGame(navigate, () => notifyLoadEvent((prev) => prev + 1))
+                            loadQuickSave(navigate, () => notifyLoadEvent((prev) => prev + 1))
                             setOpenYouSure(false)
                         }}
                         startDecorator={<CloudDownloadIcon />}
