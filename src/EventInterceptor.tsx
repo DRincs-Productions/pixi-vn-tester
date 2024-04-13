@@ -10,15 +10,11 @@ export default function EventInterceptor() {
 
     useEffect(() => {
         loadRefreshSave(navigate, () => notifyLoadEvent((prev) => prev + 1))
-        window.addEventListener("beforeunload", alertUser);
+        window.addEventListener("beforeunload", addRefreshSave);
         return () => {
-            window.removeEventListener("beforeunload", alertUser);
+            window.removeEventListener("beforeunload", addRefreshSave);
         };
     }, []);
-
-    const alertUser = () => {
-        addRefreshSave()
-    };
 
     return (
         <>
