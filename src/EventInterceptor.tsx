@@ -16,8 +16,5 @@ export default function EventInterceptor() {
         };
     }, []);
 
-    return (
-        <>
-        </>
-    )
+    return null
 }
