@@ -1,7 +1,6 @@
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import { Button, Grid, Typography } from '@mui/joy';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { afterLoadEventState } from '../atoms/afterLoadEventState';
 import { canGoBackState } from '../atoms/canGoBackState';
@@ -10,11 +9,12 @@ import { openSettingsState } from '../atoms/openSettingsState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TextMenuButton from '../components/TextMenuButton';
 import { addQuickSave, goBack, loadGameSave, loadQuickSave, saveGame } from '../utility/ActionsUtility';
+import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function QuickActions() {
     const setOpenSettings = useSetRecoilState(openSettingsState);
     const setOpenHistory = useSetRecoilState(openHistoryState);
-    const navigate = useNavigate();
+    const navigate = useMyNavigate();
     const canGoBack = useRecoilValue(canGoBackState)
     const notifyLoadEvent = useSetRecoilState(afterLoadEventState);
     const [openYouSure, setOpenYouSure] = useState(false)
