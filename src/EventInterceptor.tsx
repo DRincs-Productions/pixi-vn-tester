@@ -19,7 +19,7 @@ export default function EventInterceptor() {
     }, []);
 
     function onpopstate() {
-        window.history.go(1);
+        window.history.forward();
     }
 
     return null
