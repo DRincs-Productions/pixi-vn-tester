@@ -7,17 +7,18 @@ import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
 import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormHelperText, FormLabel, IconButton, ModalClose, Sheet, Stack, ToggleButtonGroup, Tooltip, Typography, useColorScheme } from "@mui/joy";
 import { useState } from 'react';
 import { HuePicker } from 'react-color';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { openSettingsState } from '../atoms/openSettingsState';
 import ModalDialogCustom from '../components/ModalDialog';
 import { useEditColorProvider } from '../providers/ThemeProvider';
+import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function Settings() {
     const [open, setOpen] = useRecoilState(openSettingsState);
     const { mode, setMode } = useColorScheme();
     const { primaryColor, setPrimaryColor, setSolidColor, solidColor } = useEditColorProvider()
-    const navigate = useNavigate();
+    const navigate = useMyNavigate();
     const location = useLocation();
     const [openYouSure, setOpenYouSure] = useState(false)
 
