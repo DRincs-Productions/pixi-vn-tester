@@ -3,6 +3,7 @@ import { Button, Grid, Typography } from '@mui/joy';
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { afterLoadEventState } from '../atoms/afterLoadEventState';
+import { autoEnabledState } from '../atoms/autoEnabledState';
 import { canGoBackState } from '../atoms/canGoBackState';
 import { openHistoryState } from '../atoms/openHistoryState';
 import { openSettingsState } from '../atoms/openSettingsState';
@@ -20,6 +21,7 @@ export default function QuickActions() {
     const notifyLoadEvent = useSetRecoilState(afterLoadEventState);
     const [openYouSure, setOpenYouSure] = useState(false)
     const [skip, setSkip] = useRecoilState(skipEnabledState)
+    const [auto, setAuto] = useRecoilState(autoEnabledState)
 
     return (
         <>
@@ -67,13 +69,16 @@ export default function QuickActions() {
                         Skip
                     </TextMenuButton>
                 </Grid>
-                {/*         <Grid
-                paddingY={0}
-            >
-                <TextMenuButton>
-                    Auto
-                </TextMenuButton>
-            </Grid> */}
+                <Grid
+                    paddingY={0}
+                >
+                    <TextMenuButton
+                        selected={auto}
+                        onClick={() => setAuto((prev) => !prev)}
+                    >
+                        Auto
+                    </TextMenuButton>
+                </Grid>
                 <Grid
                     paddingY={0}
                 >

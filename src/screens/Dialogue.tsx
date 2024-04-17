@@ -9,6 +9,7 @@ import Typography from '@mui/joy/Typography';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { afterLoadEventState } from '../atoms/afterLoadEventState';
+import { autoEnabledState } from '../atoms/autoEnabledState';
 import { canGoBackState } from '../atoms/canGoBackState';
 import { nextStepEventState } from '../atoms/nextStepEventState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
@@ -34,7 +35,8 @@ export default function Dialogue() {
     const afterLoadEvent = useRecoilValue(afterLoadEventState);
     const [nextStepEvent, notifyNextStepEvent] = useRecoilState(nextStepEventState);
     const skip = useRecoilValue(skipEnabledState)
-    const [recheckSkip, setRecheckSkip] = useState<number>(0)
+    const auto = useRecoilValue(autoEnabledState)
+    const [recheckSkipAuto, setRecheckSkipAuto] = useState<number>(0)
 
     useEffect(() => {
         let dial = getDialogue()
@@ -59,7 +61,7 @@ export default function Dialogue() {
         if (skip) {
             nextOnClick()
         }
-    }, [skip, recheckSkip])
+    }, [skip, recheckSkipAuto])
 
     function nextOnClick() {
         setLoading(true)
@@ -69,8 +71,11 @@ export default function Dialogue() {
                 setLoading(false)
                 if (skip) {
                     setTimeout(() => {
-                        setRecheckSkip((p) => p + 1)
+                        setRecheckSkipAuto((p) => p + 1)
                     }, 200);
+                }
+                else if (auto) {
+                    setCanGoBack(true)
                 }
             })
             .catch((e) => {
