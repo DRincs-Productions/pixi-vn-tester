@@ -1,11 +1,12 @@
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import { Button, Grid, Typography } from '@mui/joy';
 import { useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { afterLoadEventState } from '../atoms/afterLoadEventState';
 import { canGoBackState } from '../atoms/canGoBackState';
 import { openHistoryState } from '../atoms/openHistoryState';
 import { openSettingsState } from '../atoms/openSettingsState';
+import { skipEnabledState } from '../atoms/skipEnabledState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TextMenuButton from '../components/TextMenuButton';
 import { addQuickSave, goBack, loadGameSave, loadQuickSave, saveGame } from '../utility/ActionsUtility';
@@ -18,6 +19,7 @@ export default function QuickActions() {
     const canGoBack = useRecoilValue(canGoBackState)
     const notifyLoadEvent = useSetRecoilState(afterLoadEventState);
     const [openYouSure, setOpenYouSure] = useState(false)
+    const [skip, setSkip] = useRecoilState(skipEnabledState)
 
     return (
         <>
@@ -55,14 +57,17 @@ export default function QuickActions() {
                         History
                     </TextMenuButton>
                 </Grid>
-                {/* <Grid
-                paddingY={0}
-            >
-                <TextMenuButton>
-                    Skip
-                </TextMenuButton>
-            </Grid>
-            <Grid
+                <Grid
+                    paddingY={0}
+                >
+                    <TextMenuButton
+                        selected={skip}
+                        onClick={() => setSkip((prev) => !prev)}
+                    >
+                        Skip
+                    </TextMenuButton>
+                </Grid>
+                {/*         <Grid
                 paddingY={0}
             >
                 <TextMenuButton>
