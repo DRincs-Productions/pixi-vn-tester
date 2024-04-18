@@ -7,6 +7,7 @@ import CardContent from '@mui/joy/CardContent';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { afterLoadEventState } from '../atoms/afterLoadEventState';
 import { autoEnabledState } from '../atoms/autoEnabledState';
@@ -37,6 +38,7 @@ export default function Dialogue() {
     const skipEnabled = useRecoilValue(skipEnabledState)
     const autoEnabled = useRecoilValue(autoEnabledState)
     const [recheckSkipAuto, setRecheckSkipAuto] = useState<number>(0)
+    const { t } = useTranslation(["translation"]);
 
     useEffect(() => {
         let dial = getDialogue()
@@ -174,7 +176,7 @@ export default function Dialogue() {
                                 overflow: 'auto',
                             }}
                         >
-                            {text}
+                            {t(text)}
                         </Sheet>
                     </CardContent>
                 </Card>}
@@ -194,7 +196,7 @@ export default function Dialogue() {
                     }}
                     onClick={nextOnClick}
                 >
-                    Next
+                    {t("next")}
                 </Button>}
             </Box>
         </>

@@ -1,6 +1,7 @@
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import { Button, Grid, Typography } from '@mui/joy';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { afterLoadEventState } from '../atoms/afterLoadEventState';
 import { autoEnabledState } from '../atoms/autoEnabledState';
@@ -22,6 +23,7 @@ export default function QuickActions() {
     const [openYouSure, setOpenYouSure] = useState(false)
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const [auto, setAuto] = useRecoilState(autoEnabledState)
+    const { t } = useTranslation(["translation"]);
 
     return (
         <>
@@ -47,7 +49,7 @@ export default function QuickActions() {
                         onClick={() => goBack(navigate, () => { notifyLoadEvent((prev) => prev + 1) })}
                         disabled={!canGoBack}
                     >
-                        Back
+                        {t("back")}
                     </TextMenuButton>
                 </Grid>
                 <Grid
@@ -56,7 +58,7 @@ export default function QuickActions() {
                     <TextMenuButton
                         onClick={() => setOpenHistory(true)}
                     >
-                        History
+                        {t("history")}
                     </TextMenuButton>
                 </Grid>
                 <Grid
@@ -66,7 +68,7 @@ export default function QuickActions() {
                         selected={skip}
                         onClick={() => setSkip((prev) => !prev)}
                     >
-                        Skip
+                        {t("skip")}
                     </TextMenuButton>
                 </Grid>
                 <Grid
@@ -76,7 +78,7 @@ export default function QuickActions() {
                         selected={auto}
                         onClick={() => setAuto((prev) => !prev)}
                     >
-                        Auto
+                        {t("auto_forward_time_restricted")}
                     </TextMenuButton>
                 </Grid>
                 <Grid
@@ -85,7 +87,7 @@ export default function QuickActions() {
                     <TextMenuButton
                         onClick={saveGame}
                     >
-                        Save
+                        {t("save")}
                     </TextMenuButton>
                 </Grid>
                 <Grid
@@ -94,7 +96,7 @@ export default function QuickActions() {
                     <TextMenuButton
                         onClick={() => loadGameSave(navigate, () => notifyLoadEvent((prev) => prev + 1))}
                     >
-                        Load
+                        {t("load")}
                     </TextMenuButton>
                 </Grid>
                 <Grid
@@ -103,7 +105,7 @@ export default function QuickActions() {
                     <TextMenuButton
                         onClick={addQuickSave}
                     >
-                        Q.Save
+                        {t("quick_save_restricted")}
                     </TextMenuButton>
                 </Grid>
                 <Grid
@@ -113,7 +115,7 @@ export default function QuickActions() {
                         onClick={() => setOpenYouSure(true)}
                         disabled={!localStorage.getItem("quickSave")}
                     >
-                        Q.Load
+                        {t("quick_load_restricted")}
                     </TextMenuButton>
                 </Grid>
                 <Grid
@@ -122,7 +124,7 @@ export default function QuickActions() {
                     <TextMenuButton
                         onClick={() => setOpenSettings(true)}
                     >
-                        Prefs
+                        {t("settings_restricted")}
                     </TextMenuButton>
                 </Grid>
             </Grid >
@@ -134,7 +136,7 @@ export default function QuickActions() {
                 head={<Typography level="h4"
                     startDecorator={<CloudDownloadIcon />}
                 >
-                    Load the save
+                    {t("load")}
                 </Typography>}
                 actions={<>
                     <Button
@@ -147,7 +149,7 @@ export default function QuickActions() {
                         }}
                         startDecorator={<CloudDownloadIcon />}
                     >
-                        Confirm
+                        {t("confirm")}
                     </Button>
                     <Button
                         key={'cancel'}
@@ -155,12 +157,12 @@ export default function QuickActions() {
                         variant="plain"
                         onClick={() => setOpenYouSure(false)}
                     >
-                        Cancel
+                        {t("cancel")}
                     </Button>
                 </>}
             >
                 <Typography>
-                    Are you sure you want to load the quick save? All unsaved progress will be lost.
+                    {t("you_sure_to_quick_load")}
                 </Typography>
             </ModalDialogCustom>
         </>
