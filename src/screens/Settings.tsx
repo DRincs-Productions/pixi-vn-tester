@@ -1,6 +1,8 @@
 import AutoModeIcon from '@mui/icons-material/AutoMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
@@ -22,6 +24,7 @@ export default function Settings() {
     const location = useLocation();
     const [openYouSure, setOpenYouSure] = useState(false)
     const [autoTime, setAutoTime] = useState(localStorage.getItem('auto_forward_second') ? parseInt(localStorage.getItem('auto_forward_second')!) : 1)
+    const [fullScreenEnabled, setFullScreenEnabled] = useState(false)
 
     useEffect(() => {
         // Debouncing
@@ -108,8 +111,31 @@ export default function Settings() {
                         </Box>
 
                         <Typography level="title-md" fontWeight="bold">
-                            Theme
+                            Display
                         </Typography>
+                        <Box>
+                            <FormLabel sx={{ typography: 'title-sm' }}>
+                                Fullscreen
+                            </FormLabel>
+                            <FormHelperText sx={{ typography: 'body-sm' }}>
+                                Toggle fullscreen mode.
+                            </FormHelperText>
+                        </Box>
+                        <Button
+                            onClick={() => {
+                                if (fullScreenEnabled) {
+                                    document.exitFullscreen()
+                                    setFullScreenEnabled(false)
+                                } else {
+                                    document.documentElement.requestFullscreen()
+                                    setFullScreenEnabled(true)
+                                }
+                            }}
+                            startDecorator={fullScreenEnabled ? <FullscreenExitIcon /> : <FullscreenIcon />}
+                        >
+                            {fullScreenEnabled ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+                        </Button>
+
                         <Box>
                             <FormLabel sx={{ typography: 'title-sm' }}>
                                 Theme mode
