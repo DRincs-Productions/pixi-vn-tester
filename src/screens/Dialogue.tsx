@@ -34,8 +34,8 @@ export default function Dialogue() {
     const setCanGoBack = useSetRecoilState(canGoBackState);
     const afterLoadEvent = useRecoilValue(afterLoadEventState);
     const [nextStepEvent, notifyNextStepEvent] = useRecoilState(nextStepEventState);
-    const skip = useRecoilValue(skipEnabledState)
-    const auto = useRecoilValue(autoEnabledState)
+    const skipEnabled = useRecoilValue(skipEnabledState)
+    const autoEnabled = useRecoilValue(autoEnabledState)
     const [recheckSkipAuto, setRecheckSkipAuto] = useState<number>(0)
 
     useEffect(() => {
@@ -58,10 +58,10 @@ export default function Dialogue() {
     }, [afterLoadEvent, nextStepEvent])
 
     useEffect(() => {
-        if (skip || auto) {
+        if (skipEnabled || autoEnabled) {
             nextOnClick()
         }
-    }, [skip, recheckSkipAuto, auto])
+    }, [skipEnabled, recheckSkipAuto, autoEnabled])
 
     function nextOnClick() {
         setLoading(true)
@@ -69,12 +69,12 @@ export default function Dialogue() {
             .then(() => {
                 notifyNextStepEvent((p) => p + 1)
                 setLoading(false)
-                if (skip) {
+                if (skipEnabled) {
                     setTimeout(() => {
                         setRecheckSkipAuto((p) => p + 1)
                     }, 200);
                 }
-                else if (auto) {
+                else if (autoEnabled) {
                     let autoForwardSecond = localStorage.getItem('auto_forward_second')
                     if (autoForwardSecond) {
                         let millisecond = parseInt(autoForwardSecond) * 1000
