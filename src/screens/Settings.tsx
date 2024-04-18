@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { openSettingsState } from '../atoms/openSettingsState';
+import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
 import { useEditColorProvider } from '../providers/ThemeProvider';
 import { useMyNavigate } from '../utility/useMyNavigate';
@@ -25,6 +26,7 @@ export default function Settings() {
     const location = useLocation();
     const [openYouSure, setOpenYouSure] = useState(false)
     const [autoTime, setAutoTime] = useState(localStorage.getItem('auto_forward_second') ? parseInt(localStorage.getItem('auto_forward_second')!) : 1)
+    const [typewriterDelay, setTypewriterDelay] = useRecoilState(typewriterDelayState)
     const [fullScreenEnabled, setFullScreenEnabled] = useState(false)
     const { t } = useTranslation(["translation"]);
 
@@ -39,6 +41,16 @@ export default function Settings() {
         }
     }, [autoTime])
 
+    useEffect(() => {
+        // Debouncing
+        const setTypewriter = setTimeout(() => {
+            localStorage.setItem('typewriter_delay_millisecond', typewriterDelay.toString())
+        }, 500)
+
+        return () => {
+            clearTimeout(setTypewriter)
+        }
+    }, [typewriterDelay])
 
     return (
         <>
@@ -108,6 +120,41 @@ export default function Settings() {
                                 onChange={(_, value) => {
                                     if (value)
                                         setAutoTime(value as number)
+                                }}
+                            />
+                        </Box>
+                        <Box>
+                            <FormLabel sx={{ typography: 'title-sm' }}>
+                                {t("text_speed")}
+                            </FormLabel>
+                            <FormHelperText sx={{ typography: 'body-sm' }}>
+                                {t("text_speed_description")}
+                            </FormHelperText>
+                        </Box>
+                        <Box
+                            sx={{
+                                paddingX: 3,
+                            }}
+                        >
+                            <Slider
+                                defaultValue={typewriterDelay}
+                                getAriaValueText={(value) => `${value}ms`}
+                                step={10}
+                                marks={[
+                                    {
+                                        value: 0,
+                                        label: '0ms',
+                                    },
+                                    {
+                                        value: 200,
+                                        label: '200ms',
+                                    },
+                                ]}
+                                valueLabelDisplay="on"
+                                max={200}
+                                min={0}
+                                onChange={(_, value) => {
+                                    setTypewriterDelay(value as number || 0)
                                 }}
                             />
                         </Box>

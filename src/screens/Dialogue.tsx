@@ -14,7 +14,9 @@ import { autoEnabledState } from '../atoms/autoEnabledState';
 import { canGoBackState } from '../atoms/canGoBackState';
 import { nextStepEventState } from '../atoms/nextStepEventState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
+import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import DragHandleDivider from '../components/DragHandleDivider';
+import Typewriter from '../components/Typewriter';
 import { resizeWindowsHandler } from '../utility/ComponentUtility';
 import DialogueMenu from './DialogueMenu';
 
@@ -39,6 +41,7 @@ export default function Dialogue() {
     const autoEnabled = useRecoilValue(autoEnabledState)
     const [recheckSkipAuto, setRecheckSkipAuto] = useState<number>(0)
     const { t } = useTranslation(["translation"]);
+    const typewriterDelay = useRecoilValue(typewriterDelayState)
 
     useEffect(() => {
         let dial = getDialogue()
@@ -176,7 +179,12 @@ export default function Dialogue() {
                                 overflow: 'auto',
                             }}
                         >
-                            {t(text)}
+                            {typewriterDelay !== 0
+                                ? <Typewriter
+                                    text={t(text)}
+                                    delay={localStorage.getItem('typewriter_delay_millisecond')! as unknown as number}
+                                />
+                                : t(text)}
                         </Sheet>
                     </CardContent>
                 </Card>}
