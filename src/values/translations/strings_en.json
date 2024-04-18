@@ -1,8 +1,10 @@
 {
 	"translation": {
 		"settings": "Settings"
+		, "settings_restricted" : "Prefs"
 		, "dialogues" : "Dialogues"
 		, "auto_forward_time" : "Auto Forward Time"
+		, "auto_forward_time_restricted" : "Auto"
 		, "auto_forward_time_description" : "Choose the time in seconds before the dialogue auto-forwards."
 		, "display" : "Display"
 		, "fullscreen" : "Fullscreen"
@@ -21,5 +23,14 @@
 		, "exit" : "Exit"
 		, "cancel" : "Cancel"
 		, "you_sure_to_return_main_menu" : "Are you sure you want to return to the main menu? All unsaved progress will be lost."
+		, "back" : "Back"
+		, "history" : "History"
+		, "skip" : "Skip"
+		, "save" : "Save"
+		, "load" : "Load"
+		, "quick_save_restricted" : "Q.Save"
+		, "quick_load_restricted" : "Q.Load"
+		, "confirm" : "Confirm"
+		, "you_sure_to_quick_load" : "Are you sure you want to load the quick save? All unsaved progress will be lost."
 	}
 }
