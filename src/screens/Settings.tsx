@@ -9,6 +9,7 @@ import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
 import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormHelperText, FormLabel, IconButton, ModalClose, Sheet, Slider, Stack, ToggleButtonGroup, Tooltip, Typography, useColorScheme } from "@mui/joy";
 import { useEffect, useState } from 'react';
 import { HuePicker } from 'react-color';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { openSettingsState } from '../atoms/openSettingsState';
@@ -25,6 +26,7 @@ export default function Settings() {
     const [openYouSure, setOpenYouSure] = useState(false)
     const [autoTime, setAutoTime] = useState(localStorage.getItem('auto_forward_second') ? parseInt(localStorage.getItem('auto_forward_second')!) : 1)
     const [fullScreenEnabled, setFullScreenEnabled] = useState(false)
+    const { t } = useTranslation(["translation"]);
 
     useEffect(() => {
         // Debouncing
@@ -66,19 +68,19 @@ export default function Settings() {
                         overflow: 'auto',
                     }}
                 >
-                    <DialogTitle>Settings</DialogTitle>
+                    <DialogTitle>{t("settings")}</DialogTitle>
                     <ModalClose />
                     <Divider sx={{ mt: 'auto' }} />
                     <DialogContent sx={{ gap: 2 }}>
                         <Typography level="title-md" fontWeight="bold">
-                            Dialogues
+                            {t("dialogues")}
                         </Typography>
                         <Box>
                             <FormLabel sx={{ typography: 'title-sm' }}>
-                                Auto Forward Time
+                                {t("auto_forward_time")}
                             </FormLabel>
                             <FormHelperText sx={{ typography: 'body-sm' }}>
-                                Choose the time in seconds before the dialogue auto-forwards.
+                                {t("auto_forward_time_description")}
                             </FormHelperText>
                         </Box>
                         <Box
@@ -111,14 +113,14 @@ export default function Settings() {
                         </Box>
 
                         <Typography level="title-md" fontWeight="bold">
-                            Display
+                            {t("display")}
                         </Typography>
                         <Box>
                             <FormLabel sx={{ typography: 'title-sm' }}>
-                                Fullscreen
+                                {t("fullscreen")}
                             </FormLabel>
                             <FormHelperText sx={{ typography: 'body-sm' }}>
-                                Toggle fullscreen mode.
+                                {t("fullscreen_description")}
                             </FormHelperText>
                         </Box>
                         <Button
@@ -133,15 +135,15 @@ export default function Settings() {
                             }}
                             startDecorator={fullScreenEnabled ? <FullscreenExitIcon /> : <FullscreenIcon />}
                         >
-                            {fullScreenEnabled ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+                            {fullScreenEnabled ? t('exit_fullscreen') : t('enter_fullscreen')}
                         </Button>
 
                         <Box>
                             <FormLabel sx={{ typography: 'title-sm' }}>
-                                Theme mode
+                                {t("theme_mode")}
                             </FormLabel>
                             <FormHelperText sx={{ typography: 'body-sm' }}>
-                                Choose between light, dark, or system theme mode.
+                                {t("theme_mode_description")}
                             </FormHelperText>
                         </Box>
                         <ToggleButtonGroup
@@ -170,10 +172,10 @@ export default function Settings() {
 
                         <Box>
                             <FormLabel sx={{ typography: 'title-sm' }}>
-                                Primary color
+                                {t("primary_color")}
                             </FormLabel>
                             <FormHelperText sx={{ typography: 'body-sm' }}>
-                                Choose the primary color for the theme.
+                                {t("primary_color_description")}
                             </FormHelperText>
                         </Box>
                         <Box
@@ -197,11 +199,10 @@ export default function Settings() {
 
                         <Box>
                             <FormLabel sx={{ typography: 'title-sm' }}>
-                                Solid Color
+                                {t("solid_color")}
                             </FormLabel>
                             <FormHelperText sx={{ typography: 'body-sm' }}>
-                                Choose the solid color for the theme. It can be black or white and will be contrasting with the primary color.
-                                So if the primary color is dark, the solid color will be white, and a the other way around.
+                                {t("solid_color_description")}
                             </FormHelperText>
                         </Box>
                         <ToggleButtonGroup
@@ -226,7 +227,7 @@ export default function Settings() {
                             color="primary"
                             variant="solid"
                         >
-                            <Button>Example</Button>
+                            <Button>{t("example")}</Button>
                         </ToggleButtonGroup>
                     </DialogContent>
                     {location.pathname !== '/' && <>
@@ -243,7 +244,7 @@ export default function Settings() {
                                 startDecorator={<ExitToAppIcon />}
                                 onClick={() => setOpenYouSure(true)}
                             >
-                                Return to main menu
+                                {t("return_main_menu")}
                             </Button>
                         </Stack>
                     </>}
@@ -257,7 +258,7 @@ export default function Settings() {
                 head={<Typography level="h4"
                     startDecorator={<ExitToAppIcon />}
                 >
-                    Attention
+                    {t("attention")}
                 </Typography>}
                 actions={<>
                     <Button
@@ -271,7 +272,7 @@ export default function Settings() {
                         }}
                         startDecorator={<ExitToAppIcon />}
                     >
-                        Exit
+                        {t("exit")}
                     </Button>
                     <Button
                         key={'cancel'}
@@ -279,12 +280,12 @@ export default function Settings() {
                         variant="plain"
                         onClick={() => setOpenYouSure(false)}
                     >
-                        Cancel
+                        {t("cancel")}
                     </Button>
                 </>}
             >
                 <Typography>
-                    Are you sure you want to return to the main menu? All unsaved progress will be lost.
+                    {t("you_sure_to_return_main_menu")}
                 </Typography>
             </ModalDialogCustom>
         </>
