@@ -58,10 +58,10 @@ export default function Dialogue() {
     }, [afterLoadEvent, nextStepEvent])
 
     useEffect(() => {
-        if (skip) {
+        if (skip || auto) {
             nextOnClick()
         }
-    }, [skip, recheckSkipAuto])
+    }, [skip, recheckSkipAuto, auto])
 
     function nextOnClick() {
         setLoading(true)
@@ -75,7 +75,13 @@ export default function Dialogue() {
                     }, 200);
                 }
                 else if (auto) {
-                    setCanGoBack(true)
+                    let autoForwardSecond = localStorage.getItem('auto_forward_second')
+                    if (autoForwardSecond) {
+                        let millisecond = parseInt(autoForwardSecond) * 1000
+                        setTimeout(() => {
+                            setRecheckSkipAuto((p) => p + 1)
+                        }, millisecond);
+                    }
                 }
             })
             .catch((e) => {
