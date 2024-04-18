@@ -78,7 +78,7 @@ export default function QuickActions() {
                         selected={auto}
                         onClick={() => setAuto((prev) => !prev)}
                     >
-                        {t("auto")}
+                        {t("auto_forward_time_restricted")}
                     </TextMenuButton>
                 </Grid>
                 <Grid

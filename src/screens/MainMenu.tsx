@@ -1,6 +1,7 @@
 import { addImage, clearAllGameDatas, GameStepManager, GameWindowManager } from '@drincs/pixi-vn';
 import { Grid } from '@mui/joy';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSetRecoilState } from 'recoil';
 import { afterLoadEventState } from '../atoms/afterLoadEventState';
 import { openSettingsState } from '../atoms/openSettingsState';
@@ -13,6 +14,8 @@ export default function MainMenu() {
     const navigate = useMyNavigate();
     const setOpenSettings = useSetRecoilState(openSettingsState);
     const notifyLoadEvent = useSetRecoilState(afterLoadEventState);
+    const { t } = useTranslation(["translation"]);
+
     useEffect(() => {
         clearAllGameDatas()
         let bg = addImage("background_main_menu", "https://andreannaking.com/wp-content/uploads/2021/12/Download-Beautiful-Nature-Landscape-Hd-Wallpaper-Full-HD-Wallpapers.jpg")
@@ -40,7 +43,7 @@ export default function MainMenu() {
                         navigate("/game")
                     }}
                 >
-                    Start
+                    {t("start")}
                 </MenuButton>
             </Grid>
             <Grid>
@@ -49,28 +52,14 @@ export default function MainMenu() {
                         loadGameSave(navigate, () => notifyLoadEvent((prev) => prev + 1))
                     }}
                 >
-                    Load
+                    {t("load")}
                 </MenuButton>
             </Grid>
             <Grid>
                 <MenuButton
                     onClick={() => { setOpenSettings(true) }}
                 >
-                    Preferences
-                </MenuButton>
-            </Grid>
-            <Grid>
-                <MenuButton
-                    disabled
-                >
-                    About
-                </MenuButton>
-            </Grid>
-            <Grid>
-                <MenuButton
-                    disabled
-                >
-                    Help
+                    {t("settings")}
                 </MenuButton>
             </Grid>
         </Grid>

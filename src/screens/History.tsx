@@ -4,6 +4,7 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { Box, Chip, Input, Stack, Typography } from "@mui/joy";
 import Avatar from '@mui/joy/Avatar';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
 import { openHistoryState } from '../atoms/openHistoryState';
 import ModalDialogCustom from '../components/ModalDialog';
@@ -11,6 +12,7 @@ import ModalDialogCustom from '../components/ModalDialog';
 export default function History() {
     const [open, setOpen] = useRecoilState(openHistoryState);
     const [searchString, setSearchString] = useState("")
+    const { t } = useTranslation(["translation"]);
 
     return (
         <ModalDialogCustom
@@ -22,14 +24,16 @@ export default function History() {
                 }}
             >
                 <Stack sx={{ mb: 2 }}>
-                    <Typography level="h2">History</Typography>
+                    <Typography level="h2">
+                        {t("history")}
+                    </Typography>
                 </Stack>
                 <Input
-                    placeholder="Search"
+                    placeholder={t("search")}
                     value={searchString}
                     onChange={(e) => setSearchString(e.target.value)}
                     startDecorator={<SearchRoundedIcon />}
-                    aria-label="Search"
+                    aria-label={t("search")}
                 />
             </Stack>}
             minWidth="80%"
@@ -54,7 +58,7 @@ export default function History() {
                             let character = step.dialoge?.characterId ? getCharacterById(step.dialoge?.characterId) ?? new CharacterModelBase(step.dialoge?.characterId, { name: step.dialoge?.characterId }) : undefined
                             return {
                                 character: character?.name ? character.name + (character.surname ? " " + character.surname : "") : undefined,
-                                text: step.dialoge?.text,
+                                text: step.dialoge?.text || "",
                                 icon: character?.icon,
                                 choices: step.choices?.map((choice) => {
                                     return {
@@ -80,7 +84,7 @@ export default function History() {
                                     />
                                     <Box sx={{ flex: 1 }}>
                                         {data.character && <Typography level="title-sm">{data.character}</Typography>}
-                                        <Typography level="body-sm">{data.text}</Typography>
+                                        <Typography level="body-sm">{t(data.text)}</Typography>
                                     </Box>
                                 </Stack>
                                 <Stack
@@ -95,14 +99,14 @@ export default function History() {
                                                     color="success"
                                                     endDecorator={<CheckIcon />}
                                                 >
-                                                    {choice.text}
+                                                    {t(choice.text)}
                                                 </Chip>
                                             }
                                             return <Chip
                                                 key={"choices" + index}
                                                 color="primary"
                                             >
-                                                {choice.text}
+                                                {t(choice.text)}
                                             </Chip>
                                         })}
                                     </Box>
