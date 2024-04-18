@@ -35,5 +35,7 @@
 		, "start" : "Start"
 		, "search" : "Search"
 		, "next" : "Next"
+		, "text_speed" : "Text Speed"
+		, "text_speed_description" : "Choose the speed of the text."
 	}
 }
