@@ -34,5 +34,6 @@
 		, "you_sure_to_quick_load" : "Are you sure you want to load the quick save? All unsaved progress will be lost."
 		, "start" : "Start"
 		, "search" : "Search"
+		, "next" : "Next"
 	}
 }

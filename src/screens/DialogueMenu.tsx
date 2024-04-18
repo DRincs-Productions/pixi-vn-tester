@@ -1,6 +1,7 @@
 import { ChoiceMenuOptionsType, clearChoiceMenuOptions, GameStepManager, GameWindowManager, LabelRunModeEnum } from '@drincs/pixi-vn';
 import { Box, Grid } from '@mui/joy';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import DialogueMenuButton from '../components/DialogueMenuButton';
 
 type IProps = {
@@ -19,6 +20,7 @@ export default function DialogueMenu(props: IProps) {
     } = props;
     const [loading, setLoading] = useState(false)
     const height = GameWindowManager.screenHeight - dialogueWindowHeight
+    const { t } = useTranslation(["translation"]);
 
     return (
         <Box
@@ -89,7 +91,7 @@ export default function DialogueMenu(props: IProps) {
                                     right: 0,
                                 }}
                             >
-                                {item.text}
+                                {t(item.text)}
                             </DialogueMenuButton>
                         </Grid>
                     )
