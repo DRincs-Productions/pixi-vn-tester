@@ -18,26 +18,29 @@ export default function EventInterceptor() {
         loadRefreshSave(navigate, () => notifyLoadEvent((prev) => prev + 1))
         window.addEventListener("beforeunload", addRefreshSave);
         window.addEventListener("popstate", onpopstate);
-        document.addEventListener('keydown', function (event) {
-            if (event.code == 'Enter' || event.code == 'Space') {
-                nextStep((prev) => prev + 1)
-            }
-            else if (event.code == 'Escape') {
-                setOpenSettings((prev) => !prev)
-            }
-            else if (event.code == 'KeyH') {
-                setOpenHistory((prev) => !prev)
-            }
-        });
+        window.addEventListener('keydown', onkeydown);
 
         return () => {
             window.removeEventListener("beforeunload", addRefreshSave);
             window.removeEventListener("popstate", onpopstate);
+            window.removeEventListener('keydown', onkeydown);
         };
     }, []);
 
     function onpopstate() {
         window.history.forward();
+    }
+
+    function onkeydown(event: KeyboardEvent) {
+        if (event.code == 'Enter' || event.code == 'Space') {
+            nextStep((prev) => prev + 1)
+        }
+        else if (event.code == 'Escape') {
+            setOpenSettings((prev) => !prev)
+        }
+        else if (event.code == 'KeyH') {
+            setOpenHistory((prev) => !prev)
+        }
     }
 
     return null
