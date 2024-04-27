@@ -11,7 +11,6 @@ import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { autoEnabledState } from '../atoms/autoEnabledState';
 import { canGoBackState } from '../atoms/canGoBackState';
-import { nextStepState } from '../atoms/nextStepState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
@@ -36,7 +35,6 @@ export default function Dialogue() {
     const [menu, setMenu] = useState<ChoiceMenuOptionsType | undefined>(undefined)
     const setCanGoBack = useSetRecoilState(canGoBackState);
     const [reloadInterfaceDataEvent, notifyReloadInterfaceDataEvent] = useRecoilState(reloadInterfaceDataEventState);
-    const nextStep = useRecoilValue(nextStepState);
     const skipEnabled = useRecoilValue(skipEnabledState)
     const autoEnabled = useRecoilValue(autoEnabledState)
     const [recheckSkipAuto, setRecheckSkipAuto] = useState<number>(0)
@@ -67,10 +65,6 @@ export default function Dialogue() {
             nextOnClick()
         }
     }, [skipEnabled, recheckSkipAuto, autoEnabled])
-
-    useEffect(() => {
-        nextOnClick()
-    }, [nextStep])
 
     function nextOnClick() {
         if (loading) {

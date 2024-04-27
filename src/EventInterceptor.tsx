@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
+import { hideInterfaceState } from './atoms/hideInterfaceState';
 import { nextStepState } from './atoms/nextStepState';
 import { openHistoryState } from './atoms/openHistoryState';
 import { openSettingsState } from './atoms/openSettingsState';
@@ -12,6 +13,7 @@ export default function EventInterceptor() {
     const nextStep = useSetRecoilState(nextStepState);
     const setOpenSettings = useSetRecoilState(openSettingsState);
     const setOpenHistory = useSetRecoilState(openHistoryState);
+    const setHideInterface = useSetRecoilState(hideInterfaceState);
     const navigate = useMyNavigate();
 
     useEffect(() => {
@@ -40,6 +42,9 @@ export default function EventInterceptor() {
         }
         else if (event.code == 'KeyH') {
             setOpenHistory((prev) => !prev)
+        }
+        else if (event.code == 'KeyV') {
+            setHideInterface((prev) => !prev)
         }
     }
 
