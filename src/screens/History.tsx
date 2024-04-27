@@ -3,7 +3,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { Box, Chip, Input, Stack, Typography } from "@mui/joy";
 import Avatar from '@mui/joy/Avatar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
 import { openHistoryState } from '../atoms/openHistoryState';
@@ -13,6 +13,19 @@ export default function History() {
     const [open, setOpen] = useRecoilState(openHistoryState);
     const [searchString, setSearchString] = useState("")
     const { t } = useTranslation(["translation"]);
+
+    useEffect(() => {
+        window.addEventListener('keydown', onkeydown);
+        return () => {
+            window.removeEventListener('keydown', onkeydown);
+        };
+    }, []);
+
+    function onkeydown(event: KeyboardEvent) {
+        if (event.code == 'KeyH') {
+            setOpen((prev) => !prev)
+        }
+    }
 
     return (
         <ModalDialogCustom
