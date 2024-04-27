@@ -31,6 +31,19 @@ export default function Settings() {
     const { t } = useTranslation(["translation"]);
 
     useEffect(() => {
+        window.addEventListener('keydown', onkeydown);
+        return () => {
+            window.removeEventListener('keydown', onkeydown);
+        };
+    }, []);
+
+    function onkeydown(event: KeyboardEvent) {
+        if (event.code == 'Escape') {
+            setOpen((prev) => !prev)
+        }
+    }
+
+    useEffect(() => {
         // Debouncing
         const setAuto = setTimeout(() => {
             localStorage.setItem('auto_forward_second', autoTime.toString())

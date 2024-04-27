@@ -1,14 +1,12 @@
 import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { hideInterfaceState } from './atoms/hideInterfaceState';
-import { openSettingsState } from './atoms/openSettingsState';
 import { reloadInterfaceDataEventState } from './atoms/reloadInterfaceDataEventState';
 import { addRefreshSave, loadRefreshSave } from './utility/ActionsUtility';
 import { useMyNavigate } from './utility/useMyNavigate';
 
 export default function EventInterceptor() {
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventState);
-    const setOpenSettings = useSetRecoilState(openSettingsState);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const navigate = useMyNavigate();
 
@@ -34,9 +32,6 @@ export default function EventInterceptor() {
             if (hideInterface) {
                 setHideInterface(false)
             }
-        }
-        else if (event.code == 'Escape') {
-            setOpenSettings((prev) => !prev)
         }
         else if (event.code == 'KeyV') {
             setHideInterface((prev) => !prev)
