@@ -3,8 +3,8 @@ import { Grid } from '@mui/joy';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSetRecoilState } from 'recoil';
-import { afterLoadEventState } from '../atoms/afterLoadEventState';
 import { openSettingsState } from '../atoms/openSettingsState';
+import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import MenuButton from '../components/MenuButton';
 import { StartLabel } from '../label/StartLabel';
 import { loadGameSave } from '../utility/ActionsUtility';
@@ -13,7 +13,7 @@ import { useMyNavigate } from '../utility/useMyNavigate';
 export default function MainMenu() {
     const navigate = useMyNavigate();
     const setOpenSettings = useSetRecoilState(openSettingsState);
-    const notifyLoadEvent = useSetRecoilState(afterLoadEventState);
+    const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventState);
     const { t } = useTranslation(["translation"]);
 
     useEffect(() => {

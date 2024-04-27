@@ -3,11 +3,11 @@ import { Button, Grid, Typography } from '@mui/joy';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { afterLoadEventState } from '../atoms/afterLoadEventState';
 import { autoEnabledState } from '../atoms/autoEnabledState';
 import { canGoBackState } from '../atoms/canGoBackState';
 import { openHistoryState } from '../atoms/openHistoryState';
 import { openSettingsState } from '../atoms/openSettingsState';
+import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TextMenuButton from '../components/TextMenuButton';
@@ -19,7 +19,7 @@ export default function QuickActions() {
     const setOpenHistory = useSetRecoilState(openHistoryState);
     const navigate = useMyNavigate();
     const canGoBack = useRecoilValue(canGoBackState)
-    const notifyLoadEvent = useSetRecoilState(afterLoadEventState);
+    const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventState);
     const [openYouSure, setOpenYouSure] = useState(false)
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const [auto, setAuto] = useRecoilState(autoEnabledState)

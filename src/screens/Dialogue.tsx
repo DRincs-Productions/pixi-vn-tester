@@ -9,10 +9,10 @@ import Typography from '@mui/joy/Typography';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { afterLoadEventState } from '../atoms/afterLoadEventState';
 import { autoEnabledState } from '../atoms/autoEnabledState';
 import { canGoBackState } from '../atoms/canGoBackState';
-import { nextStepEventState } from '../atoms/nextStepEventState';
+import { nextStepState } from '../atoms/nextStepState';
+import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import DragHandleDivider from '../components/DragHandleDivider';
@@ -35,8 +35,8 @@ export default function Dialogue() {
     const [character, setCharacter] = useState<CharacterModelBase | undefined>(undefined)
     const [menu, setMenu] = useState<ChoiceMenuOptionsType | undefined>(undefined)
     const setCanGoBack = useSetRecoilState(canGoBackState);
-    const afterLoadEvent = useRecoilValue(afterLoadEventState);
-    const [nextStepEvent, notifyNextStepEvent] = useRecoilState(nextStepEventState);
+    const [reloadInterfaceDataEvent, notifyReloadInterfaceDataEvent] = useRecoilState(reloadInterfaceDataEventState);
+    const nextStep = useRecoilValue(nextStepState);
     const skipEnabled = useRecoilValue(skipEnabledState)
     const autoEnabled = useRecoilValue(autoEnabledState)
     const [recheckSkipAuto, setRecheckSkipAuto] = useState<number>(0)
@@ -60,7 +60,7 @@ export default function Dialogue() {
         let m = getChoiceMenuOptions()
         setMenu(m)
         setCanGoBack(GameStepManager.canGoBack)
-    }, [afterLoadEvent, nextStepEvent])
+    }, [reloadInterfaceDataEvent])
 
     useEffect(() => {
         if (skipEnabled || autoEnabled) {
@@ -68,11 +68,18 @@ export default function Dialogue() {
         }
     }, [skipEnabled, recheckSkipAuto, autoEnabled])
 
+    useEffect(() => {
+        nextOnClick()
+    }, [nextStep])
+
     function nextOnClick() {
+        if (loading) {
+            return
+        }
         setLoading(true)
         GameStepManager.runNextStep()
             .then(() => {
-                notifyNextStepEvent((p) => p + 1)
+                notifyReloadInterfaceDataEvent((p) => p + 1)
                 setLoading(false)
                 if (skipEnabled) {
                     setTimeout(() => {
@@ -102,7 +109,7 @@ export default function Dialogue() {
                 dialogueWindowHeight={windowSize.y + 50}
                 fullscreen={text ? false : true}
                 menu={menu}
-                afterClick={() => notifyNextStepEvent((p) => p + 1)}
+                afterClick={() => notifyReloadInterfaceDataEvent((p) => p + 1)}
             />}
             <Box
                 sx={{
