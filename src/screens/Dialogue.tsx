@@ -66,6 +66,21 @@ export default function Dialogue() {
         }
     }, [skipEnabled, recheckSkipAuto, autoEnabled])
 
+
+    useEffect(() => {
+        window.addEventListener('keydown', onkeydown);
+
+        return () => {
+            window.removeEventListener('keydown', onkeydown);
+        };
+    }, []);
+
+    function onkeydown(event: KeyboardEvent) {
+        if (event.code == 'Enter' || event.code == 'Space') {
+            nextOnClick()
+        }
+    }
+
     function nextOnClick() {
         if (loading) {
             return

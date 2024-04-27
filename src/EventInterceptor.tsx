@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { hideInterfaceState } from './atoms/hideInterfaceState';
-import { nextStepState } from './atoms/nextStepState';
-import { openHistoryState } from './atoms/openHistoryState';
 import { openSettingsState } from './atoms/openSettingsState';
 import { reloadInterfaceDataEventState } from './atoms/reloadInterfaceDataEventState';
 import { addRefreshSave, loadRefreshSave } from './utility/ActionsUtility';
@@ -10,10 +8,8 @@ import { useMyNavigate } from './utility/useMyNavigate';
 
 export default function EventInterceptor() {
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventState);
-    const nextStep = useSetRecoilState(nextStepState);
     const setOpenSettings = useSetRecoilState(openSettingsState);
-    const setOpenHistory = useSetRecoilState(openHistoryState);
-    const setHideInterface = useSetRecoilState(hideInterfaceState);
+    const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const navigate = useMyNavigate();
 
     useEffect(() => {
@@ -27,7 +23,7 @@ export default function EventInterceptor() {
             window.removeEventListener("popstate", onpopstate);
             window.removeEventListener('keydown', onkeydown);
         };
-    }, []);
+    }, [hideInterface]);
 
     function onpopstate() {
         window.history.forward();
@@ -35,13 +31,12 @@ export default function EventInterceptor() {
 
     function onkeydown(event: KeyboardEvent) {
         if (event.code == 'Enter' || event.code == 'Space') {
-            nextStep((prev) => prev + 1)
+            if (hideInterface) {
+                setHideInterface(false)
+            }
         }
         else if (event.code == 'Escape') {
             setOpenSettings((prev) => !prev)
-        }
-        else if (event.code == 'KeyH') {
-            setOpenHistory((prev) => !prev)
         }
         else if (event.code == 'KeyV') {
             setHideInterface((prev) => !prev)
