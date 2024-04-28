@@ -1,4 +1,4 @@
-import { CharacterModelBase, ChoiceMenuOptionsType, GameStepManager, GameWindowManager, getCharacterById, getChoiceMenuOptions, getDialogue } from '@drincs/pixi-vn';
+import { CharacterBaseModel, ChoiceMenuOptionsType, GameStepManager, GameWindowManager, getCharacterById, getChoiceMenuOptions, getDialogue } from '@drincs/pixi-vn';
 import { Button } from '@mui/joy';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
@@ -31,7 +31,7 @@ export default function Dialogue() {
 
     const [loading, setLoading] = useState(false)
     const [text, setText] = useState<string | undefined>(undefined)
-    const [character, setCharacter] = useState<CharacterModelBase | undefined>(undefined)
+    const [character, setCharacter] = useState<CharacterBaseModel | undefined>(undefined)
     const [menu, setMenu] = useState<ChoiceMenuOptionsType | undefined>(undefined)
     const setCanGoBack = useSetRecoilState(canGoBackState);
     const [reloadInterfaceDataEvent, notifyReloadInterfaceDataEvent] = useRecoilState(reloadInterfaceDataEventState);
@@ -45,9 +45,9 @@ export default function Dialogue() {
         let dial = getDialogue()
         if (dial) {
             setText(dial.text)
-            let c: CharacterModelBase | undefined = dial.characterId ? getCharacterById(dial.characterId) : undefined
+            let c: CharacterBaseModel | undefined = dial.characterId ? getCharacterById(dial.characterId) : undefined
             if (!c && dial.characterId) {
-                c = new CharacterModelBase(dial.characterId, { name: dial.characterId })
+                c = new CharacterBaseModel(dial.characterId, { name: dial.characterId })
             }
             setCharacter(c)
         }
