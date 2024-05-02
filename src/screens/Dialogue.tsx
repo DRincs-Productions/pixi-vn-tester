@@ -47,7 +47,7 @@ export default function Dialogue() {
             setText(dial.text)
             let c: CharacterBaseModel | undefined = dial.characterId ? getCharacterById(dial.characterId) : undefined
             if (!c && dial.characterId) {
-                c = new CharacterBaseModel(dial.characterId, { name: dial.characterId })
+                c = new CharacterBaseModel(dial.characterId, { name: t(dial.characterId) })
             }
             setCharacter(c)
         }
