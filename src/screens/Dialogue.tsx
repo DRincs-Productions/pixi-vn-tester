@@ -17,6 +17,7 @@ import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import DragHandleDivider from '../components/DragHandleDivider';
 import Typewriter from '../components/Typewriter';
 import { resizeWindowsHandler } from '../utility/ComponentUtility';
+import { useMyNavigate } from '../utility/useMyNavigate';
 import DialogueMenu from './DialogueMenu';
 
 export default function Dialogue() {
@@ -29,6 +30,7 @@ export default function Dialogue() {
         y: 0,
     })
 
+    const navigate = useMyNavigate();
     const [loading, setLoading] = useState(false)
     const [text, setText] = useState<string | undefined>(undefined)
     const [character, setCharacter] = useState<CharacterBaseModel | undefined>(undefined)
@@ -87,7 +89,7 @@ export default function Dialogue() {
         }
         setLoading(true)
         GameStepManager.runNextStep()
-            .then(() => {
+            .then((result) => {
                 notifyReloadInterfaceDataEvent((p) => p + 1)
                 setLoading(false)
                 if (skipEnabled) {
@@ -103,6 +105,9 @@ export default function Dialogue() {
                             setRecheckSkipAuto((p) => p + 1)
                         }, millisecond);
                     }
+                }
+                if (result && result.newRoute) {
+                    navigate(result.newRoute)
                 }
             })
             .catch((e) => {
