@@ -4,6 +4,7 @@ declare module '@drincs/pixi-vn/dist/override' {
          * The new route to navigate to.
          */
         newRoute?: string
+        [key: string]: any
     }
     interface StepLabelProps {
         /**
@@ -12,5 +13,6 @@ declare module '@drincs/pixi-vn/dist/override' {
          * @returns 
          */
         navigate: (route: string) => void
+        [key: string]: any
     }
 }
