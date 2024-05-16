@@ -21,7 +21,7 @@ export class StartLabel extends Label {
                     new ChoiceMenuOptionLabel("Base Canvas Element Test Label", BaseCanvasElementTestLabel)
                 ])
             },
-            () => GameStepManager.jumpLabel(StartLabel),
+            (props) => GameStepManager.jumpLabel(StartLabel, props),
         ]
     }
 }
