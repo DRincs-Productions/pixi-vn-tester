@@ -45,14 +45,6 @@ export default function MainMenu() {
                         GameStepManager.callLabel(StartLabel, {
                             navigate: navigate
                         })
-                            .then((result) => {
-                                if (result && result.newRoute) {
-                                    navigate(result.newRoute)
-                                }
-                                else {
-                                    navigate("/game")
-                                }
-                            })
                     }}
                 >
                     {t("start")}

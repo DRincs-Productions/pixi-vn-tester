@@ -10,7 +10,7 @@ import { TintingTestLabel } from "./TintingTestLabel";
 export class StartLabel extends Label {
     override get steps(): StepLabelType[] {
         return [
-            () => {
+            (props) => {
                 GameWindowManager.clear()
                 setDialogue({ character: liam, text: "Which test do you want to perform?" })
                 setChoiceMenuOptions([
@@ -20,6 +20,9 @@ export class StartLabel extends Label {
                     new ChoiceMenuOptionLabel("Tinting Test", TintingTestLabel),
                     new ChoiceMenuOptionLabel("Base Canvas Element Test Label", BaseCanvasElementTestLabel)
                 ])
+                if (props) {
+                    props.navigate("/game")
+                }
             },
             (props) => GameStepManager.jumpLabel(StartLabel, props),
         ]

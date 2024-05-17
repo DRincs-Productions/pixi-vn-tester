@@ -64,12 +64,9 @@ export default function DialogueMenu(props: IProps) {
                                         GameStepManager.callLabel(item.label, {
                                             navigate: navigate
                                         })
-                                            .then((result) => {
+                                            .then(() => {
                                                 afterClick && afterClick()
                                                 setLoading(false)
-                                                if (result && result.newRoute) {
-                                                    navigate(result.newRoute)
-                                                }
                                             })
                                             .catch((e) => {
                                                 setLoading(false)

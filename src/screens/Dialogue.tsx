@@ -91,7 +91,7 @@ export default function Dialogue() {
         GameStepManager.runNextStep({
             navigate: navigate
         })
-            .then((result) => {
+            .then(() => {
                 notifyReloadInterfaceDataEvent((p) => p + 1)
                 setLoading(false)
                 if (skipEnabled) {
@@ -107,9 +107,6 @@ export default function Dialogue() {
                             setRecheckSkipAuto((p) => p + 1)
                         }, millisecond);
                     }
-                }
-                if (result && result.newRoute) {
-                    navigate(result.newRoute)
                 }
             })
             .catch((e) => {
