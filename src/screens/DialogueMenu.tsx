@@ -1,4 +1,4 @@
-import { ChoiceMenuOptionsType, clearChoiceMenuOptions, GameStepManager, GameWindowManager, LabelRunModeEnum } from '@drincs/pixi-vn';
+import { ChoiceMenuOptionsType, clearChoiceMenuOptions, GameStepManager, GameWindowManager } from '@drincs/pixi-vn';
 import { Box, Grid } from '@mui/joy';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -60,9 +60,10 @@ export default function DialogueMenu(props: IProps) {
                                 onClick={() => {
                                     setLoading(true)
                                     clearChoiceMenuOptions()
-                                    if (item.type == LabelRunModeEnum.OpenByCall) {
+                                    if (item.type == "call") {
                                         GameStepManager.callLabel(item.label, {
-                                            navigate: navigate
+                                            navigate: navigate,
+                                            ...item.props
                                         })
                                             .then(() => {
                                                 afterClick && afterClick()
@@ -73,9 +74,24 @@ export default function DialogueMenu(props: IProps) {
                                                 console.error(e)
                                             })
                                     }
-                                    else if (item.type == LabelRunModeEnum.OpenByJump) {
+                                    else if (item.type == "jump") {
                                         GameStepManager.jumpLabel(item.label, {
-                                            navigate: navigate
+                                            navigate: navigate,
+                                            ...item.props
+                                        })
+                                            .then(() => {
+                                                afterClick && afterClick()
+                                                setLoading(false)
+                                            })
+                                            .catch((e) => {
+                                                setLoading(false)
+                                                console.error(e)
+                                            })
+                                    }
+                                    else if (item.type == "close") {
+                                        GameStepManager.closeChoiceMenu({
+                                            navigate: navigate,
+                                            ...item.props
                                         })
                                             .then(() => {
                                                 afterClick && afterClick()

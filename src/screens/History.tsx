@@ -73,12 +73,7 @@ export default function History() {
                                 character: character?.name ? character.name + (character.surname ? " " + character.surname : "") : undefined,
                                 text: t(step.dialoge?.text || ""),
                                 icon: character?.icon,
-                                choices: step.choices?.map((choice) => {
-                                    return {
-                                        text: t(choice.text),
-                                        isResponse: choice.label === step.choiceMade?.label,
-                                    }
-                                }),
+                                choices: step.choices,
                             }
                         })
                         .filter((data) => {

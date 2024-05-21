@@ -7,7 +7,7 @@ import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import MenuButton from '../components/MenuButton';
-import { StartLabel } from '../labels/StartLabel';
+import { startLabel } from '../labels/StartLabel';
 import { loadGameSave } from '../utility/ActionsUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
@@ -42,7 +42,7 @@ export default function MainMenu() {
                 <MenuButton
                     onClick={() => {
                         GameWindowManager.removeCanvasElements()
-                        GameStepManager.callLabel(StartLabel, {
+                        GameStepManager.callLabel(startLabel, {
                             navigate: navigate
                         })
                     }}

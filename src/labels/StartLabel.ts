@@ -1,30 +1,29 @@
-import { ChoiceMenuOptionLabel, GameStepManager, GameWindowManager, Label, labelDecorator, setChoiceMenuOptions, setDialogue, StepLabelType } from "@drincs/pixi-vn";
+import { ChoiceMenuOption, GameStepManager, GameWindowManager, newLabel, setChoiceMenuOptions, setDialogue } from "@drincs/pixi-vn";
 import { liam } from "../values/characters";
-import { BaseCanvasElementTestLabel } from "./BaseCanvasElementTestLabel";
-import { EventsTestLabel } from "./EventsTestLabel";
-import { ShowImageTest } from "./ShowImageTest";
-import { TickerTestLabel } from "./TickerTestLabel";
-import { TintingTestLabel } from "./TintingTestLabel";
+import { baseCanvasElementTestLabel } from "./BaseCanvasElementTestLabel";
+import { eventsTestLabel } from "./EventsTestLabel";
+import { showImageTest } from "./ShowImageTest";
+import { tickerTestLabel } from "./TickerTestLabel";
+import { tintingTestLabel } from "./TintingTestLabel";
 
-@labelDecorator()
-export class StartLabel extends Label {
-    override get steps(): StepLabelType[] {
-        return [
-            (props) => {
-                GameWindowManager.clear()
-                setDialogue({ character: liam, text: "Which test do you want to perform?" })
-                setChoiceMenuOptions([
-                    new ChoiceMenuOptionLabel("Events Test", EventsTestLabel),
-                    new ChoiceMenuOptionLabel("Show Image Test", ShowImageTest),
-                    new ChoiceMenuOptionLabel("Ticker Test", TickerTestLabel),
-                    new ChoiceMenuOptionLabel("Tinting Test", TintingTestLabel),
-                    new ChoiceMenuOptionLabel("Base Canvas Element Test Label", BaseCanvasElementTestLabel)
-                ])
-                if (props) {
-                    props.navigate("/game")
-                }
-            },
-            (props) => GameStepManager.jumpLabel(StartLabel, props),
-        ]
-    }
-}
+const START_LABEL_ID = "StartLabel"
+
+export const startLabel = newLabel(START_LABEL_ID,
+    [
+        (props) => {
+            GameWindowManager.clear()
+            setDialogue({ character: liam, text: "Which test do you want to perform?" })
+            setChoiceMenuOptions([
+                new ChoiceMenuOption("Events Test", eventsTestLabel),
+                new ChoiceMenuOption("Show Image Test", showImageTest),
+                new ChoiceMenuOption("Ticker Test", tickerTestLabel),
+                new ChoiceMenuOption("Tinting Test", tintingTestLabel),
+                new ChoiceMenuOption("Base Canvas Element Test Label", baseCanvasElementTestLabel),
+            ])
+            if (props) {
+                props.navigate("/game")
+            }
+        },
+        (props) => GameStepManager.jumpLabel(START_LABEL_ID, props),
+    ]
+)
