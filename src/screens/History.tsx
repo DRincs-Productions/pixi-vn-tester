@@ -71,7 +71,7 @@ export default function History() {
                             let character = step.dialoge?.characterId ? getCharacterById(step.dialoge?.characterId) ?? new CharacterBaseModel(step.dialoge?.characterId, { name: t(step.dialoge?.characterId) }) : undefined
                             return {
                                 character: character?.name ? character.name + (character.surname ? " " + character.surname : "") : undefined,
-                                text: t(step.dialoge?.text || ""),
+                                text: step.dialoge?.text || "",
                                 icon: character?.icon,
                                 choices: step.choices,
                             }
