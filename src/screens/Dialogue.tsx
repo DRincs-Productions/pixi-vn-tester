@@ -6,6 +6,7 @@ import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
+import { motion } from "framer-motion";
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
@@ -143,13 +144,20 @@ export default function Dialogue() {
                     }}
                     onMouseDown={(e) => resizeWindowsHandler(e, windowSize, setWindowSize)}
                 />}
-                {text && <Card
+                <Card
                     orientation="horizontal"
                     sx={{
                         overflow: 'auto',
                         height: windowSize.y,
                         gap: 1,
                     }}
+                    component={motion.div}
+                    animate={{
+                        opacity: text ? 1 : 0,
+                        y: text ? 0 : 100,
+                        pointerEvents: text ? "auto" : "none",
+                    }}
+                    transition={{ type: "spring" }}
                 >
                     {character?.icon && <AspectRatio
                         flex
@@ -200,14 +208,14 @@ export default function Dialogue() {
                         >
                             {typewriterDelay !== 0
                                 ? <Typewriter
-                                    text={text}
+                                    text={text || ""}
                                     delay={localStorage.getItem('typewriter_delay_millisecond')! as unknown as number}
                                 />
                                 : text}
                         </Sheet>
                     </CardContent>
-                </Card>}
-                {!menu && <Button
+                </Card>
+                <Button
                     variant="solid"
                     color="primary"
                     size="sm"
@@ -221,9 +229,16 @@ export default function Dialogue() {
                         zIndex: 100,
                     }}
                     onClick={nextOnClick}
+                    component={motion.div}
+                    animate={{
+                        opacity: !menu ? 1 : 0,
+                        y: !menu ? 0 : 0,
+                        pointerEvents: !menu ? "auto" : "none",
+                    }}
+                    transition={{ type: "spring" }}
                 >
                     {t("next")}
-                </Button>}
+                </Button>
             </Box>
         </>
     );
