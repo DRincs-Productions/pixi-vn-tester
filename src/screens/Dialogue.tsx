@@ -7,11 +7,12 @@ import CardContent from '@mui/joy/CardContent';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { motion } from "framer-motion";
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { autoEnabledState } from '../atoms/autoEnabledState';
 import { canGoBackState } from '../atoms/canGoBackState';
+import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
@@ -43,6 +44,9 @@ export default function Dialogue() {
     const [recheckSkipAuto, setRecheckSkipAuto] = useState<number>(0)
     const { t } = useTranslation(["translation"]);
     const typewriterDelay = useRecoilValue(typewriterDelayState)
+    const hideInterface = useRecoilValue(hideInterfaceState)
+    const showDialogueCard = useMemo(() => !hideInterface && text, [hideInterface, text])
+    const showNextButton = useMemo(() => !hideInterface && !menu, [hideInterface, menu])
 
     useEffect(() => {
         let dial = getDialogue()
@@ -120,12 +124,12 @@ export default function Dialogue() {
 
     return (
         <>
-            {menu && <DialogueMenu
+            <DialogueMenu
                 dialogueWindowHeight={windowSize.y + 50}
                 fullscreen={text ? false : true}
                 menu={menu}
                 afterClick={() => notifyReloadInterfaceDataEvent((p) => p + 1)}
-            />}
+            />
             <Box
                 sx={{
                     width: '100%',
@@ -135,15 +139,26 @@ export default function Dialogue() {
                     right: 0,
                 }}
             >
-                {text && <DragHandleDivider
-                    orientation="horizontal"
+                <Box
                     sx={{
                         position: "absolute",
                         top: -5,
                         width: "100%",
+                        zIndex: 100,
                     }}
-                    onMouseDown={(e) => resizeWindowsHandler(e, windowSize, setWindowSize)}
-                />}
+                    component={motion.div}
+                    animate={{
+                        opacity: showDialogueCard ? 1 : 0,
+                        y: showDialogueCard ? 0 : windowSize.y,
+                        pointerEvents: showDialogueCard ? "auto" : "none",
+                    }}
+                    transition={{ type: "tween" }}
+                >
+                    <DragHandleDivider
+                        orientation="horizontal"
+                        onMouseDown={(e) => resizeWindowsHandler(e, windowSize, setWindowSize)}
+                    />
+                </Box>
                 <Card
                     orientation="horizontal"
                     sx={{
@@ -153,11 +168,11 @@ export default function Dialogue() {
                     }}
                     component={motion.div}
                     animate={{
-                        opacity: text ? 1 : 0,
-                        y: text ? 0 : 100,
-                        pointerEvents: text ? "auto" : "none",
+                        opacity: showDialogueCard ? 1 : 0,
+                        y: showDialogueCard ? 0 : windowSize.y,
+                        pointerEvents: showDialogueCard ? "auto" : "none",
                     }}
-                    transition={{ type: "spring" }}
+                    transition={{ type: "tween" }}
                 >
                     {character?.icon && <AspectRatio
                         flex
@@ -231,9 +246,9 @@ export default function Dialogue() {
                     onClick={nextOnClick}
                     component={motion.div}
                     animate={{
-                        opacity: !menu ? 1 : 0,
-                        y: !menu ? 0 : 0,
-                        pointerEvents: !menu ? "auto" : "none",
+                        opacity: showNextButton ? 1 : 0,
+                        y: showNextButton ? 0 : 0,
+                        pointerEvents: showNextButton ? "auto" : "none",
                     }}
                     transition={{ type: "spring" }}
                 >
