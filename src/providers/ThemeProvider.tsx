@@ -97,6 +97,7 @@ export default function MyThemeProvider({ children }: Iprops) {
                     styleOverrides: {
                         root: {
                             pointerEvents: "auto",
+                            userSelect: "none",
                         },
                     },
                 },
