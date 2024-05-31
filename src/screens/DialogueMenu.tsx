@@ -63,6 +63,7 @@ export default function DialogueMenu(props: IProps) {
                                     if (item.type == "call") {
                                         GameStepManager.callLabel(item.label, {
                                             navigate: navigate,
+                                            t: t,
                                             ...item.props
                                         })
                                             .then(() => {
@@ -77,6 +78,7 @@ export default function DialogueMenu(props: IProps) {
                                     else if (item.type == "jump") {
                                         GameStepManager.jumpLabel(item.label, {
                                             navigate: navigate,
+                                            t: t,
                                             ...item.props
                                         })
                                             .then(() => {
@@ -89,9 +91,9 @@ export default function DialogueMenu(props: IProps) {
                                             })
                                     }
                                     else if (item.type == "close") {
-                                        GameStepManager.closeChoiceMenu({
+                                        GameStepManager.closeChoiceMenu(item.label, {
                                             navigate: navigate,
-                                            translate: t,
+                                            t: t,
                                             ...item.props
                                         })
                                             .then(() => {
