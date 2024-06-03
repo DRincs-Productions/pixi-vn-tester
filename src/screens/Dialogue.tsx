@@ -42,6 +42,7 @@ export default function Dialogue({ dialogueForm }: {
     const [recheckSkipAuto, setRecheckSkipAuto] = useState<number>(0)
     const { t } = useTranslation(["translation"]);
     const typewriterDelay = useRecoilValue(typewriterDelayState)
+    const text = dialogueForm.getValues('text')
 
     useEffect(() => {
         if (skipEnabled || autoEnabled) {
@@ -100,16 +101,10 @@ export default function Dialogue({ dialogueForm }: {
 
     return (
         <>
-            <Controller
-                control={dialogueForm.control}
-                name="text"
-                render={({ field: { value: text } }) => (
-                    <DialogueMenu
-                        dialogueWindowHeight={windowSize.y + 50}
-                        fullscreen={text ? false : true}
-                        dialogueForm={dialogueForm}
-                    />
-                )}
+            <DialogueMenu
+                dialogueWindowHeight={windowSize.y + 50}
+                fullscreen={text ? false : true}
+                dialogueForm={dialogueForm}
             />
             <Box
                 sx={{
@@ -227,20 +222,12 @@ export default function Dialogue({ dialogueForm }: {
                                         overflow: 'auto',
                                     }}
                                 >
-                                    <Controller
-                                        control={dialogueForm.control}
-                                        name="text"
-                                        render={({ field: { value: text } }) => (
-                                            <>
-                                                {typewriterDelay !== 0
-                                                    ? <Typewriter
-                                                        text={text || ""}
-                                                        delay={localStorage.getItem('typewriter_delay_millisecond')! as unknown as number}
-                                                    />
-                                                    : text}
-                                            </>
-                                        )}
-                                    />
+                                    {typewriterDelay !== 0
+                                        ? <Typewriter
+                                            text={text || ""}
+                                            delay={localStorage.getItem('typewriter_delay_millisecond')! as unknown as number}
+                                        />
+                                        : text}
                                 </Sheet>
                             </CardContent>
                         </Card>
