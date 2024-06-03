@@ -4,13 +4,11 @@ import { motion } from "framer-motion";
 import { useState } from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { autoEnabledState } from '../atoms/autoEnabledState';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openHistoryState } from '../atoms/openHistoryState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
-import { skipEnabledState } from '../atoms/skipEnabledState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TextMenuButton from '../components/TextMenuButton';
 import { InterfaceInfoFormModel } from '../models/InterfaceInfoFormModel';
@@ -25,8 +23,6 @@ export default function QuickActions({ interfaceInfoForm }: {
     const navigate = useMyNavigate();
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventState);
     const [openYouSure, setOpenYouSure] = useState(false)
-    const [skip, setSkip] = useRecoilState(skipEnabledState)
-    const [auto, setAuto] = useRecoilState(autoEnabledState)
     const { t } = useTranslation(["translation"]);
     const hideInterface = useRecoilValue(hideInterfaceState)
 
@@ -83,24 +79,36 @@ export default function QuickActions({ interfaceInfoForm }: {
                 <Grid
                     paddingY={0}
                 >
-                    <TextMenuButton
-                        selected={skip}
-                        onClick={() => setSkip((prev) => !prev)}
-                        sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
-                    >
-                        {t("skip")}
-                    </TextMenuButton>
+                    <Controller
+                        control={interfaceInfoForm.control}
+                        name="skipEnabled"
+                        render={({ field: { value: skip, } }) => (
+                            <TextMenuButton
+                                selected={skip}
+                                onClick={() => interfaceInfoForm.setValue("skipEnabled", !skip)}
+                                sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
+                            >
+                                {t("skip")}
+                            </TextMenuButton>
+                        )}
+                    />
                 </Grid>
                 <Grid
                     paddingY={0}
                 >
-                    <TextMenuButton
-                        selected={auto}
-                        onClick={() => setAuto((prev) => !prev)}
-                        sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
-                    >
-                        {t("auto_forward_time_restricted")}
-                    </TextMenuButton>
+                    <Controller
+                        control={interfaceInfoForm.control}
+                        name="autoEnabled"
+                        render={({ field: { value: auto, } }) => (
+                            <TextMenuButton
+                                selected={auto}
+                                onClick={() => interfaceInfoForm.setValue("autoEnabled", !auto)}
+                                sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
+                            >
+                                {t("auto_forward_time_restricted")}
+                            </TextMenuButton>
+                        )}
+                    />
                 </Grid>
                 <Grid
                     paddingY={0}

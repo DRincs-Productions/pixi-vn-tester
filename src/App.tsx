@@ -22,6 +22,8 @@ function App() {
         defaultValues: {
             canGoBack: false,
             nextStepLoading: false,
+            autoEnabled: false,
+            skipEnabled: false,
         },
     });
     return (

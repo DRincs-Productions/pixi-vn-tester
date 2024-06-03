@@ -11,9 +11,7 @@ import { useEffect, useState } from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { autoEnabledState } from '../atoms/autoEnabledState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
-import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import DragHandleDivider from '../components/DragHandleDivider';
 import Typewriter from '../components/Typewriter';
@@ -38,8 +36,8 @@ export default function Dialogue({ dialogueForm, interfaceInfoForm }: {
 
     const navigate = useMyNavigate();
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventState);
-    const skipEnabled = useRecoilValue(skipEnabledState)
-    const autoEnabled = useRecoilValue(autoEnabledState)
+    const skipEnabled = interfaceInfoForm.watch('skipEnabled')
+    const autoEnabled = interfaceInfoForm.watch('autoEnabled')
     const [recheckSkipAuto, setRecheckSkipAuto] = useState<number>(0)
     const { t } = useTranslation(["translation"]);
     const typewriterDelay = useRecoilValue(typewriterDelayState)
