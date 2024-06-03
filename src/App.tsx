@@ -3,21 +3,10 @@ import { useForm } from "react-hook-form";
 import AppImports from './AppImports';
 import AppRoutes from './AppRoutes';
 import EventInterceptor from './interceptors/EventInterceptor';
-import InterfaceEventInterceptor from "./interceptors/InterfaceEventInterceptor";
-import { DialogueFormModel } from "./models/DialogueFormModel";
 import { InterfaceInfoFormModel } from "./models/InterfaceInfoFormModel";
 import Settings from './screens/Settings';
 
 function App() {
-    const dialogueForm = useForm<DialogueFormModel>({
-        defaultValues: {
-            character: undefined,
-            text: undefined,
-            menu: undefined,
-            showDialogueCard: true,
-            showNextButton: true,
-        },
-    });
     const interfaceInfoForm = useForm<InterfaceInfoFormModel>({
         defaultValues: {
             canGoBack: false,
@@ -30,15 +19,10 @@ function App() {
         <ErrorBoundary fallback={<div>Something went wrong</div>}>
             <AppImports>
                 <AppRoutes
-                    dialogueForm={dialogueForm}
                     interfaceInfoForm={interfaceInfoForm}
                 />
                 <Settings />
                 <EventInterceptor />
-                <InterfaceEventInterceptor
-                    dialogueForm={dialogueForm}
-                    interfaceInfoForm={interfaceInfoForm}
-                />
             </AppImports>
         </ErrorBoundary >
     )

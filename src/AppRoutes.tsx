@@ -5,15 +5,13 @@ import { Route, Routes } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { reloadInterfaceDataEventState } from './atoms/reloadInterfaceDataEventState';
 import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
-import { DialogueFormModel } from './models/DialogueFormModel';
 import { InterfaceInfoFormModel } from './models/InterfaceInfoFormModel';
 import Dialogue from './screens/Dialogue';
 import History from './screens/History';
 import MainMenu from './screens/MainMenu';
 import QuickActions from './screens/QuickActions';
 
-export default function AppRoutes({ dialogueForm, interfaceInfoForm }: {
-    dialogueForm: UseFormReturn<DialogueFormModel, any, undefined>,
+export default function AppRoutes({ interfaceInfoForm }: {
     interfaceInfoForm: UseFormReturn<InterfaceInfoFormModel, any, undefined>,
 }) {
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventState);
@@ -43,7 +41,6 @@ export default function AppRoutes({ dialogueForm, interfaceInfoForm }: {
                     <History />
                     <QuickActions interfaceInfoForm={interfaceInfoForm} />
                     <Dialogue
-                        dialogueForm={dialogueForm}
                         interfaceInfoForm={interfaceInfoForm}
                         nextOnClick={nextOnClick}
                     />

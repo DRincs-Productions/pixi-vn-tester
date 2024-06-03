@@ -9,23 +9,32 @@ import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { motion } from "framer-motion";
 import { useEffect, useState } from 'react';
-import { Controller, UseFormReturn } from 'react-hook-form';
+import { Controller, useForm, UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import DragHandleDivider from '../components/DragHandleDivider';
 import Typewriter from '../components/Typewriter';
+import DialogueDataEventInterceptor from '../interceptors/DialogueDataEventInterceptor';
 import { DialogueFormModel } from '../models/DialogueFormModel';
 import { InterfaceInfoFormModel } from '../models/InterfaceInfoFormModel';
 import { resizeWindowsHandler } from '../utility/ComponentUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 import DialogueMenu from './DialogueMenu';
 
-export default function Dialogue({ dialogueForm, interfaceInfoForm, nextOnClick }: {
-    dialogueForm: UseFormReturn<DialogueFormModel, any, undefined>,
+export default function Dialogue({ interfaceInfoForm, nextOnClick }: {
     interfaceInfoForm: UseFormReturn<InterfaceInfoFormModel, any, undefined>,
     nextOnClick: (props: StepLabelProps) => void,
 }) {
+    const dialogueForm = useForm<DialogueFormModel>({
+        defaultValues: {
+            character: undefined,
+            text: undefined,
+            menu: undefined,
+            showDialogueCard: true,
+            showNextButton: true,
+        },
+    });
     const [windowSize, setWindowSize] = useState({
         x: 0,
         y: 300 * GameWindowManager.screenScale,
@@ -60,6 +69,10 @@ export default function Dialogue({ dialogueForm, interfaceInfoForm, nextOnClick 
 
     return (
         <>
+            <DialogueDataEventInterceptor
+                dialogueForm={dialogueForm}
+                interfaceInfoForm={interfaceInfoForm}
+            />
             <DialogueMenu
                 dialogueWindowHeight={windowSize.y + 50}
                 fullscreen={text ? false : true}
