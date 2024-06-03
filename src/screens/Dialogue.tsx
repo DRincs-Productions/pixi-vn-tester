@@ -1,4 +1,4 @@
-import { CharacterBaseModel, ChoiceMenuOptionsType, GameStepManager, GameWindowManager, getCharacterById, getChoiceMenuOptions, getDialogue } from '@drincs/pixi-vn';
+import { GameStepManager, GameWindowManager } from '@drincs/pixi-vn';
 import { Button } from '@mui/joy';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
@@ -8,21 +8,24 @@ import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from 'react';
+import { UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { autoEnabledState } from '../atoms/autoEnabledState';
-import { canGoBackState } from '../atoms/canGoBackState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import DragHandleDivider from '../components/DragHandleDivider';
 import Typewriter from '../components/Typewriter';
+import { DialogueFormModel } from '../models/DialogueFormModel';
 import { resizeWindowsHandler } from '../utility/ComponentUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 import DialogueMenu from './DialogueMenu';
 
-export default function Dialogue() {
+export default function Dialogue({ dialogueForm }: {
+    dialogueForm: UseFormReturn<DialogueFormModel, any, undefined>
+}) {
     const [windowSize, setWindowSize] = useState({
         x: 0,
         y: 300 * GameWindowManager.screenScale,
@@ -34,11 +37,10 @@ export default function Dialogue() {
 
     const navigate = useMyNavigate();
     const [loading, setLoading] = useState(false)
-    const [text, setText] = useState<string | undefined>(undefined)
-    const [character, setCharacter] = useState<CharacterBaseModel | undefined>(undefined)
-    const [menu, setMenu] = useState<ChoiceMenuOptionsType | undefined>(undefined)
-    const setCanGoBack = useSetRecoilState(canGoBackState);
-    const [reloadInterfaceDataEvent, notifyReloadInterfaceDataEvent] = useRecoilState(reloadInterfaceDataEventState);
+    const text = dialogueForm.watch("text")
+    const character = dialogueForm.watch("character")
+    const menu = dialogueForm.watch("menu")
+    const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventState);
     const skipEnabled = useRecoilValue(skipEnabledState)
     const autoEnabled = useRecoilValue(autoEnabledState)
     const [recheckSkipAuto, setRecheckSkipAuto] = useState<number>(0)
@@ -47,25 +49,6 @@ export default function Dialogue() {
     const hideInterface = useRecoilValue(hideInterfaceState)
     const showDialogueCard = useMemo(() => !hideInterface && text, [hideInterface, text])
     const showNextButton = useMemo(() => !hideInterface && !menu, [hideInterface, menu])
-
-    useEffect(() => {
-        let dial = getDialogue()
-        if (dial) {
-            setText(dial.text)
-            let c: CharacterBaseModel | undefined = dial.characterId ? getCharacterById(dial.characterId) : undefined
-            if (!c && dial.characterId) {
-                c = new CharacterBaseModel(dial.characterId, { name: t(dial.characterId) })
-            }
-            setCharacter(c)
-        }
-        else {
-            setText(undefined)
-            setCharacter(undefined)
-        }
-        let m = getChoiceMenuOptions()
-        setMenu(m)
-        setCanGoBack(GameStepManager.canGoBack)
-    }, [reloadInterfaceDataEvent])
 
     useEffect(() => {
         if (skipEnabled || autoEnabled) {
@@ -207,8 +190,7 @@ export default function Dialogue() {
 
                         >
                             {character.name + (character.surname ? " " + character.surname : "")}
-                        </Typography>
-                        }
+                        </Typography>}
                         <Sheet
                             sx={{
                                 marginTop: character ? 3 : undefined,
