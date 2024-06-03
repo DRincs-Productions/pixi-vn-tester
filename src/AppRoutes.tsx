@@ -15,7 +15,7 @@ export default function AppRoutes({ dialogueForm }: {
             <Route key={"game"} path={"/game"}
                 element={<>
                     <History />
-                    <QuickActions />
+                    <QuickActions dialogueForm={dialogueForm} />
                     <Dialogue dialogueForm={dialogueForm} />
                 </>}
             />

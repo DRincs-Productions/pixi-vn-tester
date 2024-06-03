@@ -110,7 +110,7 @@ export default function Dialogue({ dialogueForm }: {
             <DialogueMenu
                 dialogueWindowHeight={windowSize.y + 50}
                 fullscreen={text ? false : true}
-                menu={menu}
+                dialogueForm={dialogueForm}
                 afterClick={() => notifyReloadInterfaceDataEvent((p) => p + 1)}
             />
             <Box

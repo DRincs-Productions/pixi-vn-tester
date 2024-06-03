@@ -2,10 +2,10 @@ import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import { Button, Grid, Typography } from '@mui/joy';
 import { motion } from "framer-motion";
 import { useState } from 'react';
+import { Controller, UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { autoEnabledState } from '../atoms/autoEnabledState';
-import { canGoBackState } from '../atoms/canGoBackState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openHistoryState } from '../atoms/openHistoryState';
 import { openSettingsState } from '../atoms/openSettingsState';
@@ -13,14 +13,16 @@ import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEvent
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TextMenuButton from '../components/TextMenuButton';
+import { DialogueFormModel } from '../models/DialogueFormModel';
 import { addQuickSave, goBack, loadGameSave, loadQuickSave, saveGame } from '../utility/ActionsUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
-export default function QuickActions() {
+export default function QuickActions({ dialogueForm }: {
+    dialogueForm: UseFormReturn<DialogueFormModel, any, undefined>
+}) {
     const setOpenSettings = useSetRecoilState(openSettingsState);
     const setOpenHistory = useSetRecoilState(openHistoryState);
     const navigate = useMyNavigate();
-    const canGoBack = useRecoilValue(canGoBackState)
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventState);
     const [openYouSure, setOpenYouSure] = useState(false)
     const [skip, setSkip] = useRecoilState(skipEnabledState)
@@ -54,13 +56,19 @@ export default function QuickActions() {
                 <Grid
                     paddingY={0}
                 >
-                    <TextMenuButton
-                        onClick={() => goBack(navigate, () => { notifyLoadEvent((prev) => prev + 1) })}
-                        disabled={!canGoBack}
-                        sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
-                    >
-                        {t("back")}
-                    </TextMenuButton>
+                    <Controller
+                        control={dialogueForm.control}
+                        name="canGoBack"
+                        render={({ field: { value } }) => (
+                            <TextMenuButton
+                                onClick={() => goBack(navigate, () => { notifyLoadEvent((prev) => prev + 1) })}
+                                disabled={!value}
+                                sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
+                            >
+                                {t("back")}
+                            </TextMenuButton>
+                        )}
+                    />
                 </Grid>
                 <Grid
                     paddingY={0}

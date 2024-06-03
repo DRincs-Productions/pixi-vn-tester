@@ -1,15 +1,17 @@
-import { ChoiceMenuOption, ChoiceMenuOptionClose, ChoiceMenuOptionsType, clearChoiceMenuOptions, GameStepManager, GameWindowManager } from '@drincs/pixi-vn';
+import { ChoiceMenuOption, ChoiceMenuOptionClose, clearChoiceMenuOptions, GameStepManager, GameWindowManager } from '@drincs/pixi-vn';
 import { Box, Grid } from '@mui/joy';
 import { motion, Variants } from "framer-motion";
 import { useEffect, useState } from 'react';
+import { UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import DialogueMenuButton from '../components/DialogueMenuButton';
+import { DialogueFormModel } from '../models/DialogueFormModel';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 type IProps = {
-    menu?: ChoiceMenuOptionsType,
+    dialogueForm: UseFormReturn<DialogueFormModel, any, undefined>,
     dialogueWindowHeight: number,
     fullscreen?: boolean,
     afterClick?: () => void,
@@ -17,7 +19,7 @@ type IProps = {
 
 export default function DialogueMenu(props: IProps) {
     const {
-        menu,
+        dialogueForm,
         dialogueWindowHeight,
         fullscreen = true,
         afterClick,
@@ -28,6 +30,7 @@ export default function DialogueMenu(props: IProps) {
     const navigate = useMyNavigate();
     const hideInterface = useRecoilValue(hideInterfaceState)
     const [showList, setShowList] = useState(false)
+    const menu = dialogueForm.watch("menu")
     useEffect(() => {
         if (!menu || !(menu.length > 0)) {
             setShowList(false)
