@@ -5,6 +5,7 @@ import AppRoutes from './AppRoutes';
 import EventInterceptor from './interceptors/EventInterceptor';
 import InterfaceEvantInterceptor from "./interceptors/InterfaceEvantInterceptor";
 import { DialogueFormModel } from "./models/DialogueFormModel";
+import { InterfaceInfoFormModel } from "./models/InterfaceInfoFormModel";
 import Settings from './screens/Settings';
 
 function App() {
@@ -13,19 +14,27 @@ function App() {
             character: undefined,
             text: undefined,
             menu: undefined,
-            canGoBack: false,
             showDialogueCard: true,
             showNextButton: true,
+        },
+    });
+    const interfaceInfoForm = useForm<InterfaceInfoFormModel>({
+        defaultValues: {
+            canGoBack: false,
         },
     });
     return (
         <ErrorBoundary fallback={<div>Something went wrong</div>}>
             <AppImports>
-                <AppRoutes dialogueForm={dialogueForm} />
+                <AppRoutes
+                    dialogueForm={dialogueForm}
+                    interfaceInfoForm={interfaceInfoForm}
+                />
                 <Settings />
                 <EventInterceptor />
                 <InterfaceEvantInterceptor
                     dialogueForm={dialogueForm}
+                    interfaceInfoForm={interfaceInfoForm}
                 />
             </AppImports>
         </ErrorBoundary >

@@ -13,12 +13,12 @@ import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEvent
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TextMenuButton from '../components/TextMenuButton';
-import { DialogueFormModel } from '../models/DialogueFormModel';
+import { InterfaceInfoFormModel } from '../models/InterfaceInfoFormModel';
 import { addQuickSave, goBack, loadGameSave, loadQuickSave, saveGame } from '../utility/ActionsUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
-export default function QuickActions({ dialogueForm }: {
-    dialogueForm: UseFormReturn<DialogueFormModel, any, undefined>
+export default function QuickActions({ interfaceInfoForm }: {
+    interfaceInfoForm: UseFormReturn<InterfaceInfoFormModel, any, undefined>,
 }) {
     const setOpenSettings = useSetRecoilState(openSettingsState);
     const setOpenHistory = useSetRecoilState(openHistoryState);
@@ -57,7 +57,7 @@ export default function QuickActions({ dialogueForm }: {
                     paddingY={0}
                 >
                     <Controller
-                        control={dialogueForm.control}
+                        control={interfaceInfoForm.control}
                         name="canGoBack"
                         render={({ field: { value } }) => (
                             <TextMenuButton

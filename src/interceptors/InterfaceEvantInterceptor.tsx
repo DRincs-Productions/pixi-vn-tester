@@ -6,9 +6,11 @@ import { useRecoilValue } from 'recoil';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import { DialogueFormModel } from '../models/DialogueFormModel';
+import { InterfaceInfoFormModel } from '../models/InterfaceInfoFormModel';
 
-export default function InterfaceEvantInterceptor({ dialogueForm }: {
-    dialogueForm: UseFormReturn<DialogueFormModel, any, undefined>
+export default function InterfaceEvantInterceptor({ dialogueForm, interfaceInfoForm }: {
+    dialogueForm: UseFormReturn<DialogueFormModel, any, undefined>,
+    interfaceInfoForm: UseFormReturn<InterfaceInfoFormModel, any, undefined>,
 }) {
     const reloadInterfaceDataEvent = useRecoilValue(reloadInterfaceDataEventState);
     const { t } = useTranslation(["translation"]);
@@ -32,7 +34,7 @@ export default function InterfaceEvantInterceptor({ dialogueForm }: {
         }
         let m = getChoiceMenuOptions()
         dialogueForm.setValue("menu", m)
-        dialogueForm.setValue("canGoBack", GameStepManager.canGoBack)
+        interfaceInfoForm.setValue("canGoBack", GameStepManager.canGoBack)
     }, [reloadInterfaceDataEvent])
 
     useEffect(() => {
