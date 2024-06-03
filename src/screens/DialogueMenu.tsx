@@ -1,4 +1,4 @@
-import { ChoiceMenuOptionsType, clearChoiceMenuOptions, GameStepManager, GameWindowManager } from '@drincs/pixi-vn';
+import { ChoiceMenuOption, ChoiceMenuOptionClose, ChoiceMenuOptionsType, clearChoiceMenuOptions, GameStepManager, GameWindowManager } from '@drincs/pixi-vn';
 import { Box, Grid } from '@mui/joy';
 import { motion, Variants } from "framer-motion";
 import { useEffect, useState } from 'react';
@@ -49,6 +49,62 @@ export default function DialogueMenu(props: IProps) {
         },
         closed: { opacity: 0, y: 20, transition: { duration: 0.2 } }
     };
+
+    function afterSelectChoice(item: ChoiceMenuOptionClose | ChoiceMenuOption<{}>) {
+        () => {
+            setLoading(true)
+            clearChoiceMenuOptions()
+            if (item.type == "call") {
+                GameStepManager.callLabel(item.label, {
+                    navigate: navigate,
+                    t: t,
+                    ...item.props
+                })
+                    .then(() => {
+                        afterClick && afterClick()
+                        setLoading(false)
+                    })
+                    .catch((e) => {
+                        setLoading(false)
+                        console.error(e)
+                    })
+            }
+            else if (item.type == "jump") {
+                GameStepManager.jumpLabel(item.label, {
+                    navigate: navigate,
+                    t: t,
+                    ...item.props
+                })
+                    .then(() => {
+                        afterClick && afterClick()
+                        setLoading(false)
+                    })
+                    .catch((e) => {
+                        setLoading(false)
+                        console.error(e)
+                    })
+            }
+            else if (item.type == "close") {
+                GameStepManager.closeChoiceMenu(item.label, {
+                    navigate: navigate,
+                    t: t,
+                    ...item.props
+                })
+                    .then(() => {
+                        afterClick && afterClick()
+                        setLoading(false)
+                    })
+                    .catch((e) => {
+                        setLoading(false)
+                        console.error(e)
+                    })
+            }
+            else {
+                setLoading(false)
+                console.error("Unsupported label run mode")
+            }
+        }
+    }
 
     return (
         <Box
@@ -110,57 +166,7 @@ export default function DialogueMenu(props: IProps) {
                             <DialogueMenuButton
                                 loading={loading}
                                 onClick={() => {
-                                    setLoading(true)
-                                    clearChoiceMenuOptions()
-                                    if (item.type == "call") {
-                                        GameStepManager.callLabel(item.label, {
-                                            navigate: navigate,
-                                            t: t,
-                                            ...item.props
-                                        })
-                                            .then(() => {
-                                                afterClick && afterClick()
-                                                setLoading(false)
-                                            })
-                                            .catch((e) => {
-                                                setLoading(false)
-                                                console.error(e)
-                                            })
-                                    }
-                                    else if (item.type == "jump") {
-                                        GameStepManager.jumpLabel(item.label, {
-                                            navigate: navigate,
-                                            t: t,
-                                            ...item.props
-                                        })
-                                            .then(() => {
-                                                afterClick && afterClick()
-                                                setLoading(false)
-                                            })
-                                            .catch((e) => {
-                                                setLoading(false)
-                                                console.error(e)
-                                            })
-                                    }
-                                    else if (item.type == "close") {
-                                        GameStepManager.closeChoiceMenu(item.label, {
-                                            navigate: navigate,
-                                            t: t,
-                                            ...item.props
-                                        })
-                                            .then(() => {
-                                                afterClick && afterClick()
-                                                setLoading(false)
-                                            })
-                                            .catch((e) => {
-                                                setLoading(false)
-                                                console.error(e)
-                                            })
-                                    }
-                                    else {
-                                        setLoading(false)
-                                        console.error("Unsupported label run mode")
-                                    }
+                                    afterSelectChoice(item)
                                 }}
                                 sx={{
                                     left: 0,
