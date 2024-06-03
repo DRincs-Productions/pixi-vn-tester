@@ -8,7 +8,7 @@ import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEvent
 import { DialogueFormModel } from '../models/DialogueFormModel';
 import { InterfaceInfoFormModel } from '../models/InterfaceInfoFormModel';
 
-export default function InterfaceEvantInterceptor({ dialogueForm, interfaceInfoForm }: {
+export default function InterfaceEventInterceptor({ dialogueForm, interfaceInfoForm }: {
     dialogueForm: UseFormReturn<DialogueFormModel, any, undefined>,
     interfaceInfoForm: UseFormReturn<InterfaceInfoFormModel, any, undefined>,
 }) {

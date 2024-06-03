@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import AppImports from './AppImports';
 import AppRoutes from './AppRoutes';
 import EventInterceptor from './interceptors/EventInterceptor';
-import InterfaceEvantInterceptor from "./interceptors/InterfaceEvantInterceptor";
+import InterfaceEventInterceptor from "./interceptors/InterfaceEventInterceptor";
 import { DialogueFormModel } from "./models/DialogueFormModel";
 import { InterfaceInfoFormModel } from "./models/InterfaceInfoFormModel";
 import Settings from './screens/Settings';
@@ -35,7 +35,7 @@ function App() {
                 />
                 <Settings />
                 <EventInterceptor />
-                <InterfaceEvantInterceptor
+                <InterfaceEventInterceptor
                     dialogueForm={dialogueForm}
                     interfaceInfoForm={interfaceInfoForm}
                 />
