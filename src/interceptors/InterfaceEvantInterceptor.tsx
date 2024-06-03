@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
+import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import { DialogueFormModel } from '../models/DialogueFormModel';
 
@@ -11,6 +12,9 @@ export default function InterfaceEvantInterceptor({ dialogueForm }: {
 }) {
     const reloadInterfaceDataEvent = useRecoilValue(reloadInterfaceDataEventState);
     const { t } = useTranslation(["translation"]);
+    const menu = dialogueForm.watch("menu")
+    const text = dialogueForm.watch("text")
+    const hideInterface = useRecoilValue(hideInterfaceState)
 
     useEffect(() => {
         let dial = getDialogue()
@@ -20,16 +24,24 @@ export default function InterfaceEvantInterceptor({ dialogueForm }: {
             if (!c && dial.characterId) {
                 c = new CharacterBaseModel(dial.characterId, { name: t(dial.characterId) })
             }
-            dialogueForm.setValue("character", c)
+            dialogueForm.setValue("character", c ?? null)
         }
         else {
             dialogueForm.setValue("text", undefined)
-            dialogueForm.setValue("character", undefined)
+            dialogueForm.setValue("character", null)
         }
         let m = getChoiceMenuOptions()
         dialogueForm.setValue("menu", m)
         dialogueForm.setValue("canGoBack", GameStepManager.canGoBack)
     }, [reloadInterfaceDataEvent])
+
+    useEffect(() => {
+        dialogueForm.setValue("showNextButton", !hideInterface && !menu)
+    }, [menu, hideInterface])
+
+    useEffect(() => {
+        dialogueForm.setValue("showDialogueCard", !hideInterface && text ? true : false)
+    }, [text, hideInterface])
 
     return null
 }

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import AppImports from './AppImports';
 import AppRoutes from './AppRoutes';
 import EventInterceptor from './interceptors/EventInterceptor';
+import InterfaceEvantInterceptor from "./interceptors/InterfaceEvantInterceptor";
 import { DialogueFormModel } from "./models/DialogueFormModel";
 import Settings from './screens/Settings';
 
@@ -13,6 +14,8 @@ function App() {
             text: undefined,
             menu: undefined,
             canGoBack: false,
+            showDialogueCard: true,
+            showNextButton: true,
         },
     });
     return (
@@ -21,6 +24,9 @@ function App() {
                 <AppRoutes dialogueForm={dialogueForm} />
                 <Settings />
                 <EventInterceptor />
+                <InterfaceEvantInterceptor
+                    dialogueForm={dialogueForm}
+                />
             </AppImports>
         </ErrorBoundary >
     )
