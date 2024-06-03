@@ -21,6 +21,7 @@ function App() {
     const interfaceInfoForm = useForm<InterfaceInfoFormModel>({
         defaultValues: {
             canGoBack: false,
+            nextStepLoading: false,
         },
     });
     return (

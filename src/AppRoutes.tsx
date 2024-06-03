@@ -18,7 +18,10 @@ export default function AppRoutes({ dialogueForm, interfaceInfoForm }: {
                 element={<>
                     <History />
                     <QuickActions interfaceInfoForm={interfaceInfoForm} />
-                    <Dialogue dialogueForm={dialogueForm} />
+                    <Dialogue
+                        dialogueForm={dialogueForm}
+                        interfaceInfoForm={interfaceInfoForm}
+                    />
                 </>}
             />
         </Routes>

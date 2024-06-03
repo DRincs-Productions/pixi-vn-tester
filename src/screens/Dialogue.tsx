@@ -18,12 +18,14 @@ import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import DragHandleDivider from '../components/DragHandleDivider';
 import Typewriter from '../components/Typewriter';
 import { DialogueFormModel } from '../models/DialogueFormModel';
+import { InterfaceInfoFormModel } from '../models/InterfaceInfoFormModel';
 import { resizeWindowsHandler } from '../utility/ComponentUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 import DialogueMenu from './DialogueMenu';
 
-export default function Dialogue({ dialogueForm }: {
-    dialogueForm: UseFormReturn<DialogueFormModel, any, undefined>
+export default function Dialogue({ dialogueForm, interfaceInfoForm }: {
+    dialogueForm: UseFormReturn<DialogueFormModel, any, undefined>,
+    interfaceInfoForm: UseFormReturn<InterfaceInfoFormModel, any, undefined>,
 }) {
     const [windowSize, setWindowSize] = useState({
         x: 0,
@@ -35,7 +37,6 @@ export default function Dialogue({ dialogueForm }: {
     })
 
     const navigate = useMyNavigate();
-    const [loading, setLoading] = useState(false)
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventState);
     const skipEnabled = useRecoilValue(skipEnabledState)
     const autoEnabled = useRecoilValue(autoEnabledState)
@@ -66,17 +67,18 @@ export default function Dialogue({ dialogueForm }: {
     }
 
     function nextOnClick() {
+        let loading = interfaceInfoForm.getValues('nextStepLoading')
         if (loading) {
             return
         }
-        setLoading(true)
+        interfaceInfoForm.setValue('nextStepLoading', true)
         GameStepManager.runNextStep({
             navigate: navigate,
             t: t,
         })
             .then(() => {
                 notifyReloadInterfaceDataEvent((p) => p + 1)
-                setLoading(false)
+                interfaceInfoForm.setValue('nextStepLoading', false)
                 if (skipEnabled) {
                     setTimeout(() => {
                         setRecheckSkipAuto((p) => p + 1)
@@ -93,8 +95,7 @@ export default function Dialogue({ dialogueForm }: {
                 }
             })
             .catch((e) => {
-                setLoading(false)
-
+                interfaceInfoForm.setValue('nextStepLoading', false)
                 console.error(e)
             })
     }
@@ -237,30 +238,36 @@ export default function Dialogue({ dialogueForm }: {
                     control={dialogueForm.control}
                     name="showNextButton"
                     render={({ field: { value: showNextButton } }) => (
-                        <Button
-                            variant="solid"
-                            color="primary"
-                            size="sm"
-                            loading={loading}
-                            sx={{
-                                position: "absolute",
-                                bottom: -10,
-                                right: 0,
-                                width: { xs: 70, sm: 100, md: 150 },
-                                border: 3,
-                                zIndex: 100,
-                            }}
-                            onClick={nextOnClick}
-                            component={motion.div}
-                            animate={{
-                                opacity: showNextButton ? 1 : 0,
-                                y: showNextButton ? 0 : 0,
-                                pointerEvents: showNextButton ? "auto" : "none",
-                            }}
-                            transition={{ type: "spring" }}
-                        >
-                            {t("next")}
-                        </Button>
+                        <Controller
+                            control={interfaceInfoForm.control}
+                            name="nextStepLoading"
+                            render={({ field: { value: loading } }) => (
+                                <Button
+                                    variant="solid"
+                                    color="primary"
+                                    size="sm"
+                                    loading={loading}
+                                    sx={{
+                                        position: "absolute",
+                                        bottom: -10,
+                                        right: 0,
+                                        width: { xs: 70, sm: 100, md: 150 },
+                                        border: 3,
+                                        zIndex: 100,
+                                    }}
+                                    onClick={nextOnClick}
+                                    component={motion.div}
+                                    animate={{
+                                        opacity: showNextButton ? 1 : 0,
+                                        y: showNextButton ? 0 : 0,
+                                        pointerEvents: showNextButton ? "auto" : "none",
+                                    }}
+                                    transition={{ type: "spring" }}
+                                >
+                                    {t("next")}
+                                </Button>
+                            )}
+                        />
                     )}
                 />
             </Box>
