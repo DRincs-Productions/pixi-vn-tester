@@ -6,7 +6,7 @@ import { useRecoilValue } from 'recoil';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import { DialogueFormModel } from '../models/DialogueFormModel';
 
-export default function ReloadInterfaceInterceptor({ dialogueForm }: {
+export default function InterfaceEvantInterceptor({ dialogueForm }: {
     dialogueForm: UseFormReturn<DialogueFormModel, any, undefined>
 }) {
     const reloadInterfaceDataEvent = useRecoilValue(reloadInterfaceDataEventState);
