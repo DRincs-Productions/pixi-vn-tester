@@ -28,12 +28,10 @@ export default function DialogueDataEventInterceptor() {
         }
         try {
             if (dial !== text || newCharacter !== character) {
-                setDialogData((prev) => {
-                    return {
-                        ...prev,
-                        text: newText,
-                        character: newCharacter,
-                    }
+                setDialogData({
+                    text: newText,
+                    character: newCharacter,
+                    visible: !hideInterface && newText ? true : false,
                 })
             }
         } catch (e) { }
@@ -49,10 +47,10 @@ export default function DialogueDataEventInterceptor() {
         setDialogData((prev) => {
             return {
                 ...prev,
-                visible: !hideInterface && text ? true : false,
+                visible: !hideInterface && prev.text ? true : false,
             }
         })
-    }, [text, hideInterface])
+    }, [hideInterface])
 
     return null
 }
