@@ -5,14 +5,14 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { choiceMenuState } from '../atoms/choiceMenuState';
 import { dialogDataState } from '../atoms/dialogDataState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
-import { nextStepButtonVisibleState } from '../atoms/nextStepButtonVisibleState';
+import { nextStepButtonHiddenState } from '../atoms/nextStepButtonHiddenState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 
 export default function DialogueDataEventInterceptor() {
     const reloadInterfaceDataEvent = useRecoilValue(reloadInterfaceDataEventState);
     const { t } = useTranslation(["translation"]);
     const hideInterface = useRecoilValue(hideInterfaceState)
-    const setNextStepButtonVisible = useSetRecoilState(nextStepButtonVisibleState)
+    const setNextStepButtonHidden = useSetRecoilState(nextStepButtonHiddenState)
     const [{ text, character }, setDialogData] = useRecoilState(dialogDataState)
     const [menu, setMenu] = useRecoilState(choiceMenuState)
 
@@ -40,7 +40,7 @@ export default function DialogueDataEventInterceptor() {
     }, [reloadInterfaceDataEvent])
 
     useEffect(() => {
-        setNextStepButtonVisible(!hideInterface && !menu)
+        setNextStepButtonHidden(hideInterface || menu ? true : false)
     }, [menu, hideInterface])
 
     useEffect(() => {
