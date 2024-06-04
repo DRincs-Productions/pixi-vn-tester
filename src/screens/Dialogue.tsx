@@ -8,13 +8,11 @@ import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { motion } from "framer-motion";
 import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
+import { dialogDataState } from '../atoms/dialogDataState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import DragHandleDivider from '../components/DragHandleDivider';
 import Typewriter from '../components/Typewriter';
-import DialogueDataEventInterceptor from '../interceptors/DialogueDataEventInterceptor';
-import { DialogueFormModel } from '../models/DialogueFormModel';
 import { resizeWindowsHandler } from '../utility/ComponentUtility';
 import DialogueMenu from './DialogueMenu';
 import NextButton from './NextButton';
@@ -22,15 +20,6 @@ import NextButton from './NextButton';
 export default function Dialogue({ nextOnClick }: {
     nextOnClick: (props: StepLabelProps) => void,
 }) {
-    const dialogueForm = useForm<DialogueFormModel>({
-        defaultValues: {
-            character: undefined,
-            text: undefined,
-            menu: undefined,
-            showDialogueCard: true,
-            showNextButton: true,
-        },
-    });
     const [windowSize, setWindowSize] = useState({
         x: 0,
         y: 300 * GameWindowManager.screenScale,
@@ -40,17 +29,13 @@ export default function Dialogue({ nextOnClick }: {
         y: 0,
     })
     const typewriterDelay = useRecoilValue(typewriterDelayState)
-    const text = dialogueForm.getValues('text')
+    const { text, character, visible } = useRecoilValue(dialogDataState)
 
     return (
         <>
-            <DialogueDataEventInterceptor
-                dialogueForm={dialogueForm}
-            />
             <DialogueMenu
                 dialogueWindowHeight={windowSize.y + 50}
                 fullscreen={text ? false : true}
-                dialogueForm={dialogueForm}
             />
             <Box
                 sx={{
@@ -61,133 +46,97 @@ export default function Dialogue({ nextOnClick }: {
                     right: 0,
                 }}
             >
-                <Controller
-                    control={dialogueForm.control}
-                    name="showDialogueCard"
-                    render={({ field: { value: showDialogueCard } }) => (
-                        <Box
+                <Box
+                    sx={{
+                        position: "absolute",
+                        top: -5,
+                        width: "100%",
+                        zIndex: 100,
+                    }}
+                    component={motion.div}
+                    animate={{
+                        opacity: visible ? 1 : 0,
+                        y: visible ? 0 : windowSize.y,
+                        pointerEvents: visible ? "auto" : "none",
+                    }}
+                    transition={{ type: "tween" }}
+                >
+                    <DragHandleDivider
+                        orientation="horizontal"
+                        onMouseDown={(e) => resizeWindowsHandler(e, windowSize, setWindowSize)}
+                    />
+                </Box>
+                <Card
+                    orientation="horizontal"
+                    sx={{
+                        overflow: 'auto',
+                        height: windowSize.y,
+                        gap: 1,
+                    }}
+                    component={motion.div}
+                    animate={{
+                        opacity: visible ? 1 : 0,
+                        y: visible ? 0 : windowSize.y,
+                        pointerEvents: visible ? "auto" : "none",
+                    }}
+                    transition={{ type: "tween" }}
+                >
+                    {character && <>
+                        <AspectRatio
+                            flex
+                            ratio="1"
+                            maxHeight={"20%"}
                             sx={{
-                                position: "absolute",
-                                top: -5,
-                                width: "100%",
-                                zIndex: 100,
+                                height: "100%",
+                                minWidth: imageSize.x,
                             }}
-                            component={motion.div}
-                            animate={{
-                                opacity: showDialogueCard ? 1 : 0,
-                                y: showDialogueCard ? 0 : windowSize.y,
-                                pointerEvents: showDialogueCard ? "auto" : "none",
-                            }}
-                            transition={{ type: "tween" }}
                         >
-                            <DragHandleDivider
-                                orientation="horizontal"
-                                onMouseDown={(e) => resizeWindowsHandler(e, windowSize, setWindowSize)}
+                            <img
+                                src={character.icon}
+                                loading="lazy"
+                                alt=""
                             />
-                        </Box>
-                    )}
-                />
-                <Controller
-                    control={dialogueForm.control}
-                    name="showDialogueCard"
-                    render={({ field: { value: showDialogueCard } }) => (
-                        <Card
-                            orientation="horizontal"
+                        </AspectRatio>
+                        <DragHandleDivider
+                            orientation="vertical"
+                            onMouseDown={(e) => resizeWindowsHandler(e, imageSize, setImageSize)}
                             sx={{
-                                overflow: 'auto',
-                                height: windowSize.y,
-                                gap: 1,
+                                width: 0,
+                                left: -8,
                             }}
-                            component={motion.div}
-                            animate={{
-                                opacity: showDialogueCard ? 1 : 0,
-                                y: showDialogueCard ? 0 : windowSize.y,
-                                pointerEvents: showDialogueCard ? "auto" : "none",
-                            }}
-                            transition={{ type: "tween" }}
-                        >
-                            <Controller
-                                control={dialogueForm.control}
-                                name="character"
-                                render={({ field: { value: character } }) => {
-                                    if (!character?.icon) {
-                                        return <></>
-                                    }
-                                    return (<>
-                                        <AspectRatio
-                                            flex
-                                            ratio="1"
-                                            maxHeight={"20%"}
-                                            sx={{
-                                                height: "100%",
-                                                minWidth: imageSize.x,
-                                            }}
-                                        >
-                                            <img
-                                                src={character.icon}
-                                                loading="lazy"
-                                                alt=""
-                                            />
-                                        </AspectRatio>
-                                        <DragHandleDivider
-                                            orientation="vertical"
-                                            onMouseDown={(e) => resizeWindowsHandler(e, imageSize, setImageSize)}
-                                            sx={{
-                                                width: 0,
-                                                left: -8,
-                                            }}
-                                        />
-                                    </>)
-                                }}
-                            />
-                            <CardContent>
-                                <Controller
-                                    control={dialogueForm.control}
-                                    name="character"
-                                    render={({ field: { value: character } }) => (
-                                        <>
-                                            {character && character.name && <Typography fontSize="xl" fontWeight="lg"
-                                                sx={{
-                                                    color: character.color,
-                                                }}
-
-                                            >
-                                                {character.name + (character.surname ? " " + character.surname : "")}
-                                            </Typography>}
-                                        </>
-                                    )}
-                                />
-                                <Sheet
-                                    sx={{
-                                        bgcolor: 'background.level1',
-                                        borderRadius: 'sm',
-                                        p: 1.5,
-                                        minHeight: 10,
-                                        display: 'flex',
-                                        flex: 1,
-                                        overflow: 'auto',
-                                    }}
-                                >
-                                    {typewriterDelay !== 0
-                                        ? <Typewriter
-                                            text={text || ""}
-                                            delay={localStorage.getItem('typewriter_delay_millisecond')! as unknown as number}
-                                        />
-                                        : text}
-                                </Sheet>
-                            </CardContent>
-                        </Card>
-                    )}
-                />
-                <Controller
-                    control={dialogueForm.control}
-                    name="showNextButton"
-                    render={({ field: { value: showNextButton } }) => (
-                        <NextButton
-                            nextOnClick={nextOnClick}
-                            showNextButton={showNextButton}
                         />
-                    )}
+                    </>}
+                    <CardContent>
+                        {character && character.name && <Typography fontSize="xl" fontWeight="lg"
+                            sx={{
+                                color: character.color,
+                            }}
+
+                        >
+                            {character.name + (character.surname ? " " + character.surname : "")}
+                        </Typography>}
+                        <Sheet
+                            sx={{
+                                bgcolor: 'background.level1',
+                                borderRadius: 'sm',
+                                p: 1.5,
+                                minHeight: 10,
+                                display: 'flex',
+                                flex: 1,
+                                overflow: 'auto',
+                            }}
+                        >
+                            {typewriterDelay !== 0
+                                ? <Typewriter
+                                    text={text || ""}
+                                    delay={localStorage.getItem('typewriter_delay_millisecond')! as unknown as number}
+                                />
+                                : text}
+                        </Sheet>
+                    </CardContent>
+                </Card>
+                <NextButton
+                    nextOnClick={nextOnClick}
                 />
             </Box>
         </>

@@ -4,16 +4,17 @@ import { motion } from "framer-motion";
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { nextStepButtonVisibleState } from '../atoms/nextStepButtonVisibleState';
 import { nextStepLoadingState } from '../atoms/nextStepLoadingState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
-export default function NextButton({ showNextButton, nextOnClick }: {
-    showNextButton: boolean,
+export default function NextButton({ nextOnClick }: {
     nextOnClick: (props: StepLabelProps) => void,
 }) {
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const nextStepLoading = useRecoilValue(nextStepLoadingState)
+    const nextStepButtonVisible = useRecoilValue(nextStepButtonVisibleState)
     const navigate = useMyNavigate();
     const { t } = useTranslation(["translation"]);
     useEffect(() => {
@@ -61,9 +62,9 @@ export default function NextButton({ showNextButton, nextOnClick }: {
             }}
             component={motion.div}
             animate={{
-                opacity: showNextButton ? 1 : 0,
-                y: showNextButton ? 0 : 0,
-                pointerEvents: showNextButton ? "auto" : "none",
+                opacity: nextStepButtonVisible ? 1 : 0,
+                y: nextStepButtonVisible ? 0 : 0,
+                pointerEvents: nextStepButtonVisible ? "auto" : "none",
             }}
             transition={{ type: "spring" }}
         >

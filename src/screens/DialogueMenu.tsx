@@ -2,24 +2,21 @@ import { ChoiceMenuOption, ChoiceMenuOptionClose, clearChoiceMenuOptions, GameSt
 import { Box, Grid } from '@mui/joy';
 import { motion, Variants } from "framer-motion";
 import { useEffect, useState } from 'react';
-import { UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { choiceMenuState } from '../atoms/choiceMenuState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import DialogueMenuButton from '../components/DialogueMenuButton';
-import { DialogueFormModel } from '../models/DialogueFormModel';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 type IProps = {
-    dialogueForm: UseFormReturn<DialogueFormModel, any, undefined>,
     dialogueWindowHeight: number,
     fullscreen?: boolean,
 }
 
 export default function DialogueMenu(props: IProps) {
     const {
-        dialogueForm,
         dialogueWindowHeight,
         fullscreen = true,
     } = props;
@@ -29,7 +26,7 @@ export default function DialogueMenu(props: IProps) {
     const navigate = useMyNavigate();
     const hideInterface = useRecoilValue(hideInterfaceState)
     const [showList, setShowList] = useState(false)
-    const menu = dialogueForm.watch("menu")
+    const menu = useRecoilValue(choiceMenuState)
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventState);
     useEffect(() => {
         if (!menu || !(menu.length > 0)) {

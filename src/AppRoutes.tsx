@@ -5,6 +5,7 @@ import { useSetRecoilState } from 'recoil';
 import { canGoBackState } from './atoms/canGoBackState';
 import { nextStepLoadingState } from './atoms/nextStepLoadingState';
 import { reloadInterfaceDataEventState } from './atoms/reloadInterfaceDataEventState';
+import DialogueDataEventInterceptor from './interceptors/DialogueDataEventInterceptor';
 import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
 import Dialogue from './screens/Dialogue';
 import History from './screens/History';
@@ -37,6 +38,7 @@ export default function AppRoutes() {
                 element={<>
                     <History />
                     <QuickActions />
+                    <DialogueDataEventInterceptor />
                     <Dialogue
                         nextOnClick={nextOnClick}
                     />

@@ -1,45 +1,57 @@
 import { CharacterBaseModel, getCharacterById, getChoiceMenuOptions, getDialogue } from '@drincs/pixi-vn';
 import { useEffect } from 'react';
-import { UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { choiceMenuState } from '../atoms/choiceMenuState';
+import { dialogDataState } from '../atoms/dialogDataState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
+import { nextStepButtonVisibleState } from '../atoms/nextStepButtonVisibleState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
-import { DialogueFormModel } from '../models/DialogueFormModel';
 
-export default function DialogueDataEventInterceptor({ dialogueForm }: {
-    dialogueForm: UseFormReturn<DialogueFormModel, any, undefined>,
-}) {
+export default function DialogueDataEventInterceptor() {
     const reloadInterfaceDataEvent = useRecoilValue(reloadInterfaceDataEventState);
     const { t } = useTranslation(["translation"]);
-    const menu = dialogueForm.watch("menu")
-    const text = dialogueForm.watch("text")
     const hideInterface = useRecoilValue(hideInterfaceState)
+    const setNextStepButtonVisible = useSetRecoilState(nextStepButtonVisibleState)
+    const [{ text, character }, setDialogData] = useRecoilState(dialogDataState)
+    const [menu, setMenu] = useRecoilState(choiceMenuState)
 
     useEffect(() => {
         let dial = getDialogue()
+        let newText: string | undefined = dial?.text
+        let newCharacter: CharacterBaseModel | undefined = undefined
         if (dial) {
-            dialogueForm.setValue("text", dial.text)
-            let c: CharacterBaseModel | undefined = dial.characterId ? getCharacterById(dial.characterId) : undefined
-            if (!c && dial.characterId) {
-                c = new CharacterBaseModel(dial.characterId, { name: t(dial.characterId) })
+            newCharacter = dial.characterId ? getCharacterById(dial.characterId) : undefined
+            if (!newCharacter && dial.characterId) {
+                newCharacter = new CharacterBaseModel(dial.characterId, { name: t(dial.characterId) })
             }
-            dialogueForm.setValue("character", c ?? null)
         }
-        else {
-            dialogueForm.setValue("text", undefined)
-            dialogueForm.setValue("character", null)
-        }
+        try {
+            if (dial !== text || newCharacter !== character) {
+                setDialogData((prev) => {
+                    return {
+                        ...prev,
+                        text: newText,
+                        character: newCharacter,
+                    }
+                })
+            }
+        } catch (e) { }
         let m = getChoiceMenuOptions()
-        dialogueForm.setValue("menu", m)
+        setMenu(m)
     }, [reloadInterfaceDataEvent])
 
     useEffect(() => {
-        dialogueForm.setValue("showNextButton", !hideInterface && !menu)
+        setNextStepButtonVisible(!hideInterface && !menu)
     }, [menu, hideInterface])
 
     useEffect(() => {
-        dialogueForm.setValue("showDialogueCard", !hideInterface && text ? true : false)
+        setDialogData((prev) => {
+            return {
+                ...prev,
+                visible: !hideInterface && text ? true : false,
+            }
+        })
     }, [text, hideInterface])
 
     return null
