@@ -11,17 +11,17 @@ import DialogueMenuButton from '../components/DialogueMenuButton';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 type IProps = {
-    dialogueWindowHeight: number,
+    marginButton: number,
     fullscreen?: boolean,
 }
 
-export default function DialogueMenu(props: IProps) {
+export default function ChoiceMenu(props: IProps) {
     const {
-        dialogueWindowHeight,
+        marginButton,
         fullscreen = true,
     } = props;
     const [loading, setLoading] = useState(false)
-    const height = GameWindowManager.screenHeight - dialogueWindowHeight
+    const height = GameWindowManager.screenHeight - marginButton
     const { t } = useTranslation(["translation"]);
     const navigate = useMyNavigate();
     const hideInterface = useRecoilValue(hideInterfaceState)
