@@ -29,7 +29,7 @@ export default function Dialogue({ nextOnClick }: {
         y: 0,
     })
     const typewriterDelay = useRecoilValue(typewriterDelayState)
-    const { text, character, visible } = useRecoilValue(dialogDataState)
+    const { text, character, hidden } = useRecoilValue(dialogDataState)
 
     return (
         <>
@@ -55,9 +55,9 @@ export default function Dialogue({ nextOnClick }: {
                     }}
                     component={motion.div}
                     animate={{
-                        opacity: visible ? 1 : 0,
-                        y: visible ? 0 : windowSize.y,
-                        pointerEvents: visible ? "auto" : "none",
+                        opacity: hidden ? 0 : 1,
+                        y: hidden ? windowSize.y : 0,
+                        pointerEvents: hidden ? "none" : "auto",
                     }}
                     transition={{ type: "tween" }}
                 >
@@ -75,9 +75,9 @@ export default function Dialogue({ nextOnClick }: {
                     }}
                     component={motion.div}
                     animate={{
-                        opacity: visible ? 1 : 0,
-                        y: visible ? 0 : windowSize.y,
-                        pointerEvents: visible ? "auto" : "none",
+                        opacity: hidden ? 0 : 1,
+                        y: hidden ? windowSize.y : 0,
+                        pointerEvents: hidden ? "none" : "auto",
                     }}
                     transition={{ type: "tween" }}
                 >

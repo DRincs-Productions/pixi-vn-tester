@@ -4,12 +4,12 @@ import { atom } from "recoil";
 export const dialogDataState = atom<{
     character?: CharacterBaseModel,
     text?: string,
-    visible: boolean,
+    hidden: boolean,
 }>({
     key: 'dialogDataState',
     default: {
         character: undefined,
         text: undefined,
-        visible: true,
+        hidden: true,
     },
 })

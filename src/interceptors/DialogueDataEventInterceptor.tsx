@@ -31,7 +31,7 @@ export default function DialogueDataEventInterceptor() {
                 setDialogData({
                     text: newText,
                     character: newCharacter,
-                    visible: !hideInterface && newText ? true : false,
+                    hidden: !hideInterface || newText ? false : true,
                 })
             }
         } catch (e) { }
