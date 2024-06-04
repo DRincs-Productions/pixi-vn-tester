@@ -1,18 +1,18 @@
 import { StepLabelProps } from '@drincs/pixi-vn/dist/override';
 import { useEffect, useState } from 'react';
-import { UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { InterfaceInfoFormModel } from '../models/InterfaceInfoFormModel';
+import { useRecoilValue } from 'recoil';
+import { autoEnabledState } from '../atoms/autoEnabledState';
+import { skipEnabledState } from '../atoms/skipEnabledState';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
-export default function SkipAutoInterceptor({ interfaceInfoForm, nextOnClick }: {
+export default function SkipAutoInterceptor({ nextOnClick }: {
     nextOnClick: (props: StepLabelProps) => Promise<void>,
-    interfaceInfoForm: UseFormReturn<InterfaceInfoFormModel, any, undefined>,
 }) {
     const navigate = useMyNavigate();
     const { t } = useTranslation(["translation"]);
-    const skipEnabled = interfaceInfoForm.watch('skipEnabled')
-    const autoEnabled = interfaceInfoForm.watch('autoEnabled')
+    const skipEnabled = useRecoilValue(skipEnabledState)
+    const autoEnabled = useRecoilValue(autoEnabledState)
     const [recheckSkipAuto, setRecheckSkipAuto] = useState<number>(0)
 
     useEffect(() => {

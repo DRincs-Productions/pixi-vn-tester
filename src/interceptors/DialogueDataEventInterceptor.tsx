@@ -1,4 +1,4 @@
-import { CharacterBaseModel, GameStepManager, getCharacterById, getChoiceMenuOptions, getDialogue } from '@drincs/pixi-vn';
+import { CharacterBaseModel, getCharacterById, getChoiceMenuOptions, getDialogue } from '@drincs/pixi-vn';
 import { useEffect } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -6,11 +6,9 @@ import { useRecoilValue } from 'recoil';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import { DialogueFormModel } from '../models/DialogueFormModel';
-import { InterfaceInfoFormModel } from '../models/InterfaceInfoFormModel';
 
-export default function DialogueDataEventInterceptor({ dialogueForm, interfaceInfoForm }: {
+export default function DialogueDataEventInterceptor({ dialogueForm }: {
     dialogueForm: UseFormReturn<DialogueFormModel, any, undefined>,
-    interfaceInfoForm: UseFormReturn<InterfaceInfoFormModel, any, undefined>,
 }) {
     const reloadInterfaceDataEvent = useRecoilValue(reloadInterfaceDataEventState);
     const { t } = useTranslation(["translation"]);
@@ -34,7 +32,6 @@ export default function DialogueDataEventInterceptor({ dialogueForm, interfaceIn
         }
         let m = getChoiceMenuOptions()
         dialogueForm.setValue("menu", m)
-        interfaceInfoForm.setValue("canGoBack", GameStepManager.canGoBack)
     }, [reloadInterfaceDataEvent])
 
     useEffect(() => {

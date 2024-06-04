@@ -1,6 +1,5 @@
 import { GameWindowManager } from '@drincs/pixi-vn';
 import { StepLabelProps } from '@drincs/pixi-vn/dist/override';
-import { Button } from '@mui/joy';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
@@ -8,22 +7,19 @@ import CardContent from '@mui/joy/CardContent';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { motion } from "framer-motion";
-import { useEffect, useState } from 'react';
-import { Controller, useForm, UseFormReturn } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import DragHandleDivider from '../components/DragHandleDivider';
 import Typewriter from '../components/Typewriter';
 import DialogueDataEventInterceptor from '../interceptors/DialogueDataEventInterceptor';
 import { DialogueFormModel } from '../models/DialogueFormModel';
-import { InterfaceInfoFormModel } from '../models/InterfaceInfoFormModel';
 import { resizeWindowsHandler } from '../utility/ComponentUtility';
-import { useMyNavigate } from '../utility/useMyNavigate';
 import DialogueMenu from './DialogueMenu';
+import NextButton from './NextButton';
 
-export default function Dialogue({ interfaceInfoForm, nextOnClick }: {
-    interfaceInfoForm: UseFormReturn<InterfaceInfoFormModel, any, undefined>,
+export default function Dialogue({ nextOnClick }: {
     nextOnClick: (props: StepLabelProps) => void,
 }) {
     const dialogueForm = useForm<DialogueFormModel>({
@@ -43,35 +39,13 @@ export default function Dialogue({ interfaceInfoForm, nextOnClick }: {
         x: 300 * GameWindowManager.screenScale,
         y: 0,
     })
-
-    const navigate = useMyNavigate();
-    const { t } = useTranslation(["translation"]);
     const typewriterDelay = useRecoilValue(typewriterDelayState)
     const text = dialogueForm.getValues('text')
-
-    useEffect(() => {
-        window.addEventListener('keydown', onkeydown);
-
-        return () => {
-            window.removeEventListener('keydown', onkeydown);
-        };
-    }, []);
-
-    function onkeydown(event: KeyboardEvent) {
-        if (event.code == 'Enter' || event.code == 'Space') {
-            nextOnClick({
-                t,
-                navigate,
-            })
-            interfaceInfoForm.setValue('skipEnabled', false)
-        }
-    }
 
     return (
         <>
             <DialogueDataEventInterceptor
                 dialogueForm={dialogueForm}
-                interfaceInfoForm={interfaceInfoForm}
             />
             <DialogueMenu
                 dialogueWindowHeight={windowSize.y + 50}
@@ -209,41 +183,9 @@ export default function Dialogue({ interfaceInfoForm, nextOnClick }: {
                     control={dialogueForm.control}
                     name="showNextButton"
                     render={({ field: { value: showNextButton } }) => (
-                        <Controller
-                            control={interfaceInfoForm.control}
-                            name="nextStepLoading"
-                            render={({ field: { value: loading } }) => (
-                                <Button
-                                    variant="solid"
-                                    color="primary"
-                                    size="sm"
-                                    loading={loading}
-                                    sx={{
-                                        position: "absolute",
-                                        bottom: -10,
-                                        right: 0,
-                                        width: { xs: 70, sm: 100, md: 150 },
-                                        border: 3,
-                                        zIndex: 100,
-                                    }}
-                                    onClick={() => {
-                                        interfaceInfoForm.setValue('skipEnabled', false)
-                                        nextOnClick({
-                                            t,
-                                            navigate,
-                                        })
-                                    }}
-                                    component={motion.div}
-                                    animate={{
-                                        opacity: showNextButton ? 1 : 0,
-                                        y: showNextButton ? 0 : 0,
-                                        pointerEvents: showNextButton ? "auto" : "none",
-                                    }}
-                                    transition={{ type: "spring" }}
-                                >
-                                    {t("next")}
-                                </Button>
-                            )}
+                        <NextButton
+                            nextOnClick={nextOnClick}
+                            showNextButton={showNextButton}
                         />
                     )}
                 />

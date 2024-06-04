@@ -2,22 +2,21 @@ import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import { Button, Grid, Typography } from '@mui/joy';
 import { motion } from "framer-motion";
 import { useState } from 'react';
-import { Controller, UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { autoEnabledState } from '../atoms/autoEnabledState';
+import { canGoBackState } from '../atoms/canGoBackState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openHistoryState } from '../atoms/openHistoryState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
+import { skipEnabledState } from '../atoms/skipEnabledState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TextMenuButton from '../components/TextMenuButton';
-import { InterfaceInfoFormModel } from '../models/InterfaceInfoFormModel';
 import { addQuickSave, goBack, loadGameSave, loadQuickSave, saveGame } from '../utility/ActionsUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
-export default function QuickActions({ interfaceInfoForm }: {
-    interfaceInfoForm: UseFormReturn<InterfaceInfoFormModel, any, undefined>,
-}) {
+export default function QuickActions() {
     const setOpenSettings = useSetRecoilState(openSettingsState);
     const setOpenHistory = useSetRecoilState(openHistoryState);
     const navigate = useMyNavigate();
@@ -25,6 +24,9 @@ export default function QuickActions({ interfaceInfoForm }: {
     const [openYouSure, setOpenYouSure] = useState(false)
     const { t } = useTranslation(["translation"]);
     const hideInterface = useRecoilValue(hideInterfaceState)
+    const [skip, setSkip] = useRecoilState(skipEnabledState)
+    const [auto, setAuto] = useRecoilState(autoEnabledState)
+    const canGoBack = useRecoilValue(canGoBackState)
 
     return (
         <>
@@ -52,19 +54,13 @@ export default function QuickActions({ interfaceInfoForm }: {
                 <Grid
                     paddingY={0}
                 >
-                    <Controller
-                        control={interfaceInfoForm.control}
-                        name="canGoBack"
-                        render={({ field: { value } }) => (
-                            <TextMenuButton
-                                onClick={() => goBack(navigate, () => { notifyLoadEvent((prev) => prev + 1) })}
-                                disabled={!value}
-                                sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
-                            >
-                                {t("back")}
-                            </TextMenuButton>
-                        )}
-                    />
+                    <TextMenuButton
+                        onClick={() => goBack(navigate, () => { notifyLoadEvent((prev) => prev + 1) })}
+                        disabled={!canGoBack}
+                        sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
+                    >
+                        {t("back")}
+                    </TextMenuButton>
                 </Grid>
                 <Grid
                     paddingY={0}
@@ -79,36 +75,24 @@ export default function QuickActions({ interfaceInfoForm }: {
                 <Grid
                     paddingY={0}
                 >
-                    <Controller
-                        control={interfaceInfoForm.control}
-                        name="skipEnabled"
-                        render={({ field: { value: skip, } }) => (
-                            <TextMenuButton
-                                selected={skip}
-                                onClick={() => interfaceInfoForm.setValue("skipEnabled", !skip)}
-                                sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
-                            >
-                                {t("skip")}
-                            </TextMenuButton>
-                        )}
-                    />
+                    <TextMenuButton
+                        selected={skip}
+                        onClick={() => setSkip((prev) => !prev)}
+                        sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
+                    >
+                        {t("skip")}
+                    </TextMenuButton>
                 </Grid>
                 <Grid
                     paddingY={0}
                 >
-                    <Controller
-                        control={interfaceInfoForm.control}
-                        name="autoEnabled"
-                        render={({ field: { value: auto, } }) => (
-                            <TextMenuButton
-                                selected={auto}
-                                onClick={() => interfaceInfoForm.setValue("autoEnabled", !auto)}
-                                sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
-                            >
-                                {t("auto_forward_time_restricted")}
-                            </TextMenuButton>
-                        )}
-                    />
+                    <TextMenuButton
+                        selected={auto}
+                        onClick={() => setAuto((prev) => !prev)}
+                        sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
+                    >
+                        {t("auto_forward_time_restricted")}
+                    </TextMenuButton>
                 </Grid>
                 <Grid
                     paddingY={0}
