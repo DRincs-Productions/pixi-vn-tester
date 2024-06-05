@@ -61,10 +61,19 @@ export default function NextButton({ nextOnClick }: {
                 })
             }}
             component={motion.div}
-            animate={{
-                opacity: nextStepButtonHidden ? 0 : 1,
-                pointerEvents: nextStepButtonHidden ? "none" : "auto",
+            variants={{
+                open: {
+                    opacity: 1,
+                    pointerEvents: "auto",
+                },
+                closed: {
+                    opacity: 0,
+                    pointerEvents: "none",
+                }
             }}
+            initial={"closed"}
+            animate={nextStepButtonHidden ? "closed" : "open"}
+            exit={"closed"}
             transition={{ type: "spring" }}
         >
             {t("next")}
