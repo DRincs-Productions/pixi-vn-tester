@@ -47,10 +47,10 @@ export default function DialogueDataEventInterceptor() {
         setDialogData((prev) => {
             return {
                 ...prev,
-                visible: !hideInterface && prev.text ? true : false,
+                hidden: hideInterface || (text ? false : true),
             }
         })
-    }, [hideInterface])
+    }, [hideInterface, text])
 
     return null
 }
