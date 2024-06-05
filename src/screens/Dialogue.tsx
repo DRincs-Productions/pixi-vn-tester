@@ -6,7 +6,7 @@ import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { dialogDataState } from '../atoms/dialogDataState';
@@ -46,98 +46,120 @@ export default function Dialogue({ nextOnClick }: {
                     right: 0,
                 }}
             >
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: -5,
-                        width: "100%",
-                        zIndex: 100,
-                    }}
-                    component={motion.div}
-                    animate={{
-                        opacity: hidden ? 0 : 1,
-                        y: hidden ? windowSize.y : 0,
-                        pointerEvents: hidden ? "none" : "auto",
-                    }}
-                    transition={{ type: "tween" }}
-                >
-                    <DragHandleDivider
-                        orientation="horizontal"
-                        onMouseDown={(e) => resizeWindowsHandler(e, windowSize, setWindowSize)}
-                    />
-                </Box>
-                <Card
-                    orientation="horizontal"
-                    sx={{
-                        overflow: 'auto',
-                        height: windowSize.y,
-                        gap: 1,
-                    }}
-                    component={motion.div}
-                    animate={{
-                        opacity: hidden ? 0 : 1,
-                        y: hidden ? windowSize.y : 0,
-                        pointerEvents: hidden ? "none" : "auto",
-                    }}
-                    transition={{ type: "tween" }}
-                >
-                    {character && <>
-                        <AspectRatio
-                            flex
-                            ratio="1"
-                            maxHeight={"20%"}
-                            sx={{
-                                height: "100%",
-                                minWidth: imageSize.x,
-                            }}
-                        >
-                            <img
-                                src={character.icon}
-                                loading="lazy"
-                                alt=""
-                            />
-                        </AspectRatio>
+                <AnimatePresence>
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            top: -5,
+                            width: "100%",
+                            zIndex: 100,
+                        }}
+                        component={motion.div}
+                        variants={{
+                            open: {
+                                opacity: 1,
+                                y: 0,
+                                pointerEvents: "auto",
+                            },
+                            closed: {
+                                opacity: 0,
+                                y: windowSize.y,
+                                pointerEvents: "none",
+                            }
+                        }}
+                        initial={"closed"}
+                        animate={hidden ? "closed" : "open"}
+                        exit={"closed"}
+                        transition={{ type: "tween" }}
+                    >
                         <DragHandleDivider
-                            orientation="vertical"
-                            onMouseDown={(e) => resizeWindowsHandler(e, imageSize, setImageSize)}
-                            sx={{
-                                width: 0,
-                                left: -8,
-                            }}
+                            orientation="horizontal"
+                            onMouseDown={(e) => resizeWindowsHandler(e, windowSize, setWindowSize)}
                         />
-                    </>}
-                    <CardContent>
-                        {character && character.name && <Typography fontSize="xl" fontWeight="lg"
-                            sx={{
-                                color: character.color,
-                            }}
-
-                        >
-                            {character.name + (character.surname ? " " + character.surname : "")}
-                        </Typography>}
-                        <Sheet
-                            sx={{
-                                bgcolor: 'background.level1',
-                                borderRadius: 'sm',
-                                p: 1.5,
-                                minHeight: 10,
-                                display: 'flex',
-                                flex: 1,
-                                overflow: 'auto',
-                            }}
-                        >
-                            {typewriterDelay !== 0
-                                ? <Typewriter
-                                    text={text || ""}
-                                    delay={localStorage.getItem('typewriter_delay_millisecond')! as unknown as number}
+                    </Box>
+                    <Card
+                        orientation="horizontal"
+                        sx={{
+                            overflow: 'auto',
+                            height: windowSize.y,
+                            gap: 1,
+                        }}
+                        component={motion.div}
+                        variants={{
+                            open: {
+                                opacity: 1,
+                                y: 0,
+                                pointerEvents: "auto",
+                            },
+                            closed: {
+                                opacity: 0,
+                                y: windowSize.y,
+                                pointerEvents: "none",
+                            }
+                        }}
+                        initial={"closed"}
+                        animate={hidden ? "closed" : "open"}
+                        exit={"closed"}
+                        transition={{ type: "tween" }}
+                    >
+                        {character && <>
+                            <AspectRatio
+                                flex
+                                ratio="1"
+                                maxHeight={"20%"}
+                                sx={{
+                                    height: "100%",
+                                    minWidth: imageSize.x,
+                                }}
+                            >
+                                <img
+                                    src={character.icon}
+                                    loading="lazy"
+                                    alt=""
                                 />
-                                : text}
-                        </Sheet>
-                    </CardContent>
-                </Card>
-                <NextButton
-                    nextOnClick={nextOnClick}
-                />
+                            </AspectRatio>
+                            <DragHandleDivider
+                                orientation="vertical"
+                                onMouseDown={(e) => resizeWindowsHandler(e, imageSize, setImageSize)}
+                                sx={{
+                                    width: 0,
+                                    left: -8,
+                                }}
+                            />
+                        </>}
+                        <CardContent>
+                            {character && character.name && <Typography fontSize="xl" fontWeight="lg"
+                                sx={{
+                                    color: character.color,
+                                }}
+
+                            >
+                                {character.name + (character.surname ? " " + character.surname : "")}
+                            </Typography>}
+                            <Sheet
+                                sx={{
+                                    bgcolor: 'background.level1',
+                                    borderRadius: 'sm',
+                                    p: 1.5,
+                                    minHeight: 10,
+                                    display: 'flex',
+                                    flex: 1,
+                                    overflow: 'auto',
+                                }}
+                            >
+                                {typewriterDelay !== 0
+                                    ? <Typewriter
+                                        text={text || ""}
+                                        delay={localStorage.getItem('typewriter_delay_millisecond')! as unknown as number}
+                                    />
+                                    : text}
+                            </Sheet>
+                        </CardContent>
+                    </Card>
+                    <NextButton
+                        nextOnClick={nextOnClick}
+                    />
+                </AnimatePresence>
             </Box>
         </>
     );
