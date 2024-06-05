@@ -74,7 +74,6 @@ export default function NextButton({ nextOnClick }: {
             initial={"closed"}
             animate={nextStepButtonHidden ? "closed" : "open"}
             exit={"closed"}
-            transition={{ type: "spring" }}
         >
             {t("next")}
         </Button>
