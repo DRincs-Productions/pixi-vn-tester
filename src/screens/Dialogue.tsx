@@ -102,40 +102,96 @@ export default function Dialogue({ nextOnClick }: {
                         exit={"closed"}
                         transition={{ type: "tween" }}
                     >
-                        {character && <>
-                            <AspectRatio
-                                flex
-                                ratio="1"
-                                maxHeight={"20%"}
-                                sx={{
-                                    height: "100%",
-                                    minWidth: imageSize.x,
-                                }}
-                            >
-                                <img
-                                    src={character.icon}
-                                    loading="lazy"
-                                    alt=""
-                                />
-                            </AspectRatio>
+                        {character && <AspectRatio
+                            flex
+                            ratio="1"
+                            maxHeight={"20%"}
+                            sx={{
+                                height: "100%",
+                                minWidth: imageSize.x,
+                            }}
+                            component={motion.div}
+                            variants={{
+                                open: {
+                                    opacity: 1,
+                                    scale: 1,
+                                    pointerEvents: "auto",
+                                },
+                                closed: {
+                                    opacity: 0,
+                                    scale: 0,
+                                    pointerEvents: "none",
+                                }
+                            }}
+                            initial={"closed"}
+                            animate={character?.icon ? "open" : "closed"}
+                            exit={"closed"}
+                            transition={{ type: "tween" }}
+                        >
+                            <img
+                                src={character?.icon}
+                                loading="lazy"
+                                alt=""
+                            />
+                        </AspectRatio>}
+                        {character && <Box
+                            component={motion.div}
+                            variants={{
+                                open: {
+                                    opacity: 1,
+                                    x: 0,
+                                    pointerEvents: "auto",
+                                },
+                                closed: {
+                                    opacity: 0,
+                                    x: -100,
+                                    pointerEvents: "none",
+                                }
+                            }}
+                            initial={"closed"}
+                            animate={character?.icon ? "open" : "closed"}
+                            exit={"closed"}
+                            transition={{ type: "tween" }}
+                        >
                             <DragHandleDivider
                                 orientation="vertical"
                                 onMouseDown={(e) => resizeWindowsHandler(e, imageSize, setImageSize)}
                                 sx={{
                                     width: 0,
+                                    height: "100%",
                                     left: -8,
                                 }}
                             />
-                        </>}
+                        </Box>}
                         <CardContent>
-                            {character && character.name && <Typography fontSize="xl" fontWeight="lg"
-                                sx={{
-                                    color: character.color,
-                                }}
-
-                            >
-                                {character.name + (character.surname ? " " + character.surname : "")}
-                            </Typography>}
+                            <AnimatePresence>
+                                {character && character.name && <Typography
+                                    key={character.name}
+                                    fontSize="xl"
+                                    fontWeight="lg"
+                                    sx={{
+                                        color: character.color,
+                                    }}
+                                    component={motion.div}
+                                    variants={{
+                                        open: {
+                                            opacity: 1,
+                                            pointerEvents: "auto",
+                                            scale: 1,
+                                        },
+                                        closed: {
+                                            opacity: 0,
+                                            pointerEvents: "none",
+                                            scale: 0,
+                                        }
+                                    }}
+                                    initial={"closed"}
+                                    animate={character.name ? "open" : "closed"}
+                                    exit={"closed"}
+                                >
+                                    {character.name + (character.surname ? " " + character.surname : "")}
+                                </Typography>}
+                            </AnimatePresence>
                             <Sheet
                                 sx={{
                                     bgcolor: 'background.level1',
