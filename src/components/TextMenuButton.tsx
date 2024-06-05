@@ -21,6 +21,7 @@ export default function TextMenuButton(props: TextMenuButtonProps) {
         <Link
             sx={{
                 fontSize: { xs: "0.6rem", sm: "0.7rem", md: "0.8rem", lg: "1rem", xl: "1.1rem" },
+                userSelect: "none",
                 ...sx
             }}
             disabled={disabled}
