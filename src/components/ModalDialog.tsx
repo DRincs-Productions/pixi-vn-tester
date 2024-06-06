@@ -1,7 +1,7 @@
 import { DialogActions, DialogContent, Divider, ModalClose } from '@mui/joy';
 import Modal from '@mui/joy/Modal';
 import ModalDialog, { ModalDialogProps } from '@mui/joy/ModalDialog';
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from 'react';
 
 interface ModalDialogCustomProps extends ModalDialogProps {
@@ -37,53 +37,65 @@ export default function ModalDialogCustom(props: ModalDialogCustomProps) {
     }, [open])
 
     return (
-        <Modal
-            keepMounted
-            open={internalOpen}
-            onClose={() => setOpen(false)}
-            component={motion.div}
-            initial={{
-                opacity: 0
-            }}
-            animate={{
-                opacity: open ? 1 : 0,
-            }}
-            exit={{
-                opacity: 0
-            }}
-            transition={{
-                duration: 0.4,
-            }}
-        >
-            <ModalDialog
-                sx={{
-                    ...sx,
-                }}
+        <AnimatePresence>
+            <Modal
+                keepMounted
+                open={internalOpen}
+                onClose={() => setOpen(false)}
                 component={motion.div}
-                initial={{
-                    opacity: 0,
+                variants={{
+                    open: {
+                        opacity: 1,
+                        pointerEvents: "auto",
+                        backdropFilter: "blur(8px)",
+                    },
+                    closed: {
+                        opacity: 0,
+                        pointerEvents: "none",
+                        backdropFilter: "blur(0px)",
+                    }
                 }}
-                animate={{
-                    opacity: open ? 1 : 0,
-                }}
-                exit={{
-                    opacity: 0,
-                }}
+                initial={"closed"}
+                animate={open ? "open" : "closed"}
+                exit={"closed"}
                 transition={{
-                    duration: 0.3,
+                    duration: 0.4,
                 }}
-                {...rest}
             >
-                <ModalClose />
-                {head}
-                <Divider />
-                <DialogContent>
-                    {children}
-                </DialogContent>
-                {actions && <DialogActions>
-                    {actions}
-                </DialogActions>}
-            </ModalDialog>
-        </Modal>
+                <ModalDialog
+                    sx={{
+                        ...sx,
+                    }}
+                    component={motion.div}
+                    variants={{
+                        open: {
+                            opacity: 1,
+                            pointerEvents: "auto",
+                        },
+                        closed: {
+                            opacity: 0,
+                            pointerEvents: "none",
+                        }
+                    }}
+                    initial={"closed"}
+                    animate={internalOpen ? "open" : "closed"}
+                    exit={"closed"}
+                    transition={{
+                        duration: 0.3,
+                    }}
+                    {...rest}
+                >
+                    <ModalClose />
+                    {head}
+                    <Divider />
+                    <DialogContent>
+                        {children}
+                    </DialogContent>
+                    {actions && <DialogActions>
+                        {actions}
+                    </DialogActions>}
+                </ModalDialog>
+            </Modal>
+        </AnimatePresence>
     );
 }
