@@ -140,7 +140,7 @@ export default function ChoicesMenu(props: IProps) {
                 {menu?.map((item, index) => {
                     return (
                         <Grid
-                            key={index}
+                            key={"choice-" + index}
                             justifyContent="center"
                             alignItems="center"
                             component={motion.div}

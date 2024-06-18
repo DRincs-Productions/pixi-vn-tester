@@ -166,7 +166,6 @@ export default function Dialogue({ nextOnClick }: {
                         <CardContent>
                             <AnimatePresence>
                                 {character && character.name && <Typography
-                                    key={character.name}
                                     fontSize="xl"
                                     fontWeight="lg"
                                     sx={{

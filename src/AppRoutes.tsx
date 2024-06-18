@@ -29,6 +29,7 @@ export default function AppRoutes() {
             notifyReloadInterfaceDataEvent((p) => p + 1);
             setNextStepLoading(false);
             setCanGoBack(GameStepManager.canGoBack)
+            console.log(GameStepManager.openedLabels);
             return;
         } catch (e) {
             setNextStepLoading(false);
