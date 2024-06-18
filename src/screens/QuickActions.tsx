@@ -36,7 +36,7 @@ export default function QuickActions() {
                     direction="row"
                     justifyContent="center"
                     alignItems="flex-end"
-                    spacing={2}
+                    spacing={{ xs: 0.5, sm: 1, md: 2 }}
                     sx={{
                         height: "100%",
                         width: "100%",
@@ -61,9 +61,7 @@ export default function QuickActions() {
                     exit={"closed"}
                     transition={{ type: "tween" }}
                 >
-                    <Grid
-                        paddingY={0}
-                    >
+                    <Grid>
                         <TextMenuButton
                             onClick={() => goBack(navigate, () => { notifyLoadEvent((prev) => prev + 1) })}
                             disabled={!canGoBack}
@@ -72,9 +70,7 @@ export default function QuickActions() {
                             {t("back")}
                         </TextMenuButton>
                     </Grid>
-                    <Grid
-                        paddingY={0}
-                    >
+                    <Grid>
                         <TextMenuButton
                             onClick={() => setOpenHistory(true)}
                             sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
@@ -82,9 +78,7 @@ export default function QuickActions() {
                             {t("history")}
                         </TextMenuButton>
                     </Grid>
-                    <Grid
-                        paddingY={0}
-                    >
+                    <Grid>
                         <TextMenuButton
                             selected={skip}
                             onClick={() => setSkip((prev) => !prev)}
@@ -93,9 +87,7 @@ export default function QuickActions() {
                             {t("skip")}
                         </TextMenuButton>
                     </Grid>
-                    <Grid
-                        paddingY={0}
-                    >
+                    <Grid>
                         <TextMenuButton
                             selected={auto}
                             onClick={() => setAuto((prev) => !prev)}
@@ -104,9 +96,7 @@ export default function QuickActions() {
                             {t("auto_forward_time_restricted")}
                         </TextMenuButton>
                     </Grid>
-                    <Grid
-                        paddingY={0}
-                    >
+                    <Grid>
                         <TextMenuButton
                             onClick={saveGame}
                             sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
@@ -114,9 +104,7 @@ export default function QuickActions() {
                             {t("save")}
                         </TextMenuButton>
                     </Grid>
-                    <Grid
-                        paddingY={0}
-                    >
+                    <Grid>
                         <TextMenuButton
                             onClick={() => loadGameSave(navigate, () => notifyLoadEvent((prev) => prev + 1))}
                             sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
@@ -124,9 +112,7 @@ export default function QuickActions() {
                             {t("load")}
                         </TextMenuButton>
                     </Grid>
-                    <Grid
-                        paddingY={0}
-                    >
+                    <Grid>
                         <TextMenuButton
                             onClick={addQuickSave}
                             sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
@@ -134,9 +120,7 @@ export default function QuickActions() {
                             {t("quick_save_restricted")}
                         </TextMenuButton>
                     </Grid>
-                    <Grid
-                        paddingY={0}
-                    >
+                    <Grid>
                         <TextMenuButton
                             onClick={() => setOpenYouSure(true)}
                             disabled={!localStorage.getItem("quickSave")}
@@ -145,9 +129,7 @@ export default function QuickActions() {
                             {t("quick_load_restricted")}
                         </TextMenuButton>
                     </Grid>
-                    <Grid
-                        paddingY={0}
-                    >
+                    <Grid>
                         <TextMenuButton
                             onClick={() => setOpenSettings(true)}
                             sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
