@@ -43,7 +43,7 @@ export const showImageTest = newLabel("ShowImageTest", [
     },
     () => {
         showWithDissolveTransition("alien", 'https://pixijs.com/assets/eggHead.png', 0.01)
-        setDialogue("You can also show a image with a dissolve effect with the function showImageWithDisolveEffect")
+        setDialogue("You can also show a image with a dissolve effect with the function showWithDissolveTransition")
     },
     () => {
         let alien = GameWindowManager.getCanvasElement<CanvasImage>("alien")

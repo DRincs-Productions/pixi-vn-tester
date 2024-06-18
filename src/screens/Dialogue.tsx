@@ -48,6 +48,7 @@ export default function Dialogue({ nextOnClick }: {
             >
                 <AnimatePresence>
                     <Box
+                        key={"divider"}
                         sx={{
                             position: "absolute",
                             top: -5,
@@ -78,6 +79,7 @@ export default function Dialogue({ nextOnClick }: {
                         />
                     </Box>
                     <Card
+                        key={"dialogue-card"}
                         orientation="horizontal"
                         sx={{
                             overflow: 'auto',
