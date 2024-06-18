@@ -1,4 +1,4 @@
-import { ChoiceMenuOption, GameWindowManager, newLabel, setChoiceMenuOptions, setDialogue } from "@drincs/pixi-vn";
+import { ChoiceMenuOption, GameStepManager, GameWindowManager, newLabel, setChoiceMenuOptions, setDialogue } from "@drincs/pixi-vn";
 import { liam } from "../values/characters";
 import { baseCanvasElementTestLabel } from "./BaseCanvasElementTestLabel";
 import { eventsTestLabel } from "./EventsTestLabel";
@@ -24,6 +24,6 @@ export const startLabel = newLabel(START_LABEL_ID,
                 props.navigate("/game")
             }
         },
-        // (props) => GameStepManager.jumpLabel(START_LABEL_ID, props),
+        (props) => GameStepManager.jumpLabel(START_LABEL_ID, props),
     ]
 )
