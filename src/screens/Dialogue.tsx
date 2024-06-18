@@ -14,7 +14,7 @@ import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import DragHandleDivider from '../components/DragHandleDivider';
 import Typewriter from '../components/Typewriter';
 import { resizeWindowsHandler } from '../utility/ComponentUtility';
-import ChoiceMenu from './ChoiceMenu';
+import ChoicesMenu from './ChoicesMenu';
 import NextButton from './NextButton';
 
 export default function Dialogue({ nextOnClick }: {
@@ -33,7 +33,7 @@ export default function Dialogue({ nextOnClick }: {
 
     return (
         <>
-            <ChoiceMenu
+            <ChoicesMenu
                 marginButton={windowSize.y + 50}
                 fullscreen={text ? false : true}
             />
