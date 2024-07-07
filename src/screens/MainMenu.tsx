@@ -9,7 +9,7 @@ import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import MenuButton from '../components/MenuButton';
-import { startLabel } from '../labels/StartLabel';
+import { pixivnTestStartLabel } from '../labels/StartLabel';
 import { loadGameSave } from '../utility/ActionsUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
@@ -47,7 +47,8 @@ export default function MainMenu() {
             <MenuButton
                 onClick={() => {
                     GameWindowManager.removeCanvasElements()
-                    GameStepManager.callLabel(startLabel, {
+                    navigate("/game")
+                    GameStepManager.callLabel(pixivnTestStartLabel, {
                         navigate: navigate,
                         t: t,
                         notify: (message, variant) => enqueueSnackbar(message, { variant }),
