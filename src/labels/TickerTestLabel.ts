@@ -123,11 +123,11 @@ export const tickerTestLabel = newLabel("TickerTestLabel",
             GameWindowManager.addTickersSteps(alien2Tag,
                 [
                     new TickerFadeAlpha({
-                        speed: 0.01,
+                        duration: 1,
                         type: "hide",
                     }, 3000),
                     new TickerFadeAlpha({
-                        speed: 0.01,
+                        duration: 1,
                         type: "show"
                     }, 3000),
                     Repeat,

@@ -1,5 +1,5 @@
-import { addImage, ChoiceMenuOption, GameStepManager, loadImages, newLabel, removeCanvasElement, setChoiceMenuOptions, setDialogue, showWithDissolveTransition } from "@drincs/pixi-vn"
-import { juliette } from "../values/characters"
+import { addImage, CanvasImage, ChoiceMenuOption, GameStepManager, GameWindowManager, loadImage, newLabel, removeWithDissolveTransition, Repeat, setChoiceMenuOptions, setDialogue, showWithDissolveTransition, TickerFadeAlpha } from "@drincs/pixi-vn";
+import { juliette } from "../values/characters";
 
 const IMAGE_ANIMAIONS_TEST_LABEL = "___pixi_vn_images_animations_test___"
 export const imagesAnimationsTest = newLabel(IMAGE_ANIMAIONS_TEST_LABEL, [
@@ -19,7 +19,7 @@ export const imagesAnimationsTest = newLabel(IMAGE_ANIMAIONS_TEST_LABEL, [
         let skully = addImage("skully", 'https://pixijs.com/assets/skully.png')
         skully.x = 300
         skully.y = 300
-        await loadImages([helmlok, skully])
+        await loadImage([helmlok, skully])
     },
     async () => {
         setDialogue({ character: juliette, text: "Here's what they can do." })
@@ -32,13 +32,24 @@ export const imagesAnimationsTest = newLabel(IMAGE_ANIMAIONS_TEST_LABEL, [
 
 const imagesDissolveTest = newLabel("___pixi_vn_images_dissolve_test___", [
     () => {
-        removeCanvasElement(["eggHead", "flowerTop"])
+        removeWithDissolveTransition(["eggHead", "flowerTop"], 1)
+        GameWindowManager.addTickersSteps("helmlok",
+            [
+                new TickerFadeAlpha({
+                    duration: 1,
+                    type: "hide",
+                }, 3000),
+                new TickerFadeAlpha({
+                    duration: 1,
+                    type: "show"
+                }, 3000),
+                Repeat,
+            ]
+        )
     },
     async () => {
         showWithDissolveTransition('eggHead', "https://pixijs.com/assets/eggHead.png", 0.5)
-        // let flowerTop = addImage("flowerTop", "https://pixijs.com/assets/flowerTop.png")
-        // flowerTop.x = 300
-        // flowerTop.y = 100
-        // showWithDissolveTransition('flowerTop', flowerTop, 1)
+        let flowerTop = new CanvasImage({ x: 300, y: 100 }, "https://pixijs.com/assets/flowerTop.png")
+        showWithDissolveTransition('flowerTop', flowerTop, 1)
     }
 ])
