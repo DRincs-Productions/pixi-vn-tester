@@ -1,4 +1,4 @@
-import { CharacterBaseModel, saveCharacter } from "@drincs/pixi-vn";
+import { CharacterBaseModel, saveCharacter } from "../pixi-vn/src";
 
 export const juliette = new CharacterBaseModel('___pixivn_juliette___', {
     name: 'Juliette',

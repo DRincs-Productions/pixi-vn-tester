@@ -1,4 +1,4 @@
-import { addImage, CanvasImage, ChoiceMenuOption, GameStepManager, GameWindowManager, loadImage, newLabel, removeWithDissolveTransition, Repeat, setChoiceMenuOptions, setDialogue, showWithDissolveTransition, TickerFadeAlpha } from "@drincs/pixi-vn";
+import { addImage, CanvasImage, ChoiceMenuOption, GameStepManager, GameWindowManager, loadImage, newLabel, removeWithDissolveTransition, Repeat, setChoiceMenuOptions, setDialogue, showWithDissolveTransition, TickerFadeAlpha } from "../pixi-vn/src";
 import { juliette } from "../values/characters";
 
 const IMAGE_ANIMAIONS_TEST_LABEL = "___pixi_vn_images_animations_test___"

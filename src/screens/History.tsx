@@ -1,4 +1,3 @@
-import { CharacterBaseModel, getCharacterById, getDialogueHistory } from '@drincs/pixi-vn';
 import CheckIcon from '@mui/icons-material/Check';
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { Box, Chip, Input, Stack, Typography } from "@mui/joy";
@@ -8,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
 import { openHistoryState } from '../atoms/openHistoryState';
 import ModalDialogCustom from '../components/ModalDialog';
+import { CharacterBaseModel, getCharacterById, getDialogueHistory } from '../pixi-vn/src';
 
 export default function History() {
     const [open, setOpen] = useRecoilState(openHistoryState);

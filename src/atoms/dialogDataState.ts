@@ -1,5 +1,5 @@
-import { CharacterBaseModel } from "@drincs/pixi-vn";
 import { atom } from "recoil";
+import { CharacterBaseModel } from "../pixi-vn/src";
 
 export const dialogDataState = atom<{
     character?: CharacterBaseModel,

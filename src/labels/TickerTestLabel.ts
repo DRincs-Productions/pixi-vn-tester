@@ -1,5 +1,5 @@
-import { CanvasSprite, GameWindowManager, newLabel, Pause, removeCanvasElement, Repeat, setDialogue, TickerFadeAlpha, TickerRotate } from "@drincs/pixi-vn";
 import { Assets } from "pixi.js";
+import { CanvasSprite, GameWindowManager, newLabel, Pause, removeCanvasElement, Repeat, setDialogue, TickerFadeAlpha, TickerRotate } from "../pixi-vn/src";
 
 const alien1Tag = "alien1"
 const alien2Tag = "alien2"

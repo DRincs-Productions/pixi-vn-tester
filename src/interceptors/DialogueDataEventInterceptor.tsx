@@ -1,4 +1,3 @@
-import { CharacterBaseModel, getCharacterById, getChoiceMenuOptions, getDialogue } from '@drincs/pixi-vn';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
@@ -7,6 +6,7 @@ import { choiceMenuState } from '../atoms/choiceMenuState';
 import { dialogDataState } from '../atoms/dialogDataState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
+import { CharacterBaseModel, getCharacterById, getChoiceMenuOptions, getDialogue } from '../pixi-vn/src';
 
 export default function DialogueDataEventInterceptor() {
     const reloadInterfaceDataEvent = useRecoilValue(reloadInterfaceDataEventState);

@@ -1,4 +1,3 @@
-import { ChoiceMenuOption, ChoiceMenuOptionClose, clearChoiceMenuOptions, GameStepManager, GameWindowManager } from '@drincs/pixi-vn';
 import { Box, Grid } from '@mui/joy';
 import { motion, Variants } from "framer-motion";
 import { useSnackbar } from 'notistack';
@@ -8,6 +7,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { choiceMenuState } from '../atoms/choiceMenuState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import ChoiceButton from '../components/ChoiceButton';
+import { ChoiceMenuOption, ChoiceMenuOptionClose, clearChoiceMenuOptions, GameStepManager, GameWindowManager } from '../pixi-vn/src';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 type IProps = {

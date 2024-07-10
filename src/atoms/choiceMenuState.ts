@@ -1,5 +1,5 @@
-import { ChoiceMenuOptionsType } from "@drincs/pixi-vn";
 import { atom } from "recoil";
+import { ChoiceMenuOptionsType } from "../pixi-vn/src";
 
 export const choiceMenuState = atom<{
     menu: ChoiceMenuOptionsType,

@@ -1,4 +1,3 @@
-import { GameStepManager } from '@drincs/pixi-vn';
 import { StepLabelProps } from '@drincs/pixi-vn/dist/override';
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
@@ -8,6 +7,7 @@ import { nextStepLoadingState } from './atoms/nextStepLoadingState';
 import { reloadInterfaceDataEventState } from './atoms/reloadInterfaceDataEventState';
 import DialogueDataEventInterceptor from './interceptors/DialogueDataEventInterceptor';
 import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
+import { GameStepManager } from './pixi-vn/src';
 import Dialogue from './screens/Dialogue';
 import History from './screens/History';
 import MainMenu from './screens/MainMenu';

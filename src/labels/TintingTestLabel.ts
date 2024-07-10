@@ -1,5 +1,5 @@
-import { canvasElementDecorator, CanvasSprite, GameWindowManager, ICanvasSpriteBaseMemory, ICanvasSpriteMemory, newLabel, TickerBase, tickerDecorator } from "@drincs/pixi-vn";
 import { Assets, Rectangle, Sprite, Texture, TextureSourceLike, Ticker } from "pixi.js";
+import { canvasElementDecorator, CanvasSprite, GameWindowManager, ICanvasSpriteBaseMemory, ICanvasSpriteMemory, newLabel, TickerBase, tickerDecorator } from "../pixi-vn/src";
 
 interface IAlienTintingMemory extends ICanvasSpriteBaseMemory {
     direction: number

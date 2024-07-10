@@ -1,4 +1,4 @@
-import { ChoiceMenuOption, GameStepManager, GameWindowManager, newLabel, setChoiceMenuOptions, setDialogue } from "@drincs/pixi-vn";
+import { ChoiceMenuOption, GameStepManager, GameWindowManager, newLabel, setChoiceMenuOptions, setDialogue } from "../pixi-vn/src";
 import { juliette } from "../values/characters";
 import { imagesAnimationsTest } from "./ShowImageTest";
 

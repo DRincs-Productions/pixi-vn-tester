@@ -1,4 +1,3 @@
-import { GameWindowManager } from '@drincs/pixi-vn';
 import { StepLabelProps } from '@drincs/pixi-vn/dist/override';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
@@ -13,6 +12,7 @@ import { dialogDataState } from '../atoms/dialogDataState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import DragHandleDivider from '../components/DragHandleDivider';
 import Typewriter from '../components/Typewriter';
+import { GameWindowManager } from '../pixi-vn/src';
 import { resizeWindowsHandler } from '../utility/ComponentUtility';
 import ChoicesMenu from './ChoicesMenu';
 import NextButton from './NextButton';
