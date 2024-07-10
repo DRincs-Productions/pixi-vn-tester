@@ -32,24 +32,24 @@ export const imagesAnimationsTest = newLabel(IMAGE_ANIMAIONS_TEST_LABEL, [
 
 const imagesDissolveTest = newLabel("___pixi_vn_images_dissolve_test___", [
     () => {
-        removeWithDissolveTransition(["eggHead", "flowerTop"], 1)
+        removeWithDissolveTransition(["eggHead", "flowerTop"], { duration: 2 })
         GameWindowManager.addTickersSteps("helmlok",
             [
                 new TickerFadeAlpha({
                     duration: 1,
                     type: "hide",
-                }, 3000),
+                }, 1),
                 new TickerFadeAlpha({
                     duration: 1,
                     type: "show"
-                }, 3000),
+                }, 1),
                 Repeat,
             ]
         )
     },
     async () => {
-        showWithDissolveTransition('eggHead', "https://pixijs.com/assets/eggHead.png", 0.5)
+        showWithDissolveTransition('eggHead', "https://pixijs.com/assets/eggHead.png", { duration: 0.5 })
         let flowerTop = new CanvasImage({ x: 300, y: 100 }, "https://pixijs.com/assets/flowerTop.png")
-        showWithDissolveTransition('flowerTop', flowerTop, 1)
+        showWithDissolveTransition('flowerTop', flowerTop, { duration: 1 })
     }
 ])
