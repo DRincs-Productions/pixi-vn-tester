@@ -8,8 +8,7 @@ import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import MenuButton from '../components/MenuButton';
-import { pixivnTestStartLabel } from '../labels/StartLabel';
-import { addImage, clearAllGameDatas, GameStepManager, GameWindowManager } from '../pixi-vn/src';
+import { addImage, clearAllGameDatas, GameStepManager, GameWindowManager, pixivnTestStartLabel } from '../pixi-vn/src';
 import { loadGameSave } from '../utility/ActionsUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
