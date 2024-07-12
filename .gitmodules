@@ -1,3 +1,4 @@
 [submodule "src/pixi-vn"]
 	path = src/pixi-vn
 	url = https://github.com/DRincs-Productions/pixi-vn
+	brach = main
