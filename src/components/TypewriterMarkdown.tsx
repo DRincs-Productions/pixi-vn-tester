@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-export default function TypewriterMarkdown({ children, delay = 0 }: { children: string; delay?: number; }) {
+export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; delay?: number; }) {
     const sentenceVariants = {
         hidden: {},
         visible: { opacity: 1, transition: { staggerChildren: delay / 1000 } },
@@ -17,6 +17,7 @@ export default function TypewriterMarkdown({ children, delay = 0 }: { children: 
     return (
         <Typography
             component={motion.p}
+            key={text}
             variants={sentenceVariants}
             initial="hidden"
             animate="visible"
@@ -64,7 +65,7 @@ export default function TypewriterMarkdown({ children, delay = 0 }: { children: 
                     },
                 }}
             >
-                {children}
+                {text}
             </Markdown>
         </Typography>
     )

@@ -1,13 +1,13 @@
 import { Typography } from "@mui/joy";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { useMemo } from "react";
 
-export default function Typewriter({ children, delay = 0 }: { children: string; delay?: number; }) {
-    const sentenceVariants: Variants = {
+export default function Typewriter({ text, delay = 0 }: { text: string; delay?: number; }) {
+    const sentenceVariants = {
         hidden: {},
         visible: { opacity: 1, transition: { staggerChildren: delay / 1000 } },
     };
-    const letterVariants = useMemo<Variants>(() => ({
+    const letterVariants = useMemo(() => ({
         hidden: { opacity: 0 },
         visible: { opacity: 1, transition: { opacity: { duration: 0 } } },
     }), [delay]);
@@ -15,11 +15,12 @@ export default function Typewriter({ children, delay = 0 }: { children: string; 
     return (
         <Typography
             component={motion.p}
+            key={text}
             variants={sentenceVariants}
             initial="hidden"
             animate="visible"
         >
-            {children.split("").map((char, i) => (
+            {text.split("").map((char, i) => (
                 <motion.span key={`${char}-${i}`} variants={letterVariants}>
                     {char}
                 </motion.span>
