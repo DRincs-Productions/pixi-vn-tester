@@ -2,12 +2,7 @@ import { Typography } from "@mui/joy";
 import { motion } from "framer-motion";
 import { useMemo } from "react";
 
-type IProps = {
-    text: string;
-    delay?: number;
-};
-
-export default function Typewriter({ text, delay = 0 }: IProps) {
+export default function Typewriter({ text, delay = 0 }: { text: string; delay?: number; }) {
     const sentenceVariants = {
         hidden: {},
         visible: { opacity: 1, transition: { staggerChildren: delay / 1000 } },
