@@ -2,6 +2,7 @@ import { Typography } from "@mui/joy";
 import { motion, Variants } from "framer-motion";
 import { Key, useMemo } from "react";
 import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 
 function TypewriterMarkdownInternal({ children, key, letterVariants, dadElement }: {
@@ -56,6 +57,7 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
         >
             <Markdown
                 remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeRaw]}
                 components={{
                     p: ({ children, key }) => {
                         return <TypewriterMarkdownInternal
@@ -71,7 +73,7 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
                             }}
                         />
                     },
-                    a: ({ children, href, key }) => {
+                    a: ({ children, href, key, style }) => {
                         return <TypewriterMarkdownInternal
                             children={children}
                             key={key}
@@ -79,6 +81,7 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
                             dadElement={(children) => <motion.a
                                 href={href}
                                 key={key}
+                                style={style}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -86,13 +89,14 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
                             }
                         />
                     },
-                    code: ({ children, key }) => {
+                    code: ({ children, key, style }) => {
                         return <TypewriterMarkdownInternal
                             children={children}
                             key={key}
                             letterVariants={letterVariants}
                             dadElement={(children) => <motion.code
                                 key={key}
+                                style={style}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -100,13 +104,14 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
                             }
                         />
                     },
-                    ul: ({ children, key }) => {
+                    ul: ({ children, key, style }) => {
                         return <TypewriterMarkdownInternal
                             children={children}
                             key={key}
                             letterVariants={letterVariants}
                             dadElement={(children) => <motion.ul
                                 key={key}
+                                style={style}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -114,13 +119,14 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
                             }
                         />
                     },
-                    li: ({ children, key }) => {
+                    li: ({ children, key, style }) => {
                         return <TypewriterMarkdownInternal
                             children={children}
                             key={key}
                             letterVariants={letterVariants}
                             dadElement={(children) => <motion.li
                                 key={key}
+                                style={style}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -128,13 +134,14 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
                             }
                         />
                     },
-                    strong: ({ children, key }) => {
+                    strong: ({ children, key, style }) => {
                         return <TypewriterMarkdownInternal
                             children={children}
                             key={key}
                             letterVariants={letterVariants}
                             dadElement={(children) => <motion.strong
                                 key={key}
+                                style={style}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -142,13 +149,14 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
                             }
                         />
                     },
-                    em: ({ children, key }) => {
+                    em: ({ children, key, style }) => {
                         return <TypewriterMarkdownInternal
                             children={children}
                             key={key}
                             letterVariants={letterVariants}
                             dadElement={(children) => <motion.em
                                 key={key}
+                                style={style}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -156,19 +164,21 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
                             }
                         />
                     },
-                    hr: ({ key }) => {
+                    hr: ({ key, style }) => {
                         return <motion.hr
                             key={key}
+                            style={style}
                             variants={letterVariants}
                         />
                     },
-                    th: ({ children, key }) => {
+                    th: ({ children, key, style }) => {
                         return <TypewriterMarkdownInternal
                             children={children}
                             key={key}
                             letterVariants={letterVariants}
                             dadElement={(children) => <motion.th
                                 key={key}
+                                style={style}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -176,13 +186,14 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
                             }
                         />
                     },
-                    del: ({ children, key }) => {
+                    del: ({ children, key, style }) => {
                         return <TypewriterMarkdownInternal
                             children={children}
                             key={key}
                             letterVariants={letterVariants}
                             dadElement={(children) => <motion.del
                                 key={key}
+                                style={style}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -190,13 +201,14 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
                             }
                         />
                     },
-                    table: ({ children, key }) => {
+                    table: ({ children, key, style }) => {
                         return <TypewriterMarkdownInternal
                             children={children}
                             key={key}
                             letterVariants={letterVariants}
                             dadElement={(children) => <motion.table
                                 key={key}
+                                style={style}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -204,13 +216,29 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
                             }
                         />
                     },
-                    h1: ({ children, key }) => {
+                    span: ({ children, key, style }) => {
+                        return <TypewriterMarkdownInternal
+                            children={children}
+                            key={key}
+                            letterVariants={letterVariants}
+                            dadElement={(children) => <motion.span
+                                key={key}
+                                style={style}
+                                variants={letterVariants}
+                            >
+                                {children}
+                            </motion.span>
+                            }
+                        />
+                    },
+                    h1: ({ children, key, style }) => {
                         return <TypewriterMarkdownInternal
                             children={children}
                             key={key}
                             letterVariants={letterVariants}
                             dadElement={(children) => <motion.h1
                                 key={key}
+                                style={style}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -218,13 +246,14 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
                             }
                         />
                     },
-                    h2: ({ children, key }) => {
+                    h2: ({ children, key, style }) => {
                         return <TypewriterMarkdownInternal
                             children={children}
                             key={key}
                             letterVariants={letterVariants}
                             dadElement={(children) => <motion.h2
                                 key={key}
+                                style={style}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -232,13 +261,14 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
                             }
                         />
                     },
-                    h3: ({ children, key }) => {
+                    h3: ({ children, key, style }) => {
                         return <TypewriterMarkdownInternal
                             children={children}
                             key={key}
                             letterVariants={letterVariants}
                             dadElement={(children) => <motion.h3
                                 key={key}
+                                style={style}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -246,13 +276,14 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
                             }
                         />
                     },
-                    h4: ({ children, key }) => {
+                    h4: ({ children, key, style }) => {
                         return <TypewriterMarkdownInternal
                             children={children}
                             key={key}
                             letterVariants={letterVariants}
                             dadElement={(children) => <motion.h4
                                 key={key}
+                                style={style}
                                 variants={letterVariants}
                             >
                                 {children}
