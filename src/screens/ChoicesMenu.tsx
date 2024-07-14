@@ -1,4 +1,5 @@
 import { ChoiceMenuOption, ChoiceMenuOptionClose, clearChoiceMenuOptions, GameStepManager, GameWindowManager } from '@drincs/pixi-vn';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { Box, Grid } from '@mui/joy';
 import { motion, Variants } from "framer-motion";
 import { useSnackbar } from 'notistack';
@@ -72,7 +73,7 @@ export default function ChoicesMenu(props: IProps) {
                 })
         }
         else if (item.type == "close") {
-            GameStepManager.closeChoiceMenu(item.label, {
+            GameStepManager.closeChoiceMenu(item, {
                 navigate: navigate,
                 t: t,
                 notify: (message, variant) => enqueueSnackbar(message, { variant }),
@@ -160,6 +161,7 @@ export default function ChoicesMenu(props: IProps) {
                                     left: 0,
                                     right: 0,
                                 }}
+                                startDecorator={item.type == "close" ? <KeyboardReturnIcon /> : undefined}
                             >
                                 {item.text}
                             </ChoiceButton>
