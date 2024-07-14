@@ -1,4 +1,4 @@
-import { addImage, clearAllGameDatas, GameStepManager, GameWindowManager } from '@drincs/pixi-vn';
+import { addImage, clearAllGameDatas, GameStepManager, GameWindowManager, pixivnTestStartLabel } from '@drincs/pixi-vn';
 import Stack from '@mui/joy/Stack';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
@@ -9,7 +9,6 @@ import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import MenuButton from '../components/MenuButton';
-import { pixivnTestStartLabel } from '../labels/StartLabel';
 import { loadGameSave } from '../utility/ActionsUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
