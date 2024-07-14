@@ -11,7 +11,7 @@ import { useRecoilValue } from 'recoil';
 import { dialogDataState } from '../atoms/dialogDataState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import DragHandleDivider from '../components/DragHandleDivider';
-import Typewriter from '../components/Typewriter';
+import TypewriterMarkdown from '../components/TypewriterMarkdown';
 import { GameWindowManager } from '../pixi-vn/src';
 import { resizeWindowsHandler } from '../utility/ComponentUtility';
 import ChoicesMenu from './ChoicesMenu';
@@ -204,7 +204,7 @@ export default function Dialogue({ nextOnClick }: {
                                     overflow: 'auto',
                                 }}
                             >
-                                <Typewriter
+                                <TypewriterMarkdown
                                     text={text || ""}
                                     delay={typewriterDelay}
                                 />
