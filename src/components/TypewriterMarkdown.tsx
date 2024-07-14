@@ -62,7 +62,13 @@ export default function TypewriterMarkdown({ text, delay = 0 }: { text: string; 
                             children={children}
                             key={key}
                             letterVariants={letterVariants}
-                            dadElement={(children) => children}
+                            dadElement={(children) => {
+                                if (Array.isArray(children)) {
+                                    children.push(<motion.br key={key + "-br"} />)
+                                    return children
+                                }
+                                return children
+                            }}
                         />
                     },
                     a: ({ children, href, key }) => {
