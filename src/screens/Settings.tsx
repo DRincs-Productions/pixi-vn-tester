@@ -1,12 +1,14 @@
 import AutoModeIcon from '@mui/icons-material/AutoMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
+import SaveIcon from '@mui/icons-material/Save';
 import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
-import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormHelperText, FormLabel, IconButton, ModalClose, Sheet, Slider, Stack, ToggleButtonGroup, Tooltip, Typography, useColorScheme } from "@mui/joy";
+import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormControl, FormHelperText, FormLabel, IconButton, ModalClose, RadioGroup, Sheet, Slider, Stack, ToggleButtonGroup, Tooltip, Typography, useColorScheme } from "@mui/joy";
 import { useEffect, useState } from 'react';
 import { HuePicker } from 'react-color';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +17,7 @@ import { useRecoilState } from 'recoil';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
+import SettingButton from '../components/SettingButton';
 import { useEditColorProvider } from '../providers/ThemeProvider';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
@@ -97,6 +100,26 @@ export default function Settings() {
                     <ModalClose />
                     <Divider sx={{ mt: 'auto' }} />
                     <DialogContent sx={{ gap: 2 }}>
+                        <FormControl>
+                            <RadioGroup>
+                                <Box
+                                    sx={{
+                                        display: 'grid',
+                                        gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
+                                        gap: 1.5,
+                                    }}
+                                >
+                                    <SettingButton>
+                                        <SaveIcon />
+                                        <Typography level="title-md">{t("save")}</Typography>
+                                    </SettingButton>
+                                    <SettingButton>
+                                        <FileUploadIcon />
+                                        <Typography level="title-md">{t("load")}</Typography>
+                                    </SettingButton>
+                                </Box>
+                            </RadioGroup>
+                        </FormControl>
                         <Typography level="title-md" fontWeight="bold">
                             {t("dialogues")}
                         </Typography>
