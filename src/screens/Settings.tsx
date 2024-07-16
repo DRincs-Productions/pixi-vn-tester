@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { autoEnabledState } from '../atoms/autoEnabledState';
+import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openHistoryState } from '../atoms/openHistoryState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
@@ -41,6 +42,7 @@ export default function Settings() {
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const [auto, setAuto] = useRecoilState(autoEnabledState)
     const setOpenHistory = useSetRecoilState(openHistoryState);
+    const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
 
     useEffect(() => {
         window.addEventListener('keydown', onkeydown);
@@ -135,6 +137,22 @@ export default function Settings() {
                                         <Typography level="title-md">{t("quick_load_restricted")}</Typography>
                                     </SettingButton>
                                     <SettingButton
+                                        checked={hideInterface}
+                                        onClick={() => setHideInterface((prev) => !prev)}
+                                    >
+                                        <HdrAutoIcon />
+                                        <Typography level="title-md">{t("hide_interface")}</Typography>
+                                        <Box
+                                            sx={{
+                                                position: 'absolute',
+                                                top: 10,
+                                                right: 10,
+                                            }}
+                                        >
+                                            <Typography level="body-lg">V</Typography>
+                                        </Box>
+                                    </SettingButton>
+                                    <SettingButton
                                         onClick={() => {
                                             setOpenHistory(true)
                                             setOpen(false)
@@ -142,6 +160,15 @@ export default function Settings() {
                                     >
                                         <HistoryIcon />
                                         <Typography level="title-md">{t("history")}</Typography>
+                                        <Box
+                                            sx={{
+                                                position: 'absolute',
+                                                top: 10,
+                                                right: 10,
+                                            }}
+                                        >
+                                            <Typography level="body-lg">H</Typography>
+                                        </Box>
                                     </SettingButton>
                                     <SettingButton
                                         checked={skip}
