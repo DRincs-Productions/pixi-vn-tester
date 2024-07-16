@@ -1,6 +1,8 @@
-import { Card, CardContent, CardProps, Radio } from "@mui/joy";
+import { Card, CardContent, CardProps, Checkbox, useTheme } from "@mui/joy";
 
-export default function SettingButton({ children, sx, ...rest }: {} & CardProps) {
+export default function SettingButton({ children, checked, sx, onChange, ...rest }: {
+    checked?: boolean;
+} & CardProps) {
     return (
         <Card
             sx={{
@@ -13,22 +15,19 @@ export default function SettingButton({ children, sx, ...rest }: {} & CardProps)
             <CardContent>
                 {children}
             </CardContent>
-            <Radio
+            <Checkbox
                 disableIcon
                 overlay
-                // checked={type === item.name}
+                checked={true}
                 variant="outlined"
                 color="neutral"
-                // value={item.name}
+                onChange={onChange}
                 sx={{ mt: -2 }}
                 slotProps={{
                     action: {
                         sx: {
-                            // ...(type === item.name && {
-                            //     borderWidth: 2,
-                            //     borderColor:
-                            //         'var(--joy-palette-primary-outlinedBorder)',
-                            // }),
+                            borderWidth: checked ? 2 : undefined,
+                            borderColor: checked ? useTheme().palette.primary.outlinedBorder : undefined,
                             '&:hover': {
                                 bgcolor: 'transparent',
                             },

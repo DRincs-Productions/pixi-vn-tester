@@ -1,9 +1,12 @@
 import AutoModeIcon from '@mui/icons-material/AutoMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import FastForwardIcon from '@mui/icons-material/FastForward';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import HdrAutoIcon from '@mui/icons-material/HdrAuto';
+import HistoryIcon from '@mui/icons-material/History';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import SaveIcon from '@mui/icons-material/Save';
@@ -13,8 +16,11 @@ import { useEffect, useState } from 'react';
 import { HuePicker } from 'react-color';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { autoEnabledState } from '../atoms/autoEnabledState';
+import { openHistoryState } from '../atoms/openHistoryState';
 import { openSettingsState } from '../atoms/openSettingsState';
+import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
@@ -32,6 +38,9 @@ export default function Settings() {
     const [typewriterDelay, setTypewriterDelay] = useRecoilState(typewriterDelayState)
     const [fullScreenEnabled, setFullScreenEnabled] = useState(false)
     const { t } = useTranslation(["translation"]);
+    const [skip, setSkip] = useRecoilState(skipEnabledState)
+    const [auto, setAuto] = useRecoilState(autoEnabledState)
+    const setOpenHistory = useSetRecoilState(openHistoryState);
 
     useEffect(() => {
         window.addEventListener('keydown', onkeydown);
@@ -116,6 +125,37 @@ export default function Settings() {
                                     <SettingButton>
                                         <FileUploadIcon />
                                         <Typography level="title-md">{t("load")}</Typography>
+                                    </SettingButton>
+                                    <SettingButton>
+                                        <SaveIcon />
+                                        <Typography level="title-md">{t("quick_save_restricted")}</Typography>
+                                    </SettingButton>
+                                    <SettingButton>
+                                        <FileUploadIcon />
+                                        <Typography level="title-md">{t("quick_load_restricted")}</Typography>
+                                    </SettingButton>
+                                    <SettingButton
+                                        onClick={() => {
+                                            setOpenHistory(true)
+                                            setOpen(false)
+                                        }}
+                                    >
+                                        <HistoryIcon />
+                                        <Typography level="title-md">{t("history")}</Typography>
+                                    </SettingButton>
+                                    <SettingButton
+                                        checked={skip}
+                                        onClick={() => setSkip((prev) => !prev)}
+                                    >
+                                        <FastForwardIcon />
+                                        <Typography level="title-md">{t("skip")}</Typography>
+                                    </SettingButton>
+                                    <SettingButton
+                                        checked={auto}
+                                        onClick={() => setAuto((prev) => !prev)}
+                                    >
+                                        <HdrAutoIcon />
+                                        <Typography level="title-md">{t("auto_forward_time_restricted")}</Typography>
                                     </SettingButton>
                                 </Box>
                             </RadioGroup>

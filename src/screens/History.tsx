@@ -5,7 +5,10 @@ import { Box, Chip, Input, Stack, Typography } from "@mui/joy";
 import Avatar from '@mui/joy/Avatar';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Markdown from 'react-markdown';
 import { useRecoilState } from 'recoil';
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 import { openHistoryState } from '../atoms/openHistoryState';
 import ModalDialogCustom from '../components/ModalDialog';
 
@@ -92,7 +95,17 @@ export default function History() {
                                     />
                                     <Box sx={{ flex: 1 }}>
                                         {data.character && <Typography level="title-sm">{data.character}</Typography>}
-                                        <Typography level="body-sm">{data.text}</Typography>
+                                        <Markdown
+                                            remarkPlugins={[remarkGfm]}
+                                            rehypePlugins={[rehypeRaw]}
+                                            components={{
+                                                p: ({ children, key }) => {
+                                                    return <p key={key} style={{ margin: 0 }}>{children}</p>
+                                                },
+                                            }}
+                                        >
+                                            {data.text}
+                                        </Markdown>
                                     </Box>
                                 </Stack>
                                 <Stack
