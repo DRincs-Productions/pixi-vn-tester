@@ -25,7 +25,11 @@ export default function AppRoutes() {
     async function nextOnClick(props: StepLabelProps): Promise<void> {
         setNextStepLoading(true);
         try {
-            await GameStepManager.runNextStep(props);
+            if (!GameStepManager.canGoNext) {
+                setNextStepLoading(false);
+                return;
+            }
+            await GameStepManager.goNext(props);
             notifyReloadInterfaceDataEvent((p) => p + 1);
             setNextStepLoading(false);
             setCanGoBack(GameStepManager.canGoBack)

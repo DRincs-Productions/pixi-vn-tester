@@ -1,4 +1,4 @@
-import { CharacterBaseModel, getCharacterById, getChoiceMenuOptions, getDialogue } from '@drincs/pixi-vn';
+import { CharacterBaseModel, GameStepManager, getCharacterById, getChoiceMenuOptions, getDialogue } from '@drincs/pixi-vn';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
@@ -21,9 +21,9 @@ export default function DialogueDataEventInterceptor() {
         let newText: string | undefined = dial?.text
         let newCharacter: CharacterBaseModel | undefined = undefined
         if (dial) {
-            newCharacter = dial.characterId ? getCharacterById(dial.characterId) : undefined
-            if (!newCharacter && dial.characterId) {
-                newCharacter = new CharacterBaseModel(dial.characterId, { name: t(dial.characterId) })
+            newCharacter = dial.character ? getCharacterById(dial.character) : undefined
+            if (!newCharacter && dial.character) {
+                newCharacter = new CharacterBaseModel(dial.character, { name: t(dial.character) })
             }
         }
         try {
@@ -43,7 +43,7 @@ export default function DialogueDataEventInterceptor() {
     }, [reloadInterfaceDataEvent])
 
     useEffect(() => {
-        setNextStepButtonHidden(hideInterface || !(menu.length == 0))
+        setNextStepButtonHidden(hideInterface || !(GameStepManager.canGoNext))
     }, [menu, hideInterface])
 
     useEffect(() => {

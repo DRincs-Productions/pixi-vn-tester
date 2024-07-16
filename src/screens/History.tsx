@@ -71,7 +71,7 @@ export default function History() {
                 <Stack spacing={2} justifyContent="flex-end">
                     {getDialogueHistory()
                         .map((step) => {
-                            let character = step.dialoge?.characterId ? getCharacterById(step.dialoge?.characterId) ?? new CharacterBaseModel(step.dialoge?.characterId, { name: t(step.dialoge?.characterId) }) : undefined
+                            let character = step.dialoge?.character ? getCharacterById(step.dialoge?.character) ?? new CharacterBaseModel(step.dialoge?.character, { name: t(step.dialoge?.character) }) : undefined
                             return {
                                 character: character?.name ? character.name + (character.surname ? " " + character.surname : "") : undefined,
                                 text: step.dialoge?.text || "",
