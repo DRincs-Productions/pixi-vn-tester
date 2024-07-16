@@ -32,6 +32,16 @@ export default defineConfig({
           }
         ]
       }
-    })
+    }),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'lib/@mui/joy': ['@mui/joy'],
+          'lib/react-markdown': ['react-markdown', 'rehype-raw', 'remark-gfm'],
+        },
+      },
+    },
+  },
 })
