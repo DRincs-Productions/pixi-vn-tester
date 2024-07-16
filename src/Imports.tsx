@@ -8,7 +8,7 @@ type Iprops = {
     children: React.ReactNode
 }
 
-export default function AppImports(props: Iprops) {
+export default function Imports(props: Iprops) {
     useI18n()
 
     return (

@@ -1,19 +1,17 @@
+import { lazy, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import AppImports from './AppImports';
-import AppRoutes from './AppRoutes';
-import EventInterceptor from './interceptors/EventInterceptor';
-import Settings from './screens/Settings';
+import LoadingPage from "./screens/LoadingPage";
 
-function App() {
+export default function App() {
+    const Home = lazy(async () => import('./Home'))
     return (
         <ErrorBoundary fallback={<div>Something went wrong</div>}>
-            <AppImports>
-                <AppRoutes />
-                <Settings />
-                <EventInterceptor />
-            </AppImports>
+            <Suspense
+                fallback={<LoadingPage>
+                </LoadingPage>}
+            >
+                <Home />
+            </Suspense>
         </ErrorBoundary >
     )
 }
-
-export default App
