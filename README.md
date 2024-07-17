@@ -18,12 +18,24 @@ The settings modal allows you to change the text speed, go to full screen, edit 
 
 ## Used libraries
 
+This template uses the following libraries:
+
+Core libraries:
+
 * [Pixi'VN](https://www.npmjs.com/package/@drincs/pixi-vn): A visual novel library for PixiJS.
 * [Vite](https://vitejs.dev/): A build tool that aims to provide a faster and leaner development experience for modern web projects.
 * [Vite Checker](https://www.npmjs.com/package/vite-plugin-checker): A Vite plugin that checks TypeScript types and ESLint on each build.
 * [PWA Vite Plugin](https://vite-pwa-org.netlify.app): A Vite plugin that provides PWA support. This allows the possibility of installing the game as a Progressive Web App.
-* [Mui Joy](https://mui.com/joy-ui/getting-started/): A React UI framework that provides a set of components and styles for building a website.
 * [Recoil](https://recoiljs.org/): A state management library for React.
 * [React Router](https://reactrouter.com/): A library that provides routing for React applications.
-* [i18next](https://www.i18next.com/): A library that gives the possibility to manage multiple translations in the application.
+
+UI libraries:
+
+* [Mui Joy](https://mui.com/joy-ui/getting-started/): A React UI framework that provides a set of components and styles for building a website.
 * [Framer Motion](https://www.framer.com/motion/): A simple yet powerful motion library for React.
+* [Notistack](https://iamhosseindhv.com/notistack): A library that provides snackbar notifications for React.
+
+Text libraries:
+
+* [i18next](https://www.i18next.com/): A library that gives the possibility to manage multiple translations in the application.
+* [Reacr Markdown](https://www.npmjs.com/package/react-markdown): A library that allows you to render markdown in React components.
