@@ -6,7 +6,7 @@ import { choiceMenuState } from '../atoms/choiceMenuState';
 import { dialogDataState } from '../atoms/dialogDataState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
-import { CharacterBaseModel, getCharacterById, getChoiceMenuOptions, getDialogue } from '../pixi-vn/src';
+import { CharacterBaseModel, GameStepManager, getCharacterById, getChoiceMenuOptions, getDialogue } from '../pixi-vn/src';
 
 export default function DialogueDataEventInterceptor() {
     const reloadInterfaceDataEvent = useRecoilValue(reloadInterfaceDataEventState);
@@ -21,9 +21,9 @@ export default function DialogueDataEventInterceptor() {
         let newText: string | undefined = dial?.text
         let newCharacter: CharacterBaseModel | undefined = undefined
         if (dial) {
-            newCharacter = dial.characterId ? getCharacterById(dial.characterId) : undefined
-            if (!newCharacter && dial.characterId) {
-                newCharacter = new CharacterBaseModel(dial.characterId, { name: t(dial.characterId) })
+            newCharacter = dial.character ? getCharacterById(dial.character) : undefined
+            if (!newCharacter && dial.character) {
+                newCharacter = new CharacterBaseModel(dial.character, { name: t(dial.character) })
             }
         }
         try {
@@ -43,7 +43,7 @@ export default function DialogueDataEventInterceptor() {
     }, [reloadInterfaceDataEvent])
 
     useEffect(() => {
-        setNextStepButtonHidden(hideInterface || !(menu.length == 0))
+        setNextStepButtonHidden(hideInterface || !(GameStepManager.canGoNext))
     }, [menu, hideInterface])
 
     useEffect(() => {

@@ -37,5 +37,6 @@
 		, "next" : "Next"
 		, "text_speed" : "Text Speed"
 		, "text_speed_description" : "Choose the speed of the text."
+		, "hide_interface" : "Hide Interface"
 	}
 }

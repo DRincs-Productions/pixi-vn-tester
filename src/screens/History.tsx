@@ -4,7 +4,10 @@ import { Box, Chip, Input, Stack, Typography } from "@mui/joy";
 import Avatar from '@mui/joy/Avatar';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Markdown from 'react-markdown';
 import { useRecoilState } from 'recoil';
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 import { openHistoryState } from '../atoms/openHistoryState';
 import ModalDialogCustom from '../components/ModalDialog';
 import { CharacterBaseModel, getCharacterById, getDialogueHistory } from '../pixi-vn/src';
@@ -68,7 +71,7 @@ export default function History() {
                 <Stack spacing={2} justifyContent="flex-end">
                     {getDialogueHistory()
                         .map((step) => {
-                            let character = step.dialoge?.characterId ? getCharacterById(step.dialoge?.characterId) ?? new CharacterBaseModel(step.dialoge?.characterId, { name: t(step.dialoge?.characterId) }) : undefined
+                            let character = step.dialoge?.character ? getCharacterById(step.dialoge?.character) ?? new CharacterBaseModel(step.dialoge?.character, { name: t(step.dialoge?.character) }) : undefined
                             return {
                                 character: character?.name ? character.name + (character.surname ? " " + character.surname : "") : undefined,
                                 text: step.dialoge?.text || "",
@@ -92,7 +95,17 @@ export default function History() {
                                     />
                                     <Box sx={{ flex: 1 }}>
                                         {data.character && <Typography level="title-sm">{data.character}</Typography>}
-                                        <Typography level="body-sm">{data.text}</Typography>
+                                        <Markdown
+                                            remarkPlugins={[remarkGfm]}
+                                            rehypePlugins={[rehypeRaw]}
+                                            components={{
+                                                p: ({ children, key }) => {
+                                                    return <p key={key} style={{ margin: 0 }}>{children}</p>
+                                                },
+                                            }}
+                                        >
+                                            {data.text}
+                                        </Markdown>
                                     </Box>
                                 </Stack>
                                 <Stack

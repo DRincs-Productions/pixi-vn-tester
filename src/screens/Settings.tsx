@@ -1,20 +1,30 @@
 import AutoModeIcon from '@mui/icons-material/AutoMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import FastForwardIcon from '@mui/icons-material/FastForward';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import HdrAutoIcon from '@mui/icons-material/HdrAuto';
+import HistoryIcon from '@mui/icons-material/History';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
+import SaveIcon from '@mui/icons-material/Save';
 import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
-import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormHelperText, FormLabel, IconButton, ModalClose, Sheet, Slider, Stack, ToggleButtonGroup, Tooltip, Typography, useColorScheme } from "@mui/joy";
+import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormControl, FormHelperText, FormLabel, IconButton, ModalClose, RadioGroup, Sheet, Slider, Stack, ToggleButtonGroup, Tooltip, Typography, useColorScheme } from "@mui/joy";
 import { useEffect, useState } from 'react';
 import { HuePicker } from 'react-color';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { autoEnabledState } from '../atoms/autoEnabledState';
+import { hideInterfaceState } from '../atoms/hideInterfaceState';
+import { openHistoryState } from '../atoms/openHistoryState';
 import { openSettingsState } from '../atoms/openSettingsState';
+import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
+import SettingButton from '../components/SettingButton';
 import { useEditColorProvider } from '../providers/ThemeProvider';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
@@ -29,6 +39,10 @@ export default function Settings() {
     const [typewriterDelay, setTypewriterDelay] = useRecoilState(typewriterDelayState)
     const [fullScreenEnabled, setFullScreenEnabled] = useState(false)
     const { t } = useTranslation(["translation"]);
+    const [skip, setSkip] = useRecoilState(skipEnabledState)
+    const [auto, setAuto] = useRecoilState(autoEnabledState)
+    const setOpenHistory = useSetRecoilState(openHistoryState);
+    const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
 
     useEffect(() => {
         window.addEventListener('keydown', onkeydown);
@@ -97,6 +111,82 @@ export default function Settings() {
                     <ModalClose />
                     <Divider sx={{ mt: 'auto' }} />
                     <DialogContent sx={{ gap: 2 }}>
+                        <FormControl>
+                            <RadioGroup>
+                                <Box
+                                    sx={{
+                                        display: 'grid',
+                                        gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
+                                        gap: 1.5,
+                                    }}
+                                >
+                                    <SettingButton>
+                                        <SaveIcon />
+                                        <Typography level="title-md">{t("save")}</Typography>
+                                    </SettingButton>
+                                    <SettingButton>
+                                        <FileUploadIcon />
+                                        <Typography level="title-md">{t("load")}</Typography>
+                                    </SettingButton>
+                                    <SettingButton>
+                                        <SaveIcon />
+                                        <Typography level="title-md">{t("quick_save_restricted")}</Typography>
+                                    </SettingButton>
+                                    <SettingButton>
+                                        <FileUploadIcon />
+                                        <Typography level="title-md">{t("quick_load_restricted")}</Typography>
+                                    </SettingButton>
+                                    <SettingButton
+                                        checked={hideInterface}
+                                        onClick={() => setHideInterface((prev) => !prev)}
+                                    >
+                                        <HdrAutoIcon />
+                                        <Typography level="title-md">{t("hide_interface")}</Typography>
+                                        <Box
+                                            sx={{
+                                                position: 'absolute',
+                                                top: 10,
+                                                right: 10,
+                                            }}
+                                        >
+                                            <Typography level="body-lg">V</Typography>
+                                        </Box>
+                                    </SettingButton>
+                                    <SettingButton
+                                        onClick={() => {
+                                            setOpenHistory(true)
+                                            setOpen(false)
+                                        }}
+                                    >
+                                        <HistoryIcon />
+                                        <Typography level="title-md">{t("history")}</Typography>
+                                        <Box
+                                            sx={{
+                                                position: 'absolute',
+                                                top: 10,
+                                                right: 10,
+                                            }}
+                                        >
+                                            <Typography level="body-lg">H</Typography>
+                                        </Box>
+                                    </SettingButton>
+                                    <SettingButton
+                                        checked={skip}
+                                        onClick={() => setSkip((prev) => !prev)}
+                                    >
+                                        <FastForwardIcon />
+                                        <Typography level="title-md">{t("skip")}</Typography>
+                                    </SettingButton>
+                                    <SettingButton
+                                        checked={auto}
+                                        onClick={() => setAuto((prev) => !prev)}
+                                    >
+                                        <HdrAutoIcon />
+                                        <Typography level="title-md">{t("auto_forward_time_restricted")}</Typography>
+                                    </SettingButton>
+                                </Box>
+                            </RadioGroup>
+                        </FormControl>
                         <Typography level="title-md" fontWeight="bold">
                             {t("dialogues")}
                         </Typography>
