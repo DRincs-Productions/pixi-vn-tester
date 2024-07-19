@@ -1,4 +1,3 @@
-import { GameWindowManager } from '@drincs/pixi-vn';
 import { StepLabelProps } from '@drincs/pixi-vn/dist/override';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
@@ -7,7 +6,6 @@ import CardContent from '@mui/joy/CardContent';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { AnimatePresence, motion, Variants } from "framer-motion";
-import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { dialogDataState } from '../atoms/dialogDataState';
 import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
@@ -21,10 +19,6 @@ import NextButton from './NextButton';
 export default function Dialogue({ nextOnClick }: {
     nextOnClick: (props: StepLabelProps) => void,
 }) {
-    const [windowSize] = useState({
-        x: 0,
-        y: 300 * GameWindowManager.screenScale,
-    });
     const [cardHeight, setCardHeight] = useRecoilState(dialogueCardHeightState)
     const [cardImageWidth, setCardImageWidth] = useRecoilState(dialogueCardImageWidthState)
     const typewriterDelay = useRecoilValue(typewriterDelayState)
@@ -33,7 +27,7 @@ export default function Dialogue({ nextOnClick }: {
         open: {
             opacity: 1,
             y: 0,
-            pointerEvents: "auto",
+            // pointerEvents: "auto",
         },
         closed: {
             opacity: 0,
@@ -68,10 +62,6 @@ export default function Dialogue({ nextOnClick }: {
 
     return (
         <>
-            <ChoicesMenu
-                marginButton={windowSize.y + 50}
-                fullscreen={text ? false : true}
-            />
             <Box
                 sx={{
                     height: '90%',
@@ -82,6 +72,9 @@ export default function Dialogue({ nextOnClick }: {
                     top: 0,
                 }}
             >
+                <ChoicesMenu
+                    fullscreen={text ? false : true}
+                />
                 <Box
                     sx={{
                         height: '100%',
