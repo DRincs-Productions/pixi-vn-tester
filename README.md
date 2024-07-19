@@ -18,9 +18,23 @@ The settings modal allows you to change the text speed, go to full screen, edit 
 
 ## How can I use this template to create a new project?
 
+If you have GitHub account, you can use this template to create a new repository. To do this, click on the "Use this template" button located at the top of the repository.
+
 ![image](https://github.com/user-attachments/assets/fc77dd71-1fa5-4532-a1d2-31eb83ffedec)
 
+If you don't have a GitHub account, you can download the repository as a zip file. To do this, click on the "Code" button located at the top of the repository and then click on "Download ZIP".
+
 ![image](https://github.com/user-attachments/assets/2e72d6cf-c1c6-441e-875d-1779b4f27d36)
+
+## Keyboard shortcuts
+
+* `Space` or `Enter`: Continue the dialogue.
+* `Keep Space` or `Keep Enter`: Skip the dialogue.
+* `Shift` + `S`: Quick save the game.
+* `Shift` + `L`: Quick load the game.
+* `Shift` + `H`: Open the history modal.
+* `Esc`: Open the settings modal.
+* `Shift` + `V`: Hide the Interface (Show only the canvas).
 
 ## Used libraries
 
