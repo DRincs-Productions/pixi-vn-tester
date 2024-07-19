@@ -8,10 +8,12 @@ import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { dialogDataState } from '../atoms/dialogDataState';
+import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import DragHandleDivider from '../components/DragHandleDivider';
+import SliderResizer from '../components/SliderResizer';
 import TypewriterMarkdown from '../components/TypewriterMarkdown';
 import { resizeWindowsHandler } from '../utility/ComponentUtility';
 import ChoicesMenu from './ChoicesMenu';
@@ -20,7 +22,7 @@ import NextButton from './NextButton';
 export default function Dialogue({ nextOnClick }: {
     nextOnClick: (props: StepLabelProps) => void,
 }) {
-    const [windowSize, setWindowSize] = useState({
+    const [windowSize] = useState({
         x: 0,
         y: 300 * GameWindowManager.screenScale,
     });
@@ -28,6 +30,7 @@ export default function Dialogue({ nextOnClick }: {
         x: 300 * GameWindowManager.screenScale,
         y: 0,
     })
+    const [cardHeight, setCardHeight] = useRecoilState(dialogueCardHeightState)
     const typewriterDelay = useRecoilValue(typewriterDelayState)
     const { text, character, hidden } = useRecoilValue(dialogDataState)
 
@@ -39,6 +42,7 @@ export default function Dialogue({ nextOnClick }: {
             />
             <Box
                 sx={{
+                    height: '100%',
                     width: '100%',
                     position: "absolute",
                     bottom: { xs: 14, sm: 18, md: 20, lg: 24, xl: 30 },
@@ -47,43 +51,30 @@ export default function Dialogue({ nextOnClick }: {
                 }}
             >
                 <AnimatePresence>
-                    <Box
-                        key={"divider"}
-                        sx={{
-                            position: "absolute",
-                            top: -5,
-                            width: "100%",
-                            zIndex: 100,
-                        }}
-                        component={motion.div}
-                        variants={{
-                            open: {
-                                opacity: 1,
-                                y: 0,
-                                pointerEvents: "auto",
-                            },
-                            closed: {
-                                opacity: 0,
-                                y: windowSize.y,
-                                pointerEvents: "none",
+                    <SliderResizer
+                        orientation="vertical"
+                        max={100}
+                        min={0}
+                        value={cardHeight}
+                        onChange={(_, value) => {
+                            if (typeof value === "number") {
+                                if (value > 75) {
+                                    value = 75
+                                }
+                                setCardHeight(value)
                             }
                         }}
-                        initial={"closed"}
-                        animate={hidden ? "closed" : "open"}
-                        exit={"closed"}
-                        transition={{ type: "tween" }}
-                    >
-                        <DragHandleDivider
-                            orientation="horizontal"
-                            onMouseDown={(e) => resizeWindowsHandler(e, windowSize, setWindowSize)}
-                        />
-                    </Box>
+                    />
                     <Card
                         key={"dialogue-card"}
                         orientation="horizontal"
                         sx={{
+                            position: "absolute",
                             overflow: 'auto',
-                            height: windowSize.y,
+                            height: `${cardHeight}%`,
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
                             gap: 1,
                         }}
                         component={motion.div}
@@ -95,7 +86,7 @@ export default function Dialogue({ nextOnClick }: {
                             },
                             closed: {
                                 opacity: 0,
-                                y: windowSize.y,
+                                y: 200,
                                 pointerEvents: "none",
                             }
                         }}
