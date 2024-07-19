@@ -4,11 +4,13 @@ export default function SliderResizer(props: SliderProps) {
     const {
         orientation,
         sx,
+        key,
         ...rest
     } = props;
 
     return (
         <Stack
+            key={"stack-" + key}
             direction={orientation === "vertical" ? "row" : "column"}
             justifyContent="center"
             alignItems="center"
@@ -24,6 +26,7 @@ export default function SliderResizer(props: SliderProps) {
             }}
         >
             <Slider
+                key={key}
                 orientation={orientation}
                 sx={{
                     cursor: orientation === "vertical" ? "row-resize" : "col-resize",

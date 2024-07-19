@@ -50,21 +50,21 @@ export default function Dialogue({ nextOnClick }: {
                     right: 0,
                 }}
             >
-                <AnimatePresence>
-                    <SliderResizer
-                        orientation="vertical"
-                        max={100}
-                        min={0}
-                        value={cardHeight}
-                        onChange={(_, value) => {
-                            if (typeof value === "number") {
-                                if (value > 75) {
-                                    value = 75
-                                }
-                                setCardHeight(value)
+                <SliderResizer
+                    orientation="vertical"
+                    max={100}
+                    min={0}
+                    value={cardHeight}
+                    onChange={(_, value) => {
+                        if (typeof value === "number") {
+                            if (value > 75) {
+                                value = 75
                             }
-                        }}
-                    />
+                            setCardHeight(value)
+                        }
+                    }}
+                />
+                <AnimatePresence>
                     <Card
                         key={"dialogue-card"}
                         orientation="horizontal"
