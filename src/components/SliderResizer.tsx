@@ -20,7 +20,6 @@ export default function SliderResizer(props: SliderProps) {
                 width: '100%',
                 height: '100%',
                 position: "absolute",
-                bottom: 33,
                 left: 0,
                 right: 0,
             }}
@@ -32,7 +31,6 @@ export default function SliderResizer(props: SliderProps) {
                     cursor: orientation === "vertical" ? "row-resize" : "col-resize",
                     position: "static",
                     pointerEvents: "none",
-                    bottom: 33,
                     zIndex: useTheme().zIndex.table + 1,
                     "--Slider-trackSize": "0px",
                     "--Slider-thumbWidth": "42px",

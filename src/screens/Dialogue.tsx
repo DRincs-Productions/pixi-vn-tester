@@ -42,12 +42,12 @@ export default function Dialogue({ nextOnClick }: {
             />
             <Box
                 sx={{
-                    height: '100%',
+                    height: '90%',
                     width: '100%',
                     position: "absolute",
-                    bottom: { xs: 14, sm: 18, md: 20, lg: 24, xl: 30 },
                     left: 0,
                     right: 0,
+                    top: 0,
                 }}
             >
                 <SliderResizer
@@ -57,155 +57,175 @@ export default function Dialogue({ nextOnClick }: {
                     value={cardHeight}
                     onChange={(_, value) => {
                         if (typeof value === "number") {
-                            if (value > 75) {
-                                value = 75
-                            }
+                            // if (value > 75) {
+                            //     value = 75
+                            // }
                             setCardHeight(value)
                         }
                     }}
                 />
-                <AnimatePresence>
-                    <Card
-                        key={"dialogue-card"}
-                        orientation="horizontal"
-                        sx={{
-                            position: "absolute",
-                            overflow: 'auto',
-                            height: `${cardHeight}%`,
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            gap: 1,
-                        }}
-                        component={motion.div}
-                        variants={{
-                            open: {
-                                opacity: 1,
-                                y: 0,
-                                pointerEvents: "auto",
-                            },
-                            closed: {
-                                opacity: 0,
-                                y: 200,
-                                pointerEvents: "none",
-                            }
-                        }}
-                        initial={"closed"}
-                        animate={hidden ? "closed" : "open"}
-                        exit={"closed"}
-                        transition={{ type: "tween" }}
-                    >
-                        {character && <AspectRatio
-                            flex
-                            ratio="1"
-                            maxHeight={"20%"}
+                <Box
+                    sx={{
+                        position: "absolute",
+                        height: `${cardHeight}%`,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                    }}
+                >
+                    <AnimatePresence>
+                        <Box
                             sx={{
+                                position: "absolute",
+                                left: 0,
+                                right: 0,
+                                top: 0,
                                 height: "100%",
-                                minWidth: imageSize.x,
                             }}
                             component={motion.div}
                             variants={{
                                 open: {
                                     opacity: 1,
-                                    scale: 1,
+                                    y: 0,
                                     pointerEvents: "auto",
                                 },
                                 closed: {
                                     opacity: 0,
-                                    scale: 0,
+                                    y: 200,
                                     pointerEvents: "none",
                                 }
                             }}
                             initial={"closed"}
-                            animate={character?.icon ? "open" : "closed"}
+                            animate={hidden ? "closed" : "open"}
                             exit={"closed"}
                             transition={{ type: "tween" }}
                         >
-                            <img
-                                src={character?.icon}
-                                loading="lazy"
-                                alt=""
-                            />
-                        </AspectRatio>}
-                        {character && <Box
-                            component={motion.div}
-                            variants={{
-                                open: {
-                                    opacity: 1,
-                                    x: 0,
-                                    pointerEvents: "auto",
-                                },
-                                closed: {
-                                    opacity: 0,
-                                    x: -100,
-                                    pointerEvents: "none",
-                                }
-                            }}
-                            initial={"closed"}
-                            animate={character?.icon ? "open" : "closed"}
-                            exit={"closed"}
-                            transition={{ type: "tween" }}
-                        >
-                            <DragHandleDivider
-                                orientation="vertical"
-                                onMouseDown={(e) => resizeWindowsHandler(e, imageSize, setImageSize)}
+                            <Card
+                                key={"dialogue-card"}
+                                orientation="horizontal"
                                 sx={{
-                                    width: 0,
+                                    overflow: 'auto',
+                                    gap: 1,
+                                    padding: 0,
                                     height: "100%",
-                                    left: -8,
                                 }}
-                            />
-                        </Box>}
-                        <CardContent>
-                            <AnimatePresence>
-                                {character && character.name && <Typography
-                                    fontSize="xl"
-                                    fontWeight="lg"
+                            >
+                                {character && <AspectRatio
+                                    flex
+                                    ratio="1"
+                                    maxHeight={"20%"}
                                     sx={{
-                                        color: character.color,
+                                        height: "100%",
+                                        minWidth: imageSize.x,
                                     }}
                                     component={motion.div}
                                     variants={{
                                         open: {
                                             opacity: 1,
-                                            pointerEvents: "auto",
                                             scale: 1,
+                                            pointerEvents: "auto",
                                         },
                                         closed: {
                                             opacity: 0,
-                                            pointerEvents: "none",
                                             scale: 0,
+                                            pointerEvents: "none",
                                         }
                                     }}
                                     initial={"closed"}
-                                    animate={character.name ? "open" : "closed"}
+                                    animate={character?.icon ? "open" : "closed"}
                                     exit={"closed"}
+                                    transition={{ type: "tween" }}
                                 >
-                                    {character.name + (character.surname ? " " + character.surname : "")}
-                                </Typography>}
-                            </AnimatePresence>
-                            <Sheet
-                                sx={{
-                                    bgcolor: 'background.level1',
-                                    borderRadius: 'sm',
-                                    p: 1.5,
-                                    minHeight: 10,
-                                    display: 'flex',
-                                    flex: 1,
-                                    overflow: 'auto',
-                                }}
-                            >
-                                <TypewriterMarkdown
-                                    text={text || ""}
-                                    delay={typewriterDelay}
-                                />
-                            </Sheet>
-                        </CardContent>
-                    </Card>
-                    <NextButton
-                        nextOnClick={nextOnClick}
-                    />
-                </AnimatePresence>
+                                    <img
+                                        src={character?.icon}
+                                        loading="lazy"
+                                        alt=""
+                                    />
+                                </AspectRatio>}
+                                {character && <Box
+                                    component={motion.div}
+                                    variants={{
+                                        open: {
+                                            opacity: 1,
+                                            x: 0,
+                                            pointerEvents: "auto",
+                                        },
+                                        closed: {
+                                            opacity: 0,
+                                            x: -100,
+                                            pointerEvents: "none",
+                                        }
+                                    }}
+                                    initial={"closed"}
+                                    animate={character?.icon ? "open" : "closed"}
+                                    exit={"closed"}
+                                    transition={{ type: "tween" }}
+                                >
+                                    <DragHandleDivider
+                                        orientation="vertical"
+                                        onMouseDown={(e) => resizeWindowsHandler(e, imageSize, setImageSize)}
+                                        sx={{
+                                            width: 0,
+                                            height: "100%",
+                                            left: -8,
+                                        }}
+                                    />
+                                </Box>}
+                                <CardContent>
+                                    <AnimatePresence>
+                                        {character && character.name && <Typography
+                                            fontSize="xl"
+                                            fontWeight="lg"
+                                            sx={{
+                                                color: character.color,
+                                            }}
+                                            component={motion.div}
+                                            variants={{
+                                                open: {
+                                                    opacity: 1,
+                                                    pointerEvents: "auto",
+                                                    scale: 1,
+                                                },
+                                                closed: {
+                                                    opacity: 0,
+                                                    pointerEvents: "none",
+                                                    scale: 0,
+                                                }
+                                            }}
+                                            initial={"closed"}
+                                            animate={character.name ? "open" : "closed"}
+                                            exit={"closed"}
+                                        >
+                                            {character.name + (character.surname ? " " + character.surname : "")}
+                                        </Typography>}
+                                    </AnimatePresence>
+                                    <Sheet
+                                        sx={{
+                                            bgcolor: 'background.level1',
+                                            borderRadius: 'sm',
+                                            p: 1.5,
+                                            minHeight: 10,
+                                            display: 'flex',
+                                            flex: 1,
+                                            overflow: 'auto',
+                                            height: "100%",
+                                            marginRight: 2,
+                                            marginBottom: 2,
+                                        }}
+                                    >
+                                        <TypewriterMarkdown
+                                            text={text || ""}
+                                            delay={typewriterDelay}
+                                        />
+                                    </Sheet>
+                                </CardContent>
+                            </Card>
+                        </Box>
+                        <NextButton
+                            nextOnClick={nextOnClick}
+                        />
+                    </AnimatePresence>
+                </Box>
             </Box>
         </>
     );
