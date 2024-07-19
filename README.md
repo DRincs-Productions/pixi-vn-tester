@@ -26,7 +26,7 @@ If you don't have a GitHub account, you can download the repository as a zip fil
 
 ![image](https://github.com/user-attachments/assets/2e72d6cf-c1c6-441e-875d-1779b4f27d36)
 
-## Keyboard shortcuts
+## Keyboard shortcuts (hotkeys)
 
 * `Space` or `Enter`: Continue the dialogue.
 * `Keep Space` or `Keep Enter`: Skip the dialogue.
