@@ -6,16 +6,15 @@ import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { dialogDataState } from '../atoms/dialogDataState';
 import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
+import { dialogueCardImageWidthState } from '../atoms/dialogueCardImageWidthState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
-import DragHandleDivider from '../components/DragHandleDivider';
 import SliderResizer from '../components/SliderResizer';
 import TypewriterMarkdown from '../components/TypewriterMarkdown';
-import { resizeWindowsHandler } from '../utility/ComponentUtility';
 import ChoicesMenu from './ChoicesMenu';
 import NextButton from './NextButton';
 
@@ -26,13 +25,46 @@ export default function Dialogue({ nextOnClick }: {
         x: 0,
         y: 300 * GameWindowManager.screenScale,
     });
-    const [imageSize, setImageSize] = useState({
-        x: 300 * GameWindowManager.screenScale,
-        y: 0,
-    })
     const [cardHeight, setCardHeight] = useRecoilState(dialogueCardHeightState)
+    const [cardImageWidth, setCardImageWidth] = useRecoilState(dialogueCardImageWidthState)
     const typewriterDelay = useRecoilValue(typewriterDelayState)
     const { text, character, hidden } = useRecoilValue(dialogDataState)
+    const cardVarians: Variants = {
+        open: {
+            opacity: 1,
+            y: 0,
+            pointerEvents: "auto",
+        },
+        closed: {
+            opacity: 0,
+            y: 200,
+            pointerEvents: "none",
+        }
+    }
+    const cardElementVarians: Variants = {
+        open: {
+            opacity: 1,
+            scale: 1,
+            pointerEvents: "auto",
+        },
+        closed: {
+            opacity: 0,
+            scale: 0,
+            pointerEvents: "none",
+        }
+    }
+    const cardImageVarians: Variants = {
+        open: {
+            opacity: 1,
+            x: 0,
+            pointerEvents: "auto",
+        },
+        closed: {
+            opacity: 0,
+            x: -100,
+            pointerEvents: "none",
+        }
+    }
 
     return (
         <>
@@ -50,20 +82,29 @@ export default function Dialogue({ nextOnClick }: {
                     top: 0,
                 }}
             >
-                <SliderResizer
-                    orientation="vertical"
-                    max={100}
-                    min={0}
-                    value={cardHeight}
-                    onChange={(_, value) => {
-                        if (typeof value === "number") {
-                            // if (value > 75) {
-                            //     value = 75
-                            // }
-                            setCardHeight(value)
-                        }
+                <Box
+                    sx={{
+                        height: '100%',
                     }}
-                />
+                    component={motion.div}
+                    variants={cardVarians}
+                    initial={"closed"}
+                    animate={hidden ? "closed" : "open"}
+                    exit={"closed"}
+                    transition={{ type: "tween" }}
+                >
+                    <SliderResizer
+                        orientation="vertical"
+                        max={100}
+                        min={0}
+                        value={cardHeight}
+                        onChange={(_, value) => {
+                            if (typeof value === "number") {
+                                setCardHeight(value)
+                            }
+                        }}
+                    />
+                </Box>
                 <Box
                     sx={{
                         position: "absolute",
@@ -83,18 +124,7 @@ export default function Dialogue({ nextOnClick }: {
                                 height: "100%",
                             }}
                             component={motion.div}
-                            variants={{
-                                open: {
-                                    opacity: 1,
-                                    y: 0,
-                                    pointerEvents: "auto",
-                                },
-                                closed: {
-                                    opacity: 0,
-                                    y: 200,
-                                    pointerEvents: "none",
-                                }
-                            }}
+                            variants={cardVarians}
                             initial={"closed"}
                             animate={hidden ? "closed" : "open"}
                             exit={"closed"}
@@ -116,21 +146,10 @@ export default function Dialogue({ nextOnClick }: {
                                     maxHeight={"20%"}
                                     sx={{
                                         height: "100%",
-                                        minWidth: imageSize.x,
+                                        minWidth: `${cardImageWidth}%`,
                                     }}
                                     component={motion.div}
-                                    variants={{
-                                        open: {
-                                            opacity: 1,
-                                            scale: 1,
-                                            pointerEvents: "auto",
-                                        },
-                                        closed: {
-                                            opacity: 0,
-                                            scale: 0,
-                                            pointerEvents: "none",
-                                        }
-                                    }}
+                                    variants={cardElementVarians}
                                     initial={"closed"}
                                     animate={character?.icon ? "open" : "closed"}
                                     exit={"closed"}
@@ -144,30 +163,27 @@ export default function Dialogue({ nextOnClick }: {
                                 </AspectRatio>}
                                 {character && <Box
                                     component={motion.div}
-                                    variants={{
-                                        open: {
-                                            opacity: 1,
-                                            x: 0,
-                                            pointerEvents: "auto",
-                                        },
-                                        closed: {
-                                            opacity: 0,
-                                            x: -100,
-                                            pointerEvents: "none",
-                                        }
-                                    }}
+                                    variants={cardImageVarians}
                                     initial={"closed"}
                                     animate={character?.icon ? "open" : "closed"}
                                     exit={"closed"}
                                     transition={{ type: "tween" }}
                                 >
-                                    <DragHandleDivider
-                                        orientation="vertical"
-                                        onMouseDown={(e) => resizeWindowsHandler(e, imageSize, setImageSize)}
-                                        sx={{
-                                            width: 0,
-                                            height: "100%",
-                                            left: -8,
+                                    <SliderResizer
+                                        orientation="horizontal"
+                                        max={100}
+                                        min={0}
+                                        value={cardImageWidth}
+                                        onChange={(_, value) => {
+                                            if (typeof value === "number") {
+                                                if (value > 75) {
+                                                    value = 75
+                                                }
+                                                if (value < 5) {
+                                                    value = 5
+                                                }
+                                                setCardImageWidth(value)
+                                            }
                                         }}
                                     />
                                 </Box>}
@@ -180,18 +196,7 @@ export default function Dialogue({ nextOnClick }: {
                                                 color: character.color,
                                             }}
                                             component={motion.div}
-                                            variants={{
-                                                open: {
-                                                    opacity: 1,
-                                                    pointerEvents: "auto",
-                                                    scale: 1,
-                                                },
-                                                closed: {
-                                                    opacity: 0,
-                                                    pointerEvents: "none",
-                                                    scale: 0,
-                                                }
-                                            }}
+                                            variants={cardElementVarians}
                                             initial={"closed"}
                                             animate={character.name ? "open" : "closed"}
                                             exit={"closed"}

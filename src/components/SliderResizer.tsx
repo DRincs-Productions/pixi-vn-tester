@@ -33,8 +33,8 @@ export default function SliderResizer(props: SliderProps) {
                     pointerEvents: "none",
                     zIndex: useTheme().zIndex.table + 1,
                     "--Slider-trackSize": "0px",
-                    "--Slider-thumbWidth": "42px",
-                    "--Slider-thumbSize": "16px",
+                    "--Slider-thumbWidth": orientation === "vertical" ? "42px" : "16px",
+                    "--Slider-thumbSize": orientation === "vertical" ? "16px" : "42px",
                     "& .MuiSlider-thumb": {
                         pointerEvents: "auto",
                     },
