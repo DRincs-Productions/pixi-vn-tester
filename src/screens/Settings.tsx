@@ -11,6 +11,7 @@ import HistoryIcon from '@mui/icons-material/History';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import SaveIcon from '@mui/icons-material/Save';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
 import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormControl, FormHelperText, FormLabel, IconButton, ModalClose, RadioGroup, Sheet, Slider, Stack, ToggleButtonGroup, Tooltip, Typography, useColorScheme } from "@mui/joy";
 import { Theme, useMediaQuery } from '@mui/material';
@@ -194,7 +195,7 @@ export default function Settings() {
                                         checked={hideInterface}
                                         onClick={() => setHideInterface((prev) => !prev)}
                                     >
-                                        <HdrAutoIcon />
+                                        <VisibilityOffIcon />
                                         <Typography level="title-md">{t("hide_interface")}</Typography>
                                         <Typography
                                             sx={{
