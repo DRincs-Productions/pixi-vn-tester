@@ -255,7 +255,7 @@ export default function Settings() {
                                 {t("auto_forward_time")}
                             </FormLabel>
                             <FormHelperText sx={{ typography: 'body-sm' }}>
-                                {t("auto_forward_time_description")}
+                                {t("auto_forward_time_description", { autoName: t("auto_forward_time_restricted") })}
                             </FormHelperText>
                         </Box>
                         <Box
@@ -280,6 +280,8 @@ export default function Settings() {
                                 valueLabelDisplay="on"
                                 max={10}
                                 min={1}
+                                disabled={!auto}
+                                valueLabelFormat={(index) => index + "s"}
                                 onChange={(_, value) => {
                                     if (value)
                                         setAutoTime(value as number)
@@ -316,6 +318,11 @@ export default function Settings() {
                                 valueLabelDisplay="on"
                                 max={200}
                                 min={0}
+                                valueLabelFormat={(index) => {
+                                    if (index === 0) return t('off')
+                                    return `${index}ms`
+                                }}
+
                                 onChange={(_, value) => {
                                     setTypewriterDelay(value as number || 0)
                                 }}
