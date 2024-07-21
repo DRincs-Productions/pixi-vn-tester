@@ -54,7 +54,7 @@ export default function Settings() {
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventState);
     const [quickSave, setQuickSave] = useRecoilState(quickSaveState)
     const { enqueueSnackbar } = useSnackbar();
-    const lgScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'));
+    const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
     useEffect(() => {
         window.addEventListener('keydown', onkeydown);
@@ -94,10 +94,16 @@ export default function Settings() {
     return (
         <>
             <Drawer
-                size={lgScreen ? 'lg' : 'md'}
+                // size={'lg'}
                 variant="plain"
                 open={open}
                 onClose={() => setOpen(false)}
+                sx={{
+                    '& .MuiDrawer-content': {
+                        width: smScreen ? '100%' : 600,
+                        maxWidth: '100%',
+                    },
+                }}
                 slotProps={{
                     content: {
                         sx: {
