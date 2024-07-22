@@ -81,17 +81,6 @@ export default function Settings() {
         }
     }, [autoTime])
 
-    useEffect(() => {
-        // Debouncing
-        const setTypewriter = setTimeout(() => {
-            localStorage.setItem('typewriter_delay_millisecond', typewriterDelay.toString())
-        }, 500)
-
-        return () => {
-            clearTimeout(setTypewriter)
-        }
-    }, [typewriterDelay])
-
     return (
         <>
             <Drawer
