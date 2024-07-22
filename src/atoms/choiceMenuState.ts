@@ -11,9 +11,11 @@ type ChoiceMenu = {
 export const choiceMenuState = selector<ChoiceMenu>({
     key: 'choiceMenuState',
     get: ({ get }) => {
-        let choiceMenu = getChoiceMenuOptions() || []
+        // dipendencies: when the dipendencies change, the selector will re-run
         get(reloadInterfaceDataEventState)
         let hideInterface = get(hideInterfaceState)
+
+        let choiceMenu = getChoiceMenuOptions() || []
         return {
             menu: choiceMenu,
             hidden: hideInterface || !choiceMenu || choiceMenu.length == 0

@@ -22,9 +22,15 @@ export default function AppRoutes() {
                 setNextStepLoading(false);
                 return;
             }
-            await GameStepManager.goNext(props);
-            notifyReloadInterfaceDataEvent((p) => p + 1);
-            setNextStepLoading(false);
+            GameStepManager.goNext(props)
+                .then(() => {
+                    notifyReloadInterfaceDataEvent((p) => p + 1);
+                    setNextStepLoading(false);
+                })
+                .catch((e) => {
+                    setNextStepLoading(false);
+                    console.error(e);
+                })
             return;
         } catch (e) {
             setNextStepLoading(false);

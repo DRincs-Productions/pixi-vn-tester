@@ -1,18 +1,16 @@
-import { CharacterBaseModel, GameStepManager, getCharacterById, getDialogue } from '@drincs/pixi-vn';
+import { CharacterBaseModel, getCharacterById, getDialogue } from '@drincs/pixi-vn';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { autoInfoState } from '../atoms/autoInfoState';
 import { dialogDataState } from '../atoms/dialogDataState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
-import { hideNextButtonState } from '../atoms/hideNextButtonState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 
 export default function DialogueDataEventInterceptor() {
     const reloadInterfaceDataEvent = useRecoilValue(reloadInterfaceDataEventState);
     const { t } = useTranslation(["translation"]);
     const hideInterface = useRecoilValue(hideInterfaceState)
-    const hideNextButton = useSetRecoilState(hideNextButtonState)
     const updateAuto = useSetRecoilState(autoInfoState)
     const [{ text, character }, setDialogData] = useRecoilState(dialogDataState)
 
@@ -44,19 +42,6 @@ export default function DialogueDataEventInterceptor() {
             }
         } catch (e) { }
     }, [reloadInterfaceDataEvent])
-
-    useEffect(() => {
-        hideNextButton(hideInterface || !(GameStepManager.canGoNext))
-    }, [hideInterface])
-
-    useEffect(() => {
-        setDialogData((prev) => {
-            return {
-                ...prev,
-                hidden: hideInterface || (prev.text ? false : true),
-            }
-        })
-    }, [hideInterface])
 
     return null
 }
