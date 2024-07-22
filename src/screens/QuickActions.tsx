@@ -1,7 +1,7 @@
 import { getSaveJson } from '@drincs/pixi-vn';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { IconButton, Stack, useTheme } from '@mui/joy';
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
@@ -33,7 +33,7 @@ export default function QuickActions() {
     const { enqueueSnackbar } = useSnackbar();
 
     return (
-        <AnimatePresence>
+        <>
             <Stack
                 direction="row"
                 justifyContent="center"
@@ -163,6 +163,6 @@ export default function QuickActions() {
                     }}
                 />
             </IconButton>
-        </AnimatePresence>
+        </>
     );
 }
