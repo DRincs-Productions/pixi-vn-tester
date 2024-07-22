@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { autoEnabledState } from '../atoms/autoEnabledState';
+import { autoInfoState } from '../atoms/autoInfoState';
 import { canGoBackState } from '../atoms/canGoBackState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openHistoryState } from '../atoms/openHistoryState';
@@ -27,7 +27,7 @@ export default function QuickActions() {
     const { t } = useTranslation(["translation"]);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const [skip, setSkip] = useRecoilState(skipEnabledState)
-    const [auto, setAuto] = useRecoilState(autoEnabledState)
+    const [auto, setAuto] = useRecoilState(autoInfoState)
     const canGoBack = useRecoilValue(canGoBackState)
     const [quickSave, setQuickSave] = useRecoilState(quickSaveState)
     const { enqueueSnackbar } = useSnackbar();
@@ -84,8 +84,11 @@ export default function QuickActions() {
                     {t("skip")}
                 </TextMenuButton>
                 <TextMenuButton
-                    selected={auto}
-                    onClick={() => setAuto((prev) => !prev)}
+                    selected={auto.enabled}
+                    onClick={() => setAuto((prev) => ({
+                        ...prev,
+                        enabled: !prev.enabled,
+                    }))}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t("auto_forward_time_restricted")}
