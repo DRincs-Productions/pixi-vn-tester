@@ -42,12 +42,12 @@ export default function SkipAutoInterceptor({ nextOnClick }: {
         if (skipEnabled) {
             return
         }
-        if (autoInfo && !typewriterIsAnimated) {
+        if (autoInfo.enabled && !typewriterIsAnimated) {
             if (autoInfo.time) {
                 let millisecond = autoInfo.time * 1000
                 // Debouncing
                 let timeout = setTimeout(() => {
-                    if (autoInfo && !skipEnabled) {
+                    if (autoInfo.enabled && !skipEnabled) {
                         nextOnClick({
                             t,
                             navigate,

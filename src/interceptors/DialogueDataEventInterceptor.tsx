@@ -2,6 +2,7 @@ import { CharacterBaseModel, GameStepManager, getCharacterById, getDialogue } fr
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { autoInfoState } from '../atoms/autoInfoState';
 import { dialogDataState } from '../atoms/dialogDataState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { hideNextButtonState } from '../atoms/hideNextButtonState';
@@ -12,6 +13,7 @@ export default function DialogueDataEventInterceptor() {
     const { t } = useTranslation(["translation"]);
     const hideInterface = useRecoilValue(hideInterfaceState)
     const hideNextButton = useSetRecoilState(hideNextButtonState)
+    const updateAuto = useSetRecoilState(autoInfoState)
     const [{ text, character }, setDialogData] = useRecoilState(dialogDataState)
 
     useEffect(() => {
@@ -30,6 +32,14 @@ export default function DialogueDataEventInterceptor() {
                     text: newText,
                     character: newCharacter,
                     hidden: hideInterface || newText ? false : true,
+                })
+            }
+            else {
+                updateAuto((prev) => {
+                    return {
+                        ...prev,
+                        update: prev.update + 1
+                    }
                 })
             }
         } catch (e) { }

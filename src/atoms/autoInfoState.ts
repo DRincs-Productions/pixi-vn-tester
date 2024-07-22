@@ -1,8 +1,18 @@
 import { atom, selector } from "recoil";
 
 type AutoInfo = {
+    /**
+     * Whether auto forward is enabled
+     */
     enabled: boolean,
-    time: number
+    /**
+     * Time in seconds to wait before auto forwarding
+     */
+    time: number,
+    /**
+     * Force recheck the auto forward
+     */
+    update: number,
 }
 
 const autoInfoAtomState = atom<AutoInfo>({
@@ -10,6 +20,7 @@ const autoInfoAtomState = atom<AutoInfo>({
     default: {
         enabled: false,
         time: 1,
+        update: 0,
     },
 });
 
@@ -26,7 +37,7 @@ export const autoInfoState = selector<AutoInfo>({
 
         let info = get(autoInfoAtomState)
         return {
-            enabled: info.enabled,
+            ...info,
             time: time || info.time,
         }
     },
