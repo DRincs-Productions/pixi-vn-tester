@@ -257,7 +257,7 @@ export default function Settings() {
                                 marks={[
                                     {
                                         value: 0,
-                                        label: '0ms',
+                                        label: 'Off',
                                     },
                                     {
                                         value: 200,
