@@ -1,4 +1,3 @@
-import { getSaveJson } from '@drincs/pixi-vn';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { IconButton, Stack, useTheme } from '@mui/joy';
 import { motion } from "framer-motion";
@@ -15,6 +14,7 @@ import { quickSaveState } from '../atoms/quickSaveState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
+import { getSaveJson } from '../pixi-vn/src';
 import { goBack, loadGameSave, saveGame } from '../utility/ActionsUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 

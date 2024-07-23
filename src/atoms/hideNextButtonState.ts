@@ -1,5 +1,5 @@
-import { GameStepManager } from "@drincs/pixi-vn";
 import { selector } from "recoil";
+import { GameStepManager } from "../pixi-vn/src";
 import { hideInterfaceState } from "./hideInterfaceState";
 import { reloadInterfaceDataEventState } from "./reloadInterfaceDataEventState";
 

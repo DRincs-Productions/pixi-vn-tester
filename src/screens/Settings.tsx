@@ -1,4 +1,3 @@
-import { getSaveJson } from '@drincs/pixi-vn';
 import AutoModeIcon from '@mui/icons-material/AutoMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -32,6 +31,7 @@ import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
+import { getSaveJson } from '../pixi-vn/src';
 import { useEditColorProvider } from '../providers/ThemeProvider';
 import { loadGameSave, saveGame } from '../utility/ActionsUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';

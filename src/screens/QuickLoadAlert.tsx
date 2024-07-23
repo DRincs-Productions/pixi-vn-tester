@@ -1,4 +1,3 @@
-import { getSaveJson } from '@drincs/pixi-vn';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import { Button, Typography } from '@mui/joy';
 import { useSnackbar } from 'notistack';
@@ -9,6 +8,7 @@ import { openLoadAlertState } from '../atoms/openLoadAlertState';
 import { quickSaveState } from '../atoms/quickSaveState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import ModalDialogCustom from '../components/ModalDialog';
+import { getSaveJson } from '../pixi-vn/src';
 import { loadQuickSave } from '../utility/ActionsUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
