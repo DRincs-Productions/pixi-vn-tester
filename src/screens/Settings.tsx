@@ -1,3 +1,4 @@
+import { getSaveJson } from '@drincs/pixi-vn';
 import AutoModeIcon from '@mui/icons-material/AutoMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -10,22 +11,29 @@ import HistoryIcon from '@mui/icons-material/History';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import SaveIcon from '@mui/icons-material/Save';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
 import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormControl, FormHelperText, FormLabel, IconButton, ModalClose, RadioGroup, Sheet, Slider, Stack, ToggleButtonGroup, Tooltip, Typography, useColorScheme } from "@mui/joy";
+import { Theme, useMediaQuery } from '@mui/material';
+import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { HuePicker } from 'react-color';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { autoEnabledState } from '../atoms/autoEnabledState';
+import { autoInfoState } from '../atoms/autoInfoState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openHistoryState } from '../atoms/openHistoryState';
+import { openLoadAlertState } from '../atoms/openLoadAlertState';
 import { openSettingsState } from '../atoms/openSettingsState';
+import { quickSaveState } from '../atoms/quickSaveState';
+import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
 import { useEditColorProvider } from '../providers/ThemeProvider';
+import { loadGameSave, saveGame } from '../utility/ActionsUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function Settings() {
@@ -35,14 +43,18 @@ export default function Settings() {
     const navigate = useMyNavigate();
     const location = useLocation();
     const [openYouSure, setOpenYouSure] = useState(false)
-    const [autoTime, setAutoTime] = useState(localStorage.getItem('auto_forward_second') ? parseInt(localStorage.getItem('auto_forward_second')!) : 1)
     const [typewriterDelay, setTypewriterDelay] = useRecoilState(typewriterDelayState)
     const [fullScreenEnabled, setFullScreenEnabled] = useState(false)
     const { t } = useTranslation(["translation"]);
     const [skip, setSkip] = useRecoilState(skipEnabledState)
-    const [auto, setAuto] = useRecoilState(autoEnabledState)
+    const [auto, setAuto] = useRecoilState(autoInfoState)
     const setOpenHistory = useSetRecoilState(openHistoryState);
+    const setOpenLoadAlert = useSetRecoilState(openLoadAlertState);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
+    const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventState);
+    const [quickSave, setQuickSave] = useRecoilState(quickSaveState)
+    const { enqueueSnackbar } = useSnackbar();
+    const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
     useEffect(() => {
         window.addEventListener('keydown', onkeydown);
@@ -57,35 +69,19 @@ export default function Settings() {
         }
     }
 
-    useEffect(() => {
-        // Debouncing
-        const setAuto = setTimeout(() => {
-            localStorage.setItem('auto_forward_second', autoTime.toString())
-        }, 500)
-
-        return () => {
-            clearTimeout(setAuto)
-        }
-    }, [autoTime])
-
-    useEffect(() => {
-        // Debouncing
-        const setTypewriter = setTimeout(() => {
-            localStorage.setItem('typewriter_delay_millisecond', typewriterDelay.toString())
-        }, 500)
-
-        return () => {
-            clearTimeout(setTypewriter)
-        }
-    }, [typewriterDelay])
-
     return (
         <>
             <Drawer
-                size="md"
+                // size={'lg'}
                 variant="plain"
                 open={open}
                 onClose={() => setOpen(false)}
+                sx={{
+                    '& .MuiDrawer-content': {
+                        width: smScreen ? '100%' : 600,
+                        maxWidth: '100%',
+                    },
+                }}
                 slotProps={{
                     content: {
                         sx: {
@@ -120,37 +116,74 @@ export default function Settings() {
                                         gap: 1.5,
                                     }}
                                 >
-                                    <SettingButton>
+                                    <SettingButton
+                                        onClick={saveGame}
+                                    >
                                         <SaveIcon />
                                         <Typography level="title-md">{t("save")}</Typography>
                                     </SettingButton>
-                                    <SettingButton>
+                                    <SettingButton
+                                        onClick={() => loadGameSave(navigate, () => {
+                                            notifyLoadEvent((prev) => prev + 1)
+                                            enqueueSnackbar(t("success_load"), { variant: 'success' })
+                                        })}
+                                    >
                                         <FileUploadIcon />
                                         <Typography level="title-md">{t("load")}</Typography>
                                     </SettingButton>
-                                    <SettingButton>
+                                    <SettingButton
+                                        onClick={() => {
+                                            let save = getSaveJson()
+                                            setQuickSave(save)
+                                            enqueueSnackbar(t("success_save"), { variant: 'success' })
+                                        }}
+                                    >
                                         <SaveIcon />
                                         <Typography level="title-md">{t("quick_save_restricted")}</Typography>
-                                    </SettingButton>
-                                    <SettingButton>
-                                        <FileUploadIcon />
-                                        <Typography level="title-md">{t("quick_load_restricted")}</Typography>
-                                    </SettingButton>
-                                    <SettingButton
-                                        checked={hideInterface}
-                                        onClick={() => setHideInterface((prev) => !prev)}
-                                    >
-                                        <HdrAutoIcon />
-                                        <Typography level="title-md">{t("hide_interface")}</Typography>
-                                        <Box
+                                        <Typography
                                             sx={{
                                                 position: 'absolute',
                                                 top: 10,
                                                 right: 10,
                                             }}
+                                            level="body-md"
                                         >
-                                            <Typography level="body-lg">V</Typography>
-                                        </Box>
+                                            Shift+S
+                                        </Typography>
+                                    </SettingButton>
+                                    <SettingButton
+                                        onClick={() => setOpenLoadAlert(true)}
+                                        disabled={!quickSave}
+                                    >
+                                        <FileUploadIcon />
+                                        <Typography level="title-md">{t("quick_load_restricted")}</Typography>
+                                        <Typography
+                                            sx={{
+                                                position: 'absolute',
+                                                top: 10,
+                                                right: 10,
+                                            }}
+                                            level="body-md"
+                                        >
+                                            Shift+L
+                                        </Typography>
+                                    </SettingButton>
+                                    <SettingButton
+                                        checked={hideInterface}
+                                        onClick={() => setHideInterface((prev) => !prev)}
+                                    >
+                                        <VisibilityOffIcon />
+                                        <Typography level="title-md">{t("hide_interface")}</Typography>
+                                        <Typography
+                                            sx={{
+                                                position: 'absolute',
+                                                top: 10,
+                                                right: 10,
+                                            }}
+                                            level="body-md"
+                                        >
+                                            Shift+V
+                                        </Typography>
                                     </SettingButton>
                                     <SettingButton
                                         onClick={() => {
@@ -160,15 +193,16 @@ export default function Settings() {
                                     >
                                         <HistoryIcon />
                                         <Typography level="title-md">{t("history")}</Typography>
-                                        <Box
+                                        <Typography
                                             sx={{
                                                 position: 'absolute',
                                                 top: 10,
                                                 right: 10,
                                             }}
+                                            level="body-md"
                                         >
-                                            <Typography level="body-lg">H</Typography>
-                                        </Box>
+                                            Shift+H
+                                        </Typography>
                                     </SettingButton>
                                     <SettingButton
                                         checked={skip}
@@ -176,10 +210,23 @@ export default function Settings() {
                                     >
                                         <FastForwardIcon />
                                         <Typography level="title-md">{t("skip")}</Typography>
+                                        <Typography
+                                            sx={{
+                                                position: 'absolute',
+                                                top: 10,
+                                                right: 10,
+                                            }}
+                                            level="body-md"
+                                        >
+                                            Press Space
+                                        </Typography>
                                     </SettingButton>
                                     <SettingButton
-                                        checked={auto}
-                                        onClick={() => setAuto((prev) => !prev)}
+                                        checked={auto.enabled}
+                                        onClick={() => setAuto((prev) => ({
+                                            ...prev,
+                                            enabled: !prev.enabled
+                                        }))}
                                     >
                                         <HdrAutoIcon />
                                         <Typography level="title-md">{t("auto_forward_time_restricted")}</Typography>
@@ -190,42 +237,6 @@ export default function Settings() {
                         <Typography level="title-md" fontWeight="bold">
                             {t("dialogues")}
                         </Typography>
-                        <Box>
-                            <FormLabel sx={{ typography: 'title-sm' }}>
-                                {t("auto_forward_time")}
-                            </FormLabel>
-                            <FormHelperText sx={{ typography: 'body-sm' }}>
-                                {t("auto_forward_time_description")}
-                            </FormHelperText>
-                        </Box>
-                        <Box
-                            sx={{
-                                paddingX: 3,
-                            }}
-                        >
-                            <Slider
-                                defaultValue={autoTime}
-                                getAriaValueText={(value) => `${value}s`}
-                                step={1}
-                                marks={[
-                                    {
-                                        value: 1,
-                                        label: '1s',
-                                    },
-                                    {
-                                        value: 10,
-                                        label: '10s',
-                                    },
-                                ]}
-                                valueLabelDisplay="on"
-                                max={10}
-                                min={1}
-                                onChange={(_, value) => {
-                                    if (value)
-                                        setAutoTime(value as number)
-                                }}
-                            />
-                        </Box>
                         <Box>
                             <FormLabel sx={{ typography: 'title-sm' }}>
                                 {t("text_speed")}
@@ -246,7 +257,7 @@ export default function Settings() {
                                 marks={[
                                     {
                                         value: 0,
-                                        label: '0ms',
+                                        label: 'Off',
                                     },
                                     {
                                         value: 200,
@@ -256,8 +267,54 @@ export default function Settings() {
                                 valueLabelDisplay="on"
                                 max={200}
                                 min={0}
+                                valueLabelFormat={(index) => {
+                                    if (index === 0) return t('off')
+                                    return `${index}ms`
+                                }}
+
                                 onChange={(_, value) => {
                                     setTypewriterDelay(value as number || 0)
+                                }}
+                            />
+                        </Box>
+                        <Box>
+                            <FormLabel sx={{ typography: 'title-sm' }}>
+                                {t("auto_forward_time")}
+                            </FormLabel>
+                            <FormHelperText sx={{ typography: 'body-sm' }}>
+                                {t("auto_forward_time_description", { autoName: t("auto_forward_time_restricted"), textSpeedName: t("text_speed") })}
+                            </FormHelperText>
+                        </Box>
+                        <Box
+                            sx={{
+                                paddingX: 3,
+                            }}
+                        >
+                            <Slider
+                                defaultValue={auto.time}
+                                getAriaValueText={(value) => `${value}s`}
+                                step={1}
+                                marks={[
+                                    {
+                                        value: 1,
+                                        label: '1s',
+                                    },
+                                    {
+                                        value: 10,
+                                        label: '10s',
+                                    },
+                                ]}
+                                valueLabelDisplay="on"
+                                max={10}
+                                min={1}
+                                disabled={!auto}
+                                valueLabelFormat={(index) => index + "s"}
+                                onChange={(_, value) => {
+                                    if (value)
+                                        setAuto((prev) => ({
+                                            ...prev,
+                                            time: value as number
+                                        }))
                                 }}
                             />
                         </Box>

@@ -5,7 +5,7 @@ import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { canGoNextState } from '../atoms/canGoNextState';
+import { hideNextButtonState } from '../atoms/hideNextButtonState';
 import { nextStepLoadingState } from '../atoms/nextStepLoadingState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import { useMyNavigate } from '../utility/useMyNavigate';
@@ -15,31 +15,34 @@ export default function NextButton({ nextOnClick }: {
 }) {
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const nextStepLoading = useRecoilValue(nextStepLoadingState)
-    const canGoNext = useRecoilValue(canGoNextState)
+    const hideNextButton = useRecoilValue(hideNextButtonState)
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useMyNavigate();
     const { t } = useTranslation(["translation"]);
     useEffect(() => {
-        window.addEventListener('keydown', onkeydown);
+        window.addEventListener("keypress", onkeypress);
+        window.addEventListener("keyup", onkeyup);
 
         return () => {
-            window.removeEventListener('keydown', onkeydown);
+            window.removeEventListener("keypress", onkeypress);
+            window.removeEventListener("keyup", onkeyup);
         };
     }, []);
 
-    function onkeydown(event: KeyboardEvent) {
-        if (event.code == 'Enter' || event.code == 'Space') {
-            if (!canGoNext) {
-                return;
-            }
+    function onkeypress(event: KeyboardEvent) {
+        if ((event.code == 'Enter' || event.code == 'Space')) {
+            setSkip(true)
+        }
+    }
+
+    function onkeyup(event: KeyboardEvent) {
+        if ((event.code == 'Enter' || event.code == 'Space')) {
+            setSkip(false)
             nextOnClick({
                 t,
                 navigate,
                 notify: (message, variant) => enqueueSnackbar(message, { variant }),
             })
-            if (skip) {
-                setSkip(false)
-            }
         }
     }
 
@@ -79,7 +82,7 @@ export default function NextButton({ nextOnClick }: {
                 }
             }}
             initial={"closed"}
-            animate={canGoNext ? "closed" : "open"}
+            animate={hideNextButton ? "closed" : "open"}
             exit={"closed"}
         >
             {t("next")}

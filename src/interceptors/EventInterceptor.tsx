@@ -21,7 +21,7 @@ export default function EventInterceptor() {
             window.removeEventListener("popstate", onpopstate);
             window.removeEventListener('keydown', onkeydown);
         };
-    }, [hideInterface]);
+    }, []);
 
     function onpopstate() {
         window.history.forward();
@@ -33,7 +33,7 @@ export default function EventInterceptor() {
                 setHideInterface(false)
             }
         }
-        else if (event.code == 'KeyV') {
+        else if (event.code == 'KeyV' && event.shiftKey) {
             setHideInterface((prev) => !prev)
         }
     }

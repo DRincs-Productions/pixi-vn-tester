@@ -1,32 +1,53 @@
-import { Typography, TypographyProps } from "@mui/joy";
+import { useTheme } from "@mui/joy";
 import { motion, Variants } from "framer-motion";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 
-function TypewriterMarkdownInternal({ children, letterVariants, dadElement }: {
-    children: any,
-    letterVariants: Variants;
-    dadElement: (children: JSX.Element | JSX.Element[]) => JSX.Element | JSX.Element[];
-    isRoot?: boolean;
+function TypewriterMarkdownInternal({ children, letterVariants, dadElement, scrollOnLastItem }: {
+    children: any
+    letterVariants: Variants
+    dadElement: (children: JSX.Element | JSX.Element[]) => JSX.Element | JSX.Element[]
+    isRoot?: boolean
+    scrollOnLastItem?: (scrollTop: number) => void
 }) {
     if (typeof children === "string") {
-        const spanList = children.split("").map((char, i) => (
-            <motion.span key={`span-${char}-${i}`} variants={letterVariants} >
+        const spanList = children.split("").map((char, i) => {
+            const ref = useRef<HTMLSpanElement>(null);
+            return <motion.span
+                ref={ref}
+                key={`span-${char}-${i}`}
+                variants={letterVariants}
+                onAnimationComplete={scrollOnLastItem ? () => {
+                    if (ref.current?.offsetParent) {
+                        scrollOnLastItem(ref.current.offsetTop)
+                    }
+                } : undefined}
+            >
                 {char}
             </motion.span>
-        ))
+        })
         return dadElement(spanList)
     }
     else if (Array.isArray(children)) {
         const list = children.map((child) => {
             if (typeof child === "string") {
-                let spanList = child.split("").map((char, i) => (
-                    <motion.span key={`span-${char}-${i}`} variants={letterVariants} >
+                let spanList = child.split("").map((char, i) => {
+                    const ref = useRef<HTMLSpanElement>(null);
+                    return <motion.span
+                        ref={ref}
+                        key={`span-${char}-${i}`}
+                        variants={letterVariants}
+                        onAnimationComplete={scrollOnLastItem ? () => {
+                            if (ref.current?.offsetParent) {
+                                scrollOnLastItem(ref.current.offsetTop)
+                            }
+                        } : undefined}
+                    >
                         {char}
                     </motion.span>
-                ))
+                })
                 return spanList
             }
             return child
@@ -36,7 +57,13 @@ function TypewriterMarkdownInternal({ children, letterVariants, dadElement }: {
     return dadElement(children)
 };
 
-export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text: string; delay?: number; } & TypographyProps) {
+export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplete, onAnimationStart, scroll }: {
+    text: string
+    delay?: number
+    onAnimationComplete?: () => void
+    onAnimationStart?: () => void
+    scroll?: (offsetTop: number) => void
+}) {
     const sentenceVariants: Variants = {
         hidden: {},
         visible: { opacity: 1, transition: { staggerChildren: delay / 1000 } },
@@ -47,12 +74,13 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
     }), [delay]);
 
     return (
-        <Typography
-            component={motion.div}
+        <motion.div
+            key={text}
             variants={sentenceVariants}
             initial="hidden"
-            animate="visible"
-            {...rest}
+            animate={"visible"}
+            onAnimationStart={onAnimationStart}
+            onAnimationComplete={onAnimationComplete}
         >
             <Markdown
                 remarkPlugins={[remarkGfm]}
@@ -62,6 +90,7 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
                         return <TypewriterMarkdownInternal
                             children={children}
                             letterVariants={letterVariants}
+                            scrollOnLastItem={scroll}
                             dadElement={(children) => {
                                 if (Array.isArray(children)) {
                                     children.push(<motion.br />)
@@ -75,9 +104,14 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
                         return <TypewriterMarkdownInternal
                             children={children}
                             letterVariants={letterVariants}
+                            scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.a
                                 href={href}
-                                style={style}
+                                target="_blank"
+                                style={{
+                                    ...style,
+                                    color: useTheme().palette.primary[500],
+                                }}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -89,8 +123,13 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
                         return <TypewriterMarkdownInternal
                             children={children}
                             letterVariants={letterVariants}
+                            scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.code
-                                style={style}
+                                style={{
+                                    ...style,
+                                    backgroundColor: useTheme().palette.neutral[600],
+                                    color: useTheme().palette.neutral[200],
+                                }}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -102,8 +141,12 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
                         return <TypewriterMarkdownInternal
                             children={children}
                             letterVariants={letterVariants}
+                            scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.ul
-                                style={style}
+                                style={{
+                                    ...style,
+                                    margin: 0,
+                                }}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -115,6 +158,7 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
                         return <TypewriterMarkdownInternal
                             children={children}
                             letterVariants={letterVariants}
+                            scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.li
                                 style={style}
                                 variants={letterVariants}
@@ -128,6 +172,7 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
                         return <TypewriterMarkdownInternal
                             children={children}
                             letterVariants={letterVariants}
+                            scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.strong
                                 style={style}
                                 variants={letterVariants}
@@ -141,6 +186,7 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
                         return <TypewriterMarkdownInternal
                             children={children}
                             letterVariants={letterVariants}
+                            scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.em
                                 style={style}
                                 variants={letterVariants}
@@ -160,6 +206,7 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
                         return <TypewriterMarkdownInternal
                             children={children}
                             letterVariants={letterVariants}
+                            scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.th
                                 style={style}
                                 variants={letterVariants}
@@ -173,6 +220,7 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
                         return <TypewriterMarkdownInternal
                             children={children}
                             letterVariants={letterVariants}
+                            scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.del
                                 style={style}
                                 variants={letterVariants}
@@ -186,6 +234,7 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
                         return <TypewriterMarkdownInternal
                             children={children}
                             letterVariants={letterVariants}
+                            scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.table
                                 style={style}
                                 variants={letterVariants}
@@ -199,6 +248,7 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
                         return <TypewriterMarkdownInternal
                             children={children}
                             letterVariants={letterVariants}
+                            scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.span
                                 style={style}
                                 variants={letterVariants}
@@ -212,8 +262,12 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
                         return <TypewriterMarkdownInternal
                             children={children}
                             letterVariants={letterVariants}
+                            scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.h1
-                                style={style}
+                                style={{
+                                    ...style,
+                                    margin: 0,
+                                }}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -225,8 +279,12 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
                         return <TypewriterMarkdownInternal
                             children={children}
                             letterVariants={letterVariants}
+                            scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.h2
-                                style={style}
+                                style={{
+                                    ...style,
+                                    margin: 0,
+                                }}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -238,8 +296,12 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
                         return <TypewriterMarkdownInternal
                             children={children}
                             letterVariants={letterVariants}
+                            scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.h3
-                                style={style}
+                                style={{
+                                    ...style,
+                                    margin: 0,
+                                }}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -251,8 +313,12 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
                         return <TypewriterMarkdownInternal
                             children={children}
                             letterVariants={letterVariants}
+                            scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.h4
-                                style={style}
+                                style={{
+                                    ...style,
+                                    margin: 0,
+                                }}
                                 variants={letterVariants}
                             >
                                 {children}
@@ -264,6 +330,6 @@ export default function TypewriterMarkdown({ text, delay = 0, ...rest }: { text:
             >
                 {text}
             </Markdown>
-        </Typography>
+        </motion.div>
     )
 };

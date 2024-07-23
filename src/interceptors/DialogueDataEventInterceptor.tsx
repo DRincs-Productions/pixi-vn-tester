@@ -1,20 +1,18 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { canGoNextState } from '../atoms/canGoNextState';
-import { choiceMenuState } from '../atoms/choiceMenuState';
+import { autoInfoState } from '../atoms/autoInfoState';
 import { dialogDataState } from '../atoms/dialogDataState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
-import { CharacterBaseModel, GameStepManager, getCharacterById, getChoiceMenuOptions, getDialogue } from '../pixi-vn/src';
+import { CharacterBaseModel, getCharacterById, getDialogue } from '../pixi-vn/src';
 
 export default function DialogueDataEventInterceptor() {
     const reloadInterfaceDataEvent = useRecoilValue(reloadInterfaceDataEventState);
     const { t } = useTranslation(["translation"]);
     const hideInterface = useRecoilValue(hideInterfaceState)
-    const setNextStepButtonHidden = useSetRecoilState(canGoNextState)
+    const updateAuto = useSetRecoilState(autoInfoState)
     const [{ text, character }, setDialogData] = useRecoilState(dialogDataState)
-    const [{ menu }, setMenu] = useRecoilState(choiceMenuState)
 
     useEffect(() => {
         let dial = getDialogue()
@@ -27,39 +25,23 @@ export default function DialogueDataEventInterceptor() {
             }
         }
         try {
-            if (dial !== text || newCharacter !== character) {
+            if (dial?.text !== text || newCharacter !== character) {
                 setDialogData({
                     text: newText,
                     character: newCharacter,
                     hidden: hideInterface || newText ? false : true,
                 })
             }
+            else {
+                updateAuto((prev) => {
+                    return {
+                        ...prev,
+                        update: prev.update + 1
+                    }
+                })
+            }
         } catch (e) { }
-        let m = getChoiceMenuOptions()
-        setMenu({
-            menu: m || [],
-            hidden: hideInterface || !m || m.length == 0,
-        })
     }, [reloadInterfaceDataEvent])
-
-    useEffect(() => {
-        setNextStepButtonHidden(hideInterface || !(GameStepManager.canGoNext))
-    }, [menu, hideInterface])
-
-    useEffect(() => {
-        setDialogData((prev) => {
-            return {
-                ...prev,
-                hidden: hideInterface || (prev.text ? false : true),
-            }
-        })
-        setMenu((prev) => {
-            return {
-                ...prev,
-                hidden: hideInterface || prev.menu.length == 0,
-            }
-        })
-    }, [hideInterface])
 
     return null
 }

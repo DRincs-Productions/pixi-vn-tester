@@ -1,8 +1,6 @@
 import { StepLabelProps } from '@drincs/pixi-vn/dist/override';
-import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { canGoBackState } from './atoms/canGoBackState';
 import { nextStepLoadingState } from './atoms/nextStepLoadingState';
 import { reloadInterfaceDataEventState } from './atoms/reloadInterfaceDataEventState';
 import DialogueDataEventInterceptor from './interceptors/DialogueDataEventInterceptor';
@@ -12,16 +10,11 @@ import Dialogue from './screens/Dialogue';
 import History from './screens/History';
 import MainMenu from './screens/MainMenu';
 import QuickActions from './screens/QuickActions';
+import QuickLoadAlert from './screens/QuickLoadAlert';
 
 export default function AppRoutes() {
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventState);
     const setNextStepLoading = useSetRecoilState(nextStepLoadingState);
-    const setCanGoBack = useSetRecoilState(canGoBackState);
-    useEffect(() => {
-        setTimeout(() => {
-            setCanGoBack(GameStepManager.canGoBack)
-        }, 10);
-    }, []);
     async function nextOnClick(props: StepLabelProps): Promise<void> {
         setNextStepLoading(true);
         try {
@@ -29,10 +22,15 @@ export default function AppRoutes() {
                 setNextStepLoading(false);
                 return;
             }
-            await GameStepManager.goNext(props);
-            notifyReloadInterfaceDataEvent((p) => p + 1);
-            setNextStepLoading(false);
-            setCanGoBack(GameStepManager.canGoBack)
+            GameStepManager.goNext(props)
+                .then(() => {
+                    notifyReloadInterfaceDataEvent((p) => p + 1);
+                    setNextStepLoading(false);
+                })
+                .catch((e) => {
+                    setNextStepLoading(false);
+                    console.error(e);
+                })
             return;
         } catch (e) {
             setNextStepLoading(false);
@@ -47,6 +45,7 @@ export default function AppRoutes() {
             <Route key={"game"} path={"/game"}
                 element={<>
                     <History />
+                    <QuickLoadAlert />
                     <QuickActions />
                     <DialogueDataEventInterceptor />
                     <Dialogue

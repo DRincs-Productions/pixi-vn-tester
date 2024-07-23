@@ -6,28 +6,47 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { choiceMenuState } from '../atoms/choiceMenuState';
+import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
 import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
 import ChoiceButton from '../components/ChoiceButton';
-import { ChoiceMenuOption, ChoiceMenuOptionClose, clearChoiceMenuOptions, GameStepManager, GameWindowManager } from '../pixi-vn/src';
+import { ChoiceMenuOption, ChoiceMenuOptionClose, clearChoiceMenuOptions, GameStepManager } from '../pixi-vn/src';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 type IProps = {
-    marginButton: number,
     fullscreen?: boolean,
 }
 
 export default function ChoicesMenu(props: IProps) {
     const {
-        marginButton,
         fullscreen = true,
     } = props;
     const [loading, setLoading] = useState(false)
-    const height = GameWindowManager.screenHeight - marginButton
+    const marginButton = useRecoilValue(dialogueCardHeightState)
+    const height = 100 - marginButton
     const { t } = useTranslation(["translation"]);
     const navigate = useMyNavigate();
     const { menu, hidden } = useRecoilValue(choiceMenuState)
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventState);
     const { enqueueSnackbar } = useSnackbar();
+    const gridVariants: Variants = {
+        open: {
+            clipPath: "inset(0% 0% 0% 0% round 10px)",
+            transition: {
+                type: "spring",
+                bounce: 0,
+                duration: 0.7,
+                staggerChildren: 0.05
+            },
+        },
+        closed: {
+            clipPath: "inset(10% 50% 90% 50% round 10px)",
+            transition: {
+                type: "spring",
+                bounce: 0,
+                duration: 0.3
+            },
+        }
+    };
     const itemVariants: Variants = {
         open: {
             opacity: 1,
@@ -102,13 +121,9 @@ export default function ChoicesMenu(props: IProps) {
                 top: 0,
                 left: 0,
                 right: 0,
-                height: fullscreen ? "100%" : height,
+                height: fullscreen ? "100%" : `${height}%`,
+                pointerEvents: hidden ? "none" : "auto",
             }}
-            component={motion.div}
-            initial="closed"
-            animate={hidden ? "openclosed" : "open"}
-            exit="closed"
-            className="menu"
         >
             <Grid
                 container
@@ -118,30 +133,13 @@ export default function ChoicesMenu(props: IProps) {
                 spacing={2}
                 sx={{
                     overflow: 'auto',
-                    height: fullscreen ? "100%" : height,
+                    height: "100%",
                     gap: 1,
                     width: '100%',
                 }}
                 component={motion.div}
-                variants={{
-                    open: {
-                        clipPath: "inset(0% 0% 0% 0% round 10px)",
-                        transition: {
-                            type: "spring",
-                            bounce: 0,
-                            duration: 0.7,
-                            staggerChildren: 0.05
-                        }
-                    },
-                    closed: {
-                        clipPath: "inset(10% 50% 90% 50% round 10px)",
-                        transition: {
-                            type: "spring",
-                            bounce: 0,
-                            duration: 0.3
-                        }
-                    }
-                }}
+                variants={gridVariants}
+                animate={hidden ? "closed" : "open"}
             >
                 {menu?.map((item, index) => {
                     return (
