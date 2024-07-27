@@ -4,7 +4,7 @@ This repository is used to develop and debug the pixi-vn library.
 
 ## Instructions
 
-## Clone the repository, download the submodules and install the dependencies
+### Clone the repository, download the submodules and install the dependencies
 
 ```bash
 git clone https://github.com/DRincs-Productions/pixi-vn-tester
@@ -12,7 +12,7 @@ git submodule update --init --recursive
 npm install
 ```
 
-## Run the project
+### Run the project
 
 ```bash
 npm start
