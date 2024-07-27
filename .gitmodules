@@ -2,3 +2,6 @@
 	path = src/pixi-vn
 	url = https://github.com/DRincs-Productions/pixi-vn
 	brach = main
+[submodule "src/pixi-vn-ink"]
+	path = src/pixi-vn-ink
+	url = https://github.com/DRincs-Productions/pixi-vn-ink
