@@ -54,7 +54,7 @@ npm run build
 
 This command will create a `dist` folder with the files necessary to run the application. You can deploy this folder to a web server.
 
-You can read more about the possibilities of distribution in the [Pixi’VN documentation](https://pixi-vn.web.app/advanced/distribution.html).
+You can read more about the possibilities of hosting in the [Pixi’VN documentation](https://pixi-vn.web.app/advanced/distribution.html#hosting).
 
 ## Keyboard shortcuts (hotkeys)
 
