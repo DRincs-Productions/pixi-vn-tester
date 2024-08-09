@@ -37,6 +37,7 @@ export default defineConfig({
       }
     }),
   ],
+  assetsInclude: ['**/*.ink'],
   build: {
     rollupOptions: {
       output: {

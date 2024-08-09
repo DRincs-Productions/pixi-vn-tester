@@ -1,4 +1,4 @@
-import { addImage, clearAllGameDatas, GameStepManager, GameWindowManager, pixivnTestStartLabel } from '@drincs/pixi-vn';
+import { addImage, clearAllGameDatas, GameStepManager, GameWindowManager } from '@drincs/pixi-vn';
 import Stack from '@mui/joy/Stack';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
@@ -47,7 +47,7 @@ export default function MainMenu() {
                 onClick={() => {
                     GameWindowManager.removeCanvasElements()
                     navigate("/game")
-                    GameStepManager.callLabel(pixivnTestStartLabel, {
+                    GameStepManager.callLabel("start", {
                         navigate: navigate,
                         t: t,
                         notify: (message, variant) => enqueueSnackbar(message, { variant }),
