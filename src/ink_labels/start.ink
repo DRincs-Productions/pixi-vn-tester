@@ -1,8 +1,24 @@
 === start ===
-Once upon a time...
+We arrived into London at 9.45pm exactly.
 
- * There were two choices.
- * There were four lines of content.
+*	"There is not a moment to lose!"[] I declared.
+	-> hurry_outside
 
-- They lived happily ever after.
-    -> END
+*	"Monsieur, let us savour this moment!"[] I declared.
+	My master clouted me firmly around the head and dragged me out of the door.
+	-> dragged_outside
+
+*	[We hurried home] -> hurry_outside
+
+
+=== hurry_outside ===
+We hurried home to Savile Row -> as_fast_as_we_could
+
+
+=== dragged_outside ===
+He insisted that we hurried home to Savile Row
+-> as_fast_as_we_could
+
+
+=== as_fast_as_we_could ===
+<> as fast as we could.
