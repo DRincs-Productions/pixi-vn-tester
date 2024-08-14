@@ -27,7 +27,7 @@ import { openHistoryState } from '../atoms/openHistoryState';
 import { openLoadAlertState } from '../atoms/openLoadAlertState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { quickSaveState } from '../atoms/quickSaveState';
-import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
+import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
@@ -51,7 +51,7 @@ export default function Settings() {
     const setOpenHistory = useSetRecoilState(openHistoryState);
     const setOpenLoadAlert = useSetRecoilState(openLoadAlertState);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
-    const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventState);
+    const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const [quickSave, setQuickSave] = useRecoilState(quickSaveState)
     const { enqueueSnackbar } = useSnackbar();
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
