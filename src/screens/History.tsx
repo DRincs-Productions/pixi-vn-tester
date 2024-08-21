@@ -69,7 +69,7 @@ export default function History() {
                 }}
             >
                 <Stack spacing={2} justifyContent="flex-end">
-                    {narration.getNarrativeHistory()
+                    {narration.narrativeHistory
                         .map((step) => {
                             let character = step.dialoge?.character ? getCharacterById(step.dialoge?.character) ?? new CharacterBaseModel(step.dialoge?.character, { name: t(step.dialoge?.character) }) : undefined
                             return {

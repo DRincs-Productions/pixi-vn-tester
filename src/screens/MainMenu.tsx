@@ -45,7 +45,7 @@ export default function MainMenu() {
         >
             <MenuButton
                 onClick={() => {
-                    GameWindowManager.removeCanvasElements()
+                    GameWindowManager.removeAll()
                     navigate("/game")
                     GameStepManager.callLabel(pixivnTestStartLabel, {
                         navigate: navigate,
