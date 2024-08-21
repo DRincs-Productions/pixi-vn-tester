@@ -33,7 +33,7 @@ import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
 import { useEditColorProvider } from '../providers/ThemeProvider';
-import { loadGameSave, saveGame } from '../utility/ActionsUtility';
+import { gameEnd, loadGameSave, saveGame } from '../utility/ActionsUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function Settings() {
@@ -476,7 +476,7 @@ export default function Settings() {
                         color='danger'
                         variant="outlined"
                         onClick={() => {
-                            navigate('/')
+                            gameEnd(navigate)
                             setOpen(false)
                             setOpenYouSure(false)
                         }}
