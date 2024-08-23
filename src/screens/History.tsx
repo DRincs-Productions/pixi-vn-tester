@@ -10,7 +10,7 @@ import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { openHistoryState } from '../atoms/openHistoryState';
 import ModalDialogCustom from '../components/ModalDialog';
-import { CharacterBaseModel, getCharacterById, getDialogueHistory } from '../pixi-vn/src';
+import { CharacterBaseModel, getCharacterById, narration } from '../pixi-vn/src';
 
 export default function History() {
     const [open, setOpen] = useRecoilState(openHistoryState);
@@ -69,7 +69,7 @@ export default function History() {
                 }}
             >
                 <Stack spacing={2} justifyContent="flex-end">
-                    {getDialogueHistory()
+                    {narration.narrativeHistory
                         .map((step) => {
                             let character = step.dialoge?.character ? getCharacterById(step.dialoge?.character) ?? new CharacterBaseModel(step.dialoge?.character, { name: t(step.dialoge?.character) }) : undefined
                             return {

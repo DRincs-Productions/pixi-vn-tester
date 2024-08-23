@@ -1,7 +1,7 @@
 import { selector } from "recoil";
 import { ChoiceMenuOptionsType, getChoiceMenuOptions } from "../pixi-vn/src";
 import { hideInterfaceState } from "./hideInterfaceState";
-import { reloadInterfaceDataEventState } from "./reloadInterfaceDataEventState";
+import { reloadInterfaceDataEventAtom } from "./reloadInterfaceDataEventAtom";
 
 type ChoiceMenu = {
     menu: ChoiceMenuOptionsType,
@@ -12,7 +12,7 @@ export const choiceMenuState = selector<ChoiceMenu>({
     key: 'choiceMenuState',
     get: ({ get }) => {
         // dipendencies: when the dipendencies change, the selector will re-run
-        get(reloadInterfaceDataEventState)
+        get(reloadInterfaceDataEventAtom)
         let hideInterface = get(hideInterfaceState)
 
         let choiceMenu = getChoiceMenuOptions() || []
