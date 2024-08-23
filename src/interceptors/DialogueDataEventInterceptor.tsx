@@ -5,8 +5,7 @@ import { autoInfoState } from '../atoms/autoInfoState';
 import { dialogDataState } from '../atoms/dialogDataState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
-import { getDialogue } from '../pixi-vn/dist';
-import { CharacterBaseModel, getCharacterById } from '../pixi-vn/src';
+import { CharacterBaseModel, getCharacterById, getDialogue } from '../pixi-vn/src';
 
 export default function DialogueDataEventInterceptor() {
     const reloadInterfaceDataEvent = useRecoilValue(reloadInterfaceDataEventAtom);
