@@ -9,7 +9,7 @@ import { choiceMenuState } from '../atoms/choiceMenuState';
 import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import ChoiceButton from '../components/ChoiceButton';
-import { ChoiceMenuOption, ChoiceMenuOptionClose, clearChoiceMenuOptions, GameStepManager } from '../pixi-vn/src';
+import { ChoiceMenuOption, ChoiceMenuOptionClose, narration } from '../pixi-vn/src';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 type IProps = {
@@ -58,9 +58,9 @@ export default function ChoicesMenu(props: IProps) {
 
     function afterSelectChoice(item: ChoiceMenuOptionClose | ChoiceMenuOption<{}>) {
         setLoading(true)
-        clearChoiceMenuOptions()
+        narration.choiceMenuOptions = undefined
         if (item.type == "call") {
-            GameStepManager.callLabel(item.label, {
+            narration.callLabel(item.label, {
                 navigate: navigate,
                 t: t,
                 notify: (message, variant) => enqueueSnackbar(message, { variant }),
@@ -76,7 +76,7 @@ export default function ChoicesMenu(props: IProps) {
                 })
         }
         else if (item.type == "jump") {
-            GameStepManager.jumpLabel(item.label, {
+            narration.jumpLabel(item.label, {
                 navigate: navigate,
                 t: t,
                 notify: (message, variant) => enqueueSnackbar(message, { variant }),
@@ -92,7 +92,7 @@ export default function ChoicesMenu(props: IProps) {
                 })
         }
         else if (item.type == "close") {
-            GameStepManager.closeChoiceMenu(item, {
+            narration.closeChoiceMenu(item, {
                 navigate: navigate,
                 t: t,
                 notify: (message, variant) => enqueueSnackbar(message, { variant }),

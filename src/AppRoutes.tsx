@@ -5,7 +5,7 @@ import { nextStepLoadingState } from './atoms/nextStepLoadingState';
 import { reloadInterfaceDataEventAtom } from './atoms/reloadInterfaceDataEventAtom';
 import DialogueDataEventInterceptor from './interceptors/DialogueDataEventInterceptor';
 import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
-import { GameStepManager } from './pixi-vn/src';
+import { narration } from './pixi-vn/src';
 import Dialogue from './screens/Dialogue';
 import History from './screens/History';
 import LoadingPage from './screens/LoadingPage';
@@ -19,11 +19,11 @@ export default function AppRoutes() {
     async function nextOnClick(props: StepLabelProps): Promise<void> {
         setNextStepLoading(true);
         try {
-            if (!GameStepManager.canGoNext) {
+            if (!narration.canGoNext) {
                 setNextStepLoading(false);
                 return;
             }
-            GameStepManager.goNext(props)
+            narration.goNext(props)
                 .then(() => {
                     notifyReloadInterfaceDataEvent((p) => p + 1);
                     setNextStepLoading(false);

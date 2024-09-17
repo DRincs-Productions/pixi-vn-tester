@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { GameStepManager } from "../pixi-vn/src";
+import { narration } from "../pixi-vn/src";
 import { hideInterfaceState } from "./hideInterfaceState";
 import { reloadInterfaceDataEventAtom } from "./reloadInterfaceDataEventAtom";
 
@@ -10,6 +10,6 @@ export const hideNextButtonState = selector<boolean>({
         let hideInterface = get(hideInterfaceState)
         get(reloadInterfaceDataEventAtom)
 
-        return hideInterface || !(GameStepManager.canGoNext)
+        return hideInterface || !(narration.canGoNext)
     },
 });
