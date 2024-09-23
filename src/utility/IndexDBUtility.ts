@@ -14,7 +14,7 @@ export function initializeIndexedDB(): Promise<void> {
             }
             if (!db.objectStoreNames.contains("special_rescues")) {
                 // create the object store
-                let objectStore = db.createObjectStore("rescues", { keyPath: 'id', autoIncrement: false });
+                let objectStore = db.createObjectStore("special_rescues", { keyPath: 'id', autoIncrement: false });
                 objectStore.createIndex("id", "id", { unique: true });
             }
         }
