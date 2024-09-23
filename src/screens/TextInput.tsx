@@ -9,8 +9,8 @@ import TypewriterMarkdown from '../components/TypewriterMarkdown';
 
 export default function TextInput() {
     const { text } = useRecoilValue(dialogDataState)
-    const [{ open, currentValue, type }, setOptions] = useRecoilState(inputOptionsState);
-    const [tempValue, setTempValue] = useState(currentValue);
+    const [{ open, type }, setOptions] = useRecoilState(inputOptionsState);
+    const [tempValue, setTempValue] = useState();
     const { t } = useTranslation(["translation"]);
 
     return (
@@ -31,7 +31,13 @@ export default function TextInput() {
                 <Input
                     value={tempValue}
                     type={type}
-                    onChange={(e) => setTempValue(e.target.value)}
+                    onChange={(e) => {
+                        let value: any = e.target.value;
+                        if (e.target.type === "number") {
+                            value = e.target.valueAsNumber
+                        }
+                        setTempValue(value)
+                    }}
                 />
             </>}
         >
