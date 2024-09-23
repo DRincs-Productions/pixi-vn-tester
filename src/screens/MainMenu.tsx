@@ -1,4 +1,4 @@
-import { addImage, clearAllGameDatas, GameStepManager, GameWindowManager } from '@drincs/pixi-vn';
+import { addImage, canvas, clearAllGameDatas, narration } from '@drincs/pixi-vn';
 import Stack from '@mui/joy/Stack';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useSetRecoilState } from 'recoil';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openSettingsState } from '../atoms/openSettingsState';
-import { reloadInterfaceDataEventState } from '../atoms/reloadInterfaceDataEventState';
+import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import MenuButton from '../components/MenuButton';
 import { loadGameSave } from '../utility/ActionsUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
@@ -15,7 +15,7 @@ import { useMyNavigate } from '../utility/useMyNavigate';
 export default function MainMenu() {
     const navigate = useMyNavigate();
     const setOpenSettings = useSetRecoilState(openSettingsState);
-    const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventState);
+    const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const setHideInterface = useSetRecoilState(hideInterfaceState);
     const { enqueueSnackbar } = useSnackbar();
     const { t } = useTranslation(["translation"]);
@@ -45,9 +45,9 @@ export default function MainMenu() {
         >
             <MenuButton
                 onClick={() => {
-                    GameWindowManager.removeCanvasElements()
+                    canvas.removeAll()
                     navigate("/game")
-                    GameStepManager.callLabel("start", {
+                    narration.callLabel("start", {
                         navigate: navigate,
                         t: t,
                         notify: (message, variant) => enqueueSnackbar(message, { variant }),

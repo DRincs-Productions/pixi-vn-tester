@@ -1,13 +1,13 @@
-import { GameStepManager } from "@drincs/pixi-vn";
+import { narration } from "@drincs/pixi-vn";
 import { selector } from "recoil";
-import { reloadInterfaceDataEventState } from "./reloadInterfaceDataEventState";
+import { reloadInterfaceDataEventAtom } from "./reloadInterfaceDataEventAtom";
 
 export const canGoBackState = selector<boolean>({
     key: 'canGoBackState',
     get: ({ get }) => {
         // dipendencies: when the dipendencies change, the selector will re-run
-        get(reloadInterfaceDataEventState)
+        get(reloadInterfaceDataEventAtom)
 
-        return GameStepManager.canGoBack
+        return narration.canGoBack
     },
 });

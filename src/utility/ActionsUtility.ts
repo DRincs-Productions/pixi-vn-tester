@@ -1,4 +1,4 @@
-import { GameStepManager, getSaveJson, loadSaveJson } from "@drincs/pixi-vn";
+import { clearAllGameDatas, getSaveJson, loadSaveJson, narration } from "@drincs/pixi-vn";
 
 export function saveGame() {
     const jsonString = getSaveJson()
@@ -39,7 +39,7 @@ export function loadGameSave(navigate: (path: string) => void, afterLoad?: () =>
 }
 
 export async function goBack(navigate: (path: string) => void) {
-    await GameStepManager.goBack(navigate)
+    await narration.goBack(navigate)
 }
 
 export async function loadQuickSave(data: string | null, navigate: (path: string) => void) {
@@ -73,4 +73,9 @@ export async function loadRefreshSave(navigate: (path: string) => void) {
     else {
         navigate("/")
     }
+}
+
+export function gameEnd(navigate: (path: string) => void) {
+    clearAllGameDatas()
+    navigate('/')
 }

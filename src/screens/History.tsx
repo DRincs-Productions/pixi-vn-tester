@@ -1,4 +1,4 @@
-import { CharacterBaseModel, getCharacterById, getDialogueHistory } from '@drincs/pixi-vn';
+import { CharacterBaseModel, getCharacterById, narration } from '@drincs/pixi-vn';
 import CheckIcon from '@mui/icons-material/Check';
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { Box, Chip, Input, Stack, Typography } from "@mui/joy";
@@ -69,7 +69,7 @@ export default function History() {
                 }}
             >
                 <Stack spacing={2} justifyContent="flex-end">
-                    {getDialogueHistory()
+                    {narration.narrativeHistory
                         .map((step) => {
                             let character = step.dialoge?.character ? getCharacterById(step.dialoge?.character) ?? new CharacterBaseModel(step.dialoge?.character, { name: t(step.dialoge?.character) }) : undefined
                             return {
@@ -77,6 +77,7 @@ export default function History() {
                                 text: step.dialoge?.text || "",
                                 icon: character?.icon,
                                 choices: step.choices,
+                                inputValue: step.inputValue,
                             }
                         })
                         .filter((data) => {
@@ -130,6 +131,12 @@ export default function History() {
                                                 {choice.text}
                                             </Chip>
                                         })}
+                                        {data.inputValue && <Chip
+                                            key={"choices-success" + index}
+                                            color="neutral"
+                                        >
+                                            {data.inputValue.toString()}
+                                        </Chip>}
                                     </Box>
                                 </Stack>
                             </React.Fragment>
