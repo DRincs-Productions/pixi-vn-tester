@@ -36,6 +36,7 @@
 		"start": "Start",
 		"success_load": "Load successful",
 		"success_save": "Save successful",
+		"fail_save": "Save failed",
 		"text_speed": "Text Speed",
 		"text_speed_description": "Choose the speed of the typewriter effect. If is set to 0 ( off ) the text will appear instantly.",
 		"theme_mode": "Theme Mode",

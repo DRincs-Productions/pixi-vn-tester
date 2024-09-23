@@ -3,12 +3,12 @@ import { Button, Typography } from '@mui/joy';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { openLoadAlertState } from '../atoms/openLoadAlertState';
 import { quickSaveState } from '../atoms/quickSaveState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import ModalDialogCustom from '../components/ModalDialog';
-import { getSave, loadSave } from '../utility/SaveUtility';
+import { getSave, loadSave, setQuickSave } from '../utility/SaveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function QuickLoadAlert() {
@@ -16,7 +16,7 @@ export default function QuickLoadAlert() {
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const [open, setOpen] = useRecoilState(openLoadAlertState);
     const { t } = useTranslation(["translation"]);
-    const [quickSave, setQuickSave] = useRecoilState(quickSaveState)
+    const quickSave = useRecoilValue(quickSaveState)
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
@@ -30,7 +30,12 @@ export default function QuickLoadAlert() {
         if (event.code == 'KeyS' && event.shiftKey) {
             let save = getSave()
             setQuickSave(save)
-            enqueueSnackbar(t("success_save"), { variant: 'success' })
+                .then(() => {
+                    enqueueSnackbar(t("success_save"), { variant: 'success' })
+                })
+                .catch(() => {
+                    enqueueSnackbar(t("fail_save"), { variant: 'error' })
+                })
         }
         else if (event.code == 'KeyL' && event.shiftKey) {
             setOpen((prev) => !prev)

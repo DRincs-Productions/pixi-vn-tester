@@ -15,7 +15,7 @@ import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventA
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
 import { goBack } from '../utility/ActionsUtility';
-import { getSave, loadGameSave, saveGame } from '../utility/SaveUtility';
+import { getSave, loadGameSave, saveGame, setQuickSave } from '../utility/SaveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function QuickActions() {
@@ -29,7 +29,7 @@ export default function QuickActions() {
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const [auto, setAuto] = useRecoilState(autoInfoState)
     const canGoBack = useRecoilValue(canGoBackState)
-    const [quickSave, setQuickSave] = useRecoilState(quickSaveState)
+    const quickSave = useRecoilValue(quickSaveState)
     const { enqueueSnackbar } = useSnackbar();
 
     return (
@@ -112,7 +112,12 @@ export default function QuickActions() {
                     onClick={() => {
                         let save = getSave()
                         setQuickSave(save)
-                        enqueueSnackbar(t("success_save"), { variant: 'success' })
+                            .then(() => {
+                                enqueueSnackbar(t("success_save"), { variant: 'success' })
+                            })
+                            .catch(() => {
+                                enqueueSnackbar(t("fail_save"), { variant: 'error' })
+                            })
                     }}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >

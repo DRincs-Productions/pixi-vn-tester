@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react';
 import { HuePicker } from 'react-color';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { autoInfoState } from '../atoms/autoInfoState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openHistoryState } from '../atoms/openHistoryState';
@@ -33,7 +33,7 @@ import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
 import { useEditColorProvider } from '../providers/ThemeProvider';
 import { gameEnd } from '../utility/ActionsUtility';
-import { getSave, loadGameSave, saveGame } from '../utility/SaveUtility';
+import { getSave, loadGameSave, saveGame, setQuickSave } from '../utility/SaveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function Settings() {
@@ -52,7 +52,7 @@ export default function Settings() {
     const setOpenLoadAlert = useSetRecoilState(openLoadAlertState);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
-    const [quickSave, setQuickSave] = useRecoilState(quickSaveState)
+    const quickSave = useRecoilValue(quickSaveState)
     const { enqueueSnackbar } = useSnackbar();
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
@@ -135,7 +135,12 @@ export default function Settings() {
                                         onClick={() => {
                                             let save = getSave()
                                             setQuickSave(save)
-                                            enqueueSnackbar(t("success_save"), { variant: 'success' })
+                                                .then(() => {
+                                                    enqueueSnackbar(t("success_save"), { variant: 'success' })
+                                                })
+                                                .catch(() => {
+                                                    enqueueSnackbar(t("fail_save"), { variant: 'error' })
+                                                })
                                         }}
                                     >
                                         <SaveIcon />

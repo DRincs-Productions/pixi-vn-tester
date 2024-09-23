@@ -1,10 +1,12 @@
 import { getSaveData, loadSaveData } from "@drincs/pixi-vn";
 import SaveData from "../models/SaveData";
+import { deleteRowFromIndexDB, getRowFromIndexDB, putRowIntoIndexDB } from "./IndexDBUtility";
 
 export function getSave(): SaveData {
     return {
         saveData: getSaveData(),
-        gameVersion: __APP_VERSION__
+        gameVersion: __APP_VERSION__,
+        date: new Date()
     }
 }
 
@@ -14,102 +16,16 @@ export async function loadSave(saveData: SaveData, navigate: (path: string) => v
     await loadSaveData(saveData.saveData, navigate)
 }
 
-async function addSaveIntoIndexDBInternal(
-    id: string,
-    data: SaveData,
-    db: IDBDatabase,
-    resolve: (value: void | PromiseLike<void>) => void,
-    reject: (reason?: any) => void,
-): Promise<void> {
-    let transaction = db.transaction(["rescues"], "readwrite");
-    let objectStore = transaction.objectStore("rescues");
-    let setRequest = objectStore.add(data, id)
-    setRequest.onsuccess = function (_event) {
-        resolve()
-    }
-    setRequest.onerror = function (event) {
-        console.error("Error adding save data to indexDB", event)
-        reject()
-    }
+async function putSpecialSaveIntoIndexDB(data: SaveData & { id: string }): Promise<void> {
+    return await putRowIntoIndexDB("special_rescues", data)
 }
 
-async function addSaveIntoIndexDB(id: string, data: SaveData): Promise<void> {
-    return new Promise((resolve, reject) => {
-        let request = indexedDB.open("game");
-        // check if the object store exists
-        request.onupgradeneeded = function (_event) {
-            let db = request.result;
-            if (!db.objectStoreNames.contains("rescues")) {
-                // create the object store
-                let objectStore = db.createObjectStore("rescues", { keyPath: 'id' });
-                objectStore.createIndex("id", "id", { unique: true });
-            }
-        }
-
-        request.onsuccess = function (_event) {
-            let db = request.result;
-            // run onupgradeneeded before onsuccess
-            if (!db.objectStoreNames.contains("rescues")) {
-                // create the object store
-                let objectStore = db.createObjectStore("rescues");
-                objectStore.createIndex("id", "id", { unique: true });
-            }
-            addSaveIntoIndexDBInternal(id, data, db, resolve, reject)
-        };
-        request.onerror = function (event) {
-            console.error("Error adding save data to indexDB", event)
-        }
-    })
+async function getSpecialSaveFromIndexDB(id: string): Promise<SaveData & { id: string } | null> {
+    return await getRowFromIndexDB("special_rescues", id)
 }
 
-async function getSaveFromIndexDB(id: string): Promise<SaveData | null> {
-    return new Promise((resolve, reject) => {
-        let request = indexedDB.open("game");
-        request.onsuccess = function (_event) {
-            let db = request.result;
-            // check if the object store exists
-            if (!db.objectStoreNames.contains("rescues")) {
-                resolve(null)
-                return
-            }
-            let transaction = db.transaction(["rescues"], "readwrite");
-            let objectStore = transaction.objectStore("rescues");
-            let getRequest = objectStore.get(id);
-            getRequest.onsuccess = function (_event) {
-                resolve(getRequest.result)
-            }
-            getRequest.onerror = function (event) {
-                console.error("Error getting save data from indexDB", event)
-                reject()
-            }
-        };
-        request.onerror = function (event) {
-            console.error("Error opening indexDB", event)
-            reject()
-        }
-    })
-}
-
-async function deleteSaveFromIndexDB(id: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-        let request = indexedDB.open("game");
-        request.onsuccess = function (_event) {
-            let db = request.result;
-            let transaction = db.transaction(["rescues"], "readwrite");
-            let objectStore = transaction.objectStore("rescues");
-            let deleteRequest = objectStore.delete(id);
-            deleteRequest.onsuccess = function (_event) {
-                resolve()
-            }
-            deleteRequest.onerror = function (event) {
-                console.error("Error deleting save data from indexDB", event)
-                reject()
-            }
-        };
-        request.onerror = function (event) {
-            console.error("Error deleting save data from indexDB", event)
-        }
-    })
+async function deleteSpecialSaveFromIndexDB(id: string): Promise<void> {
+    return await deleteRowFromIndexDB("special_rescues", id)
 }
 
 export function saveGame() {
@@ -154,14 +70,17 @@ export function loadGameSave(navigate: (path: string) => void, afterLoad?: () =>
 
 export async function setQuickSave(data: SaveData | null) {
     if (!data) {
-        await deleteSaveFromIndexDB("quick_save")
+        await deleteSpecialSaveFromIndexDB("quick_save")
         return
     }
-    await addSaveIntoIndexDB("quick_save", data)
+    await putSpecialSaveIntoIndexDB({
+        ...data,
+        id: "quick_save"
+    })
 }
 
 export async function getQuickSave() {
-    return await getSaveFromIndexDB("quick_save")
+    return await getSpecialSaveFromIndexDB("quick_save")
 }
 
 export async function addRefreshSave() {

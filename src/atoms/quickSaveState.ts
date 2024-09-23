@@ -1,6 +1,6 @@
 import { atom, selector } from "recoil";
 import SaveData from "../models/SaveData";
-import { getQuickSave, setQuickSave } from "../utility/SaveUtility";
+import { getQuickSave } from "../utility/SaveUtility";
 
 const quickSaveAtomState = atom<SaveData | null>({
     key: 'quickSaveAtomState',
@@ -15,11 +15,5 @@ export const quickSaveState = selector<SaveData | null>({
             return atomData
         }
         return await getQuickSave()
-    },
-    set: ({ set }, value) => {
-        if (value && "saveData" in value) {
-            setQuickSave(value)
-        }
-        set(quickSaveAtomState, value)
     },
 });
