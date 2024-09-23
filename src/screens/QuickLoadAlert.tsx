@@ -8,7 +8,7 @@ import { openLoadAlertState } from '../atoms/openLoadAlertState';
 import { quickSaveState } from '../atoms/quickSaveState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import ModalDialogCustom from '../components/ModalDialog';
-import { getSave, loadQuickSave } from '../utility/SaveUtility';
+import { getSave, loadSave } from '../utility/SaveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function QuickLoadAlert() {
@@ -53,7 +53,7 @@ export default function QuickLoadAlert() {
                     color='primary'
                     variant="outlined"
                     onClick={() => {
-                        loadQuickSave(quickSave, navigate).then(() => {
+                        quickSave && loadSave(quickSave, navigate).then(() => {
                             notifyLoadEvent((prev) => prev + 1)
                             enqueueSnackbar(t("success_load"), { variant: 'success' })
                         })
