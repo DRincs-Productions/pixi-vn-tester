@@ -1,6 +1,6 @@
 const INDEXED_DB_VERSION = 1;
 
-export function initializeIndexedDB() {
+export function initializeIndexedDB(): Promise<void> {
     return new Promise((resolve, reject) => {
         let request = indexedDB.open("game", INDEXED_DB_VERSION);
         // check if the object store exists
@@ -14,8 +14,7 @@ export function initializeIndexedDB() {
         }
 
         request.onsuccess = function (_event) {
-            let db = request.result;
-            resolve(db)
+            resolve()
         };
         request.onerror = function (event) {
             console.error("Error opening indexDB", event)
