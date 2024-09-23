@@ -12,6 +12,7 @@ import LoadingPage from './screens/LoadingPage';
 import MainMenu from './screens/MainMenu';
 import QuickActions from './screens/QuickActions';
 import QuickLoadAlert from './screens/QuickLoadAlert';
+import TextInput from './screens/TextInput';
 
 export default function AppRoutes() {
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
@@ -56,6 +57,7 @@ export default function AppRoutes() {
                     <SkipAutoInterceptor
                         nextOnClick={nextOnClick}
                     />
+                    <TextInput />
                 </>}
             />
             <Route path="*" element={<MainMenu />} />

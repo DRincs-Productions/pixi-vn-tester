@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 interface ModalDialogCustomProps extends ModalDialogProps {
     open: boolean;
-    setOpen: (open: boolean) => void;
+    setOpen?: (open: boolean) => void;
     children?: React.ReactNode;
     head?: string | React.ReactNode;
     actions?: React.ReactNode;
@@ -41,7 +41,7 @@ export default function ModalDialogCustom(props: ModalDialogCustomProps) {
             <Modal
                 keepMounted
                 open={internalOpen}
-                onClose={() => setOpen(false)}
+                onClose={() => setOpen && setOpen(false)}
                 component={motion.div}
                 variants={{
                     open: {
@@ -85,9 +85,9 @@ export default function ModalDialogCustom(props: ModalDialogCustomProps) {
                     }}
                     {...rest}
                 >
-                    <ModalClose />
+                    {setOpen && <ModalClose />}
                     {head}
-                    <Divider />
+                    {head && <Divider />}
                     <DialogContent>
                         {children}
                     </DialogContent>
