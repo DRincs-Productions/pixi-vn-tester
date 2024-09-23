@@ -1,14 +1,16 @@
 import { Button, Input } from '@mui/joy';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { dialogDataState } from '../atoms/dialogDataState';
-import { textInputOptionsState } from '../atoms/textInputOptionsState';
+import { inputOptionsState } from '../atoms/inputOptionsState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TypewriterMarkdown from '../components/TypewriterMarkdown';
 
 export default function TextInput() {
     const { text } = useRecoilValue(dialogDataState)
-    const [{ open }, setOptions] = useRecoilState(textInputOptionsState);
+    const [{ open, currentValue, type }, setOptions] = useRecoilState(inputOptionsState);
+    const [tempValue, setTempValue] = useState(currentValue);
     const { t } = useTranslation(["translation"]);
 
     return (
@@ -21,12 +23,16 @@ export default function TextInput() {
                     color='primary'
                     variant="outlined"
                     onClick={() => {
-                        setOptions((prev) => ({ ...prev, open: false }))
+                        setOptions((prev) => ({ ...prev, currentValue: tempValue }));
                     }}
                 >
                     {t("confirm")}
                 </Button>
-                <Input />
+                <Input
+                    value={tempValue}
+                    type={type}
+                    onChange={(e) => setTempValue(e.target.value)}
+                />
             </>}
         >
             {text && <TypewriterMarkdown
