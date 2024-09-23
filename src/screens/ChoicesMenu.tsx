@@ -1,4 +1,4 @@
-import { ChoiceMenuOption, ChoiceMenuOptionClose, clearChoiceMenuOptions, GameStepManager } from '@drincs/pixi-vn';
+import { ChoiceMenuOption, ChoiceMenuOptionClose, narration } from '@drincs/pixi-vn';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { Box, Grid } from '@mui/joy';
 import { motion, Variants } from "framer-motion";
@@ -58,9 +58,9 @@ export default function ChoicesMenu(props: IProps) {
 
     function afterSelectChoice(item: ChoiceMenuOptionClose | ChoiceMenuOption<{}>) {
         setLoading(true)
-        clearChoiceMenuOptions()
+        narration.choiceMenuOptions = undefined
         if (item.type == "call") {
-            GameStepManager.callLabel(item.label, {
+            narration.callLabel(item.label, {
                 navigate: navigate,
                 t: t,
                 notify: (message, variant) => enqueueSnackbar(message, { variant }),
@@ -76,7 +76,7 @@ export default function ChoicesMenu(props: IProps) {
                 })
         }
         else if (item.type == "jump") {
-            GameStepManager.jumpLabel(item.label, {
+            narration.jumpLabel(item.label, {
                 navigate: navigate,
                 t: t,
                 notify: (message, variant) => enqueueSnackbar(message, { variant }),
@@ -92,7 +92,7 @@ export default function ChoicesMenu(props: IProps) {
                 })
         }
         else if (item.type == "close") {
-            GameStepManager.closeChoiceMenu(item, {
+            narration.closeChoiceMenu(item, {
                 navigate: navigate,
                 t: t,
                 notify: (message, variant) => enqueueSnackbar(message, { variant }),

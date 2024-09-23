@@ -1,4 +1,4 @@
-import { GameStepManager } from '@drincs/pixi-vn';
+import { narration } from '@drincs/pixi-vn';
 import { StepLabelProps } from '@drincs/pixi-vn/dist/override';
 import { Route, Routes } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
@@ -20,11 +20,11 @@ export default function AppRoutes() {
     async function nextOnClick(props: StepLabelProps): Promise<void> {
         setNextStepLoading(true);
         try {
-            if (!GameStepManager.canGoNext) {
+            if (!narration.canGoNext) {
                 setNextStepLoading(false);
                 return;
             }
-            GameStepManager.goNext(props)
+            narration.goNext(props)
                 .then(() => {
                     notifyReloadInterfaceDataEvent((p) => p + 1);
                     setNextStepLoading(false);
