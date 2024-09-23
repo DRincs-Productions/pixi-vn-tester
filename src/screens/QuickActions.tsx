@@ -15,7 +15,8 @@ import { quickSaveState } from '../atoms/quickSaveState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
-import { goBack, loadGameSave, saveGame } from '../utility/ActionsUtility';
+import { goBack } from '../utility/ActionsUtility';
+import { loadGameSave, saveGame } from '../utility/SaveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function QuickActions() {
