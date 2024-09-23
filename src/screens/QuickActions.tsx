@@ -1,4 +1,3 @@
-import { getSaveJson } from '@drincs/pixi-vn';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { IconButton, Stack, useTheme } from '@mui/joy';
 import { motion } from "framer-motion";
@@ -16,7 +15,7 @@ import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventA
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
 import { goBack } from '../utility/ActionsUtility';
-import { loadGameSave, saveGame } from '../utility/SaveUtility';
+import { getSave, loadGameSave, saveGame } from '../utility/SaveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function QuickActions() {
@@ -111,7 +110,7 @@ export default function QuickActions() {
                 </TextMenuButton>
                 <TextMenuButton
                     onClick={() => {
-                        let save = getSaveJson()
+                        let save = getSave()
                         setQuickSave(save)
                         enqueueSnackbar(t("success_save"), { variant: 'success' })
                     }}

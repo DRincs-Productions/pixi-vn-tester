@@ -1,4 +1,3 @@
-import { getSaveJson } from '@drincs/pixi-vn';
 import AutoModeIcon from '@mui/icons-material/AutoMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -34,7 +33,7 @@ import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
 import { useEditColorProvider } from '../providers/ThemeProvider';
 import { gameEnd } from '../utility/ActionsUtility';
-import { loadGameSave, saveGame } from '../utility/SaveUtility';
+import { getSave, loadGameSave, saveGame } from '../utility/SaveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function Settings() {
@@ -134,7 +133,7 @@ export default function Settings() {
                                     </SettingButton>
                                     <SettingButton
                                         onClick={() => {
-                                            let save = getSaveJson()
+                                            let save = getSave()
                                             setQuickSave(save)
                                             enqueueSnackbar(t("success_save"), { variant: 'success' })
                                         }}
