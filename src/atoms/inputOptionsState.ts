@@ -1,6 +1,7 @@
 import { narration } from "@drincs/pixi-vn";
 import { selector } from "recoil";
 import { reloadInterfaceDataEventAtom } from "./reloadInterfaceDataEventAtom";
+import { typewriterIsAnimatedState } from "./typewriterIsAnimatedState";
 
 type InputOptionsType = {
     open: boolean
@@ -13,9 +14,10 @@ export const inputOptionsState = selector<InputOptionsType>({
     get: ({ get }) => {
         // dipendencies: when the dipendencies change, the selector will re-run
         get(reloadInterfaceDataEventAtom)
+        let typewriterIsAnimated = get(typewriterIsAnimatedState)
 
         return {
-            open: narration.isRequiredInput,
+            open: !typewriterIsAnimated && narration.isRequiredInput,
             type: narration.inputType,
             currentValue: narration.inputValue,
         }
