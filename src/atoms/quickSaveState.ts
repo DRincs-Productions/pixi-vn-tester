@@ -16,4 +16,7 @@ export const quickSaveState = selector<SaveData | null>({
         }
         return await getQuickSave()
     },
+    set: ({ set }, value) => {
+        set(quickSaveAtomState, value)
+    },
 });

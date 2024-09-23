@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react';
 import { HuePicker } from 'react-color';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { autoInfoState } from '../atoms/autoInfoState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openHistoryState } from '../atoms/openHistoryState';
@@ -52,7 +52,7 @@ export default function Settings() {
     const setOpenLoadAlert = useSetRecoilState(openLoadAlertState);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
-    const quickSave = useRecoilValue(quickSaveState)
+    const [quickSave, setQuickSaveAtom] = useRecoilState(quickSaveState)
     const { enqueueSnackbar } = useSnackbar();
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
@@ -140,6 +140,7 @@ export default function Settings() {
                                                 })
                                                 .catch(() => {
                                                     enqueueSnackbar(t("fail_save"), { variant: 'error' })
+                                                    setQuickSaveAtom(quickSave)
                                                 })
                                         }}
                                     >

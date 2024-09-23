@@ -29,7 +29,7 @@ export default function QuickActions() {
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const [auto, setAuto] = useRecoilState(autoInfoState)
     const canGoBack = useRecoilValue(canGoBackState)
-    const quickSave = useRecoilValue(quickSaveState)
+    const [quickSave, setQuickSaveAtom] = useRecoilState(quickSaveState)
     const { enqueueSnackbar } = useSnackbar();
 
     return (
@@ -113,6 +113,7 @@ export default function QuickActions() {
                         let save = getSave()
                         setQuickSave(save)
                             .then(() => {
+                                setQuickSaveAtom(save)
                                 enqueueSnackbar(t("success_save"), { variant: 'success' })
                             })
                             .catch(() => {

@@ -3,7 +3,7 @@ import { Button, Typography } from '@mui/joy';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { openLoadAlertState } from '../atoms/openLoadAlertState';
 import { quickSaveState } from '../atoms/quickSaveState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
@@ -16,7 +16,7 @@ export default function QuickLoadAlert() {
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const [open, setOpen] = useRecoilState(openLoadAlertState);
     const { t } = useTranslation(["translation"]);
-    const quickSave = useRecoilValue(quickSaveState)
+    const [quickSave, setQuickSaveAtom] = useRecoilState(quickSaveState)
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
@@ -61,6 +61,7 @@ export default function QuickLoadAlert() {
                         quickSave && loadSave(quickSave, navigate).then(() => {
                             notifyLoadEvent((prev) => prev + 1)
                             enqueueSnackbar(t("success_load"), { variant: 'success' })
+                            setQuickSaveAtom(quickSave)
                         })
                         setOpen(false)
                     }}
