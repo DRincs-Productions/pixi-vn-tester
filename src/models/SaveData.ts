@@ -4,4 +4,5 @@ export default interface SaveData {
     saveData: PiviVNSaveData
     gameVersion: string
     date: Date
+    name: string
 }

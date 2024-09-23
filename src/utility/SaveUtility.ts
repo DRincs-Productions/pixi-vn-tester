@@ -6,7 +6,8 @@ export function getSave(): SaveData {
     return {
         saveData: getSaveData(),
         gameVersion: __APP_VERSION__,
-        date: new Date()
+        date: new Date(),
+        name: "",
     }
 }
 
