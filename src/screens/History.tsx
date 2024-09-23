@@ -77,6 +77,7 @@ export default function History() {
                                 text: step.dialoge?.text || "",
                                 icon: character?.icon,
                                 choices: step.choices,
+                                inputValue: step.inputValue,
                             }
                         })
                         .filter((data) => {
@@ -130,6 +131,12 @@ export default function History() {
                                                 {choice.text}
                                             </Chip>
                                         })}
+                                        {data.inputValue && <Chip
+                                            key={"choices-success" + index}
+                                            color="neutral"
+                                        >
+                                            {data.inputValue.toString()}
+                                        </Chip>}
                                     </Box>
                                 </Stack>
                             </React.Fragment>
