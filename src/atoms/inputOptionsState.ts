@@ -1,5 +1,5 @@
-import { narration } from "@drincs/pixi-vn";
 import { selector } from "recoil";
+import { narration } from "../pixi-vn/src";
 import { reloadInterfaceDataEventAtom } from "./reloadInterfaceDataEventAtom";
 import { typewriterIsAnimatedState } from "./typewriterIsAnimatedState";
 
