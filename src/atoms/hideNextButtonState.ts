@@ -10,6 +10,6 @@ export const hideNextButtonState = selector<boolean>({
         let hideInterface = get(hideInterfaceState)
         get(reloadInterfaceDataEventAtom)
 
-        return hideInterface || !(narration.canGoNext)
+        return hideInterface || !narration.canGoNext || narration.isRequiredInput
     },
 });
