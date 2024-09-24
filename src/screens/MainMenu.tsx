@@ -9,7 +9,7 @@ import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import MenuButton from '../components/MenuButton';
-import { loadGameSave } from '../utility/ActionsUtility';
+import { loadGameSave } from '../utility/SaveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function MainMenu() {

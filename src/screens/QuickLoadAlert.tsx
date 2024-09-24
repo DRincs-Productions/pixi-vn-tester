@@ -1,4 +1,3 @@
-import { getSaveJson } from '@drincs/pixi-vn';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import { Button, Typography } from '@mui/joy';
 import { useSnackbar } from 'notistack';
@@ -9,7 +8,7 @@ import { openLoadAlertState } from '../atoms/openLoadAlertState';
 import { quickSaveState } from '../atoms/quickSaveState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import ModalDialogCustom from '../components/ModalDialog';
-import { loadQuickSave } from '../utility/ActionsUtility';
+import { getSave, loadSave, setQuickSave } from '../utility/SaveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function QuickLoadAlert() {
@@ -17,7 +16,7 @@ export default function QuickLoadAlert() {
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const [open, setOpen] = useRecoilState(openLoadAlertState);
     const { t } = useTranslation(["translation"]);
-    const [quickSave, setQuickSave] = useRecoilState(quickSaveState)
+    const [quickSave, setQuickSaveAtom] = useRecoilState(quickSaveState)
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
@@ -29,9 +28,14 @@ export default function QuickLoadAlert() {
 
     function onkeydown(event: KeyboardEvent) {
         if (event.code == 'KeyS' && event.shiftKey) {
-            let save = getSaveJson()
+            let save = getSave()
             setQuickSave(save)
-            enqueueSnackbar(t("success_save"), { variant: 'success' })
+                .then(() => {
+                    enqueueSnackbar(t("success_save"), { variant: 'success' })
+                })
+                .catch(() => {
+                    enqueueSnackbar(t("fail_save"), { variant: 'error' })
+                })
         }
         else if (event.code == 'KeyL' && event.shiftKey) {
             setOpen((prev) => !prev)
@@ -54,9 +58,10 @@ export default function QuickLoadAlert() {
                     color='primary'
                     variant="outlined"
                     onClick={() => {
-                        loadQuickSave(quickSave, navigate).then(() => {
+                        quickSave && loadSave(quickSave, navigate).then(() => {
                             notifyLoadEvent((prev) => prev + 1)
                             enqueueSnackbar(t("success_load"), { variant: 'success' })
+                            setQuickSaveAtom(quickSave)
                         })
                         setOpen(false)
                     }}

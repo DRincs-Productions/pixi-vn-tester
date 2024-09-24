@@ -1,4 +1,3 @@
-import { getSaveJson } from '@drincs/pixi-vn';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { IconButton, Stack, useTheme } from '@mui/joy';
 import { motion } from "framer-motion";
@@ -15,7 +14,8 @@ import { quickSaveState } from '../atoms/quickSaveState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
-import { goBack, loadGameSave, saveGame } from '../utility/ActionsUtility';
+import { goBack } from '../utility/ActionsUtility';
+import { getSave, loadGameSave, saveGame, setQuickSave } from '../utility/SaveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function QuickActions() {
@@ -29,7 +29,7 @@ export default function QuickActions() {
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const [auto, setAuto] = useRecoilState(autoInfoState)
     const canGoBack = useRecoilValue(canGoBackState)
-    const [quickSave, setQuickSave] = useRecoilState(quickSaveState)
+    const [quickSave, setQuickSaveAtom] = useRecoilState(quickSaveState)
     const { enqueueSnackbar } = useSnackbar();
 
     return (
@@ -110,9 +110,15 @@ export default function QuickActions() {
                 </TextMenuButton>
                 <TextMenuButton
                     onClick={() => {
-                        let save = getSaveJson()
+                        let save = getSave()
                         setQuickSave(save)
-                        enqueueSnackbar(t("success_save"), { variant: 'success' })
+                            .then(() => {
+                                setQuickSaveAtom(save)
+                                enqueueSnackbar(t("success_save"), { variant: 'success' })
+                            })
+                            .catch(() => {
+                                enqueueSnackbar(t("fail_save"), { variant: 'error' })
+                            })
                     }}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >

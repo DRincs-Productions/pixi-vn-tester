@@ -1,4 +1,3 @@
-import { getSaveJson } from '@drincs/pixi-vn';
 import AutoModeIcon from '@mui/icons-material/AutoMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -33,7 +32,8 @@ import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
 import { useEditColorProvider } from '../providers/ThemeProvider';
-import { gameEnd, loadGameSave, saveGame } from '../utility/ActionsUtility';
+import { gameEnd } from '../utility/ActionsUtility';
+import { getSave, loadGameSave, saveGame, setQuickSave } from '../utility/SaveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function Settings() {
@@ -52,7 +52,7 @@ export default function Settings() {
     const setOpenLoadAlert = useSetRecoilState(openLoadAlertState);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
-    const [quickSave, setQuickSave] = useRecoilState(quickSaveState)
+    const [quickSave, setQuickSaveAtom] = useRecoilState(quickSaveState)
     const { enqueueSnackbar } = useSnackbar();
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
@@ -133,9 +133,15 @@ export default function Settings() {
                                     </SettingButton>
                                     <SettingButton
                                         onClick={() => {
-                                            let save = getSaveJson()
+                                            let save = getSave()
                                             setQuickSave(save)
-                                            enqueueSnackbar(t("success_save"), { variant: 'success' })
+                                                .then(() => {
+                                                    enqueueSnackbar(t("success_save"), { variant: 'success' })
+                                                })
+                                                .catch(() => {
+                                                    enqueueSnackbar(t("fail_save"), { variant: 'error' })
+                                                    setQuickSaveAtom(quickSave)
+                                                })
                                         }}
                                     >
                                         <SaveIcon />
