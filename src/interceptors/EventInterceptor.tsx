@@ -1,7 +1,9 @@
+import { importInkText } from '@drincs/pixi-vn-ink';
 import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
+import startLabel from '../ink_labels/start.ink?raw';
 import { addRefreshSave, loadRefreshSave } from '../utility/ActionsUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
@@ -12,6 +14,7 @@ export default function EventInterceptor() {
 
     useEffect(() => {
         loadRefreshSave(navigate).then(() => notifyLoadEvent((prev) => prev + 1))
+        importInkText(startLabel)
         window.addEventListener("beforeunload", addRefreshSave);
         window.addEventListener("popstate", onpopstate);
         window.addEventListener('keydown', onkeydown);
