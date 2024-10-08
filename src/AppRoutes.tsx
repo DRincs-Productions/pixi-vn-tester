@@ -6,8 +6,8 @@ import { nextStepLoadingState } from './atoms/nextStepLoadingState';
 import { reloadInterfaceDataEventAtom } from './atoms/reloadInterfaceDataEventAtom';
 import DialogueDataEventInterceptor from './interceptors/DialogueDataEventInterceptor';
 import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
-import History from './user-interfaces/History';
-import LoadingPage from './user-interfaces/LoadingPage';
+import HistoryUI from './user-interfaces/HistoryUI';
+import LoadingUI from './user-interfaces/LoadingUI';
 import MainMenu from './user-interfaces/MainMenu';
 import NarrationUI from './user-interfaces/NarrationUI';
 import QuickActions from './user-interfaces/QuickActions';
@@ -44,10 +44,10 @@ export default function AppRoutes() {
     return (
         <Routes>
             <Route key={"main_menu"} path={"/"} element={<MainMenu />} />
-            <Route key={"main_menu"} path={"/loading"} element={<LoadingPage />} />
+            <Route key={"main_menu"} path={"/loading"} element={<LoadingUI />} />
             <Route key={"game"} path={"/game"}
                 element={<>
-                    <History />
+                    <HistoryUI />
                     <QuickLoadAlert />
                     <QuickActions />
                     <DialogueDataEventInterceptor />

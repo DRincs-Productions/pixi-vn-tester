@@ -12,7 +12,7 @@ import remarkGfm from "remark-gfm";
 import { openHistoryState } from '../atoms/openHistoryState';
 import ModalDialogCustom from '../components/ModalDialog';
 
-export default function History() {
+export default function HistoryUI() {
     const [open, setOpen] = useRecoilState(openHistoryState);
     const [searchString, setSearchString] = useState("")
     const { t } = useTranslation(["interface"]);

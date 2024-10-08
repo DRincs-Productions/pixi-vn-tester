@@ -13,10 +13,10 @@ import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
 import { dialogueCardImageWidthState } from '../atoms/dialogueCardImageWidthState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import { typewriterIsAnimatedState } from '../atoms/typewriterIsAnimatedState';
+import NextButton from '../components/NextButton';
 import SliderResizer from '../components/SliderResizer';
 import TypewriterMarkdown from '../components/TypewriterMarkdown';
 import ChoicesUI from './ChoicesUI';
-import NextButton from './NextButton';
 
 export default function NarrationUI({ nextOnClick }: {
     nextOnClick: (props: StepLabelProps) => void,

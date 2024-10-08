@@ -35,7 +35,7 @@ import { gameEnd } from '../utilities/actions-utility';
 import { useMyNavigate } from '../utilities/navigate-utility';
 import { setQuickSave } from '../utilities/save-utility';
 
-export default function Settings() {
+export default function SettingsUI() {
     const [open, setOpen] = useRecoilState(openSettingsState);
     const { mode, setMode } = useColorScheme();
     const { primaryColor, setPrimaryColor, setSolidColor, solidColor } = useEditColorProvider()
