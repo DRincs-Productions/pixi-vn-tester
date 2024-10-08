@@ -6,10 +6,10 @@ import { nextStepLoadingState } from './atoms/nextStepLoadingState';
 import { reloadInterfaceDataEventAtom } from './atoms/reloadInterfaceDataEventAtom';
 import DialogueDataEventInterceptor from './interceptors/DialogueDataEventInterceptor';
 import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
-import Dialogue from './user-interfaces/Dialogue';
 import History from './user-interfaces/History';
 import LoadingPage from './user-interfaces/LoadingPage';
 import MainMenu from './user-interfaces/MainMenu';
+import NarrationUI from './user-interfaces/NarrationUI';
 import QuickActions from './user-interfaces/QuickActions';
 import QuickLoadAlert from './user-interfaces/QuickLoadAlert';
 import TextInput from './user-interfaces/TextInput';
@@ -51,7 +51,7 @@ export default function AppRoutes() {
                     <QuickLoadAlert />
                     <QuickActions />
                     <DialogueDataEventInterceptor />
-                    <Dialogue
+                    <NarrationUI
                         nextOnClick={nextOnClick}
                     />
                     <SkipAutoInterceptor

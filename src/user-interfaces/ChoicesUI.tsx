@@ -16,7 +16,7 @@ type IProps = {
     fullscreen?: boolean,
 }
 
-export default function ChoicesMenu(props: IProps) {
+export default function ChoicesUI(props: IProps) {
     const {
         fullscreen = true,
     } = props;

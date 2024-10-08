@@ -15,10 +15,10 @@ import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import { typewriterIsAnimatedState } from '../atoms/typewriterIsAnimatedState';
 import SliderResizer from '../components/SliderResizer';
 import TypewriterMarkdown from '../components/TypewriterMarkdown';
-import ChoicesMenu from './ChoicesMenu';
+import ChoicesUI from './ChoicesUI';
 import NextButton from './NextButton';
 
-export default function Dialogue({ nextOnClick }: {
+export default function NarrationUI({ nextOnClick }: {
     nextOnClick: (props: StepLabelProps) => void,
 }) {
     const [cardHeight, setCardHeight] = useRecoilState(dialogueCardHeightState)
@@ -74,7 +74,7 @@ export default function Dialogue({ nextOnClick }: {
                 top: 0,
             }}
         >
-            <ChoicesMenu
+            <ChoicesUI
                 fullscreen={text ? false : true}
             />
             <Box
