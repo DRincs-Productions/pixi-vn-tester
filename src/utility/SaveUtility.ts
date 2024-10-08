@@ -1,13 +1,16 @@
-import { getSaveData, loadSaveData } from "@drincs/pixi-vn";
+import { canvas, getSaveData, loadSaveData } from "@drincs/pixi-vn";
 import SaveData from "../models/SaveData";
 import { deleteRowFromIndexDB, getRowFromIndexDB, putRowIntoIndexDB } from "./IndexDBUtility";
 
-export function getSave(): SaveData {
+const SAVE_FILE_EXTENSION = "json"
+
+export function getSave(image?: string): SaveData {
     return {
         saveData: getSaveData(),
         gameVersion: __APP_VERSION__,
         date: new Date(),
         name: "",
+        image: image
     }
 }
 
@@ -29,8 +32,7 @@ async function deleteSpecialSaveFromIndexDB(id: string): Promise<void> {
     return await deleteRowFromIndexDB("special_rescues", id)
 }
 
-export function saveGame() {
-    let data = getSave()
+export function downloadGameSave(data: SaveData = getSave()) {
     const jsonString = JSON.stringify(data);
     // download the save data as a JSON file
     const blob = new Blob([jsonString], { type: "application/json" });
@@ -38,15 +40,15 @@ export function saveGame() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = "save.json";
+    a.download = `${__APP_NAME__}-${__APP_VERSION__}-${data.name} ${data.date.toISOString()}.${SAVE_FILE_EXTENSION}`;
     a.click();
 }
 
-export function loadGameSave(navigate: (path: string) => void, afterLoad?: () => void) {
+export function loadGameSaveFromFile(navigate: (path: string) => void, afterLoad?: () => void) {
     // load the save data from a JSON file
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = 'application/json';
+    input.accept = `application/${SAVE_FILE_EXTENSION}`;
     input.onchange = (e) => {
         const file = (e.target as HTMLInputElement).files?.[0];
         if (file) {
@@ -69,15 +71,18 @@ export function loadGameSave(navigate: (path: string) => void, afterLoad?: () =>
     input.click();
 }
 
-export async function setQuickSave(data: SaveData | null) {
-    if (!data) {
-        await deleteSpecialSaveFromIndexDB("quick_save")
-        return
-    }
+export async function setQuickSave() {
+    let image = await canvas.extractImage()
+    let data = getSave(image)
     await putSpecialSaveIntoIndexDB({
         ...data,
         id: "quick_save"
     })
+    return data
+}
+
+export async function deleteQuickSave() {
+    return await deleteSpecialSaveFromIndexDB("quick_save")
 }
 
 export async function getQuickSave() {

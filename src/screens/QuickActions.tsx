@@ -15,7 +15,7 @@ import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventA
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
 import { goBack } from '../utility/ActionsUtility';
-import { getSave, loadGameSave, saveGame, setQuickSave } from '../utility/SaveUtility';
+import { loadGameSaveFromFile, setQuickSave } from '../utility/SaveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function QuickActions() {
@@ -93,14 +93,14 @@ export default function QuickActions() {
                 >
                     {t("auto_forward_time_restricted")}
                 </TextMenuButton>
-                <TextMenuButton
-                    onClick={saveGame}
+                {/* <TextMenuButton
+                    onClick={downloadGameSave}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t("save")}
-                </TextMenuButton>
+                </TextMenuButton> */}
                 <TextMenuButton
-                    onClick={() => loadGameSave(navigate, () => {
+                    onClick={() => loadGameSaveFromFile(navigate, () => {
                         notifyLoadEvent((prev) => prev + 1)
                         enqueueSnackbar(t("success_load"), { variant: 'success' })
                     })}
@@ -110,9 +110,8 @@ export default function QuickActions() {
                 </TextMenuButton>
                 <TextMenuButton
                     onClick={() => {
-                        let save = getSave()
-                        setQuickSave(save)
-                            .then(() => {
+                        setQuickSave()
+                            .then((save) => {
                                 setQuickSaveAtom(save)
                                 enqueueSnackbar(t("success_save"), { variant: 'success' })
                             })

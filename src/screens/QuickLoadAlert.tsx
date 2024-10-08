@@ -8,7 +8,7 @@ import { openLoadAlertState } from '../atoms/openLoadAlertState';
 import { quickSaveState } from '../atoms/quickSaveState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import ModalDialogCustom from '../components/ModalDialog';
-import { getSave, loadSave, setQuickSave } from '../utility/SaveUtility';
+import { loadSave, setQuickSave } from '../utility/SaveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function QuickLoadAlert() {
@@ -28,9 +28,9 @@ export default function QuickLoadAlert() {
 
     function onkeydown(event: KeyboardEvent) {
         if (event.code == 'KeyS' && event.shiftKey) {
-            let save = getSave()
-            setQuickSave(save)
-                .then(() => {
+            setQuickSave()
+                .then((save) => {
+                    setQuickSaveAtom(save)
                     enqueueSnackbar(t("success_save"), { variant: 'success' })
                 })
                 .catch(() => {

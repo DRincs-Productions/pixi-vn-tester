@@ -5,4 +5,5 @@ export default interface SaveData {
     gameVersion: string
     date: Date
     name: string
+    image?: string
 }

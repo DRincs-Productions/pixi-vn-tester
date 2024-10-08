@@ -26,14 +26,13 @@ import { openHistoryState } from '../atoms/openHistoryState';
 import { openLoadAlertState } from '../atoms/openLoadAlertState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { quickSaveState } from '../atoms/quickSaveState';
-import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
 import { useEditColorProvider } from '../providers/ThemeProvider';
 import { gameEnd } from '../utility/ActionsUtility';
-import { getSave, loadGameSave, saveGame, setQuickSave } from '../utility/SaveUtility';
+import { setQuickSave } from '../utility/SaveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function Settings() {
@@ -51,7 +50,6 @@ export default function Settings() {
     const setOpenHistory = useSetRecoilState(openHistoryState);
     const setOpenLoadAlert = useSetRecoilState(openLoadAlertState);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
-    const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const [quickSave, setQuickSaveAtom] = useRecoilState(quickSaveState)
     const { enqueueSnackbar } = useSnackbar();
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
@@ -116,8 +114,8 @@ export default function Settings() {
                                         gap: 1.5,
                                     }}
                                 >
-                                    <SettingButton
-                                        onClick={saveGame}
+                                    {/* <SettingButton
+                                        onClick={downloadGameSave}
                                     >
                                         <SaveIcon />
                                         <Typography level="title-md">{t("save")}</Typography>
@@ -130,17 +128,16 @@ export default function Settings() {
                                     >
                                         <FileUploadIcon />
                                         <Typography level="title-md">{t("load")}</Typography>
-                                    </SettingButton>
+                                    </SettingButton> */}
                                     <SettingButton
                                         onClick={() => {
-                                            let save = getSave()
-                                            setQuickSave(save)
-                                                .then(() => {
+                                            setQuickSave()
+                                                .then((save) => {
+                                                    setQuickSaveAtom(save)
                                                     enqueueSnackbar(t("success_save"), { variant: 'success' })
                                                 })
                                                 .catch(() => {
                                                     enqueueSnackbar(t("fail_save"), { variant: 'error' })
-                                                    setQuickSaveAtom(quickSave)
                                                 })
                                         }}
                                     >
