@@ -15,7 +15,8 @@ import ModalDialogCustom from '../components/ModalDialog';
 export default function History() {
     const [open, setOpen] = useRecoilState(openHistoryState);
     const [searchString, setSearchString] = useState("")
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["interface"]);
+    const { t: tNarration } = useTranslation(["narration"]);
 
     useEffect(() => {
         window.addEventListener('keydown', onkeydown);
@@ -71,7 +72,7 @@ export default function History() {
                 <Stack spacing={2} justifyContent="flex-end">
                     {narration.narrativeHistory
                         .map((step) => {
-                            let character = step.dialoge?.character ? getCharacterById(step.dialoge?.character) ?? new CharacterBaseModel(step.dialoge?.character, { name: t(step.dialoge?.character) }) : undefined
+                            let character = step.dialoge?.character ? getCharacterById(step.dialoge?.character) ?? new CharacterBaseModel(step.dialoge?.character, { name: tNarration(step.dialoge?.character) }) : undefined
                             return {
                                 character: character?.name ? character.name + (character.surname ? " " + character.surname : "") : undefined,
                                 text: step.dialoge?.text || "",
@@ -115,6 +116,9 @@ export default function History() {
                                 >
                                     <Box sx={{ flex: 1 }}>
                                         {data.choices && data.choices.map((choice, index) => {
+                                            if (choice.hidden) {
+                                                return null
+                                            }
                                             if (choice.isResponse) {
                                                 return <Chip
                                                     key={"choices-success" + index}

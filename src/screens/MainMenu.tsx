@@ -18,7 +18,8 @@ export default function MainMenu() {
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const setHideInterface = useSetRecoilState(hideInterfaceState);
     const { enqueueSnackbar } = useSnackbar();
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["interface"]);
+    const { t: tNarration } = useTranslation(["narration"]);
 
     useEffect(() => {
         setHideInterface(false)
@@ -49,7 +50,7 @@ export default function MainMenu() {
                     navigate("/game")
                     narration.callLabel(pixivnTestStartLabel, {
                         navigate: navigate,
-                        t: t,
+                        t: tNarration,
                         notify: (message, variant) => enqueueSnackbar(message, { variant }),
                     }).then(() => {
                         notifyReloadInterfaceDataEvent((prev) => prev + 1)

@@ -12,7 +12,7 @@ export default function SkipAutoInterceptor({ nextOnClick }: {
     nextOnClick: (props: StepLabelProps) => Promise<void>,
 }) {
     const navigate = useMyNavigate();
-    const { t } = useTranslation(["translation"]);
+    const { t: tNarration } = useTranslation(["narration"]);
     const skipEnabled = useRecoilValue(skipEnabledState)
     const autoInfo = useRecoilValue(autoInfoState)
     const typewriterIsAnimated = useRecoilValue(typewriterIsAnimatedState)
@@ -24,7 +24,7 @@ export default function SkipAutoInterceptor({ nextOnClick }: {
         let timeout = setTimeout(() => {
             if (skipEnabled) {
                 nextOnClick({
-                    t,
+                    t: tNarration,
                     navigate,
                     notify: (message, variant) => enqueueSnackbar(message, { variant }),
                 }).then(() => {
@@ -49,7 +49,7 @@ export default function SkipAutoInterceptor({ nextOnClick }: {
                 let timeout = setTimeout(() => {
                     if (autoInfo.enabled && !skipEnabled) {
                         nextOnClick({
-                            t,
+                            t: tNarration,
                             navigate,
                             notify: (message, variant) => enqueueSnackbar(message, { variant }),
                         })

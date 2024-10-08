@@ -1,4 +1,4 @@
-import { CharacterBaseModel, getCharacterById, getDialogue } from '@drincs/pixi-vn';
+import { CharacterBaseModel, getCharacterById, narration } from '@drincs/pixi-vn';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
@@ -9,23 +9,23 @@ import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventA
 
 export default function DialogueDataEventInterceptor() {
     const reloadInterfaceDataEvent = useRecoilValue(reloadInterfaceDataEventAtom);
-    const { t } = useTranslation(["translation"]);
+    const { t: tNarration } = useTranslation(["narration"]);
     const hideInterface = useRecoilValue(hideInterfaceState)
     const updateAuto = useSetRecoilState(autoInfoState)
     const [{ text, character }, setDialogData] = useRecoilState(dialogDataState)
 
     useEffect(() => {
-        let dial = getDialogue()
-        let newText: string | undefined = dial?.text
+        let dialogue = narration.dialogue
+        let newText: string | undefined = dialogue?.text
         let newCharacter: CharacterBaseModel | undefined = undefined
-        if (dial) {
-            newCharacter = dial.character ? getCharacterById(dial.character) : undefined
-            if (!newCharacter && dial.character) {
-                newCharacter = new CharacterBaseModel(dial.character, { name: t(dial.character) })
+        if (dialogue) {
+            newCharacter = dialogue.character ? getCharacterById(dialogue.character) : undefined
+            if (!newCharacter && dialogue.character) {
+                newCharacter = new CharacterBaseModel(dialogue.character, { name: tNarration(dialogue.character) })
             }
         }
         try {
-            if (dial?.text !== text || newCharacter !== character) {
+            if (dialogue?.text !== text || newCharacter !== character) {
                 setDialogData({
                     text: newText,
                     character: newCharacter,

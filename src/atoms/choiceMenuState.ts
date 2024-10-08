@@ -1,4 +1,4 @@
-import { ChoiceMenuOptionsType, getChoiceMenuOptions } from "@drincs/pixi-vn";
+import { ChoiceMenuOptionsType, narration } from "@drincs/pixi-vn";
 import { selector } from "recoil";
 import { hideInterfaceState } from "./hideInterfaceState";
 import { reloadInterfaceDataEventAtom } from "./reloadInterfaceDataEventAtom";
@@ -15,7 +15,7 @@ export const choiceMenuState = selector<ChoiceMenu>({
         get(reloadInterfaceDataEventAtom)
         let hideInterface = get(hideInterfaceState)
 
-        let choiceMenu = getChoiceMenuOptions() || []
+        let choiceMenu = narration.choiceMenuOptions || []
         return {
             menu: choiceMenu,
             hidden: hideInterface || !choiceMenu || choiceMenu.length == 0

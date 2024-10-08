@@ -45,7 +45,7 @@ export default function Settings() {
     const [openYouSure, setOpenYouSure] = useState(false)
     const [typewriterDelay, setTypewriterDelay] = useRecoilState(typewriterDelayState)
     const [fullScreenEnabled, setFullScreenEnabled] = useState(false)
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["interface"]);
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const [auto, setAuto] = useRecoilState(autoInfoState)
     const setOpenHistory = useSetRecoilState(openHistoryState);

@@ -23,7 +23,7 @@ export default function ChoicesMenu(props: IProps) {
     const [loading, setLoading] = useState(false)
     const marginButton = useRecoilValue(dialogueCardHeightState)
     const height = 100 - marginButton
-    const { t } = useTranslation(["translation"]);
+    const { t: tNarration } = useTranslation(["narration"]);
     const navigate = useMyNavigate();
     const { menu, hidden } = useRecoilValue(choiceMenuState)
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
@@ -58,59 +58,20 @@ export default function ChoicesMenu(props: IProps) {
 
     function afterSelectChoice(item: ChoiceMenuOptionClose | ChoiceMenuOption<{}>) {
         setLoading(true)
-        narration.choiceMenuOptions = undefined
-        if (item.type == "call") {
-            narration.callLabel(item.label, {
-                navigate: navigate,
-                t: t,
-                notify: (message, variant) => enqueueSnackbar(message, { variant }),
-                ...item.props
+        narration.selectChoice(item, {
+            navigate: navigate,
+            t: tNarration,
+            notify: (message, variant) => enqueueSnackbar(message, { variant }),
+            ...item.props
+        })
+            .then(() => {
+                notifyReloadInterfaceDataEvent((prev) => prev + 1)
+                setLoading(false)
             })
-                .then(() => {
-                    notifyReloadInterfaceDataEvent((prev) => prev + 1)
-                    setLoading(false)
-                })
-                .catch((e) => {
-                    setLoading(false)
-                    console.error(e)
-                })
-        }
-        else if (item.type == "jump") {
-            narration.jumpLabel(item.label, {
-                navigate: navigate,
-                t: t,
-                notify: (message, variant) => enqueueSnackbar(message, { variant }),
-                ...item.props
+            .catch((e) => {
+                setLoading(false)
+                console.error(e)
             })
-                .then(() => {
-                    notifyReloadInterfaceDataEvent((prev) => prev + 1)
-                    setLoading(false)
-                })
-                .catch((e) => {
-                    setLoading(false)
-                    console.error(e)
-                })
-        }
-        else if (item.type == "close") {
-            narration.closeChoiceMenu(item, {
-                navigate: navigate,
-                t: t,
-                notify: (message, variant) => enqueueSnackbar(message, { variant }),
-                ...item.props
-            })
-                .then(() => {
-                    notifyReloadInterfaceDataEvent((prev) => prev + 1)
-                    setLoading(false)
-                })
-                .catch((e) => {
-                    setLoading(false)
-                    console.error(e)
-                })
-        }
-        else {
-            setLoading(false)
-            console.error("Unsupported label run mode")
-        }
     }
 
     return (

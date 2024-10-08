@@ -15,7 +15,7 @@ export default function QuickLoadAlert() {
     const navigate = useMyNavigate();
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const [open, setOpen] = useRecoilState(openLoadAlertState);
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["interface"]);
     const [quickSave, setQuickSaveAtom] = useRecoilState(quickSaveState)
     const { enqueueSnackbar } = useSnackbar();
 

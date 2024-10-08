@@ -18,7 +18,8 @@ export default function NextButton({ nextOnClick }: {
     const hideNextButton = useRecoilValue(hideNextButtonState)
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useMyNavigate();
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["interface"]);
+    const { t: tNarration } = useTranslation(["narration"]);
     useEffect(() => {
         window.addEventListener("keypress", onkeypress);
         window.addEventListener("keyup", onkeyup);
@@ -39,7 +40,7 @@ export default function NextButton({ nextOnClick }: {
         if ((event.code == 'Enter' || event.code == 'Space')) {
             setSkip(false)
             nextOnClick({
-                t,
+                t: tNarration,
                 navigate,
                 notify: (message, variant) => enqueueSnackbar(message, { variant }),
             })
@@ -65,7 +66,7 @@ export default function NextButton({ nextOnClick }: {
                     setSkip(false)
                 }
                 nextOnClick({
-                    t,
+                    t: tNarration,
                     navigate,
                     notify: (message, variant) => enqueueSnackbar(message, { variant }),
                 })
