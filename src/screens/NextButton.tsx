@@ -18,7 +18,7 @@ export default function NextButton({ nextOnClick }: {
     const hideNextButton = useRecoilValue(hideNextButtonState)
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useMyNavigate();
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["interface"]);
     useEffect(() => {
         window.addEventListener("keypress", onkeypress);
         window.addEventListener("keyup", onkeyup);

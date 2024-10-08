@@ -24,7 +24,7 @@ export default function QuickActions() {
     const navigate = useMyNavigate();
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const setOpenLoadAlert = useSetRecoilState(openLoadAlertState);
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["interface"]);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const [auto, setAuto] = useRecoilState(autoInfoState)

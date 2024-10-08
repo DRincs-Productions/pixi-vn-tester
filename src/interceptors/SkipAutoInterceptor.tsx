@@ -12,7 +12,7 @@ export default function SkipAutoInterceptor({ nextOnClick }: {
     nextOnClick: (props: StepLabelProps) => Promise<void>,
 }) {
     const navigate = useMyNavigate();
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["interface"]);
     const skipEnabled = useRecoilValue(skipEnabledState)
     const autoInfo = useRecoilValue(autoInfoState)
     const typewriterIsAnimated = useRecoilValue(typewriterIsAnimatedState)

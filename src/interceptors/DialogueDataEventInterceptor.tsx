@@ -9,7 +9,7 @@ import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventA
 
 export default function DialogueDataEventInterceptor() {
     const reloadInterfaceDataEvent = useRecoilValue(reloadInterfaceDataEventAtom);
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["interface"]);
     const hideInterface = useRecoilValue(hideInterfaceState)
     const updateAuto = useSetRecoilState(autoInfoState)
     const [{ text, character }, setDialogData] = useRecoilState(dialogDataState)

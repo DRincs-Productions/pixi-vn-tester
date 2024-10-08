@@ -18,7 +18,7 @@ export default function MainMenu() {
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const setHideInterface = useSetRecoilState(hideInterfaceState);
     const { enqueueSnackbar } = useSnackbar();
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["interface"]);
 
     useEffect(() => {
         setHideInterface(false)

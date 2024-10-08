@@ -15,7 +15,7 @@ import ModalDialogCustom from '../components/ModalDialog';
 export default function History() {
     const [open, setOpen] = useRecoilState(openHistoryState);
     const [searchString, setSearchString] = useState("")
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["interface"]);
 
     useEffect(() => {
         window.addEventListener('keydown', onkeydown);
@@ -115,6 +115,9 @@ export default function History() {
                                 >
                                     <Box sx={{ flex: 1 }}>
                                         {data.choices && data.choices.map((choice, index) => {
+                                            if (choice.hidden) {
+                                                return null
+                                            }
                                             if (choice.isResponse) {
                                                 return <Chip
                                                     key={"choices-success" + index}

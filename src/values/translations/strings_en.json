@@ -1,5 +1,5 @@
 {
-	"translation": {
+	"interface": {
 		"allert_error_occurred": "An error occurred, please report it to the developer",
 		"attention": "Attention",
 		"auto_forward_time": "Auto Forward Time",

@@ -23,7 +23,7 @@ export default function ChoicesMenu(props: IProps) {
     const [loading, setLoading] = useState(false)
     const marginButton = useRecoilValue(dialogueCardHeightState)
     const height = 100 - marginButton
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["interface"]);
     const navigate = useMyNavigate();
     const { menu, hidden } = useRecoilValue(choiceMenuState)
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);

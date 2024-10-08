@@ -11,7 +11,7 @@ export default function TextInput() {
     const { text } = useRecoilValue(dialogDataState)
     const [{ open, type }, setOptions] = useRecoilState(inputOptionsState);
     const [tempValue, setTempValue] = useState();
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["interface"]);
 
     return (
         <ModalDialogCustom
