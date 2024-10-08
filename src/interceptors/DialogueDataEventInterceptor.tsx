@@ -9,7 +9,7 @@ import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventA
 
 export default function DialogueDataEventInterceptor() {
     const reloadInterfaceDataEvent = useRecoilValue(reloadInterfaceDataEventAtom);
-    const { t } = useTranslation(["interface"]);
+    const { t: tNarration } = useTranslation(["narration"]);
     const hideInterface = useRecoilValue(hideInterfaceState)
     const updateAuto = useSetRecoilState(autoInfoState)
     const [{ text, character }, setDialogData] = useRecoilState(dialogDataState)
@@ -21,7 +21,7 @@ export default function DialogueDataEventInterceptor() {
         if (dial) {
             newCharacter = dial.character ? getCharacterById(dial.character) : undefined
             if (!newCharacter && dial.character) {
-                newCharacter = new CharacterBaseModel(dial.character, { name: t(dial.character) })
+                newCharacter = new CharacterBaseModel(dial.character, { name: tNarration(dial.character) })
             }
         }
         try {

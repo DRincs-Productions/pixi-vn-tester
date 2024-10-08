@@ -23,7 +23,7 @@ export default function ChoicesMenu(props: IProps) {
     const [loading, setLoading] = useState(false)
     const marginButton = useRecoilValue(dialogueCardHeightState)
     const height = 100 - marginButton
-    const { t } = useTranslation(["interface"]);
+    const { t: tNarration } = useTranslation(["narration"]);
     const navigate = useMyNavigate();
     const { menu, hidden } = useRecoilValue(choiceMenuState)
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
@@ -62,7 +62,7 @@ export default function ChoicesMenu(props: IProps) {
         if (item.type == "call") {
             narration.callLabel(item.label, {
                 navigate: navigate,
-                t: t,
+                t: tNarration,
                 notify: (message, variant) => enqueueSnackbar(message, { variant }),
                 ...item.props
             })
@@ -78,7 +78,7 @@ export default function ChoicesMenu(props: IProps) {
         else if (item.type == "jump") {
             narration.jumpLabel(item.label, {
                 navigate: navigate,
-                t: t,
+                t: tNarration,
                 notify: (message, variant) => enqueueSnackbar(message, { variant }),
                 ...item.props
             })
@@ -94,7 +94,7 @@ export default function ChoicesMenu(props: IProps) {
         else if (item.type == "close") {
             narration.closeChoiceMenu(item, {
                 navigate: navigate,
-                t: t,
+                t: tNarration,
                 notify: (message, variant) => enqueueSnackbar(message, { variant }),
                 ...item.props
             })
