@@ -6,13 +6,13 @@ import { nextStepLoadingState } from './atoms/nextStepLoadingState';
 import { reloadInterfaceDataEventAtom } from './atoms/reloadInterfaceDataEventAtom';
 import DialogueDataEventInterceptor from './interceptors/DialogueDataEventInterceptor';
 import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
-import Dialogue from './screens/Dialogue';
-import History from './screens/History';
-import LoadingPage from './screens/LoadingPage';
-import MainMenu from './screens/MainMenu';
-import QuickActions from './screens/QuickActions';
-import QuickLoadAlert from './screens/QuickLoadAlert';
-import TextInput from './screens/TextInput';
+import Dialogue from './user-interfaces/Dialogue';
+import History from './user-interfaces/History';
+import LoadingPage from './user-interfaces/LoadingPage';
+import MainMenu from './user-interfaces/MainMenu';
+import QuickActions from './user-interfaces/QuickActions';
+import QuickLoadAlert from './user-interfaces/QuickLoadAlert';
+import TextInput from './user-interfaces/TextInput';
 
 export default function AppRoutes() {
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);

@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import LoadingPage from "./screens/LoadingPage";
+import LoadingPage from "./user-interfaces/LoadingPage";
 
 export default function App() {
     const Home = lazy(async () => import('./Home'))
