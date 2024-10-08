@@ -18,7 +18,7 @@ import { goBack } from '../utilities/actions-utility';
 import { useMyNavigate } from '../utilities/navigate-utility';
 import { loadGameSaveFromFile, setQuickSave } from '../utilities/save-utility';
 
-export default function QuickActions() {
+export default function QuickToolsUI() {
     const setOpenSettings = useSetRecoilState(openSettingsState);
     const setOpenHistory = useSetRecoilState(openHistoryState);
     const navigate = useMyNavigate();

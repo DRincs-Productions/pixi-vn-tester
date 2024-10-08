@@ -4,12 +4,12 @@ import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { openLoadAlertState } from '../atoms/openLoadAlertState';
-import { quickSaveState } from '../atoms/quickSaveState';
-import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
-import ModalDialogCustom from '../components/ModalDialog';
-import { useMyNavigate } from '../utilities/navigate-utility';
-import { loadSave, setQuickSave } from '../utilities/save-utility';
+import { openLoadAlertState } from '../../atoms/openLoadAlertState';
+import { quickSaveState } from '../../atoms/quickSaveState';
+import { reloadInterfaceDataEventAtom } from '../../atoms/reloadInterfaceDataEventAtom';
+import ModalDialogCustom from '../../components/ModalDialog';
+import { useMyNavigate } from '../../utilities/navigate-utility';
+import { loadSave, setQuickSave } from '../../utilities/save-utility';
 
 export default function QuickLoadAlert() {
     const navigate = useMyNavigate();

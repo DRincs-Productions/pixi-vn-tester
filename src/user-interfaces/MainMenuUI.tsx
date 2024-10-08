@@ -12,7 +12,7 @@ import MenuButton from '../components/MenuButton';
 import { useMyNavigate } from '../utilities/navigate-utility';
 import { loadGameSaveFromFile } from '../utilities/save-utility';
 
-export default function MainMenu() {
+export default function MainMenuUI() {
     const navigate = useMyNavigate();
     const setOpenSettings = useSetRecoilState(openSettingsState);
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);

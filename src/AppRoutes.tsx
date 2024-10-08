@@ -8,11 +8,11 @@ import DialogueDataEventInterceptor from './interceptors/DialogueDataEventInterc
 import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
 import HistoryUI from './user-interfaces/HistoryUI';
 import LoadingUI from './user-interfaces/LoadingUI';
-import MainMenu from './user-interfaces/MainMenu';
+import MainMenuUI from './user-interfaces/MainMenuUI';
+import QuickLoadAlert from './user-interfaces/modals/QuickLoadAlert';
+import TextInput from './user-interfaces/modals/TextInput';
 import NarrationUI from './user-interfaces/NarrationUI';
-import QuickActions from './user-interfaces/QuickActions';
-import QuickLoadAlert from './user-interfaces/QuickLoadAlert';
-import TextInput from './user-interfaces/TextInput';
+import QuickToolsUI from './user-interfaces/QuickToolsUI';
 
 export default function AppRoutes() {
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
@@ -43,13 +43,13 @@ export default function AppRoutes() {
 
     return (
         <Routes>
-            <Route key={"main_menu"} path={"/"} element={<MainMenu />} />
+            <Route key={"main_menu"} path={"/"} element={<MainMenuUI />} />
             <Route key={"main_menu"} path={"/loading"} element={<LoadingUI />} />
             <Route key={"game"} path={"/game"}
                 element={<>
                     <HistoryUI />
                     <QuickLoadAlert />
-                    <QuickActions />
+                    <QuickToolsUI />
                     <DialogueDataEventInterceptor />
                     <NarrationUI
                         nextOnClick={nextOnClick}
@@ -60,7 +60,7 @@ export default function AppRoutes() {
                     <TextInput />
                 </>}
             />
-            <Route path="*" element={<MainMenu />} />
+            <Route path="*" element={<MainMenuUI />} />
         </Routes>
     )
 }
