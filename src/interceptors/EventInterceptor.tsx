@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
-import { initializeIndexedDB } from '../utility/IndexDBUtility';
-import { addRefreshSave, loadRefreshSave } from '../utility/SaveUtility';
+import { initializeIndexedDB } from '../utility/indexedDBUtility';
+import { addRefreshSave, loadRefreshSave } from '../utility/saveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function EventInterceptor() {

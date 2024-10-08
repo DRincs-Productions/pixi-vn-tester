@@ -31,8 +31,8 @@ import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
 import { useEditColorProvider } from '../providers/ThemeProvider';
-import { gameEnd } from '../utility/ActionsUtility';
-import { setQuickSave } from '../utility/SaveUtility';
+import { gameEnd } from '../utility/actionsUtility';
+import { setQuickSave } from '../utility/saveUtility';
 import { useMyNavigate } from '../utility/useMyNavigate';
 
 export default function Settings() {

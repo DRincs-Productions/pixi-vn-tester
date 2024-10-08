@@ -1,6 +1,6 @@
 import { canvas, getSaveData, loadSaveData } from "@drincs/pixi-vn";
 import SaveData from "../models/SaveData";
-import { deleteRowFromIndexDB, getRowFromIndexDB, putRowIntoIndexDB } from "./IndexDBUtility";
+import { deleteRowFromIndexDB, getRowFromIndexDB, putRowIntoIndexDB } from "./indexedDBUtility";
 
 const SAVE_FILE_EXTENSION = "json"
 

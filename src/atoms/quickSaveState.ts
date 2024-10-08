@@ -1,6 +1,6 @@
 import { atom, selector } from "recoil";
 import SaveData from "../models/SaveData";
-import { getQuickSave } from "../utility/SaveUtility";
+import { getQuickSave } from "../utility/saveUtility";
 
 const quickSaveAtomState = atom<SaveData | null>({
     key: 'quickSaveAtomState',
