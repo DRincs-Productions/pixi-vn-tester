@@ -31,9 +31,9 @@ import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
 import { useEditColorProvider } from '../providers/ThemeProvider';
-import { gameEnd } from '../utility/actions-utility';
-import { useMyNavigate } from '../utility/navigate-utility';
-import { setQuickSave } from '../utility/save-utility';
+import { gameEnd } from '../utilities/actions-utility';
+import { useMyNavigate } from '../utilities/navigate-utility';
+import { setQuickSave } from '../utilities/save-utility';
 
 export default function Settings() {
     const [open, setOpen] = useRecoilState(openSettingsState);

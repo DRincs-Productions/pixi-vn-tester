@@ -14,9 +14,9 @@ import { quickSaveState } from '../atoms/quickSaveState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
-import { goBack } from '../utility/actions-utility';
-import { useMyNavigate } from '../utility/navigate-utility';
-import { loadGameSaveFromFile, setQuickSave } from '../utility/save-utility';
+import { goBack } from '../utilities/actions-utility';
+import { useMyNavigate } from '../utilities/navigate-utility';
+import { loadGameSaveFromFile, setQuickSave } from '../utilities/save-utility';
 
 export default function QuickActions() {
     const setOpenSettings = useSetRecoilState(openSettingsState);

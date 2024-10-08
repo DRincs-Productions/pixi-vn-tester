@@ -8,8 +8,8 @@ import { openLoadAlertState } from '../atoms/openLoadAlertState';
 import { quickSaveState } from '../atoms/quickSaveState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import ModalDialogCustom from '../components/ModalDialog';
-import { useMyNavigate } from '../utility/navigate-utility';
-import { loadSave, setQuickSave } from '../utility/save-utility';
+import { useMyNavigate } from '../utilities/navigate-utility';
+import { loadSave, setQuickSave } from '../utilities/save-utility';
 
 export default function QuickLoadAlert() {
     const navigate = useMyNavigate();
