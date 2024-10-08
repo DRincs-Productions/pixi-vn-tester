@@ -1,10 +1,10 @@
 import { canvas, getSaveData, loadSaveData } from "@drincs/pixi-vn";
-import SaveData from "../models/SaveData";
-import { deleteRowFromIndexDB, getRowFromIndexDB, putRowIntoIndexDB } from "./indexedDBUtility";
+import GameSaveData from "../models/GameSaveData";
+import { deleteRowFromIndexDB, getRowFromIndexDB, putRowIntoIndexDB } from "./indexedDB-utility";
 
 const SAVE_FILE_EXTENSION = "json"
 
-export function getSave(image?: string): SaveData {
+export function getSave(image?: string): GameSaveData {
     return {
         saveData: getSaveData(),
         gameVersion: __APP_VERSION__,
@@ -14,17 +14,17 @@ export function getSave(image?: string): SaveData {
     }
 }
 
-export async function loadSave(saveData: SaveData, navigate: (path: string) => void) {
+export async function loadSave(saveData: GameSaveData, navigate: (path: string) => void) {
     navigate("/loading")
     // load the save data from the JSON string
     await loadSaveData(saveData.saveData, navigate)
 }
 
-async function putSpecialSaveIntoIndexDB(data: SaveData & { id: string }): Promise<void> {
+async function putSpecialSaveIntoIndexDB(data: GameSaveData & { id: string }): Promise<void> {
     return await putRowIntoIndexDB("special_rescues", data)
 }
 
-async function getSpecialSaveFromIndexDB(id: string): Promise<SaveData & { id: string } | null> {
+async function getSpecialSaveFromIndexDB(id: string): Promise<GameSaveData & { id: string } | null> {
     return await getRowFromIndexDB("special_rescues", id)
 }
 
@@ -32,7 +32,7 @@ async function deleteSpecialSaveFromIndexDB(id: string): Promise<void> {
     return await deleteRowFromIndexDB("special_rescues", id)
 }
 
-export function downloadGameSave(data: SaveData = getSave()) {
+export function downloadGameSave(data: GameSaveData = getSave()) {
     const jsonString = JSON.stringify(data);
     // download the save data as a JSON file
     const blob = new Blob([jsonString], { type: "application/json" });
@@ -56,7 +56,7 @@ export function loadGameSaveFromFile(navigate: (path: string) => void, afterLoad
             reader.onload = (e) => {
                 const jsonString = e.target?.result as string;
                 navigate("/loading")
-                let data: SaveData = JSON.parse(jsonString)
+                let data: GameSaveData = JSON.parse(jsonString)
                 // load the save data from the JSON string
                 loadSave(data, navigate)
                     .then(() => {
@@ -101,7 +101,7 @@ export async function loadRefreshSave(navigate: (path: string) => void) {
     const jsonString = localStorage.getItem("refresh_save")
     if (jsonString) {
         navigate("/loading")
-        let data: SaveData = JSON.parse(jsonString)
+        let data: GameSaveData = JSON.parse(jsonString)
         return loadSave(data, navigate)
             .then(() => {
                 localStorage.removeItem("refreshSave")

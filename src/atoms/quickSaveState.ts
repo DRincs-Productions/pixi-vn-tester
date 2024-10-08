@@ -1,13 +1,13 @@
 import { atom, selector } from "recoil";
-import SaveData from "../models/SaveData";
-import { getQuickSave } from "../utility/saveUtility";
+import GameSaveData from "../models/GameSaveData";
+import { getQuickSave } from "../utility/save-utility";
 
-const quickSaveAtomState = atom<SaveData | null>({
+const quickSaveAtomState = atom<GameSaveData | null>({
     key: 'quickSaveAtomState',
     default: null,
 });
 
-export const quickSaveState = selector<SaveData | null>({
+export const quickSaveState = selector<GameSaveData | null>({
     key: 'quickSaveState',
     get: async ({ get }) => {
         let atomData = get(quickSaveAtomState)

@@ -10,7 +10,7 @@ import { choiceMenuState } from '../atoms/choiceMenuState';
 import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import ChoiceButton from '../components/ChoiceButton';
-import { useMyNavigate } from '../utility/useMyNavigate';
+import { useMyNavigate } from '../utility/navigate-utility';
 
 type IProps = {
     fullscreen?: boolean,

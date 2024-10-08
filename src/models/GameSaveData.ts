@@ -1,6 +1,6 @@
 import { ISaveData as PiviVNSaveData } from "@drincs/pixi-vn"
 
-export default interface SaveData {
+export default interface GameSaveData {
     saveData: PiviVNSaveData
     gameVersion: string
     date: Date

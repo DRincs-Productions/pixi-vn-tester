@@ -2,7 +2,7 @@ import { canvas, narration } from '@drincs/pixi-vn'
 import { createRoot } from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { gameEnd } from './utility/actionsUtility'
+import { gameEnd } from './utility/actions-utility'
 
 // Canvas setup with PIXI
 const body = document.body

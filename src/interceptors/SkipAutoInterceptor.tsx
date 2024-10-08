@@ -6,7 +6,7 @@ import { useRecoilValue } from 'recoil';
 import { autoInfoState } from '../atoms/autoInfoState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterIsAnimatedState } from '../atoms/typewriterIsAnimatedState';
-import { useMyNavigate } from '../utility/useMyNavigate';
+import { useMyNavigate } from '../utility/navigate-utility';
 
 export default function SkipAutoInterceptor({ nextOnClick }: {
     nextOnClick: (props: StepLabelProps) => Promise<void>,

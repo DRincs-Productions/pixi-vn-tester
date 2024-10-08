@@ -1,5 +1,5 @@
 import { saveCharacter } from "@drincs/pixi-vn";
-import Character from "../models/CharacterModel";
+import Character from "../models/Character";
 
 export const juliette = new Character('___pixivn_juliette___', {
     name: 'Juliette',

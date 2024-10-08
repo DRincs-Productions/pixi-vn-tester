@@ -9,8 +9,8 @@ import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import MenuButton from '../components/MenuButton';
-import { loadGameSaveFromFile } from '../utility/saveUtility';
-import { useMyNavigate } from '../utility/useMyNavigate';
+import { useMyNavigate } from '../utility/navigate-utility';
+import { loadGameSaveFromFile } from '../utility/save-utility';
 
 export default function MainMenu() {
     const navigate = useMyNavigate();

@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
-import { initializeIndexedDB } from '../utility/indexedDBUtility';
-import { addRefreshSave, loadRefreshSave } from '../utility/saveUtility';
-import { useMyNavigate } from '../utility/useMyNavigate';
+import { initializeIndexedDB } from '../utility/indexedDB-utility';
+import { useMyNavigate } from '../utility/navigate-utility';
+import { addRefreshSave, loadRefreshSave } from '../utility/save-utility';
 
 export default function EventInterceptor() {
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
