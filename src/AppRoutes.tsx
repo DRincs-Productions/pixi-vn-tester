@@ -6,13 +6,13 @@ import { nextStepLoadingState } from './atoms/nextStepLoadingState';
 import { reloadInterfaceDataEventAtom } from './atoms/reloadInterfaceDataEventAtom';
 import DialogueDataEventInterceptor from './interceptors/DialogueDataEventInterceptor';
 import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
-import HistoryUI from './user-interfaces/HistoryUI';
-import LoadingUI from './user-interfaces/LoadingUI';
-import MainMenuUI from './user-interfaces/MainMenuUI';
-import QuickLoadAlert from './user-interfaces/modals/QuickLoadAlert';
-import TextInput from './user-interfaces/modals/TextInput';
-import NarrationUI from './user-interfaces/NarrationUI';
-import QuickToolsUI from './user-interfaces/QuickToolsUI';
+import HistoryUI from './screens/HistoryUI';
+import LoadingUI from './screens/LoadingUI';
+import MainMenuUI from './screens/MainMenuUI';
+import QuickLoadAlert from './screens/modals/QuickLoadAlert';
+import TextInput from './screens/modals/TextInput';
+import NarrationUI from './screens/NarrationUI';
+import QuickTools from './screens/QuickTools';
 
 export default function AppRoutes() {
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
@@ -49,7 +49,7 @@ export default function AppRoutes() {
                 element={<>
                     <HistoryUI />
                     <QuickLoadAlert />
-                    <QuickToolsUI />
+                    <QuickTools />
                     <DialogueDataEventInterceptor />
                     <NarrationUI
                         nextOnClick={nextOnClick}
