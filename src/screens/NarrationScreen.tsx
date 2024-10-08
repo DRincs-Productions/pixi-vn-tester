@@ -18,7 +18,7 @@ import SliderResizer from '../components/SliderResizer';
 import TypewriterMarkdown from '../components/TypewriterMarkdown';
 import ChoiceMenuUI from './ChoiceMenuUI';
 
-export default function NarrationUI({ nextOnClick }: {
+export default function NarrationScreen({ nextOnClick }: {
     nextOnClick: (props: StepLabelProps) => void,
 }) {
     const [cardHeight, setCardHeight] = useRecoilState(dialogueCardHeightState)

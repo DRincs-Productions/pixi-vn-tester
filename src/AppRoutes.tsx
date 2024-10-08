@@ -11,7 +11,7 @@ import LoadingUI from './screens/LoadingUI';
 import MainMenuUI from './screens/MainMenuUI';
 import QuickLoadAlert from './screens/modals/QuickLoadAlert';
 import TextInput from './screens/modals/TextInput';
-import NarrationUI from './screens/NarrationUI';
+import NarrationScreen from './screens/NarrationScreen';
 import QuickTools from './screens/QuickTools';
 
 export default function AppRoutes() {
@@ -51,7 +51,7 @@ export default function AppRoutes() {
                     <QuickLoadAlert />
                     <QuickTools />
                     <DialogueDataEventInterceptor />
-                    <NarrationUI
+                    <NarrationScreen
                         nextOnClick={nextOnClick}
                     />
                     <SkipAutoInterceptor
