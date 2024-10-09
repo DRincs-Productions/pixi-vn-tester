@@ -57,6 +57,9 @@ export default function HistoryScreen() {
                 />
             </Stack>}
             minWidth="80%"
+            sx={{
+                minHeight: "50%",
+            }}
         >
             <Box
                 sx={{
