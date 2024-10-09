@@ -1,150 +1,171 @@
-import { CharacterBaseModel, getCharacterById, narration } from '@drincs/pixi-vn';
-import CheckIcon from '@mui/icons-material/Check';
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import { Box, Chip, Input, Stack, Typography } from "@mui/joy";
-import Avatar from '@mui/joy/Avatar';
-import React, { useEffect, useState } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DownloadIcon from '@mui/icons-material/Download';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
+import UnarchiveIcon from '@mui/icons-material/Unarchive';
+import { AspectRatio, Grid, IconButton, Skeleton, Stack, Theme, Typography, useTheme } from "@mui/joy";
+import { useMediaQuery } from '@mui/material';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Markdown from 'react-markdown';
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
 import ModalDialogCustom from '../components/ModalDialog';
+import TypographyShadow from "../components/TypographyShadow";
+import GameSaveData from '../models/GameSaveData';
 
 export default function GameSaveScreen() {
     const [open, setOpen] = useState(true);
-    const [searchString, setSearchString] = useState("")
     const { t } = useTranslation(["interface"]);
-    const { t: tNarration } = useTranslation(["narration"]);
-
-    useEffect(() => {
-        window.addEventListener('keydown', onkeydown);
-        return () => {
-            window.removeEventListener('keydown', onkeydown);
-        };
-    }, []);
-
-    function onkeydown(event: KeyboardEvent) {
-        if (event.code == 'KeyH' && event.shiftKey) {
-            setOpen((prev) => !prev)
-        }
-    }
+    const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg"));
+    const [loading, setLoading] = useState(false);
+    const [list, setList] = useState<GameSaveData[]>([]);
 
     return (
         <ModalDialogCustom
             open={open}
             setOpen={setOpen}
-            head={<Stack
+            layout={(smScreen ? "fullscreen" : "center")}
+            head={<Typography level="h2">
+                {t("history")}
+            </Typography>}
+            minWidth="80%"
+            sx={{
+                minHeight: "50%",
+            }}
+        >
+            <Grid
+                container
+            >
+                {/* for 6 element */}
+                {Array.from({ length: 6 }).map((_, index) => {
+                    let data = list.length > index ? list[index] : undefined;
+                    return <Grid xs={12} sm={6} md={4} key={index}>
+                        <GameSaveSlot saveData={data} />
+                        {loading && <Skeleton />}
+                    </Grid>
+                })}
+            </Grid>
+        </ModalDialogCustom>
+    );
+}
+
+function GameSaveSlot({ saveData }: { saveData?: GameSaveData }) {
+    const { t } = useTranslation(["interface"]);
+    const [loading, setLoading] = useState(false);
+
+    if (loading) {
+        return (
+            <Skeleton />
+        );
+    }
+
+    if (!saveData) {
+        return (
+            <GameSaveEmptySlot />
+        );
+    }
+
+    return (
+        <AspectRatio
+            sx={{
+                borderRadius: 10,
+                margin: { xs: 1, sm: 2, md: 1, lg: 2 },
+            }}
+        >
+            <img
+                src={saveData.image}
+                style={{
+                    backgroundColor: "#303030",
+                    pointerEvents: "none",
+                    userSelect: "none",
+                }}
+            />
+            <Stack
+                position={"absolute"}
+                top={10}
+                left={10}
                 sx={{
+                    pointerEvents: "none",
+                    userSelect: "none",
+                }}
+            >
+                <TypographyShadow
+                    level="h2"
+                >
+                    {saveData.name}
+                </TypographyShadow>
+                <TypographyShadow>
+                    {saveData.date.toLocaleDateString()}
+                </TypographyShadow>
+                <TypographyShadow>
+                    {`${t("slot")} ${0 + 1}`}
+                </TypographyShadow>
+            </Stack>
+            <Stack
+                direction={"row"}
+                position={"absolute"}
+                bottom={10}
+                right={10}
+            >
+                <IconButton>
+                    <DownloadIcon
+                        fontSize={"large"}
+                        sx={{
+                            color: useTheme().palette.neutral[300],
+                        }}
+                    />
+                </IconButton>
+                <IconButton>
+                    <SaveAsIcon
+                        fontSize={"large"}
+                        sx={{
+                            color: useTheme().palette.neutral[300],
+                        }}
+                    />
+                </IconButton>
+                <IconButton>
+                    <UnarchiveIcon
+                        fontSize={"large"}
+                        sx={{
+                            color: useTheme().palette.neutral[300],
+                        }}
+                    />
+                </IconButton>
+            </Stack>
+            <Stack
+                direction={"row"}
+                position={"absolute"}
+                top={10}
+                right={10}
+            >
+                <IconButton
+                    color="danger"
+                    size="md"
+                >
+                    <DeleteIcon
+                        fontSize={"large"}
+                    />
+                </IconButton>
+            </Stack>
+        </AspectRatio>
+    );
+}
+
+
+function GameSaveEmptySlot() {
+    return (
+        <AspectRatio
+            sx={{
+                borderRadius: 10,
+                margin: { xs: 1, sm: 2, md: 1, lg: 2 },
+            }}
+        >
+            <IconButton
+                variant="soft"
+                sx={{
+                    height: "100%",
                     width: "100%",
                 }}
             >
-                <Stack sx={{ mb: 2 }}>
-                    <Typography level="h2">
-                        {t("history")}
-                    </Typography>
-                </Stack>
-                <Input
-                    placeholder={t("search")}
-                    value={searchString}
-                    onChange={(e) => setSearchString(e.target.value)}
-                    startDecorator={<SearchRoundedIcon />}
-                    aria-label={t("search")}
-                />
-            </Stack>}
-            minWidth="80%"
-            sx={{
-                maxHeight: "80%",
-            }}
-        >
-            <Box
-                sx={{
-                    display: 'flex',
-                    flex: 1,
-                    minHeight: 0,
-                    px: 2,
-                    py: 3,
-                    overflowY: 'scroll',
-                    flexDirection: 'column-reverse',
-                }}
-            >
-                <Stack spacing={2} justifyContent="flex-end">
-                    {narration.narrativeHistory
-                        .map((step) => {
-                            let character = step.dialoge?.character ? getCharacterById(step.dialoge?.character) ?? new CharacterBaseModel(step.dialoge?.character, { name: tNarration(step.dialoge?.character) }) : undefined
-                            return {
-                                character: character?.name ? character.name + (character.surname ? " " + character.surname : "") : undefined,
-                                text: step.dialoge?.text || "",
-                                icon: character?.icon,
-                                choices: step.choices,
-                                inputValue: step.inputValue,
-                            }
-                        })
-                        .filter((data) => {
-                            if (!searchString) return true
-                            return data.character?.toLowerCase().includes(searchString.toLowerCase()) || data.text?.toLowerCase().includes(searchString.toLowerCase())
-                        })
-                        .map((data, index) => {
-                            return <React.Fragment key={"history" + index}>
-                                <Stack
-                                    direction="row"
-                                    spacing={1.5}
-                                >
-                                    <Avatar
-                                        size="sm"
-                                        src={data.icon}
-                                    />
-                                    <Box sx={{ flex: 1 }}>
-                                        {data.character && <Typography level="title-sm">{data.character}</Typography>}
-                                        <Markdown
-                                            remarkPlugins={[remarkGfm]}
-                                            rehypePlugins={[rehypeRaw]}
-                                            components={{
-                                                p: ({ children, key }) => {
-                                                    return <p key={key} style={{ margin: 0 }}>{children}</p>
-                                                },
-                                            }}
-                                        >
-                                            {data.text}
-                                        </Markdown>
-                                    </Box>
-                                </Stack>
-                                <Stack
-                                    direction="row"
-                                    spacing={0.5}
-                                >
-                                    <Box sx={{ flex: 1 }}>
-                                        {data.choices && data.choices.map((choice, index) => {
-                                            if (choice.hidden) {
-                                                return null
-                                            }
-                                            if (choice.isResponse) {
-                                                return <Chip
-                                                    key={"choices-success" + index}
-                                                    color="success"
-                                                    endDecorator={<CheckIcon />}
-                                                >
-                                                    {choice.text}
-                                                </Chip>
-                                            }
-                                            return <Chip
-                                                key={"choices" + index}
-                                                color="primary"
-                                            >
-                                                {choice.text}
-                                            </Chip>
-                                        })}
-                                        {data.inputValue && <Chip
-                                            key={"choices-success" + index}
-                                            color="neutral"
-                                        >
-                                            {data.inputValue.toString()}
-                                        </Chip>}
-                                    </Box>
-                                </Stack>
-                            </React.Fragment>
-                        })}
-                </Stack>
-            </Box>
-        </ModalDialogCustom>
+                <SaveAsIcon sx={{ fontSize: '3rem', opacity: 0.2 }} />
+            </IconButton>
+        </AspectRatio>
     );
 }

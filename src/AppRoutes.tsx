@@ -6,6 +6,7 @@ import { nextStepLoadingState } from './atoms/nextStepLoadingState';
 import { reloadInterfaceDataEventAtom } from './atoms/reloadInterfaceDataEventAtom';
 import DialogueDataEventInterceptor from './interceptors/DialogueDataEventInterceptor';
 import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
+import GameSaveScreen from './screens/GameSaveScreen';
 import HistoryScreen from './screens/HistoryScreen';
 import LoadingScreen from './screens/LoadingScreen';
 import MainMenu from './screens/MainMenu';
@@ -48,6 +49,7 @@ export default function AppRoutes() {
             <Route key={"narration"} path={"/narration"}
                 element={<>
                     <HistoryScreen />
+                    <GameSaveScreen />
                     <QuickLoadAlert />
                     <QuickTools />
                     <DialogueDataEventInterceptor />
