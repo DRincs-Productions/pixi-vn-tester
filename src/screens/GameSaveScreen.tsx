@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import ModalDialogCustom from '../components/ModalDialog';
 import TypographyShadow from "../components/TypographyShadow";
 import GameSaveData from '../models/GameSaveData';
-import { getSaveFromIndexDB, putSaveIntoIndexDB } from '../utilities/save-utility';
+import { deleteSaveFromIndexDB, getSaveFromIndexDB, putSaveIntoIndexDB } from '../utilities/save-utility';
 
 export default function GameSaveScreen() {
     const [open, setOpen] = useState(true);
@@ -130,6 +130,9 @@ function GameSaveSlot({ saveId }: { saveId: number }) {
                     {saveData.date.toLocaleDateString()}
                 </TypographyShadow>
                 <TypographyShadow>
+                    {saveData.date.toLocaleTimeString()}
+                </TypographyShadow>
+                <TypographyShadow>
                     {`${t("slot")} ${0 + 1}`}
                 </TypographyShadow>
             </Stack>
@@ -147,7 +150,15 @@ function GameSaveSlot({ saveId }: { saveId: number }) {
                         }}
                     />
                 </IconButton>
-                <IconButton>
+                <IconButton
+                    onClick={() => {
+                        setLoading(true)
+                        putSaveIntoIndexDB({ id: saveId }).then((data) => {
+                            setSaveData(data);
+                            setLoading(false);
+                        })
+                    }}
+                >
                     <SaveAsIcon
                         fontSize={"large"}
                         sx={{
@@ -173,6 +184,13 @@ function GameSaveSlot({ saveId }: { saveId: number }) {
                 <IconButton
                     color="danger"
                     size="md"
+                    onClick={() => {
+                        setLoading(true)
+                        deleteSaveFromIndexDB(saveId).then(() => {
+                            setSaveData(undefined);
+                            setLoading(false);
+                        })
+                    }}
                 >
                     <DeleteIcon
                         fontSize={"large"}
