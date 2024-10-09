@@ -9,7 +9,8 @@ import { useTranslation } from 'react-i18next';
 import ModalDialogCustom from '../components/ModalDialog';
 import TypographyShadow from "../components/TypographyShadow";
 import GameSaveData from '../models/GameSaveData';
-import { deleteSaveFromIndexDB, getSaveFromIndexDB, putSaveIntoIndexDB } from '../utilities/save-utility';
+import { useMyNavigate } from '../utilities/navigate-utility';
+import { deleteSaveFromIndexDB, downloadGameSave, getSaveFromIndexDB, loadSave, putSaveIntoIndexDB } from '../utilities/save-utility';
 
 export default function GameSaveScreen() {
     const [open, setOpen] = useState(true);
@@ -47,6 +48,8 @@ export default function GameSaveScreen() {
 function GameSaveSlot({ saveId }: { saveId: number }) {
     const { t } = useTranslation(["interface"]);
     const [loading, setLoading] = useState(true);
+    const navigate = useMyNavigate();
+    const [loadingSave, setLoadingSave] = useState(false);
     const [saveData, setSaveData] = useState<GameSaveData | null>();
 
     useEffect(() => {
@@ -143,7 +146,11 @@ function GameSaveSlot({ saveId }: { saveId: number }) {
                 bottom={10}
                 right={10}
             >
-                <IconButton>
+                <IconButton
+                    onClick={() => {
+                        downloadGameSave(saveData)
+                    }}
+                >
                     <DownloadIcon
                         fontSize={"large"}
                         sx={{
@@ -167,7 +174,15 @@ function GameSaveSlot({ saveId }: { saveId: number }) {
                         }}
                     />
                 </IconButton>
-                <IconButton>
+                <IconButton
+                    loading={loadingSave}
+                    onClick={() => {
+                        setLoadingSave(true)
+                        loadSave(saveData, navigate).then(() => {
+                            setLoadingSave(false);
+                        })
+                    }}
+                >
                     <UnarchiveIcon
                         fontSize={"large"}
                         sx={{
