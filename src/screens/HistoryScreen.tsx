@@ -1,8 +1,9 @@
 import { CharacterBaseModel, getCharacterById, narration } from '@drincs/pixi-vn';
 import CheckIcon from '@mui/icons-material/Check';
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import { Box, Chip, Input, Stack, Typography } from "@mui/joy";
+import { Box, Chip, Input, Stack, Theme, Typography } from "@mui/joy";
 import Avatar from '@mui/joy/Avatar';
+import { useMediaQuery } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Markdown from 'react-markdown';
@@ -16,6 +17,7 @@ export default function HistoryScreen() {
     const [open, setOpen] = useRecoilState(openHistoryState);
     const [searchString, setSearchString] = useState("")
     const { t } = useTranslation(["interface"]);
+    const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
     const { t: tNarration } = useTranslation(["narration"]);
 
     useEffect(() => {
@@ -35,6 +37,7 @@ export default function HistoryScreen() {
         <ModalDialogCustom
             open={open}
             setOpen={setOpen}
+            layout={(smScreen ? "fullscreen" : "center")}
             head={<Stack
                 sx={{
                     width: "100%",
@@ -54,9 +57,6 @@ export default function HistoryScreen() {
                 />
             </Stack>}
             minWidth="80%"
-            sx={{
-                maxHeight: "80%",
-            }}
         >
             <Box
                 sx={{
