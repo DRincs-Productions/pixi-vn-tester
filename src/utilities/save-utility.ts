@@ -1,6 +1,6 @@
 import { canvas, getSaveData, loadSaveData } from "@drincs/pixi-vn";
 import GameSaveData from "../models/GameSaveData";
-import { deleteRowFromIndexDB, getRowFromIndexDB, putRowIntoIndexDB } from "./indexedDB-utility";
+import { deleteRowFromIndexDB, getLastRowFromIndexDB, getRowFromIndexDB, putRowIntoIndexDB } from "./indexedDB-utility";
 
 const SAVE_FILE_EXTENSION = "json"
 
@@ -20,16 +20,26 @@ export async function loadSave(saveData: GameSaveData, navigate: (path: string) 
     await loadSaveData(saveData.saveData, navigate)
 }
 
-async function putSpecialSaveIntoIndexDB(data: GameSaveData & { id: string }): Promise<void> {
-    return await putRowIntoIndexDB("special_rescues", data)
+export async function putSaveIntoIndexDB(info: Partial<GameSaveData> & { id?: number } = {}, data = getSave()): Promise<GameSaveData> {
+    let image = await canvas.extractImage()
+    let item = {
+        ...data,
+        image: image,
+        ...info,
+    }
+    return await putRowIntoIndexDB("rescues", item)
 }
 
-async function getSpecialSaveFromIndexDB(id: string): Promise<GameSaveData & { id: string } | null> {
-    return await getRowFromIndexDB("special_rescues", id)
+export async function getSaveFromIndexDB(id: number): Promise<GameSaveData & { id: number } | null> {
+    return await getRowFromIndexDB("rescues", id)
 }
 
-async function deleteSpecialSaveFromIndexDB(id: string): Promise<void> {
-    return await deleteRowFromIndexDB("special_rescues", id)
+export async function getLastSaveFromIndexDB(): Promise<GameSaveData & { id: number } | null> {
+    return await getLastRowFromIndexDB("rescues")
+}
+
+export async function deleteSaveFromIndexDB(id: number): Promise<void> {
+    return await deleteRowFromIndexDB("rescues", id)
 }
 
 export function downloadGameSave(data: GameSaveData = getSave()) {
@@ -72,21 +82,14 @@ export function loadGameSaveFromFile(navigate: (path: string) => void, afterLoad
 }
 
 export async function setQuickSave() {
-    let image = await canvas.extractImage()
-    let data = getSave(image)
-    await putSpecialSaveIntoIndexDB({
-        ...data,
-        id: "quick_save"
-    })
-    return data
+    return await putSaveIntoIndexDB()
 }
 
 export async function deleteQuickSave() {
-    return await deleteSpecialSaveFromIndexDB("quick_save")
 }
 
 export async function getQuickSave() {
-    return await getSpecialSaveFromIndexDB("quick_save")
+    return await getLastSaveFromIndexDB()
 }
 
 export async function addRefreshSave() {

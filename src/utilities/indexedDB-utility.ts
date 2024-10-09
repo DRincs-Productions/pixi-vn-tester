@@ -12,11 +12,6 @@ export function initializeIndexedDB(): Promise<void> {
                 let objectStore = db.createObjectStore("rescues", { keyPath: 'id', autoIncrement: true });
                 objectStore.createIndex("id", "id", { unique: true });
             }
-            if (!db.objectStoreNames.contains("special_rescues")) {
-                // create the object store
-                let objectStore = db.createObjectStore("special_rescues", { keyPath: 'id', autoIncrement: false });
-                objectStore.createIndex("id", "id", { unique: true });
-            }
         }
 
         request.onsuccess = function (_event) {
@@ -29,7 +24,7 @@ export function initializeIndexedDB(): Promise<void> {
     })
 }
 
-export async function putRowIntoIndexDB<T extends {}>(tableName: string, data: T): Promise<void> {
+export async function putRowIntoIndexDB<T extends {}>(tableName: string, data: T): Promise<T> {
     return new Promise((resolve, reject) => {
         let request = indexedDB.open(INDEXED_DB_NAME);
 
@@ -44,7 +39,7 @@ export async function putRowIntoIndexDB<T extends {}>(tableName: string, data: T
             let objectStore = transaction.objectStore(tableName);
             let setRequest = objectStore.put(data)
             setRequest.onsuccess = function (_event) {
-                resolve()
+                resolve(data)
             }
             setRequest.onerror = function (event) {
                 console.error("Error adding save data to indexDB", event)
@@ -85,7 +80,40 @@ export async function getRowFromIndexDB<T extends {}>(tableName: string, id: any
     })
 }
 
-export async function deleteRowFromIndexDB(tableName: string, id: string): Promise<void> {
+export async function getLastRowFromIndexDB<T extends {}>(tableName: string): Promise<T | null> {
+    return new Promise((resolve, reject) => {
+        let request = indexedDB.open(INDEXED_DB_NAME);
+        request.onsuccess = function (_event) {
+            let db = request.result;
+            // check if the object store exists
+            if (!db.objectStoreNames.contains(tableName)) {
+                resolve(null)
+                return
+            }
+            let transaction = db.transaction([tableName], "readwrite");
+            let objectStore = transaction.objectStore(tableName);
+            let getRequest = objectStore.openCursor(null, "prev");
+            getRequest.onsuccess = function (_event) {
+                let cursor = getRequest.result;
+                if (cursor) {
+                    resolve(cursor.value)
+                } else {
+                    resolve(null)
+                }
+            }
+            getRequest.onerror = function (event) {
+                console.error("Error getting save data from indexDB", event)
+                reject()
+            }
+        };
+        request.onerror = function (event) {
+            console.error("Error opening indexDB", event)
+            reject()
+        }
+    })
+}
+
+export async function deleteRowFromIndexDB(tableName: string, id: any): Promise<void> {
     return new Promise((resolve, reject) => {
         let request = indexedDB.open(INDEXED_DB_NAME);
         request.onsuccess = function (_event) {

@@ -4,18 +4,17 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 import UnarchiveIcon from '@mui/icons-material/Unarchive';
 import { AspectRatio, Grid, IconButton, Skeleton, Stack, Theme, Typography, useTheme } from "@mui/joy";
 import { useMediaQuery } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ModalDialogCustom from '../components/ModalDialog';
 import TypographyShadow from "../components/TypographyShadow";
 import GameSaveData from '../models/GameSaveData';
+import { getSaveFromIndexDB, putSaveIntoIndexDB } from '../utilities/save-utility';
 
 export default function GameSaveScreen() {
     const [open, setOpen] = useState(true);
     const { t } = useTranslation(["interface"]);
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg"));
-    const [loading, setLoading] = useState(false);
-    const [list, setList] = useState<GameSaveData[]>([]);
 
     return (
         <ModalDialogCustom
@@ -35,10 +34,8 @@ export default function GameSaveScreen() {
             >
                 {/* for 6 element */}
                 {Array.from({ length: 6 }).map((_, index) => {
-                    let data = list.length > index ? list[index] : undefined;
                     return <Grid xs={12} sm={6} md={4} key={index}>
-                        <GameSaveSlot saveData={data} />
-                        {loading && <Skeleton />}
+                        <GameSaveSlot saveId={index} />
                     </Grid>
                 })}
             </Grid>
@@ -46,19 +43,57 @@ export default function GameSaveScreen() {
     );
 }
 
-function GameSaveSlot({ saveData }: { saveData?: GameSaveData }) {
+function GameSaveSlot({ saveId }: { saveId: number }) {
     const { t } = useTranslation(["interface"]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [saveData, setSaveData] = useState<GameSaveData | null>();
+
+    useEffect(() => {
+        setLoading(true);
+        getSaveFromIndexDB(saveId).then((data) => {
+            setSaveData(data);
+            setLoading(false);
+        })
+    }, [saveId]);
 
     if (loading) {
         return (
-            <Skeleton />
+            <AspectRatio
+                sx={{
+                    borderRadius: 10,
+                    margin: { xs: 1, sm: 2, md: 1, lg: 2 },
+                }}
+            >
+                <Skeleton />
+            </AspectRatio>
         );
     }
 
     if (!saveData) {
         return (
-            <GameSaveEmptySlot />
+            <AspectRatio
+                sx={{
+                    borderRadius: 10,
+                    margin: { xs: 1, sm: 2, md: 1, lg: 2 },
+                }}
+            >
+                <IconButton
+                    variant="soft"
+                    sx={{
+                        height: "100%",
+                        width: "100%",
+                    }}
+                    onClick={() => {
+                        setLoading(true)
+                        putSaveIntoIndexDB({ id: saveId }).then((data) => {
+                            setSaveData(data);
+                            setLoading(false);
+                        })
+                    }}
+                >
+                    <SaveAsIcon sx={{ fontSize: '3rem', opacity: 0.2 }} />
+                </IconButton>
+            </AspectRatio>
         );
     }
 
@@ -144,28 +179,6 @@ function GameSaveSlot({ saveData }: { saveData?: GameSaveData }) {
                     />
                 </IconButton>
             </Stack>
-        </AspectRatio>
-    );
-}
-
-
-function GameSaveEmptySlot() {
-    return (
-        <AspectRatio
-            sx={{
-                borderRadius: 10,
-                margin: { xs: 1, sm: 2, md: 1, lg: 2 },
-            }}
-        >
-            <IconButton
-                variant="soft"
-                sx={{
-                    height: "100%",
-                    width: "100%",
-                }}
-            >
-                <SaveAsIcon sx={{ fontSize: '3rem', opacity: 0.2 }} />
-            </IconButton>
         </AspectRatio>
     );
 }
