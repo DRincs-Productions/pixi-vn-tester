@@ -16,7 +16,7 @@ import { typewriterIsAnimatedState } from '../atoms/typewriterIsAnimatedState';
 import NextButton from '../components/NextButton';
 import SliderResizer from '../components/SliderResizer';
 import TypewriterMarkdown from '../components/TypewriterMarkdown';
-import ChoiceMenuUI from './ChoiceMenuUI';
+import ChoiceMenu from './ChoiceMenu';
 
 export default function NarrationScreen({ nextOnClick }: {
     nextOnClick: (props: StepLabelProps) => void,
@@ -74,7 +74,7 @@ export default function NarrationScreen({ nextOnClick }: {
                 top: 0,
             }}
         >
-            <ChoiceMenuUI
+            <ChoiceMenu
                 fullscreen={text ? false : true}
             />
             <Box
