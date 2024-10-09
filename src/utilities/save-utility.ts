@@ -62,7 +62,7 @@ export function loadGameSaveFromFile(navigate: (path: string) => void, afterLoad
                     .then(() => {
                         afterLoad && afterLoad();
                     }).catch(() => {
-                        navigate("/game")
+                        navigate("/narration")
                     })
             };
             reader.readAsText(file);

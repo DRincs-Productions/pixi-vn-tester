@@ -47,7 +47,7 @@ export default function MainMenu() {
             <MenuButton
                 onClick={() => {
                     canvas.removeAll()
-                    navigate("/game")
+                    navigate("/narration")
                     narration.callLabel(pixivnTestStartLabel, {
                         navigate: navigate,
                         t: tNarration,

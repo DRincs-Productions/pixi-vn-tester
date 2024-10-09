@@ -45,7 +45,7 @@ export default function AppRoutes() {
         <Routes>
             <Route key={"main_menu"} path={"/"} element={<MainMenu />} />
             <Route key={"main_menu"} path={"/loading"} element={<LoadingScreen />} />
-            <Route key={"game"} path={"/game"}
+            <Route key={"narration"} path={"/narration"}
                 element={<>
                     <HistoryScreen />
                     <QuickLoadAlert />
