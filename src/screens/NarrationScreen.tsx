@@ -77,29 +77,22 @@ export default function NarrationScreen({ nextOnClick }: {
             <ChoiceMenu
                 fullscreen={text ? false : true}
             />
-            <Box
-                sx={{
-                    height: '100%',
+            <SliderResizer
+                orientation="vertical"
+                max={100}
+                min={0}
+                value={cardHeight}
+                onChange={(_, value) => {
+                    if (typeof value === "number") {
+                        setCardHeight(value)
+                    }
                 }}
-                component={motion.div}
                 variants={cardVarians}
                 initial={"closed"}
                 animate={hidden ? "closed" : "open"}
                 exit={"closed"}
                 transition={{ type: "tween" }}
-            >
-                <SliderResizer
-                    orientation="vertical"
-                    max={100}
-                    min={0}
-                    value={cardHeight}
-                    onChange={(_, value) => {
-                        if (typeof value === "number") {
-                            setCardHeight(value)
-                        }
-                    }}
-                />
-            </Box>
+            />
             <Box
                 sx={{
                     position: "absolute",
@@ -155,14 +148,7 @@ export default function NarrationScreen({ nextOnClick }: {
                                 alt=""
                             />
                         </AspectRatio>}
-                        {character && <Box
-                            component={motion.div}
-                            variants={cardImageVarians}
-                            initial={"closed"}
-                            animate={character?.icon ? "open" : "closed"}
-                            exit={"closed"}
-                            transition={{ type: "tween" }}
-                        >
+                        {character &&
                             <SliderResizer
                                 orientation="horizontal"
                                 max={100}
@@ -179,8 +165,13 @@ export default function NarrationScreen({ nextOnClick }: {
                                         setCardImageWidth(value)
                                     }
                                 }}
+                                variants={cardImageVarians}
+                                initial={"closed"}
+                                animate={character?.icon ? "open" : "closed"}
+                                exit={"closed"}
+                                transition={{ type: "tween" }}
                             />
-                        </Box>}
+                        }
                         <CardContent>
                             {character && character.name && <Typography
                                 fontSize="xl"
