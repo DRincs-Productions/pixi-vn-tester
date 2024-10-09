@@ -53,12 +53,10 @@ export default function NarrationScreen({ nextOnClick }: {
         open: {
             opacity: 1,
             x: 0,
-            pointerEvents: "auto",
         },
         closed: {
             opacity: 0,
             x: -100,
-            pointerEvents: "none",
         }
     }
     const paragraphRef = useRef<HTMLDivElement>(null);

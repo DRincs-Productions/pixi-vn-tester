@@ -33,17 +33,17 @@ export default function SliderResizer(props: SliderResizerProps) {
                 valueLabelDisplay="auto"
                 valueLabelFormat={(index) => index + "%"}
                 sx={{
-                    cursor: orientation === "vertical" ? "row-resize" : "col-resize",
                     position: "static",
-                    pointerEvents: "none",
                     zIndex: useTheme().zIndex.table + 1,
                     "--Slider-trackSize": "0px",
                     "--Slider-thumbWidth": orientation === "vertical" ? "42px" : "16px",
                     "--Slider-thumbSize": orientation === "vertical" ? "16px" : "42px",
                     "& .MuiSlider-thumb": {
+                        cursor: orientation === "vertical" ? "row-resize" : "col-resize",
                         pointerEvents: "auto",
                     },
                     ...sx,
+                    pointerEvents: "none",
                 }}
                 component={motion.div}
                 {...rest}
