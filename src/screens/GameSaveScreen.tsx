@@ -27,6 +27,7 @@ export default function GameSaveScreen() {
             minWidth="80%"
             sx={{
                 minHeight: "50%",
+                paddingBottom: 6,
             }}
         >
             <Grid
