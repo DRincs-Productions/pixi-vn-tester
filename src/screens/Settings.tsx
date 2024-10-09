@@ -263,7 +263,7 @@ export default function Settings() {
                                 marks={[
                                     {
                                         value: 0,
-                                        label: 'Off',
+                                        label: t('off'),
                                     },
                                     {
                                         value: 200,
