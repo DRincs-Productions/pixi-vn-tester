@@ -7,29 +7,29 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { autoInfoState } from '../atoms/autoInfoState';
 import { canGoBackState } from '../atoms/canGoBackState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
+import { lastSaveState } from '../atoms/lastSaveState';
 import { openHistoryState } from '../atoms/openHistoryState';
-import { openLoadAlertState } from '../atoms/openLoadAlertState';
 import { openSettingsState } from '../atoms/openSettingsState';
-import { quickSaveState } from '../atoms/quickSaveState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
+import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
 import { goBack } from '../utilities/actions-utility';
 import { useMyNavigate } from '../utilities/navigate-utility';
-import { loadGameSaveFromFile, setQuickSave } from '../utilities/save-utility';
+import { loadGameSaveFromFile, putSaveIntoIndexDB } from '../utilities/save-utility';
 
 export default function QuickTools() {
     const setOpenSettings = useSetRecoilState(openSettingsState);
     const setOpenHistory = useSetRecoilState(openHistoryState);
     const navigate = useMyNavigate();
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
-    const setOpenLoadAlert = useSetRecoilState(openLoadAlertState);
+    const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
     const { t } = useTranslation(["interface"]);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const [auto, setAuto] = useRecoilState(autoInfoState)
     const canGoBack = useRecoilValue(canGoBackState)
-    const [quickSave, setQuickSaveAtom] = useRecoilState(quickSaveState)
+    const [lastSave, setLastSave] = useRecoilState(lastSaveState)
     const { enqueueSnackbar } = useSnackbar();
 
     return (
@@ -110,9 +110,9 @@ export default function QuickTools() {
                 </TextMenuButton>
                 <TextMenuButton
                     onClick={() => {
-                        setQuickSave()
+                        putSaveIntoIndexDB()
                             .then((save) => {
-                                setQuickSaveAtom(save)
+                                setLastSave(save)
                                 enqueueSnackbar(t("success_save"), { variant: 'success' })
                             })
                             .catch(() => {
@@ -124,8 +124,8 @@ export default function QuickTools() {
                     {t("quick_save_restricted")}
                 </TextMenuButton>
                 <TextMenuButton
-                    onClick={() => setOpenLoadAlert(true)}
-                    disabled={!quickSave}
+                    onClick={() => lastSave && setOpenLoadAlert({ open: true, data: lastSave, type: 'load' })}
+                    disabled={!lastSave}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t("quick_load_restricted")}

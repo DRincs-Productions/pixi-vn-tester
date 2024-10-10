@@ -1,22 +1,22 @@
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
-import { Button, Typography } from '@mui/joy';
+import { Typography } from '@mui/joy';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { openLoadAlertState } from '../../atoms/openLoadAlertState';
-import { quickSaveState } from '../../atoms/quickSaveState';
+import { lastSaveState } from '../../atoms/lastSaveState';
 import { reloadInterfaceDataEventAtom } from '../../atoms/reloadInterfaceDataEventAtom';
-import ModalDialogCustom from '../../components/ModalDialog';
+import { saveLoadAlertState } from '../../atoms/saveLoadAlertState';
+import ModalConfirmation from '../../components/ModalConfirmation';
 import { useMyNavigate } from '../../utilities/navigate-utility';
-import { loadSave, setQuickSave } from '../../utilities/save-utility';
+import { deleteSaveFromIndexDB, loadSave, putSaveIntoIndexDB } from '../../utilities/save-utility';
 
 export default function QuickLoadAlert() {
     const navigate = useMyNavigate();
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
-    const [open, setOpen] = useRecoilState(openLoadAlertState);
+    const [alertData, setAlertData] = useRecoilState(saveLoadAlertState);
     const { t } = useTranslation(["interface"]);
-    const [quickSave, setQuickSaveAtom] = useRecoilState(quickSaveState)
+    const [lastSave, setLastSave] = useRecoilState(lastSaveState)
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
@@ -28,9 +28,9 @@ export default function QuickLoadAlert() {
 
     function onkeydown(event: KeyboardEvent) {
         if (event.code == 'KeyS' && event.shiftKey) {
-            setQuickSave()
+            putSaveIntoIndexDB()
                 .then((save) => {
-                    setQuickSaveAtom(save)
+                    setLastSave(save)
                     enqueueSnackbar(t("success_save"), { variant: 'success' })
                 })
                 .catch(() => {
@@ -38,50 +38,69 @@ export default function QuickLoadAlert() {
                 })
         }
         else if (event.code == 'KeyL' && event.shiftKey) {
-            setOpen((prev) => !prev)
+            setAlertData((prev) => {
+                if (!prev.open || !lastSave) {
+                    return { open: false }
+                }
+                return { open: true, data: lastSave, type: 'load' }
+            })
         }
     }
 
     return (
-        <ModalDialogCustom
-            open={open}
-            setOpen={setOpen}
+        <ModalConfirmation
+            open={alertData.open}
+            setOpen={() => setAlertData({ open: false })}
             color="primary"
             head={<Typography level="h4"
                 startDecorator={<CloudDownloadIcon />}
             >
                 {t("load")}
             </Typography>}
-            actions={<>
-                <Button
-                    key={'exit'}
-                    color='primary'
-                    variant="outlined"
-                    onClick={() => {
-                        quickSave && loadSave(quickSave, navigate).then(() => {
-                            notifyLoadEvent((prev) => prev + 1)
-                            enqueueSnackbar(t("success_load"), { variant: 'success' })
-                            setQuickSaveAtom(quickSave)
-                        })
-                        setOpen(false)
-                    }}
-                    startDecorator={<CloudDownloadIcon />}
-                >
-                    {t("confirm")}
-                </Button>
-                <Button
-                    key={'cancel'}
-                    color="neutral"
-                    variant="plain"
-                    onClick={() => setOpen(false)}
-                >
-                    {t("cancel")}
-                </Button>
-            </>}
+            onConfirm={() => {
+                if (!alertData.open) {
+                    return false
+                }
+                switch (alertData.type) {
+                    case "load":
+                        return loadSave(alertData.data, navigate)
+                            .then(() => {
+                                notifyLoadEvent((prev) => prev + 1)
+                                enqueueSnackbar(t("success_load"), { variant: 'success' })
+                                return true
+                            })
+                            .catch(() => {
+                                enqueueSnackbar(t("fail_load"), { variant: 'error' })
+                                return false
+                            })
+                    case "delete":
+                        return deleteSaveFromIndexDB(alertData.data)
+                            .then(() => {
+                                enqueueSnackbar(t("success_delete"), { variant: 'success' })
+                                return true
+                            })
+                            .catch(() => {
+                                enqueueSnackbar(t("fail_delete"), { variant: 'error' })
+                                return false
+                            })
+                    case "overwrite_save":
+                        return putSaveIntoIndexDB(alertData.data)
+                            .then((save) => {
+                                enqueueSnackbar(t("success_save"), { variant: 'success' })
+                                setLastSave(save)
+                                return true
+                            })
+                            .catch(() => {
+                                enqueueSnackbar(t("fail_save"), { variant: 'error' })
+                                return false
+                            })
+                }
+            }}
         >
-            <Typography>
-                {t("you_sure_to_quick_load")}
-            </Typography>
-        </ModalDialogCustom>
+            {alertData.open && <Typography>
+                {alertData.type == "load" && t("you_sure_to_load", { name: alertData.data.name || `${t("save_slot")} ${alertData.data.id}` })}
+                {alertData.type == "delete" && t("you_sure_to_delete", { name: `${t("save_slot")} ${alertData.data}` })}
+            </Typography>}
+        </ModalConfirmation>
     );
 }

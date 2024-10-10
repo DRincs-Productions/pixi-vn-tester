@@ -22,10 +22,10 @@ import { useLocation } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { autoInfoState } from '../atoms/autoInfoState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
+import { lastSaveState } from '../atoms/lastSaveState';
 import { openHistoryState } from '../atoms/openHistoryState';
-import { openLoadAlertState } from '../atoms/openLoadAlertState';
 import { openSettingsState } from '../atoms/openSettingsState';
-import { quickSaveState } from '../atoms/quickSaveState';
+import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
@@ -33,7 +33,7 @@ import SettingButton from '../components/SettingButton';
 import { useEditColorProvider } from '../providers/ThemeProvider';
 import { gameEnd } from '../utilities/actions-utility';
 import { useMyNavigate } from '../utilities/navigate-utility';
-import { setQuickSave } from '../utilities/save-utility';
+import { putSaveIntoIndexDB } from '../utilities/save-utility';
 
 export default function Settings() {
     const [open, setOpen] = useRecoilState(openSettingsState);
@@ -48,9 +48,9 @@ export default function Settings() {
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const [auto, setAuto] = useRecoilState(autoInfoState)
     const setOpenHistory = useSetRecoilState(openHistoryState);
-    const setOpenLoadAlert = useSetRecoilState(openLoadAlertState);
+    const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
-    const [quickSave, setQuickSaveAtom] = useRecoilState(quickSaveState)
+    const [lastSave, setLastSave] = useRecoilState(lastSaveState)
     const { enqueueSnackbar } = useSnackbar();
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
@@ -131,9 +131,9 @@ export default function Settings() {
                                     </SettingButton> */}
                                     <SettingButton
                                         onClick={() => {
-                                            setQuickSave()
+                                            putSaveIntoIndexDB()
                                                 .then((save) => {
-                                                    setQuickSaveAtom(save)
+                                                    setLastSave(save)
                                                     enqueueSnackbar(t("success_save"), { variant: 'success' })
                                                 })
                                                 .catch(() => {
@@ -156,10 +156,10 @@ export default function Settings() {
                                     </SettingButton>
                                     <SettingButton
                                         onClick={() => {
-                                            setOpenLoadAlert(true)
+                                            lastSave && setOpenLoadAlert({ open: true, data: lastSave, type: 'load' })
                                             setOpen(false)
                                         }}
-                                        disabled={!quickSave}
+                                        disabled={!lastSave}
                                     >
                                         <FileUploadIcon />
                                         <Typography level="title-md">{t("quick_load_restricted")}</Typography>

@@ -2,21 +2,21 @@ import { atom, selector } from "recoil";
 import GameSaveData from "../models/GameSaveData";
 import { getQuickSave } from "../utilities/save-utility";
 
-const quickSaveAtomState = atom<GameSaveData | null>({
-    key: 'quickSaveAtomState',
+const lastSaveAtomState = atom<GameSaveData & { id: number } | null>({
+    key: 'lastSaveAtomState',
     default: null,
 });
 
-export const quickSaveState = selector<GameSaveData | null>({
-    key: 'quickSaveState',
+export const lastSaveState = selector<GameSaveData & { id: number } | null>({
+    key: 'lastSaveState',
     get: async ({ get }) => {
-        let atomData = get(quickSaveAtomState)
+        let atomData = get(lastSaveAtomState)
         if (atomData !== null) {
             return atomData
         }
         return await getQuickSave()
     },
     set: ({ set }, value) => {
-        set(quickSaveAtomState, value)
+        set(lastSaveAtomState, value)
     },
 });

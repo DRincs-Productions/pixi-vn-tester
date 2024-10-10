@@ -6,7 +6,8 @@ import { AspectRatio, Grid, IconButton, Skeleton, Stack, Theme, Typography, useT
 import { useMediaQuery } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import ModalConfirmation from '../components/ModalConfirmation';
+import { useSetRecoilState } from 'recoil';
+import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TypographyShadow from "../components/TypographyShadow";
 import GameSaveData from '../models/GameSaveData';
@@ -15,82 +16,53 @@ import { deleteSaveFromIndexDB, downloadGameSave, getSaveFromIndexDB, loadSave, 
 
 export default function GameSaveScreen() {
     const [open, setOpen] = useState(true);
-    const [openSaveAllert, setOpenSaveAllert] = useState(false);
-    const [openLoadAlert, setOpenLoadAlert] = useState(false);
-    const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
     const { t } = useTranslation(["interface"]);
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg"));
-    const [selectedItem, setSelectedItem] = useState<GameSaveData & { id: number }>();
+    const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
 
     return (
-        <>
-            <ModalDialogCustom
-                open={open}
-                setOpen={setOpen}
-                layout={(smScreen ? "fullscreen" : "center")}
-                head={<Typography level="h2">
-                    {t("history")}
-                </Typography>}
-                minWidth="80%"
-                sx={{
-                    minHeight: "50%",
-                    paddingBottom: 6,
-                }}
+        <ModalDialogCustom
+            open={open}
+            setOpen={setOpen}
+            layout={(smScreen ? "fullscreen" : "center")}
+            head={<Typography level="h2">
+                {t("history")}
+            </Typography>}
+            minWidth="80%"
+            sx={{
+                minHeight: "50%",
+                paddingBottom: 6,
+            }}
+        >
+            <Grid
+                container
             >
-                <Grid
-                    container
-                >
-                    {/* for 6 element */}
-                    {Array.from({ length: 6 }).map((_, index) => {
-                        return <Grid xs={12} sm={6} md={4} key={"ModalDialogCustom" + index}>
-                            <GameSaveSlot
-                                saveId={index}
-                                onSave={(data) => {
-                                    setSelectedItem({ ...data, id: index });
-                                    setOpenSaveAllert(true);
-                                }}
-                                onLoad={(data) => {
-                                    setSelectedItem({ ...data, id: index });
-                                    setOpenLoadAlert(true);
-                                }}
-                                onDelete={(data) => {
-                                    setSelectedItem({ ...data, id: index });
-                                    setOpenDeleteAlert(true);
-                                }}
-                            />
-                        </Grid>
-                    })}
-                </Grid>
-            </ModalDialogCustom>
-            <ModalConfirmation
-                open={openSaveAllert}
-                setOpen={setOpenSaveAllert}
-            >
-            </ModalConfirmation>
-            <ModalConfirmation
-                open={openLoadAlert}
-                setOpen={setOpenLoadAlert}
-                onConfirm={async () => {
-                    return loadSave(saveData, navigate)
-                        .then(() => {
-                            setLoadingSave(false);
-                        })
-                }}
-            >
-            </ModalConfirmation>
-            <ModalConfirmation
-                open={openDeleteAlert}
-                setOpen={setOpenDeleteAlert}
-            >
-            </ModalConfirmation>
-        </>
+                {/* for 6 element */}
+                {Array.from({ length: 6 }).map((_, index) => {
+                    return <Grid xs={12} sm={6} md={4} key={"ModalDialogCustom" + index}>
+                        <GameSaveSlot
+                            saveId={index}
+                            onOverwriteSave={(data) => {
+                                setOpenLoadAlert({ open: true, data: data, type: "overwrite_save" });
+                            }}
+                            onLoad={(data) => {
+                                setOpenLoadAlert({ open: true, data: { ...data, id: index }, type: "load" });
+                            }}
+                            onDelete={() => {
+                                setOpenLoadAlert({ open: true, data: index, type: "delete" });
+                            }}
+                        />
+                    </Grid>
+                })}
+            </Grid>
+        </ModalDialogCustom>
     );
 }
 
 function GameSaveSlot({ saveId }: {
     saveId: number,
-    onDelete: (saveData: GameSaveData) => Promise<void> | void,
-    onSave: (saveData: GameSaveData) => Promise<void> | void,
+    onDelete: () => Promise<void> | void,
+    onOverwriteSave: (saveData: GameSaveData) => Promise<void> | void,
     onLoad: (saveData: GameSaveData) => Promise<void> | void,
 }) {
     const { t } = useTranslation(["interface"]);
@@ -184,7 +156,7 @@ function GameSaveSlot({ saveId }: {
                     {saveData.date.toLocaleTimeString()}
                 </TypographyShadow>
                 <TypographyShadow>
-                    {`${t("slot")} ${0 + 1}`}
+                    {`${t("save_slot")} ${0 + 1}`}
                 </TypographyShadow>
             </Stack>
             <Stack

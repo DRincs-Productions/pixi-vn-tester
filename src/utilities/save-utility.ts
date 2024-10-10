@@ -20,7 +20,7 @@ export async function loadSave(saveData: GameSaveData, navigate: (path: string) 
     await loadSaveData(saveData.saveData, navigate)
 }
 
-export async function putSaveIntoIndexDB(info: Partial<GameSaveData> & { id?: number } = {}, data = getSave()): Promise<GameSaveData> {
+export async function putSaveIntoIndexDB(info: Partial<GameSaveData> & { id?: number } = {}, data = getSave()): Promise<GameSaveData & { id: number }> {
     let image = await canvas.extractImage()
     let item = {
         ...data,
@@ -79,13 +79,6 @@ export function loadGameSaveFromFile(navigate: (path: string) => void, afterLoad
         }
     };
     input.click();
-}
-
-export async function setQuickSave() {
-    return await putSaveIntoIndexDB()
-}
-
-export async function deleteQuickSave() {
 }
 
 export async function getQuickSave() {
