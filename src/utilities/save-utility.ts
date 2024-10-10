@@ -27,7 +27,8 @@ export async function putSaveIntoIndexDB(info: Partial<GameSaveData> & { id?: nu
         image: image,
         ...info,
     }
-    return await putRowIntoIndexDB("rescues", item)
+    await putRowIntoIndexDB("rescues", item)
+    return await getLastSaveFromIndexDB() as GameSaveData & { id: number }
 }
 
 export async function getSaveFromIndexDB(id: number): Promise<GameSaveData & { id: number } | null> {

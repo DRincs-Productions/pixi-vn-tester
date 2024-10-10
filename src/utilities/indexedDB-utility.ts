@@ -134,3 +134,44 @@ export async function deleteRowFromIndexDB(tableName: string, id: any): Promise<
         }
     })
 }
+
+export async function getListFromIndexDB<T extends {}>(
+    tableName: string,
+    options: {
+        order?: { field: keyof T, direction: "asc" | "desc" },
+        limit?: number,
+    }
+): Promise<T[]> {
+    return new Promise((resolve, reject) => {
+        let request = indexedDB.open(INDEXED_DB_NAME);
+        request.onsuccess = function (_event) {
+            let db = request.result;
+            // check if the object store exists
+            if (!db.objectStoreNames.contains(tableName)) {
+                resolve([])
+                return
+            }
+            let transaction = db.transaction([tableName], "readwrite");
+            let objectStore = transaction.objectStore(tableName);
+            let getRequest = objectStore.index(options.order?.field).openCursor(null, options.order?.direction === "asc" ? "next" : "prev");
+            let results: T[] = []
+            getRequest.onsuccess = function (_event) {
+                let cursor = getRequest.result;
+                if (cursor) {
+                    results.push(cursor.value)
+                    cursor.continue()
+                } else {
+                    resolve(results)
+                }
+            }
+            getRequest.onerror = function (event) {
+                console.error("Error getting save data from indexDB", event)
+                reject()
+            }
+        };
+        request.onerror = function (event) {
+            console.error("Error opening indexDB", event)
+            reject()
+        }
+    })
+}
