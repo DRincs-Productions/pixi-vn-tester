@@ -37,6 +37,7 @@ export default function ModalConfirmation(props: ModalConfirmationProps) {
                             setLoadingConfirm(true)
                             try {
                                 let result = await onConfirm()
+                                setLoadingConfirm(false)
                                 setOpen(!result)
                             } catch (_error) {
                                 setLoadingConfirm(false)

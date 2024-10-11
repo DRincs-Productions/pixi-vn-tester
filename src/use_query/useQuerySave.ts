@@ -9,7 +9,7 @@ export default function useQuerySave({ id }: { id: number }) {
 		queryFn: async () => {
 			return getSaveFromIndexDB(id)
 				.then((res) => {
-					return res
+					return res || null
 				}).catch((err) => {
 					throw err
 				})

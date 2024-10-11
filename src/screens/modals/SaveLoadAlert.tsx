@@ -1,5 +1,6 @@
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import { Typography } from '@mui/joy';
+import { useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +9,7 @@ import { lastSaveState } from '../../atoms/lastSaveState';
 import { reloadInterfaceDataEventAtom } from '../../atoms/reloadInterfaceDataEventAtom';
 import { saveLoadAlertState } from '../../atoms/saveLoadAlertState';
 import ModalConfirmation from '../../components/ModalConfirmation';
+import { SAVES_USE_QUEY_KEY } from '../../use_query/useQuerySave';
 import { useMyNavigate } from '../../utilities/navigate-utility';
 import { deleteSaveFromIndexDB, loadSave, putSaveIntoIndexDB } from '../../utilities/save-utility';
 
@@ -18,6 +20,7 @@ export default function SaveLoadAlert() {
     const { t } = useTranslation(["interface"]);
     const [lastSave, setLastSave] = useRecoilState(lastSaveState)
     const { enqueueSnackbar } = useSnackbar();
+    const queryClient = useQueryClient()
 
     useEffect(() => {
         window.addEventListener('keydown', onkeydown);
@@ -76,6 +79,7 @@ export default function SaveLoadAlert() {
                     case "delete":
                         return deleteSaveFromIndexDB(alertData.data)
                             .then(() => {
+                                queryClient.setQueryData([SAVES_USE_QUEY_KEY, alertData.data], null);
                                 enqueueSnackbar(t("success_delete"), { variant: 'success' })
                                 return true
                             })
@@ -83,9 +87,11 @@ export default function SaveLoadAlert() {
                                 enqueueSnackbar(t("fail_delete"), { variant: 'error' })
                                 return false
                             })
+                    case "save":
                     case "overwrite_save":
-                        return putSaveIntoIndexDB(alertData.data)
+                        return putSaveIntoIndexDB({ id: alertData.data })
                             .then((save) => {
+                                queryClient.setQueryData([SAVES_USE_QUEY_KEY, save.id], save);
                                 enqueueSnackbar(t("success_save"), { variant: 'success' })
                                 setLastSave(save)
                                 return true

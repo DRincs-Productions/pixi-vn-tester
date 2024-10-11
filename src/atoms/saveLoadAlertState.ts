@@ -9,8 +9,8 @@ export const saveLoadAlertState = atom<{
     type: 'load';
 } | {
     open: true;
-    data: GameSaveData;
-    type: 'overwrite_save';
+    data: number;
+    type: 'overwrite_save' | 'save';
 } | {
     open: true;
     data: number;

@@ -4,7 +4,6 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 import UnarchiveIcon from '@mui/icons-material/Unarchive';
 import { AspectRatio, Grid, IconButton, Skeleton, Stack, Theme, Typography, useTheme } from "@mui/joy";
 import { Pagination, useMediaQuery } from '@mui/material';
-import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -13,9 +12,8 @@ import { saveScreenPageState } from '../atoms/saveScreenPageState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TypographyShadow from "../components/TypographyShadow";
 import GameSaveData from '../models/GameSaveData';
-import useQuerySave, { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySave';
-import { useMyNavigate } from '../utilities/navigate-utility';
-import { deleteSaveFromIndexDB, downloadGameSave, loadSave, putSaveIntoIndexDB } from '../utilities/save-utility';
+import useQuerySave from '../use_query/useQuerySave';
+import { downloadGameSave } from '../utilities/save-utility';
 
 export default function GameSaveScreen() {
     const [open, setOpen] = useState(true);
@@ -47,8 +45,11 @@ export default function GameSaveScreen() {
                     return <Grid xs={12} sm={6} md={4} key={"ModalDialogCustom" + index}>
                         <GameSaveSlot
                             saveId={id}
-                            onOverwriteSave={(data) => {
-                                setOpenLoadAlert({ open: true, data: data, type: "overwrite_save" });
+                            onSave={() => {
+                                setOpenLoadAlert({ open: true, data: id, type: "save" });
+                            }}
+                            onOverwriteSave={() => {
+                                setOpenLoadAlert({ open: true, data: id, type: "overwrite_save" });
                             }}
                             onLoad={(data) => {
                                 setOpenLoadAlert({ open: true, data: { ...data, id: id }, type: "load" });
@@ -80,17 +81,14 @@ export default function GameSaveScreen() {
     );
 }
 
-function GameSaveSlot({ saveId }: {
+function GameSaveSlot({ saveId, onDelete, onLoad, onOverwriteSave, onSave }: {
     saveId: number,
     onDelete: () => Promise<void> | void,
-    onOverwriteSave: (saveData: GameSaveData) => Promise<void> | void,
+    onSave: () => Promise<void> | void,
+    onOverwriteSave: () => Promise<void> | void,
     onLoad: (saveData: GameSaveData) => Promise<void> | void,
 }) {
     const { t } = useTranslation(["interface"]);
-    const navigate = useMyNavigate();
-    const [loadingSave, setLoadingSave] = useState(false);
-    const queryClient = useQueryClient()
-
     const {
         isLoading,
         data: saveData,
@@ -124,11 +122,7 @@ function GameSaveSlot({ saveId }: {
                         height: "100%",
                         width: "100%",
                     }}
-                    onClick={() => {
-                        putSaveIntoIndexDB({ id: saveId }).then((data) => {
-                            queryClient.setQueryData([SAVES_USE_QUEY_KEY, saveId], data);
-                        })
-                    }}
+                    onClick={onSave}
                 >
                     <SaveAsIcon sx={{ fontSize: '3rem', opacity: 0.2 }} />
                 </IconButton>
@@ -194,11 +188,7 @@ function GameSaveSlot({ saveId }: {
                     />
                 </IconButton>
                 <IconButton
-                    onClick={() => {
-                        putSaveIntoIndexDB({ id: saveId }).then((data) => {
-                            queryClient.setQueryData([SAVES_USE_QUEY_KEY, saveId], data);
-                        })
-                    }}
+                    onClick={onOverwriteSave}
                 >
                     <SaveAsIcon
                         fontSize={"large"}
@@ -208,12 +198,8 @@ function GameSaveSlot({ saveId }: {
                     />
                 </IconButton>
                 <IconButton
-                    loading={loadingSave}
                     onClick={() => {
-                        setLoadingSave(true)
-                        loadSave(saveData, navigate).then(() => {
-                            setLoadingSave(false);
-                        })
+                        onLoad(saveData)
                     }}
                 >
                     <UnarchiveIcon
@@ -233,11 +219,7 @@ function GameSaveSlot({ saveId }: {
                 <IconButton
                     color="danger"
                     size="md"
-                    onClick={() => {
-                        deleteSaveFromIndexDB(saveId).then(() => {
-                            queryClient.setQueryData([SAVES_USE_QUEY_KEY, saveId], null);
-                        })
-                    }}
+                    onClick={onDelete}
                 >
                     <DeleteIcon
                         fontSize={"large"}
