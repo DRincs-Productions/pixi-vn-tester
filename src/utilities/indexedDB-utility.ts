@@ -1,5 +1,6 @@
 const INDEXED_DB_VERSION = 2;
 const INDEXED_DB_NAME = "game_db";
+export const INDEXED_DB_SAVE_TABLE = "saves";
 
 export function initializeIndexedDB(): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -7,9 +8,9 @@ export function initializeIndexedDB(): Promise<void> {
         // check if the object store exists
         request.onupgradeneeded = function (_event) {
             let db = request.result;
-            if (!db.objectStoreNames.contains("saves")) {
+            if (!db.objectStoreNames.contains(INDEXED_DB_SAVE_TABLE)) {
                 // create the object store
-                let objectStore = db.createObjectStore("saves", { keyPath: 'id', autoIncrement: true });
+                let objectStore = db.createObjectStore(INDEXED_DB_SAVE_TABLE, { keyPath: 'id', autoIncrement: true });
                 objectStore.createIndex("id", "id", { unique: true });
                 objectStore.createIndex("date", "date", { unique: false });
                 objectStore.createIndex("name", "name", { unique: false });

@@ -1,6 +1,6 @@
 import { canvas, getSaveData, loadSaveData } from "@drincs/pixi-vn";
 import GameSaveData from "../models/GameSaveData";
-import { deleteRowFromIndexDB, getListFromIndexDB, getRowFromIndexDB, putRowIntoIndexDB } from "./indexedDB-utility";
+import { deleteRowFromIndexDB, getListFromIndexDB, getRowFromIndexDB, INDEXED_DB_SAVE_TABLE, putRowIntoIndexDB } from "./indexedDB-utility";
 
 const SAVE_FILE_EXTENSION = "json"
 
@@ -27,7 +27,7 @@ export async function putSaveIntoIndexDB(info: Partial<GameSaveData> & { id?: nu
         image: image,
         ...info,
     }
-    await putRowIntoIndexDB("saves", item)
+    await putRowIntoIndexDB(INDEXED_DB_SAVE_TABLE, item)
     if (item.id) {
         return item as GameSaveData & { id: number }
     }
@@ -35,11 +35,11 @@ export async function putSaveIntoIndexDB(info: Partial<GameSaveData> & { id?: nu
 }
 
 export async function getSaveFromIndexDB(id: number): Promise<GameSaveData & { id: number } | null> {
-    return await getRowFromIndexDB("saves", id)
+    return await getRowFromIndexDB(INDEXED_DB_SAVE_TABLE, id)
 }
 
 export async function getLastSaveFromIndexDB(): Promise<GameSaveData & { id: number } | null> {
-    let list = await getListFromIndexDB<GameSaveData & { id: number }>("saves", { pagination: { limit: 1, offset: 0 }, order: { field: "date", direction: "prev" } })
+    let list = await getListFromIndexDB<GameSaveData & { id: number }>(INDEXED_DB_SAVE_TABLE, { pagination: { limit: 1, offset: 0 }, order: { field: "date", direction: "prev" } })
     if (list.length > 0) {
         return list[0]
     }
@@ -47,7 +47,7 @@ export async function getLastSaveFromIndexDB(): Promise<GameSaveData & { id: num
 }
 
 export async function deleteSaveFromIndexDB(id: number): Promise<void> {
-    return await deleteRowFromIndexDB("saves", id)
+    return await deleteRowFromIndexDB(INDEXED_DB_SAVE_TABLE, id)
 }
 
 export function downloadGameSave(data: GameSaveData = getSave()) {
