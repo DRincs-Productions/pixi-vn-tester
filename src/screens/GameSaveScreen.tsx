@@ -69,6 +69,9 @@ export default function GameSaveScreen() {
                     right: 0,
                     left: 0,
                     justifySelf: "center",
+                    "& .MuiPaginationItem-root": {
+                        color: "var(--joy-palette-text-primary)",
+                    }
                 }}
             />
         </ModalDialogCustom>

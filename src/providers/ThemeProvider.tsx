@@ -24,6 +24,7 @@ const ColorContext = createContext<{
     solidColor: "white",
     setSolidColor: () => { },
 })
+const materialTheme = materialExtendTheme();
 
 export function useEditColorProvider() {
     const context = useContext(ColorContext);
@@ -144,28 +145,6 @@ export default function MyThemeProvider({ children }: Iprops) {
         })
     }, [primaryColor, solidColor])
 
-    const materialTheme = useMemo(() => {
-        return materialExtendTheme({
-            colorSchemes: {
-                light: {
-                    palette: {
-                        primary: {
-                            main: primaryColor,
-                            contrastText: solidColor === "black" ? "var(--joy-palette-common-black)" : "var(--joy-palette-common-white)",
-                        },
-                    },
-                },
-                dark: {
-                    palette: {
-                        primary: {
-                            main: primaryColor,
-                            contrastText: solidColor === "black" ? "var(--joy-palette-common-black)" : "var(--joy-palette-common-white)",
-                        },
-                    },
-                },
-            }
-        });
-    }, [primaryColor, solidColor])
 
     return (
         <MaterialCssVarsProvider theme={{ [MATERIAL_THEME_ID]: materialTheme }}>
