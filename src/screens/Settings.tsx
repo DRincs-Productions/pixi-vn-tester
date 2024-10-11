@@ -13,7 +13,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
 import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormControl, FormHelperText, FormLabel, IconButton, ModalClose, RadioGroup, Sheet, Slider, Stack, ToggleButtonGroup, Tooltip, Typography, useColorScheme } from "@mui/joy";
-import { Theme, useMediaQuery } from '@mui/material';
+import { Theme, useColorScheme as useColorSchemeMaterial, useMediaQuery } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { HuePicker } from 'react-color';
@@ -38,6 +38,7 @@ import { putSaveIntoIndexDB } from '../utilities/save-utility';
 export default function Settings() {
     const [open, setOpen] = useRecoilState(openSettingsState);
     const { mode, setMode } = useColorScheme();
+    const { setMode: setModeMaterial } = useColorSchemeMaterial();
     const { primaryColor, setPrimaryColor, setSolidColor, solidColor } = useEditColorProvider()
     const navigate = useMyNavigate();
     const location = useLocation();
@@ -362,8 +363,10 @@ export default function Settings() {
                         <ToggleButtonGroup
                             value={mode}
                             onChange={(_, newValue) => {
-                                if (newValue)
+                                if (newValue) {
                                     setMode(newValue)
+                                    setModeMaterial(newValue)
+                                }
                             }}
                         >
                             <Tooltip title="Light Mode">

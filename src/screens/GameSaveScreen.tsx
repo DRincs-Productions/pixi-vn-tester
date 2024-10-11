@@ -3,11 +3,12 @@ import DownloadIcon from '@mui/icons-material/Download';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import UnarchiveIcon from '@mui/icons-material/Unarchive';
 import { AspectRatio, Grid, IconButton, Skeleton, Stack, Theme, Typography, useTheme } from "@mui/joy";
-import { useMediaQuery } from '@mui/material';
+import { Pagination, useMediaQuery } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
+import { saveScreenPageState } from '../atoms/saveScreenPageState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TypographyShadow from "../components/TypographyShadow";
 import GameSaveData from '../models/GameSaveData';
@@ -19,6 +20,7 @@ export default function GameSaveScreen() {
     const { t } = useTranslation(["interface"]);
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg"));
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
+    const [page, setPage] = useRecoilState(saveScreenPageState);
 
     return (
         <ModalDialogCustom
@@ -39,22 +41,36 @@ export default function GameSaveScreen() {
             >
                 {/* for 6 element */}
                 {Array.from({ length: 6 }).map((_, index) => {
+                    let id = page * 6 + index;
                     return <Grid xs={12} sm={6} md={4} key={"ModalDialogCustom" + index}>
                         <GameSaveSlot
-                            saveId={index}
+                            saveId={id}
                             onOverwriteSave={(data) => {
                                 setOpenLoadAlert({ open: true, data: data, type: "overwrite_save" });
                             }}
                             onLoad={(data) => {
-                                setOpenLoadAlert({ open: true, data: { ...data, id: index }, type: "load" });
+                                setOpenLoadAlert({ open: true, data: { ...data, id: id }, type: "load" });
                             }}
                             onDelete={() => {
-                                setOpenLoadAlert({ open: true, data: index, type: "delete" });
+                                setOpenLoadAlert({ open: true, data: id, type: "delete" });
                             }}
                         />
                     </Grid>
                 })}
             </Grid>
+            <Pagination
+                count={99}
+                siblingCount={smScreen ? 2 : 7}
+                page={page + 1}
+                onChange={(_event, value) => setPage(value - 1)}
+                sx={{
+                    position: "absolute",
+                    bottom: 7,
+                    right: 0,
+                    left: 0,
+                    justifySelf: "center",
+                }}
+            />
         </ModalDialogCustom>
     );
 }
