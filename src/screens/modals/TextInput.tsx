@@ -16,6 +16,12 @@ export default function TextInput() {
     return (
         <ModalDialogCustom
             open={open}
+            setOpen={(value) => {
+                if (!value) {
+                    setOptions((prev) => ({ ...prev, currentValue: tempValue }));
+                }
+            }}
+            canBeIgnored={false}
             color="primary"
             actions={<>
                 <Button

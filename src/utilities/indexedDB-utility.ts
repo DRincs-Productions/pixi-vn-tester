@@ -138,9 +138,9 @@ export async function deleteRowFromIndexDB(tableName: string, id: any): Promise<
 export async function getListFromIndexDB<T extends {}>(
     tableName: string,
     options: {
-        order?: { field: keyof T, direction: "asc" | "desc" },
+        order?: { field: keyof T, direction: IDBCursorDirection },
         limit?: number,
-    }
+    } = {}
 ): Promise<T[]> {
     return new Promise((resolve, reject) => {
         let request = indexedDB.open(INDEXED_DB_NAME);
@@ -153,7 +153,9 @@ export async function getListFromIndexDB<T extends {}>(
             }
             let transaction = db.transaction([tableName], "readwrite");
             let objectStore = transaction.objectStore(tableName);
-            let getRequest = objectStore.index(options.order?.field).openCursor(null, options.order?.direction === "asc" ? "next" : "prev");
+            let getRequest = options.order ?
+                objectStore.index(options.order.field as string).openCursor(null, options.order.direction) :
+                objectStore.openCursor();
             let results: T[] = []
             getRequest.onsuccess = function (_event) {
                 let cursor = getRequest.result;

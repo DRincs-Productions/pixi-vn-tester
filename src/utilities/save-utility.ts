@@ -1,6 +1,6 @@
 import { canvas, getSaveData, loadSaveData } from "@drincs/pixi-vn";
 import GameSaveData from "../models/GameSaveData";
-import { deleteRowFromIndexDB, getLastRowFromIndexDB, getRowFromIndexDB, putRowIntoIndexDB } from "./indexedDB-utility";
+import { deleteRowFromIndexDB, getListFromIndexDB, getRowFromIndexDB, putRowIntoIndexDB } from "./indexedDB-utility";
 
 const SAVE_FILE_EXTENSION = "json"
 
@@ -36,7 +36,11 @@ export async function getSaveFromIndexDB(id: number): Promise<GameSaveData & { i
 }
 
 export async function getLastSaveFromIndexDB(): Promise<GameSaveData & { id: number } | null> {
-    return await getLastRowFromIndexDB("rescues")
+    let list = await getListFromIndexDB<GameSaveData & { id: number }>("rescues", { limit: 1, order: { field: "date", direction: "prev" } })
+    if (list.length > 0) {
+        return list[0]
+    }
+    return null
 }
 
 export async function deleteSaveFromIndexDB(id: number): Promise<void> {
