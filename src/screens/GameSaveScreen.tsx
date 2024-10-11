@@ -4,7 +4,8 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 import UnarchiveIcon from '@mui/icons-material/Unarchive';
 import { AspectRatio, Grid, IconButton, Skeleton, Stack, Theme, Typography, useTheme } from "@mui/joy";
 import { Pagination, useMediaQuery } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
@@ -12,8 +13,9 @@ import { saveScreenPageState } from '../atoms/saveScreenPageState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TypographyShadow from "../components/TypographyShadow";
 import GameSaveData from '../models/GameSaveData';
+import useQuerySave, { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySave';
 import { useMyNavigate } from '../utilities/navigate-utility';
-import { deleteSaveFromIndexDB, downloadGameSave, getSaveFromIndexDB, loadSave, putSaveIntoIndexDB } from '../utilities/save-utility';
+import { deleteSaveFromIndexDB, downloadGameSave, loadSave, putSaveIntoIndexDB } from '../utilities/save-utility';
 
 export default function GameSaveScreen() {
     const [open, setOpen] = useState(true);
@@ -85,20 +87,17 @@ function GameSaveSlot({ saveId }: {
     onLoad: (saveData: GameSaveData) => Promise<void> | void,
 }) {
     const { t } = useTranslation(["interface"]);
-    const [loading, setLoading] = useState(true);
     const navigate = useMyNavigate();
     const [loadingSave, setLoadingSave] = useState(false);
-    const [saveData, setSaveData] = useState<GameSaveData | null>();
+    const queryClient = useQueryClient()
 
-    useEffect(() => {
-        setLoading(true);
-        getSaveFromIndexDB(saveId).then((data) => {
-            setSaveData(data);
-            setLoading(false);
-        })
-    }, [saveId]);
+    const {
+        isLoading,
+        data: saveData,
+        isError,
+    } = useQuerySave({ id: saveId })
 
-    if (loading) {
+    if (isLoading) {
         return (
             <AspectRatio
                 sx={{
@@ -111,7 +110,7 @@ function GameSaveSlot({ saveId }: {
         );
     }
 
-    if (!saveData) {
+    if (!saveData || isError) {
         return (
             <AspectRatio
                 sx={{
@@ -126,10 +125,8 @@ function GameSaveSlot({ saveId }: {
                         width: "100%",
                     }}
                     onClick={() => {
-                        setLoading(true)
                         putSaveIntoIndexDB({ id: saveId }).then((data) => {
-                            setSaveData(data);
-                            setLoading(false);
+                            queryClient.setQueryData([SAVES_USE_QUEY_KEY, saveId], data);
                         })
                     }}
                 >
@@ -198,10 +195,8 @@ function GameSaveSlot({ saveId }: {
                 </IconButton>
                 <IconButton
                     onClick={() => {
-                        setLoading(true)
                         putSaveIntoIndexDB({ id: saveId }).then((data) => {
-                            setSaveData(data);
-                            setLoading(false);
+                            queryClient.setQueryData([SAVES_USE_QUEY_KEY, saveId], data);
                         })
                     }}
                 >
@@ -239,10 +234,8 @@ function GameSaveSlot({ saveId }: {
                     color="danger"
                     size="md"
                     onClick={() => {
-                        setLoading(true)
                         deleteSaveFromIndexDB(saveId).then(() => {
-                            setSaveData(undefined);
-                            setLoading(false);
+                            queryClient.setQueryData([SAVES_USE_QUEY_KEY, saveId], null);
                         })
                     }}
                 >

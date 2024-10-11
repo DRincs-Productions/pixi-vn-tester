@@ -27,7 +27,7 @@ export async function putSaveIntoIndexDB(info: Partial<GameSaveData> & { id?: nu
         image: image,
         ...info,
     }
-    await putRowIntoIndexDB("rescues", item)
+    await putRowIntoIndexDB("saves", item)
     if (item.id) {
         return item as GameSaveData & { id: number }
     }
@@ -35,11 +35,11 @@ export async function putSaveIntoIndexDB(info: Partial<GameSaveData> & { id?: nu
 }
 
 export async function getSaveFromIndexDB(id: number): Promise<GameSaveData & { id: number } | null> {
-    return await getRowFromIndexDB("rescues", id)
+    return await getRowFromIndexDB("saves", id)
 }
 
 export async function getLastSaveFromIndexDB(): Promise<GameSaveData & { id: number } | null> {
-    let list = await getListFromIndexDB<GameSaveData & { id: number }>("rescues", { pagination: { limit: 1, offset: 0 }, order: { field: "date", direction: "prev" } })
+    let list = await getListFromIndexDB<GameSaveData & { id: number }>("saves", { pagination: { limit: 1, offset: 0 }, order: { field: "date", direction: "prev" } })
     if (list.length > 0) {
         return list[0]
     }
@@ -47,7 +47,7 @@ export async function getLastSaveFromIndexDB(): Promise<GameSaveData & { id: num
 }
 
 export async function deleteSaveFromIndexDB(id: number): Promise<void> {
-    return await deleteRowFromIndexDB("rescues", id)
+    return await deleteRowFromIndexDB("saves", id)
 }
 
 export function downloadGameSave(data: GameSaveData = getSave()) {

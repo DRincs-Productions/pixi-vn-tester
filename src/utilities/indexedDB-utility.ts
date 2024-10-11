@@ -7,9 +7,9 @@ export function initializeIndexedDB(): Promise<void> {
         // check if the object store exists
         request.onupgradeneeded = function (_event) {
             let db = request.result;
-            if (!db.objectStoreNames.contains("rescues")) {
+            if (!db.objectStoreNames.contains("saves")) {
                 // create the object store
-                let objectStore = db.createObjectStore("rescues", { keyPath: 'id', autoIncrement: true });
+                let objectStore = db.createObjectStore("saves", { keyPath: 'id', autoIncrement: true });
                 objectStore.createIndex("id", "id", { unique: true });
                 objectStore.createIndex("date", "date", { unique: false });
                 objectStore.createIndex("name", "name", { unique: false });
