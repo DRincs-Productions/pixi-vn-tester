@@ -28,6 +28,9 @@ export async function putSaveIntoIndexDB(info: Partial<GameSaveData> & { id?: nu
         ...info,
     }
     await putRowIntoIndexDB("rescues", item)
+    if (item.id) {
+        return item as GameSaveData & { id: number }
+    }
     return await getLastSaveFromIndexDB() as GameSaveData & { id: number }
 }
 
@@ -36,7 +39,7 @@ export async function getSaveFromIndexDB(id: number): Promise<GameSaveData & { i
 }
 
 export async function getLastSaveFromIndexDB(): Promise<GameSaveData & { id: number } | null> {
-    let list = await getListFromIndexDB<GameSaveData & { id: number }>("rescues", { limit: 1, order: { field: "date", direction: "prev" } })
+    let list = await getListFromIndexDB<GameSaveData & { id: number }>("rescues", { pagination: { limit: 1, offset: 0 }, order: { field: "date", direction: "prev" } })
     if (list.length > 0) {
         return list[0]
     }
@@ -84,10 +87,6 @@ export function loadGameSaveFromFile(navigate: (path: string) => void, afterLoad
         }
     };
     input.click();
-}
-
-export async function getQuickSave() {
-    return await getLastSaveFromIndexDB()
 }
 
 export async function addRefreshSave() {

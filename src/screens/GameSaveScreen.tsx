@@ -156,7 +156,7 @@ function GameSaveSlot({ saveId }: {
                     {saveData.date.toLocaleTimeString()}
                 </TypographyShadow>
                 <TypographyShadow>
-                    {`${t("save_slot")} ${0 + 1}`}
+                    {`${t("save_slot")} ${saveId + 1}`}
                 </TypographyShadow>
             </Stack>
             <Stack

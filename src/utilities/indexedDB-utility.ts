@@ -142,7 +142,7 @@ export async function getListFromIndexDB<T extends {}>(
     tableName: string,
     options: {
         order?: { field: keyof T, direction: IDBCursorDirection },
-        limit?: number,
+        pagination?: { offset: number, limit: number }
     } = {}
 ): Promise<T[]> {
     return new Promise((resolve, reject) => {
@@ -160,15 +160,28 @@ export async function getListFromIndexDB<T extends {}>(
                 objectStore.index(options.order.field as string).openCursor(null, options.order.direction) :
                 objectStore.openCursor();
             let results: T[] = []
-            getRequest.onsuccess = function (_event) {
+            let counter = 0;
+            let limit = options.pagination?.limit ?? Infinity;
+            let offset = options.pagination?.offset ?? 0;
+            let advanced = false;
+            getRequest.onsuccess = (_event) => {
                 let cursor = getRequest.result;
                 if (cursor) {
-                    results.push(cursor.value)
-                    cursor.continue()
+                    if (counter >= offset) {
+                        results.push(cursor.value)
+                        if (results.length >= limit) {
+                            resolve(results)
+                            advanced = true;
+                        }
+                    }
+                    counter++;
+                    cursor.continue();
                 } else {
-                    resolve(results)
+                    if (!advanced) {
+                        resolve(results)
+                    }
                 }
-            }
+            };
             getRequest.onerror = function (event) {
                 console.error("Error getting save data from indexDB", event)
                 reject()

@@ -1,6 +1,6 @@
 import { atom, selector } from "recoil";
 import GameSaveData from "../models/GameSaveData";
-import { getQuickSave } from "../utilities/save-utility";
+import { getLastSaveFromIndexDB } from "../utilities/save-utility";
 
 const lastSaveAtomState = atom<GameSaveData & { id: number } | null>({
     key: 'lastSaveAtomState',
@@ -14,7 +14,7 @@ export const lastSaveState = selector<GameSaveData & { id: number } | null>({
         if (atomData !== null) {
             return atomData
         }
-        return await getQuickSave()
+        return await getLastSaveFromIndexDB()
     },
     set: ({ set }, value) => {
         set(lastSaveAtomState, value)
