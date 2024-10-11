@@ -11,7 +11,7 @@ import ModalConfirmation from '../../components/ModalConfirmation';
 import { useMyNavigate } from '../../utilities/navigate-utility';
 import { deleteSaveFromIndexDB, loadSave, putSaveIntoIndexDB } from '../../utilities/save-utility';
 
-export default function QuickLoadAlert() {
+export default function SaveLoadAlert() {
     const navigate = useMyNavigate();
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const [alertData, setAlertData] = useRecoilState(saveLoadAlertState);

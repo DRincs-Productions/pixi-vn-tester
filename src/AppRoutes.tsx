@@ -10,7 +10,7 @@ import GameSaveScreen from './screens/GameSaveScreen';
 import HistoryScreen from './screens/HistoryScreen';
 import LoadingScreen from './screens/LoadingScreen';
 import MainMenu from './screens/MainMenu';
-import QuickLoadAlert from './screens/modals/QuickLoadAlert';
+import SaveLoadAlert from './screens/modals/SaveLoadAlert';
 import TextInput from './screens/modals/TextInput';
 import NarrationScreen from './screens/NarrationScreen';
 import QuickTools from './screens/QuickTools';
@@ -50,7 +50,7 @@ export default function AppRoutes() {
                 element={<>
                     <HistoryScreen />
                     <GameSaveScreen />
-                    <QuickLoadAlert />
+                    <SaveLoadAlert />
                     <QuickTools />
                     <DialogueDataEventInterceptor />
                     <NarrationScreen
