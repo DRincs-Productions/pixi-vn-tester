@@ -11,6 +11,9 @@ export function initializeIndexedDB(): Promise<void> {
                 // create the object store
                 let objectStore = db.createObjectStore("rescues", { keyPath: 'id', autoIncrement: true });
                 objectStore.createIndex("id", "id", { unique: true });
+                objectStore.createIndex("date", "date", { unique: false });
+                objectStore.createIndex("name", "name", { unique: false });
+                objectStore.createIndex("gameVersion", "gameVersion", { unique: false });
             }
         }
 
