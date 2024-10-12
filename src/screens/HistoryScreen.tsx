@@ -10,11 +10,11 @@ import Markdown from 'react-markdown';
 import { useRecoilState } from 'recoil';
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
-import { openHistoryState } from '../atoms/openHistoryState';
+import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import ModalDialogCustom from '../components/ModalDialog';
 
 export default function HistoryScreen() {
-    const [open, setOpen] = useRecoilState(openHistoryState);
+    const [open, setOpen] = useRecoilState(openHistoryScreenState);
     const [searchString, setSearchString] = useState("")
     const { t } = useTranslation(["interface"]);
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));

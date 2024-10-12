@@ -8,7 +8,7 @@ import { autoInfoState } from '../atoms/autoInfoState';
 import { canGoBackState } from '../atoms/canGoBackState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { lastSaveState } from '../atoms/lastSaveState';
-import { openHistoryState } from '../atoms/openHistoryState';
+import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
@@ -20,7 +20,7 @@ import { loadGameSaveFromFile, putSaveIntoIndexDB } from '../utilities/save-util
 
 export default function QuickTools() {
     const setOpenSettings = useSetRecoilState(openSettingsState);
-    const setOpenHistory = useSetRecoilState(openHistoryState);
+    const setOpenHistory = useSetRecoilState(openHistoryScreenState);
     const navigate = useMyNavigate();
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);

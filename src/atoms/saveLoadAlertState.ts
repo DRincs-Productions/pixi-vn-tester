@@ -3,6 +3,9 @@ import GameSaveData from "../models/GameSaveData";
 
 export const saveLoadAlertState = atom<{
     open: false;
+    data?: any;
+    type?: string;
+    deafultName?: string;
 } | {
     open: true;
     data: GameSaveData & { id: number };
@@ -11,6 +14,7 @@ export const saveLoadAlertState = atom<{
     open: true;
     data: number;
     type: 'overwrite_save' | 'save';
+    deafultName: string;
 } | {
     open: true;
     data: number;

@@ -23,7 +23,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { autoInfoState } from '../atoms/autoInfoState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { lastSaveState } from '../atoms/lastSaveState';
-import { openHistoryState } from '../atoms/openHistoryState';
+import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
@@ -48,7 +48,7 @@ export default function Settings() {
     const { t } = useTranslation(["interface"]);
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const [auto, setAuto] = useRecoilState(autoInfoState)
-    const setOpenHistory = useSetRecoilState(openHistoryState);
+    const setOpenHistory = useSetRecoilState(openHistoryScreenState);
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const [lastSave, setLastSave] = useRecoilState(lastSaveState)

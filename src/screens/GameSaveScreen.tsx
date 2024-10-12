@@ -28,7 +28,7 @@ export default function GameSaveScreen() {
             setOpen={setOpen}
             layout={(smScreen ? "fullscreen" : "center")}
             head={<Typography level="h2">
-                {t("history")}
+                {`${t("save")}/${t("load")}`}
             </Typography>}
             minWidth="80%"
             sx={{
@@ -46,10 +46,10 @@ export default function GameSaveScreen() {
                         <GameSaveSlot
                             saveId={id}
                             onSave={() => {
-                                setOpenLoadAlert({ open: true, data: id, type: "save" });
+                                setOpenLoadAlert({ open: true, data: id, type: "save", deafultName: "" });
                             }}
-                            onOverwriteSave={() => {
-                                setOpenLoadAlert({ open: true, data: id, type: "overwrite_save" });
+                            onOverwriteSave={(data) => {
+                                setOpenLoadAlert({ open: true, data: id, type: "overwrite_save", deafultName: data.name });
                             }}
                             onLoad={(data) => {
                                 setOpenLoadAlert({ open: true, data: { ...data, id: id }, type: "load" });
@@ -85,7 +85,7 @@ function GameSaveSlot({ saveId, onDelete, onLoad, onOverwriteSave, onSave }: {
     saveId: number,
     onDelete: () => Promise<void> | void,
     onSave: () => Promise<void> | void,
-    onOverwriteSave: () => Promise<void> | void,
+    onOverwriteSave: (data: GameSaveData) => Promise<void> | void,
     onLoad: (saveData: GameSaveData) => Promise<void> | void,
 }) {
     const { t } = useTranslation(["interface"]);
@@ -188,7 +188,7 @@ function GameSaveSlot({ saveId, onDelete, onLoad, onOverwriteSave, onSave }: {
                     />
                 </IconButton>
                 <IconButton
-                    onClick={onOverwriteSave}
+                    onClick={() => onOverwriteSave(saveData)}
                 >
                     <SaveAsIcon
                         fontSize={"large"}
