@@ -1,5 +1,6 @@
 import { addImage, canvas, clearAllGameDatas, narration, pixivnTestStartLabel } from '@drincs/pixi-vn';
 import Stack from '@mui/joy/Stack';
+import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
@@ -9,6 +10,7 @@ import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import MenuButton from '../components/MenuButton';
+import { RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utilities/navigate-utility';
 import { loadGameSaveFromFile } from '../utilities/save-utility';
 
@@ -20,6 +22,7 @@ export default function MainMenu() {
     const { enqueueSnackbar } = useSnackbar();
     const { t } = useTranslation(["interface"]);
     const { t: tNarration } = useTranslation(["narration"]);
+    const queryClient = useQueryClient()
 
     useEffect(() => {
         setHideInterface(false)
@@ -53,6 +56,7 @@ export default function MainMenu() {
                         t: tNarration,
                         notify: (message, variant) => enqueueSnackbar(message, { variant }),
                     }).then(() => {
+                        queryClient.invalidateQueries({ queryKey: [RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY] })
                         notifyReloadInterfaceDataEvent((prev) => prev + 1)
                     })
                 }}
@@ -62,7 +66,10 @@ export default function MainMenu() {
             </MenuButton>
             <MenuButton
                 onClick={() => {
-                    loadGameSaveFromFile(navigate, () => notifyReloadInterfaceDataEvent((prev) => prev + 1))
+                    loadGameSaveFromFile(navigate, () => {
+                        queryClient.invalidateQueries({ queryKey: [RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY] })
+                        notifyReloadInterfaceDataEvent((prev) => prev + 1)
+                    })
                 }}
                 transitionDelay={0.2}
             >

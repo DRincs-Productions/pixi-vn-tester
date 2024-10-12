@@ -4,9 +4,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { motion } from "framer-motion";
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { autoInfoState } from '../atoms/autoInfoState';
-import { canGoBackState } from '../atoms/canGoBackState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
 import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
@@ -15,6 +14,8 @@ import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventA
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
+import useQueryCanGoBack from '../use_query/useQueryCanGoBack';
+import { RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../use_query/useQueryLastSave';
 import { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySaves';
 import { goBack } from '../utilities/actions-utility';
@@ -32,12 +33,10 @@ export default function QuickTools() {
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const [auto, setAuto] = useRecoilState(autoInfoState)
-    const canGoBack = useRecoilValue(canGoBackState)
     const { enqueueSnackbar } = useSnackbar();
     const queryClient = useQueryClient()
-    const {
-        data: lastSave = null,
-    } = useQueryLastSave()
+    const { data: lastSave = null } = useQueryLastSave()
+    const { data: canGoBack = null } = useQueryCanGoBack()
 
     return (
         <>
@@ -71,7 +70,10 @@ export default function QuickTools() {
                 transition={{ type: "tween" }}
             >
                 <TextMenuButton
-                    onClick={() => goBack(navigate).then(() => notifyLoadEvent((prev) => prev + 1))}
+                    onClick={() => goBack(navigate).then(() => {
+                        notifyLoadEvent((prev) => prev + 1)
+                        queryClient.invalidateQueries({ queryKey: [RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY] })
+                    })}
                     disabled={!canGoBack}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >

@@ -5,6 +5,7 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 import UnarchiveIcon from '@mui/icons-material/Unarchive';
 import { AspectRatio, Grid, IconButton, Skeleton, Stack, Theme, Typography, useTheme } from "@mui/joy";
 import { Pagination, Tooltip, useMediaQuery } from '@mui/material';
+import { useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -15,6 +16,7 @@ import { saveScreenPageState } from '../atoms/saveScreenPageState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TypographyShadow from "../components/TypographyShadow";
 import GameSaveData from '../models/GameSaveData';
+import { RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import useQuerySaves from '../use_query/useQuerySaves';
 import { useMyNavigate } from '../utilities/navigate-utility';
 import { downloadGameSave, loadGameSaveFromFile } from '../utilities/save-utility';
@@ -28,6 +30,7 @@ export default function GameSaveScreen() {
     const navigate = useMyNavigate();
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const { enqueueSnackbar } = useSnackbar();
+    const queryClient = useQueryClient()
 
     return (
         <ModalDialogCustom
@@ -56,6 +59,7 @@ export default function GameSaveScreen() {
                         size="lg"
                         onClick={() => loadGameSaveFromFile(navigate, () => {
                             notifyLoadEvent((prev) => prev + 1)
+                            queryClient.invalidateQueries({ queryKey: [RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY] })
                             enqueueSnackbar(t("success_load"), { variant: 'success' })
                             setOpen(false)
                         })}

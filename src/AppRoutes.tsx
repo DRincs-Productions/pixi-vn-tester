@@ -1,5 +1,6 @@
 import { narration } from '@drincs/pixi-vn';
 import { StepLabelProps } from '@drincs/pixi-vn/dist/override';
+import { useQueryClient } from '@tanstack/react-query';
 import { Route, Routes } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { nextStepLoadingState } from './atoms/nextStepLoadingState';
@@ -14,10 +15,13 @@ import SaveLoadAlert from './screens/modals/SaveLoadAlert';
 import TextInput from './screens/modals/TextInput';
 import NarrationScreen from './screens/NarrationScreen';
 import QuickTools from './screens/QuickTools';
+import { RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY } from './use_query/useQueryInterface';
 
 export default function AppRoutes() {
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const setNextStepLoading = useSetRecoilState(nextStepLoadingState);
+    const queryClient = useQueryClient()
+
     async function nextOnClick(props: StepLabelProps): Promise<void> {
         setNextStepLoading(true);
         try {
@@ -27,6 +31,7 @@ export default function AppRoutes() {
             }
             narration.goNext(props)
                 .then(() => {
+                    queryClient.invalidateQueries({ queryKey: [RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY] })
                     notifyReloadInterfaceDataEvent((p) => p + 1);
                     setNextStepLoading(false);
                 })

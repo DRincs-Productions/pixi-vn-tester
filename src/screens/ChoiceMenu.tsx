@@ -1,6 +1,7 @@
 import { ChoiceMenuOption, ChoiceMenuOptionClose, narration } from '@drincs/pixi-vn';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { Box, Grid } from '@mui/joy';
+import { useQueryClient } from '@tanstack/react-query';
 import { motion, Variants } from "framer-motion";
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
@@ -10,6 +11,7 @@ import { choiceMenuState } from '../atoms/choiceMenuState';
 import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import ChoiceButton from '../components/ChoiceButton';
+import { RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utilities/navigate-utility';
 
 type IProps = {
@@ -27,6 +29,7 @@ export default function ChoiceMenu(props: IProps) {
     const navigate = useMyNavigate();
     const { menu, hidden } = useRecoilValue(choiceMenuState)
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
+    const queryClient = useQueryClient()
     const { enqueueSnackbar } = useSnackbar();
     const gridVariants: Variants = {
         open: {
@@ -65,6 +68,7 @@ export default function ChoiceMenu(props: IProps) {
             ...item.props
         })
             .then(() => {
+                queryClient.invalidateQueries({ queryKey: [RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY] })
                 notifyReloadInterfaceDataEvent((prev) => prev + 1)
                 setLoading(false)
             })

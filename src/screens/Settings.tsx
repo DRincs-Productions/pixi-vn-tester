@@ -36,6 +36,7 @@ import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
 import { useEditColorProvider } from '../providers/ThemeProvider';
+import { RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../use_query/useQueryLastSave';
 import { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySaves';
 import { gameEnd } from '../utilities/actions-utility';
@@ -237,6 +238,7 @@ export default function Settings() {
                                     <SettingButton
                                         onClick={() => loadGameSaveFromFile(navigate, () => {
                                             notifyLoadEvent((prev) => prev + 1)
+                                            queryClient.invalidateQueries({ queryKey: [RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY] })
                                             enqueueSnackbar(t("success_load"), { variant: 'success' })
                                             setOpen(false)
                                         })}
