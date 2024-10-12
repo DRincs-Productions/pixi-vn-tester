@@ -10,13 +10,13 @@ import { choiceMenuState } from '../atoms/choiceMenuState';
 import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import ChoiceButton from '../components/ChoiceButton';
-import { useMyNavigate } from '../utility/useMyNavigate';
+import { useMyNavigate } from '../utilities/navigate-utility';
 
 type IProps = {
     fullscreen?: boolean,
 }
 
-export default function ChoicesMenu(props: IProps) {
+export default function ChoiceMenu(props: IProps) {
     const {
         fullscreen = true,
     } = props;

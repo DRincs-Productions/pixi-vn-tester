@@ -9,8 +9,8 @@ import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import MenuButton from '../components/MenuButton';
-import { loadGameSave } from '../utility/ActionsUtility';
-import { useMyNavigate } from '../utility/useMyNavigate';
+import { useMyNavigate } from '../utilities/navigate-utility';
+import { loadGameSaveFromFile } from '../utilities/save-utility';
 
 export default function MainMenu() {
     const navigate = useMyNavigate();
@@ -47,7 +47,7 @@ export default function MainMenu() {
             <MenuButton
                 onClick={() => {
                     canvas.removeAll()
-                    navigate("/game")
+                    navigate("/narration")
                     narration.callLabel(pixivnTestStartLabel, {
                         navigate: navigate,
                         t: tNarration,
@@ -62,7 +62,7 @@ export default function MainMenu() {
             </MenuButton>
             <MenuButton
                 onClick={() => {
-                    loadGameSave(navigate, () => notifyReloadInterfaceDataEvent((prev) => prev + 1))
+                    loadGameSaveFromFile(navigate, () => notifyReloadInterfaceDataEvent((prev) => prev + 1))
                 }}
                 transitionDelay={0.2}
             >

@@ -2,10 +2,10 @@ import { Button, Input } from '@mui/joy';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { dialogDataState } from '../atoms/dialogDataState';
-import { inputOptionsState } from '../atoms/inputOptionsState';
-import ModalDialogCustom from '../components/ModalDialog';
-import TypewriterMarkdown from '../components/TypewriterMarkdown';
+import { dialogDataState } from '../../atoms/dialogDataState';
+import { inputOptionsState } from '../../atoms/inputOptionsState';
+import ModalDialogCustom from '../../components/ModalDialog';
+import TypewriterMarkdown from '../../components/TypewriterMarkdown';
 
 export default function TextInput() {
     const { text } = useRecoilValue(dialogDataState)
@@ -16,6 +16,12 @@ export default function TextInput() {
     return (
         <ModalDialogCustom
             open={open}
+            setOpen={(value) => {
+                if (!value) {
+                    setOptions((prev) => ({ ...prev, currentValue: tempValue }));
+                }
+            }}
+            canBeIgnored={false}
             color="primary"
             actions={<>
                 <Button

@@ -1,21 +1,23 @@
 import { CharacterBaseModel, getCharacterById, narration } from '@drincs/pixi-vn';
 import CheckIcon from '@mui/icons-material/Check';
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import { Box, Chip, Input, Stack, Typography } from "@mui/joy";
+import { Box, Chip, Input, Stack, Theme, Typography } from "@mui/joy";
 import Avatar from '@mui/joy/Avatar';
+import { useMediaQuery } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Markdown from 'react-markdown';
 import { useRecoilState } from 'recoil';
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
-import { openHistoryState } from '../atoms/openHistoryState';
+import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import ModalDialogCustom from '../components/ModalDialog';
 
-export default function History() {
-    const [open, setOpen] = useRecoilState(openHistoryState);
+export default function HistoryScreen() {
+    const [open, setOpen] = useRecoilState(openHistoryScreenState);
     const [searchString, setSearchString] = useState("")
     const { t } = useTranslation(["interface"]);
+    const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
     const { t: tNarration } = useTranslation(["narration"]);
 
     useEffect(() => {
@@ -35,6 +37,7 @@ export default function History() {
         <ModalDialogCustom
             open={open}
             setOpen={setOpen}
+            layout={(smScreen ? "fullscreen" : "center")}
             head={<Stack
                 sx={{
                     width: "100%",
@@ -55,7 +58,7 @@ export default function History() {
             </Stack>}
             minWidth="80%"
             sx={{
-                maxHeight: "80%",
+                minHeight: "50%",
             }}
         >
             <Box

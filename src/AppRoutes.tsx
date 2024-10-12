@@ -6,13 +6,14 @@ import { nextStepLoadingState } from './atoms/nextStepLoadingState';
 import { reloadInterfaceDataEventAtom } from './atoms/reloadInterfaceDataEventAtom';
 import DialogueDataEventInterceptor from './interceptors/DialogueDataEventInterceptor';
 import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
-import Dialogue from './screens/Dialogue';
-import History from './screens/History';
-import LoadingPage from './screens/LoadingPage';
+import GameSaveScreen from './screens/GameSaveScreen';
+import HistoryScreen from './screens/HistoryScreen';
+import LoadingScreen from './screens/LoadingScreen';
 import MainMenu from './screens/MainMenu';
-import QuickActions from './screens/QuickActions';
-import QuickLoadAlert from './screens/QuickLoadAlert';
-import TextInput from './screens/TextInput';
+import SaveLoadAlert from './screens/modals/SaveLoadAlert';
+import TextInput from './screens/modals/TextInput';
+import NarrationScreen from './screens/NarrationScreen';
+import QuickTools from './screens/QuickTools';
 
 export default function AppRoutes() {
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
@@ -44,14 +45,15 @@ export default function AppRoutes() {
     return (
         <Routes>
             <Route key={"main_menu"} path={"/"} element={<MainMenu />} />
-            <Route key={"main_menu"} path={"/loading"} element={<LoadingPage />} />
-            <Route key={"game"} path={"/game"}
+            <Route key={"main_menu"} path={"/loading"} element={<LoadingScreen />} />
+            <Route key={"narration"} path={"/narration"}
                 element={<>
-                    <History />
-                    <QuickLoadAlert />
-                    <QuickActions />
+                    <HistoryScreen />
+                    <GameSaveScreen />
+                    <SaveLoadAlert />
+                    <QuickTools />
                     <DialogueDataEventInterceptor />
-                    <Dialogue
+                    <NarrationScreen
                         nextOnClick={nextOnClick}
                     />
                     <SkipAutoInterceptor

@@ -8,7 +8,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { hideNextButtonState } from '../atoms/hideNextButtonState';
 import { nextStepLoadingState } from '../atoms/nextStepLoadingState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
-import { useMyNavigate } from '../utility/useMyNavigate';
+import { useMyNavigate } from '../utilities/navigate-utility';
 
 export default function NextButton({ nextOnClick }: {
     nextOnClick: (props: StepLabelProps) => void,
