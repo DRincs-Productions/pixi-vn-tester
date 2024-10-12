@@ -1,6 +1,6 @@
 import { canvas, getSaveData, loadSaveData } from "@drincs/pixi-vn";
 import GameSaveData from "../models/GameSaveData";
-import { deleteRowFromIndexDB, getListFromIndexDB, getRowFromIndexDB, INDEXED_DB_SAVE_TABLE, putRowIntoIndexDB } from "./indexedDB-utility";
+import { deleteRowFromIndexDB, getLastRowFromIndexDB, getListFromIndexDB, getRowFromIndexDB, INDEXED_DB_SAVE_TABLE, putRowIntoIndexDB } from "./indexedDB-utility";
 
 const SAVE_FILE_EXTENSION = "json"
 
@@ -26,6 +26,15 @@ export async function putSaveIntoIndexDB(info: Partial<GameSaveData> & { id?: nu
         ...data,
         image: image,
         ...info,
+    }
+    if (!item.id) {
+        let lastSave = await getLastRowFromIndexDB<GameSaveData & { id: number }>(INDEXED_DB_SAVE_TABLE)
+        if (lastSave) {
+            item.id = lastSave.id + 1
+        }
+        else {
+            item.id = 0
+        }
     }
     await putRowIntoIndexDB(INDEXED_DB_SAVE_TABLE, item)
     if (item.id) {
