@@ -4,9 +4,9 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 import UnarchiveIcon from '@mui/icons-material/Unarchive';
 import { AspectRatio, Grid, IconButton, Skeleton, Stack, Theme, Typography, useTheme } from "@mui/joy";
 import { Pagination, useMediaQuery } from '@mui/material';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+import { openSaveScreenState } from '../atoms/openSaveScreenState';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { saveScreenPageState } from '../atoms/saveScreenPageState';
 import ModalDialogCustom from '../components/ModalDialog';
@@ -16,7 +16,7 @@ import useQuerySave from '../use_query/useQuerySave';
 import { downloadGameSave } from '../utilities/save-utility';
 
 export default function GameSaveScreen() {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useRecoilState(openSaveScreenState);
     const { t } = useTranslation(["interface"]);
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg"));
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);

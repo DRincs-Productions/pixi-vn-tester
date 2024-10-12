@@ -9,6 +9,7 @@ import { canGoBackState } from '../atoms/canGoBackState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { lastSaveState } from '../atoms/lastSaveState';
 import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
+import { openSaveScreenState } from '../atoms/openSaveScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
@@ -21,6 +22,7 @@ import { loadGameSaveFromFile, putSaveIntoIndexDB } from '../utilities/save-util
 export default function QuickTools() {
     const setOpenSettings = useSetRecoilState(openSettingsState);
     const setOpenHistory = useSetRecoilState(openHistoryScreenState);
+    const openSaveScreen = useSetRecoilState(openSaveScreenState);
     const navigate = useMyNavigate();
     const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
@@ -93,12 +95,12 @@ export default function QuickTools() {
                 >
                     {t("auto_forward_time_restricted")}
                 </TextMenuButton>
-                {/* <TextMenuButton
-                    onClick={downloadGameSave}
+                <TextMenuButton
+                    onClick={() => openSaveScreen(true)}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
-                    {t("save")}
-                </TextMenuButton> */}
+                    {t(`${t("save")}/${t("load")}`)}
+                </TextMenuButton>
                 <TextMenuButton
                     onClick={() => loadGameSaveFromFile(navigate, () => {
                         notifyLoadEvent((prev) => prev + 1)
