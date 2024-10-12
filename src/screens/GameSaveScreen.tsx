@@ -10,7 +10,6 @@ import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
-import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { saveScreenPageState } from '../atoms/saveScreenPageState';
 import ModalDialogCustom from '../components/ModalDialog';
@@ -28,7 +27,6 @@ export default function GameSaveScreen() {
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
     const [page, setPage] = useRecoilState(saveScreenPageState);
     const navigate = useMyNavigate();
-    const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const { enqueueSnackbar } = useSnackbar();
     const queryClient = useQueryClient()
 
@@ -58,7 +56,6 @@ export default function GameSaveScreen() {
                     <IconButton
                         size="lg"
                         onClick={() => loadGameSaveFromFile(navigate, () => {
-                            notifyLoadEvent((prev) => prev + 1)
                             queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
                             enqueueSnackbar(t("success_load"), { variant: 'success' })
                             setOpen(false)

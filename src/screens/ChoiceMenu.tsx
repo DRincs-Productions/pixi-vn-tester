@@ -6,10 +6,9 @@ import { motion, Variants } from "framer-motion";
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
-import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import ChoiceButton from '../components/ChoiceButton';
 import { INTERFACE_DATA_USE_QUEY_KEY, useQueryChoiceMenuOptions } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utilities/navigate-utility';
@@ -29,7 +28,6 @@ export default function ChoiceMenu(props: IProps) {
     const navigate = useMyNavigate();
     const { data: menu = [] } = useQueryChoiceMenuOptions()
     const hideInterface = useRecoilValue(hideInterfaceState) || menu.length == 0;
-    const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const queryClient = useQueryClient()
     const { enqueueSnackbar } = useSnackbar();
     const gridVariants: Variants = {
@@ -70,7 +68,6 @@ export default function ChoiceMenu(props: IProps) {
         })
             .then(() => {
                 queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
-                notifyReloadInterfaceDataEvent((prev) => prev + 1)
                 setLoading(false)
             })
             .catch((e) => {

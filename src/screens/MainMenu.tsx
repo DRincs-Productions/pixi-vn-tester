@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import { useSetRecoilState } from 'recoil';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openSettingsState } from '../atoms/openSettingsState';
-import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import MenuButton from '../components/MenuButton';
 import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utilities/navigate-utility';
@@ -17,7 +16,6 @@ import { loadGameSaveFromFile } from '../utilities/save-utility';
 export default function MainMenu() {
     const navigate = useMyNavigate();
     const setOpenSettings = useSetRecoilState(openSettingsState);
-    const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const setHideInterface = useSetRecoilState(hideInterfaceState);
     const { enqueueSnackbar } = useSnackbar();
     const { t } = useTranslation(["interface"]);
@@ -55,10 +53,7 @@ export default function MainMenu() {
                         navigate: navigate,
                         t: tNarration,
                         notify: (message, variant) => enqueueSnackbar(message, { variant }),
-                    }).then(() => {
-                        queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
-                        notifyReloadInterfaceDataEvent((prev) => prev + 1)
-                    })
+                    }).then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))
                 }}
                 transitionDelay={0.1}
             >
@@ -66,10 +61,7 @@ export default function MainMenu() {
             </MenuButton>
             <MenuButton
                 onClick={() => {
-                    loadGameSaveFromFile(navigate, () => {
-                        queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
-                        notifyReloadInterfaceDataEvent((prev) => prev + 1)
-                    })
+                    loadGameSaveFromFile(navigate, () => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))
                 }}
                 transitionDelay={0.2}
             >

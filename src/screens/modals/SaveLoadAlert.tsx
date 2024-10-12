@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { openGameSaveScreenState } from '../../atoms/openGameSaveScreenState';
-import { reloadInterfaceDataEventAtom } from '../../atoms/reloadInterfaceDataEventAtom';
 import { saveLoadAlertState } from '../../atoms/saveLoadAlertState';
 import ModalConfirmation from '../../components/ModalConfirmation';
 import { INTERFACE_DATA_USE_QUEY_KEY } from '../../use_query/useQueryInterface';
@@ -17,7 +16,6 @@ import { deleteSaveFromIndexDB, loadSave, putSaveIntoIndexDB } from '../../utili
 
 export default function SaveLoadAlert() {
     const navigate = useMyNavigate();
-    const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const [alertData, setAlertData] = useRecoilState(saveLoadAlertState);
     const { t } = useTranslation(["interface"]);
     const { enqueueSnackbar } = useSnackbar();
@@ -83,7 +81,6 @@ export default function SaveLoadAlert() {
                     case "load":
                         return loadSave(alertData.data, navigate)
                             .then(() => {
-                                notifyLoadEvent((prev) => prev + 1)
                                 queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
                                 enqueueSnackbar(t("success_load"), { variant: 'success' })
                                 openGameSaveScreen(false)

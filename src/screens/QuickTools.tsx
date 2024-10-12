@@ -10,7 +10,6 @@ import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
 import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
-import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
@@ -26,7 +25,6 @@ export default function QuickTools() {
     const setOpenHistory = useSetRecoilState(openHistoryScreenState);
     const openSaveScreen = useSetRecoilState(openGameSaveScreenState);
     const navigate = useMyNavigate();
-    const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
     const { t } = useTranslation(["interface"]);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
@@ -69,10 +67,7 @@ export default function QuickTools() {
                 transition={{ type: "tween" }}
             >
                 <TextMenuButton
-                    onClick={() => goBack(navigate).then(() => {
-                        notifyLoadEvent((prev) => prev + 1)
-                        queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
-                    })}
+                    onClick={() => goBack(navigate).then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))}
                     disabled={!canGoBack}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >

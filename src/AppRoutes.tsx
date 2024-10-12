@@ -4,7 +4,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import { Route, Routes } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { nextStepLoadingState } from './atoms/nextStepLoadingState';
-import { reloadInterfaceDataEventAtom } from './atoms/reloadInterfaceDataEventAtom';
 import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
 import GameSaveScreen from './screens/GameSaveScreen';
 import HistoryScreen from './screens/HistoryScreen';
@@ -17,7 +16,6 @@ import QuickTools from './screens/QuickTools';
 import { INTERFACE_DATA_USE_QUEY_KEY } from './use_query/useQueryInterface';
 
 export default function AppRoutes() {
-    const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const setNextStepLoading = useSetRecoilState(nextStepLoadingState);
     const queryClient = useQueryClient()
 
@@ -31,7 +29,6 @@ export default function AppRoutes() {
             narration.goNext(props)
                 .then(() => {
                     queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
-                    notifyReloadInterfaceDataEvent((p) => p + 1);
                     setNextStepLoading(false);
                 })
                 .catch((e) => {
