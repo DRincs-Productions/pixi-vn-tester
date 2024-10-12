@@ -1,5 +1,6 @@
-import { narration } from "@drincs/pixi-vn";
+import { CharacterBaseModel, getCharacterById, narration } from "@drincs/pixi-vn";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 export const INTERFACE_DATA_USE_QUEY_KEY = "interface_data_use_quey_key";
 
@@ -32,6 +33,30 @@ export function useQueryInputValue() {
 				isRequired: narration.isRequiredInput,
 				type: narration.inputType,
 				currentValue: narration.inputValue,
+			}
+		},
+	});
+}
+
+const DIALOGUE_USE_QUEY_KEY = "dialogue_use_quey_key";
+export function useQueryDialogue() {
+	const { t: tNarration } = useTranslation(["narration"]);
+
+	return useQuery({
+		queryKey: [INTERFACE_DATA_USE_QUEY_KEY, DIALOGUE_USE_QUEY_KEY],
+		queryFn: () => {
+			let dialogue = narration.dialogue
+			let newText: string | undefined = dialogue?.text
+			let newCharacter: CharacterBaseModel | undefined = undefined
+			if (dialogue) {
+				newCharacter = dialogue.character ? getCharacterById(dialogue.character) : undefined
+				if (!newCharacter && dialogue.character) {
+					newCharacter = new CharacterBaseModel(dialogue.character, { name: tNarration(dialogue.character) })
+				}
+			}
+			return {
+				text: newText,
+				character: newCharacter,
 			}
 		},
 	});

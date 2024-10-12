@@ -5,7 +5,6 @@ import { Route, Routes } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { nextStepLoadingState } from './atoms/nextStepLoadingState';
 import { reloadInterfaceDataEventAtom } from './atoms/reloadInterfaceDataEventAtom';
-import DialogueDataEventInterceptor from './interceptors/DialogueDataEventInterceptor';
 import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
 import GameSaveScreen from './screens/GameSaveScreen';
 import HistoryScreen from './screens/HistoryScreen';
@@ -57,7 +56,6 @@ export default function AppRoutes() {
                     <GameSaveScreen />
                     <SaveLoadAlert />
                     <QuickTools />
-                    <DialogueDataEventInterceptor />
                     <NarrationScreen
                         nextOnClick={nextOnClick}
                     />

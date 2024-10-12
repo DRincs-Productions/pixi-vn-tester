@@ -4,14 +4,13 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
-import { dialogDataState } from '../../atoms/dialogDataState';
 import { typewriterIsAnimatedState } from '../../atoms/typewriterIsAnimatedState';
 import ModalDialogCustom from '../../components/ModalDialog';
 import TypewriterMarkdown from '../../components/TypewriterMarkdown';
-import { INTERFACE_DATA_USE_QUEY_KEY, useQueryInputValue } from '../../use_query/useQueryInterface';
+import { INTERFACE_DATA_USE_QUEY_KEY, useQueryDialogue, useQueryInputValue } from '../../use_query/useQueryInterface';
 
 export default function TextInput() {
-    const { text } = useRecoilValue(dialogDataState)
+    const { data: { text } = {} } = useQueryDialogue()
     const { data: { isRequired, type } = { currentValue: undefined, isRequired: false } } = useQueryInputValue();
     const open = (!useRecoilValue(typewriterIsAnimatedState)) && isRequired
     const [tempValue, setTempValue] = useState();
