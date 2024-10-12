@@ -16,6 +16,7 @@ import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
 import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../use_query/useQueryLastSave';
+import { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySaves';
 import { goBack } from '../utilities/actions-utility';
 import { useMyNavigate } from '../utilities/navigate-utility';
 import { putSaveIntoIndexDB } from '../utilities/save-utility';
@@ -109,6 +110,7 @@ export default function QuickTools() {
                     onClick={() => {
                         putSaveIntoIndexDB()
                             .then((save) => {
+                                queryClient.setQueryData([SAVES_USE_QUEY_KEY, save.id], save);
                                 queryClient.setQueryData([LAST_SAVE_USE_QUEY_KEY], save);
                                 enqueueSnackbar(t("success_save"), { variant: 'success' })
                             })
