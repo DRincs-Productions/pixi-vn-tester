@@ -1,26 +1,33 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import UnarchiveIcon from '@mui/icons-material/Unarchive';
 import { AspectRatio, Grid, IconButton, Skeleton, Stack, Theme, Typography, useTheme } from "@mui/joy";
-import { Pagination, useMediaQuery } from '@mui/material';
+import { Pagination, Tooltip, useMediaQuery } from '@mui/material';
+import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { openSaveScreenState } from '../atoms/openSaveScreenState';
+import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
+import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { saveScreenPageState } from '../atoms/saveScreenPageState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TypographyShadow from "../components/TypographyShadow";
 import GameSaveData from '../models/GameSaveData';
 import useQuerySave from '../use_query/useQuerySave';
-import { downloadGameSave } from '../utilities/save-utility';
+import { useMyNavigate } from '../utilities/navigate-utility';
+import { downloadGameSave, loadGameSaveFromFile } from '../utilities/save-utility';
 
 export default function GameSaveScreen() {
-    const [open, setOpen] = useRecoilState(openSaveScreenState);
+    const [open, setOpen] = useRecoilState(openGameSaveScreenState);
     const { t } = useTranslation(["interface"]);
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg"));
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
     const [page, setPage] = useRecoilState(saveScreenPageState);
+    const navigate = useMyNavigate();
+    const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
+    const { enqueueSnackbar } = useSnackbar();
 
     return (
         <ModalDialogCustom
@@ -36,6 +43,35 @@ export default function GameSaveScreen() {
                 paddingBottom: 6,
             }}
         >
+            <Stack
+                direction={"row"}
+                sx={{
+                    position: "absolute",
+                    top: 10,
+                    right: 40,
+                }}
+            >
+                <Tooltip title={t("load_from_file")}>
+                    <IconButton
+                        size="lg"
+                        onClick={() => loadGameSaveFromFile(navigate, () => {
+                            notifyLoadEvent((prev) => prev + 1)
+                            enqueueSnackbar(t("success_load"), { variant: 'success' })
+                            setOpen(false)
+                        })}
+                    >
+                        <FolderOpenIcon fontSize="large" />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title={t("save_to_file")}>
+                    <IconButton
+                        size="lg"
+                        onClick={() => { downloadGameSave() }}
+                    >
+                        <DownloadIcon fontSize="large" />
+                    </IconButton>
+                </Tooltip>
+            </Stack>
             <Grid
                 container
             >
@@ -62,7 +98,7 @@ export default function GameSaveScreen() {
                 })}
             </Grid>
             <Pagination
-                count={99}
+                count={Infinity}
                 siblingCount={smScreen ? 2 : 7}
                 page={page + 1}
                 onChange={(_event, value) => setPage(value - 1)}
@@ -132,6 +168,7 @@ function GameSaveSlot({ saveId, onDelete, onLoad, onOverwriteSave, onSave }: {
 
     return (
         <AspectRatio
+            objectFit="contain"
             sx={{
                 borderRadius: 10,
                 margin: { xs: 1, sm: 2, md: 1, lg: 2 },

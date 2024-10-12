@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { lastSaveState } from '../../atoms/lastSaveState';
+import { openGameSaveScreenState } from '../../atoms/openGameSaveScreenState';
 import { reloadInterfaceDataEventAtom } from '../../atoms/reloadInterfaceDataEventAtom';
 import { saveLoadAlertState } from '../../atoms/saveLoadAlertState';
 import ModalConfirmation from '../../components/ModalConfirmation';
@@ -22,6 +23,7 @@ export default function SaveLoadAlert() {
     const { enqueueSnackbar } = useSnackbar();
     const queryClient = useQueryClient()
     const [tempSaveName, setTempSaveName] = useState<string>("")
+    const openGameSaveScreen = useSetRecoilState(openGameSaveScreenState);
 
     useEffect(() => {
         window.addEventListener('keydown', onkeydown);
@@ -79,6 +81,7 @@ export default function SaveLoadAlert() {
                             .then(() => {
                                 notifyLoadEvent((prev) => prev + 1)
                                 enqueueSnackbar(t("success_load"), { variant: 'success' })
+                                openGameSaveScreen(false)
                                 return true
                             })
                             .catch(() => {

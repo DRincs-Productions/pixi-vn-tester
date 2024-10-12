@@ -49,7 +49,9 @@
 		"save_slot": "Save Slot",
 		"success_delete": "Delete successful",
 		"fail_load": "Load failed",
-		"fail_delete": "Delete failed"
+		"fail_delete": "Delete failed",
+		"load_from_file": "Load from File",
+		"save_to_file": "Save to File"
 	},
     "narration": {
     }
