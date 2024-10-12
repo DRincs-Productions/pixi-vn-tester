@@ -127,7 +127,7 @@ export default function QuickTools() {
                     disabled={!lastSave}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
-                    {t("quick_load_restricted")}
+                    {t("load_last_save_restricted")}
                 </TextMenuButton>
                 <TextMenuButton
                     onClick={() => setOpenSettings(true)}
