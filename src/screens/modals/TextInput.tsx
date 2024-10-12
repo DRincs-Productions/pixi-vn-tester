@@ -1,16 +1,21 @@
+import { narration } from '@drincs/pixi-vn';
 import { Button, Input } from '@mui/joy';
+import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { dialogDataState } from '../../atoms/dialogDataState';
-import { inputOptionsState } from '../../atoms/inputOptionsState';
+import { typewriterIsAnimatedState } from '../../atoms/typewriterIsAnimatedState';
 import ModalDialogCustom from '../../components/ModalDialog';
 import TypewriterMarkdown from '../../components/TypewriterMarkdown';
+import { INTERFACE_DATA_USE_QUEY_KEY, useQueryInputValue } from '../../use_query/useQueryInterface';
 
 export default function TextInput() {
     const { text } = useRecoilValue(dialogDataState)
-    const [{ open, type }, setOptions] = useRecoilState(inputOptionsState);
+    const { data: { isRequired, type } = { currentValue: undefined, isRequired: false } } = useQueryInputValue();
+    const open = (!useRecoilValue(typewriterIsAnimatedState)) && isRequired
     const [tempValue, setTempValue] = useState();
+    const queryClient = useQueryClient()
     const { t } = useTranslation(["interface"]);
 
     return (
@@ -18,7 +23,8 @@ export default function TextInput() {
             open={open}
             setOpen={(value) => {
                 if (!value) {
-                    setOptions((prev) => ({ ...prev, currentValue: tempValue }));
+                    narration.inputValue = tempValue
+                    queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
                 }
             }}
             canBeIgnored={false}
@@ -29,7 +35,8 @@ export default function TextInput() {
                     color='primary'
                     variant="outlined"
                     onClick={() => {
-                        setOptions((prev) => ({ ...prev, currentValue: tempValue }));
+                        narration.inputValue = tempValue
+                        queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
                     }}
                 >
                     {t("confirm")}
