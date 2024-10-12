@@ -1,14 +1,17 @@
 import AutoModeIcon from '@mui/icons-material/AutoMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import DownloadIcon from '@mui/icons-material/Download';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import HdrAutoIcon from '@mui/icons-material/HdrAuto';
 import HistoryIcon from '@mui/icons-material/History';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
+import SaveIcon from '@mui/icons-material/Save';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
@@ -23,8 +26,10 @@ import { useLocation } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { autoInfoState } from '../atoms/autoInfoState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
+import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
 import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
+import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
@@ -35,7 +40,7 @@ import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../use_query/useQueryL
 import { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySaves';
 import { gameEnd } from '../utilities/actions-utility';
 import { useMyNavigate } from '../utilities/navigate-utility';
-import { putSaveIntoIndexDB } from '../utilities/save-utility';
+import { downloadGameSave, loadGameSaveFromFile, putSaveIntoIndexDB } from '../utilities/save-utility';
 
 export default function Settings() {
     const [open, setOpen] = useRecoilState(openSettingsState);
@@ -53,6 +58,8 @@ export default function Settings() {
     const setOpenHistory = useSetRecoilState(openHistoryScreenState);
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
+    const openSaveScreen = useSetRecoilState(openGameSaveScreenState);
+    const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const queryClient = useQueryClient()
     const { enqueueSnackbar } = useSnackbar();
     const {
@@ -120,21 +127,52 @@ export default function Settings() {
                                         gap: 1.5,
                                     }}
                                 >
-                                    {/* <SettingButton
-                                        onClick={downloadGameSave}
+                                    <SettingButton
+                                        checked={skip}
+                                        onClick={() => setSkip((prev) => !prev)}
                                     >
-                                        <SaveIcon />
-                                        <Typography level="title-md">{t("save")}</Typography>
+                                        <FastForwardIcon />
+                                        <Typography level="title-md">{t("skip")}</Typography>
+                                        <Typography
+                                            sx={{
+                                                position: 'absolute',
+                                                top: 10,
+                                                right: 10,
+                                            }}
+                                            level="body-md"
+                                        >
+                                            Press Space
+                                        </Typography>
                                     </SettingButton>
                                     <SettingButton
-                                        onClick={() => loadGameSave(navigate, () => {
-                                            notifyLoadEvent((prev) => prev + 1)
-                                            enqueueSnackbar(t("success_load"), { variant: 'success' })
-                                        })}
+                                        checked={auto.enabled}
+                                        onClick={() => setAuto((prev) => ({
+                                            ...prev,
+                                            enabled: !prev.enabled
+                                        }))}
                                     >
-                                        <FileUploadIcon />
-                                        <Typography level="title-md">{t("load")}</Typography>
-                                    </SettingButton> */}
+                                        <HdrAutoIcon />
+                                        <Typography level="title-md">{t("auto_forward_time_restricted")}</Typography>
+                                    </SettingButton>
+                                    <SettingButton
+                                        onClick={() => {
+                                            setOpenHistory(true)
+                                            setOpen(false)
+                                        }}
+                                    >
+                                        <HistoryIcon />
+                                        <Typography level="title-md">{t("history")}</Typography>
+                                        <Typography
+                                            sx={{
+                                                position: 'absolute',
+                                                top: 10,
+                                                right: 10,
+                                            }}
+                                            level="body-md"
+                                        >
+                                            Shift+H
+                                        </Typography>
+                                    </SettingButton>
                                     <SettingButton
                                         onClick={() => {
                                             putSaveIntoIndexDB()
@@ -182,6 +220,31 @@ export default function Settings() {
                                         </Typography>
                                     </SettingButton>
                                     <SettingButton
+                                        onClick={() => {
+                                            openSaveScreen(true)
+                                            setOpen(false)
+                                        }}
+                                    >
+                                        <SaveIcon />
+                                        <Typography level="title-md">{t(`${t("save")}/${t("load")}`)}</Typography>
+                                    </SettingButton>
+                                    <SettingButton
+                                        onClick={() => downloadGameSave()}
+                                    >
+                                        <DownloadIcon />
+                                        <Typography level="title-md">{t("save_to_file")}</Typography>
+                                    </SettingButton>
+                                    <SettingButton
+                                        onClick={() => loadGameSaveFromFile(navigate, () => {
+                                            notifyLoadEvent((prev) => prev + 1)
+                                            enqueueSnackbar(t("success_load"), { variant: 'success' })
+                                            setOpen(false)
+                                        })}
+                                    >
+                                        <FolderOpenIcon />
+                                        <Typography level="title-md">{t("load_from_file")}</Typography>
+                                    </SettingButton>
+                                    <SettingButton
                                         checked={hideInterface}
                                         onClick={() => setHideInterface((prev) => !prev)}
                                     >
@@ -197,52 +260,6 @@ export default function Settings() {
                                         >
                                             Shift+V
                                         </Typography>
-                                    </SettingButton>
-                                    <SettingButton
-                                        onClick={() => {
-                                            setOpenHistory(true)
-                                            setOpen(false)
-                                        }}
-                                    >
-                                        <HistoryIcon />
-                                        <Typography level="title-md">{t("history")}</Typography>
-                                        <Typography
-                                            sx={{
-                                                position: 'absolute',
-                                                top: 10,
-                                                right: 10,
-                                            }}
-                                            level="body-md"
-                                        >
-                                            Shift+H
-                                        </Typography>
-                                    </SettingButton>
-                                    <SettingButton
-                                        checked={skip}
-                                        onClick={() => setSkip((prev) => !prev)}
-                                    >
-                                        <FastForwardIcon />
-                                        <Typography level="title-md">{t("skip")}</Typography>
-                                        <Typography
-                                            sx={{
-                                                position: 'absolute',
-                                                top: 10,
-                                                right: 10,
-                                            }}
-                                            level="body-md"
-                                        >
-                                            Press Space
-                                        </Typography>
-                                    </SettingButton>
-                                    <SettingButton
-                                        checked={auto.enabled}
-                                        onClick={() => setAuto((prev) => ({
-                                            ...prev,
-                                            enabled: !prev.enabled
-                                        }))}
-                                    >
-                                        <HdrAutoIcon />
-                                        <Typography level="title-md">{t("auto_forward_time_restricted")}</Typography>
                                     </SettingButton>
                                 </Box>
                             </RadioGroup>
