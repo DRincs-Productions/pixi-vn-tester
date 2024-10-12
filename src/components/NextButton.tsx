@@ -5,9 +5,10 @@ import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { hideNextButtonState } from '../atoms/hideNextButtonState';
+import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { nextStepLoadingState } from '../atoms/nextStepLoadingState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
+import { useQueryCanGoNext } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utilities/navigate-utility';
 
 export default function NextButton({ nextOnClick }: {
@@ -15,7 +16,8 @@ export default function NextButton({ nextOnClick }: {
 }) {
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const nextStepLoading = useRecoilValue(nextStepLoadingState)
-    const hideNextButton = useRecoilValue(hideNextButtonState)
+    const { data: canGoNext = false } = useQueryCanGoNext()
+    const hideNextButton = useRecoilValue(hideInterfaceState) || !canGoNext
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useMyNavigate();
     const { t } = useTranslation(["interface"]);

@@ -61,3 +61,13 @@ export function useQueryDialogue() {
 		},
 	});
 }
+
+const CAN_GO_NEXT_USE_QUEY_KEY = "can_go_next_use_quey_key";
+export function useQueryCanGoNext() {
+	return useQuery({
+		queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CAN_GO_NEXT_USE_QUEY_KEY],
+		queryFn: () => {
+			return narration.canGoNext && !narration.isRequiredInput
+		},
+	});
+}
