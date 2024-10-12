@@ -9,7 +9,7 @@ import { openGameSaveScreenState } from '../../atoms/openGameSaveScreenState';
 import { reloadInterfaceDataEventAtom } from '../../atoms/reloadInterfaceDataEventAtom';
 import { saveLoadAlertState } from '../../atoms/saveLoadAlertState';
 import ModalConfirmation from '../../components/ModalConfirmation';
-import { RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY } from '../../use_query/useQueryInterface';
+import { INTERFACE_DATA_USE_QUEY_KEY } from '../../use_query/useQueryInterface';
 import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../../use_query/useQueryLastSave';
 import { SAVES_USE_QUEY_KEY } from '../../use_query/useQuerySaves';
 import { useMyNavigate } from '../../utilities/navigate-utility';
@@ -84,7 +84,7 @@ export default function SaveLoadAlert() {
                         return loadSave(alertData.data, navigate)
                             .then(() => {
                                 notifyLoadEvent((prev) => prev + 1)
-                                queryClient.invalidateQueries({ queryKey: [RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY] })
+                                queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
                                 enqueueSnackbar(t("success_load"), { variant: 'success' })
                                 openGameSaveScreen(false)
                                 return true

@@ -16,7 +16,7 @@ import { saveScreenPageState } from '../atoms/saveScreenPageState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TypographyShadow from "../components/TypographyShadow";
 import GameSaveData from '../models/GameSaveData';
-import { RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY } from '../use_query/useQueryInterface';
+import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import useQuerySaves from '../use_query/useQuerySaves';
 import { useMyNavigate } from '../utilities/navigate-utility';
 import { downloadGameSave, loadGameSaveFromFile } from '../utilities/save-utility';
@@ -59,7 +59,7 @@ export default function GameSaveScreen() {
                         size="lg"
                         onClick={() => loadGameSaveFromFile(navigate, () => {
                             notifyLoadEvent((prev) => prev + 1)
-                            queryClient.invalidateQueries({ queryKey: [RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY] })
+                            queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
                             enqueueSnackbar(t("success_load"), { variant: 'success' })
                             setOpen(false)
                         })}

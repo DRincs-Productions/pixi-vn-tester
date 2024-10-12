@@ -15,7 +15,7 @@ import SaveLoadAlert from './screens/modals/SaveLoadAlert';
 import TextInput from './screens/modals/TextInput';
 import NarrationScreen from './screens/NarrationScreen';
 import QuickTools from './screens/QuickTools';
-import { RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY } from './use_query/useQueryInterface';
+import { INTERFACE_DATA_USE_QUEY_KEY } from './use_query/useQueryInterface';
 
 export default function AppRoutes() {
     const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
@@ -31,7 +31,7 @@ export default function AppRoutes() {
             }
             narration.goNext(props)
                 .then(() => {
-                    queryClient.invalidateQueries({ queryKey: [RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY] })
+                    queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
                     notifyReloadInterfaceDataEvent((p) => p + 1);
                     setNextStepLoading(false);
                 })

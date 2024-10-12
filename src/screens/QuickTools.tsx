@@ -14,8 +14,7 @@ import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventA
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
-import useQueryCanGoBack from '../use_query/useQueryCanGoBack';
-import { RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY } from '../use_query/useQueryInterface';
+import { INTERFACE_DATA_USE_QUEY_KEY, useQueryCanGoBack } from '../use_query/useQueryInterface';
 import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../use_query/useQueryLastSave';
 import { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySaves';
 import { goBack } from '../utilities/actions-utility';
@@ -72,7 +71,7 @@ export default function QuickTools() {
                 <TextMenuButton
                     onClick={() => goBack(navigate).then(() => {
                         notifyLoadEvent((prev) => prev + 1)
-                        queryClient.invalidateQueries({ queryKey: [RELOAD_INTERFACE_DATA_EVENT_USE_QUEY_KEY] })
+                        queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
                     })}
                     disabled={!canGoBack}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
