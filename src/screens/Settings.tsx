@@ -9,12 +9,10 @@ import HdrAutoIcon from '@mui/icons-material/HdrAuto';
 import HistoryIcon from '@mui/icons-material/History';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
-import SaveIcon from '@mui/icons-material/Save';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
 import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormControl, FormHelperText, FormLabel, IconButton, ModalClose, RadioGroup, Sheet, Slider, Stack, ToggleButtonGroup, Tooltip, Typography, useColorScheme } from "@mui/joy";
 import { Theme, useColorScheme as useColorSchemeMaterial, useMediaQuery } from '@mui/material';
-import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { HuePicker } from 'react-color';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +20,6 @@ import { useLocation } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { autoInfoState } from '../atoms/autoInfoState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
-import { lastSaveState } from '../atoms/lastSaveState';
 import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
@@ -31,9 +28,9 @@ import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
 import { useEditColorProvider } from '../providers/ThemeProvider';
+import useQueryLastSave from '../use_query/useQueryLastSave';
 import { gameEnd } from '../utilities/actions-utility';
 import { useMyNavigate } from '../utilities/navigate-utility';
-import { putSaveIntoIndexDB } from '../utilities/save-utility';
 
 export default function Settings() {
     const [open, setOpen] = useRecoilState(openSettingsState);
@@ -51,8 +48,9 @@ export default function Settings() {
     const setOpenHistory = useSetRecoilState(openHistoryScreenState);
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
-    const [lastSave, setLastSave] = useRecoilState(lastSaveState)
-    const { enqueueSnackbar } = useSnackbar();
+    const {
+        data: lastSave = null,
+    } = useQueryLastSave()
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
     useEffect(() => {
@@ -130,7 +128,7 @@ export default function Settings() {
                                         <FileUploadIcon />
                                         <Typography level="title-md">{t("load")}</Typography>
                                     </SettingButton> */}
-                                    <SettingButton
+                                    {/* <SettingButton
                                         onClick={() => {
                                             putSaveIntoIndexDB()
                                                 .then((save) => {
@@ -154,7 +152,7 @@ export default function Settings() {
                                         >
                                             Shift+S
                                         </Typography>
-                                    </SettingButton>
+                                    </SettingButton> */}
                                     <SettingButton
                                         onClick={() => {
                                             lastSave && setOpenLoadAlert({ open: true, data: lastSave, type: 'load' })

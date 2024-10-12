@@ -15,7 +15,7 @@ import { saveScreenPageState } from '../atoms/saveScreenPageState';
 import ModalDialogCustom from '../components/ModalDialog';
 import TypographyShadow from "../components/TypographyShadow";
 import GameSaveData from '../models/GameSaveData';
-import useQuerySave from '../use_query/useQuerySave';
+import useQuerySaves from '../use_query/useQuerySaves';
 import { useMyNavigate } from '../utilities/navigate-utility';
 import { downloadGameSave, loadGameSaveFromFile } from '../utilities/save-utility';
 
@@ -129,7 +129,7 @@ function GameSaveSlot({ saveId, onDelete, onLoad, onOverwriteSave, onSave }: {
         isLoading,
         data: saveData,
         isError,
-    } = useQuerySave({ id: saveId })
+    } = useQuerySaves({ id: saveId })
 
     if (isLoading) {
         return (

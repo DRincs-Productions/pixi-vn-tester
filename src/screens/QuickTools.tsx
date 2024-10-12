@@ -1,5 +1,6 @@
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { IconButton, Stack, useTheme } from '@mui/joy';
+import { useQueryClient } from '@tanstack/react-query';
 import { motion } from "framer-motion";
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +8,6 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { autoInfoState } from '../atoms/autoInfoState';
 import { canGoBackState } from '../atoms/canGoBackState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
-import { lastSaveState } from '../atoms/lastSaveState';
 import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
 import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
@@ -15,9 +15,10 @@ import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventA
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
+import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../use_query/useQueryLastSave';
 import { goBack } from '../utilities/actions-utility';
 import { useMyNavigate } from '../utilities/navigate-utility';
-import { loadGameSaveFromFile, putSaveIntoIndexDB } from '../utilities/save-utility';
+import { putSaveIntoIndexDB } from '../utilities/save-utility';
 
 export default function QuickTools() {
     const setOpenSettings = useSetRecoilState(openSettingsState);
@@ -31,8 +32,11 @@ export default function QuickTools() {
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const [auto, setAuto] = useRecoilState(autoInfoState)
     const canGoBack = useRecoilValue(canGoBackState)
-    const [lastSave, setLastSave] = useRecoilState(lastSaveState)
     const { enqueueSnackbar } = useSnackbar();
+    const queryClient = useQueryClient()
+    const {
+        data: lastSave = null,
+    } = useQueryLastSave()
 
     return (
         <>
@@ -102,19 +106,10 @@ export default function QuickTools() {
                     {t(`${t("save")}/${t("load")}`)}
                 </TextMenuButton>
                 <TextMenuButton
-                    onClick={() => loadGameSaveFromFile(navigate, () => {
-                        notifyLoadEvent((prev) => prev + 1)
-                        enqueueSnackbar(t("success_load"), { variant: 'success' })
-                    })}
-                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
-                >
-                    {t("load")}
-                </TextMenuButton>
-                <TextMenuButton
                     onClick={() => {
                         putSaveIntoIndexDB()
                             .then((save) => {
-                                setLastSave(save)
+                                queryClient.setQueryData([LAST_SAVE_USE_QUEY_KEY], save);
                                 enqueueSnackbar(t("success_save"), { variant: 'success' })
                             })
                             .catch(() => {
