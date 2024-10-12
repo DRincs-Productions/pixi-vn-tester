@@ -1,15 +1,16 @@
 import { ChoiceMenuOption, ChoiceMenuOptionClose, narration } from '@drincs/pixi-vn';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { Box, Grid } from '@mui/joy';
+import { useQueryClient } from '@tanstack/react-query';
 import { motion, Variants } from "framer-motion";
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { choiceMenuState } from '../atoms/choiceMenuState';
+import { useRecoilValue } from 'recoil';
 import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
-import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
+import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import ChoiceButton from '../components/ChoiceButton';
+import { INTERFACE_DATA_USE_QUEY_KEY, useQueryChoiceMenuOptions } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utilities/navigate-utility';
 
 type IProps = {
@@ -25,8 +26,9 @@ export default function ChoiceMenu(props: IProps) {
     const height = 100 - marginButton
     const { t: tNarration } = useTranslation(["narration"]);
     const navigate = useMyNavigate();
-    const { menu, hidden } = useRecoilValue(choiceMenuState)
-    const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
+    const { data: menu = [] } = useQueryChoiceMenuOptions()
+    const hideInterface = useRecoilValue(hideInterfaceState) || menu.length == 0;
+    const queryClient = useQueryClient()
     const { enqueueSnackbar } = useSnackbar();
     const gridVariants: Variants = {
         open: {
@@ -65,7 +67,7 @@ export default function ChoiceMenu(props: IProps) {
             ...item.props
         })
             .then(() => {
-                notifyReloadInterfaceDataEvent((prev) => prev + 1)
+                queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
                 setLoading(false)
             })
             .catch((e) => {
@@ -83,7 +85,7 @@ export default function ChoiceMenu(props: IProps) {
                 left: 0,
                 right: 0,
                 height: fullscreen ? "100%" : `${height}%`,
-                pointerEvents: hidden ? "none" : "auto",
+                pointerEvents: hideInterface ? "none" : "auto",
             }}
         >
             <Grid
@@ -100,7 +102,7 @@ export default function ChoiceMenu(props: IProps) {
                 }}
                 component={motion.div}
                 variants={gridVariants}
-                animate={hidden ? "closed" : "open"}
+                animate={hideInterface ? "closed" : "open"}
             >
                 {menu?.map((item, index) => {
                     return (

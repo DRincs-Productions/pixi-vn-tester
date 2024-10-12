@@ -1,19 +1,20 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
-import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
+import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import { initializeIndexedDB } from '../utilities/indexedDB-utility';
 import { useMyNavigate } from '../utilities/navigate-utility';
 import { addRefreshSave, loadRefreshSave } from '../utilities/save-utility';
 
 export default function EventInterceptor() {
-    const notifyLoadEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const navigate = useMyNavigate();
+    const queryClient = useQueryClient()
 
     useEffect(() => {
         Promise.all([loadRefreshSave(navigate), initializeIndexedDB()])
-            .then(() => notifyLoadEvent((prev) => prev + 1))
+            .then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))
         window.addEventListener("beforeunload", async () => {
             await addRefreshSave()
         });
