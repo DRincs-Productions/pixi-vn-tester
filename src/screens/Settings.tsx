@@ -20,7 +20,8 @@ import { Theme, useColorScheme as useColorSchemeMaterial, useMediaQuery } from '
 import { useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
-import { HuePicker } from 'react-color';
+import { Hue, useColor } from "react-color-palette";
+import "react-color-palette/css";
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -47,6 +48,7 @@ export default function Settings() {
     const { mode, setMode } = useColorScheme();
     const { setMode: setModeMaterial } = useColorSchemeMaterial();
     const { primaryColor, setPrimaryColor, setSolidColor, solidColor } = useEditColorProvider()
+    const [tempColor, setTempColor] = useColor(primaryColor);
     const navigate = useMyNavigate();
     const location = useLocation();
     const [openYouSure, setOpenYouSure] = useState(false)
@@ -72,6 +74,17 @@ export default function Settings() {
             window.removeEventListener('keydown', onkeydown);
         };
     }, []);
+
+    useEffect(() => {
+        // Debouncing
+        let timeout = setTimeout(() => {
+            setPrimaryColor(tempColor.hex)
+        }, 50);
+
+        return () => {
+            clearTimeout(timeout)
+        }
+    }, [tempColor]);
 
     function onkeydown(event: KeyboardEvent) {
         if (event.code == 'Escape') {
@@ -421,17 +434,9 @@ export default function Settings() {
                                 paddingX: 3,
                             }}
                         >
-                            <HuePicker
-                                width='99%'
-                                color={primaryColor}
-                                onChange={(color) => setPrimaryColor(color.hex)}
-                                styles={{
-                                    default: {
-                                        picker: {
-                                            minHeight: '15px',
-                                        },
-                                    },
-                                }}
+                            <Hue
+                                color={tempColor}
+                                onChange={(color) => setTempColor(color)}
                             />
                         </Box>
 
