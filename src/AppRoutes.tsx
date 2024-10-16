@@ -1,22 +1,22 @@
+import { narration } from '@drincs/pixi-vn';
 import { StepLabelProps } from '@drincs/pixi-vn/dist/override';
+import { useQueryClient } from '@tanstack/react-query';
 import { Route, Routes } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { nextStepLoadingState } from './atoms/nextStepLoadingState';
-import { reloadInterfaceDataEventAtom } from './atoms/reloadInterfaceDataEventAtom';
-import DialogueDataEventInterceptor from './interceptors/DialogueDataEventInterceptor';
 import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
-import { narration } from './pixi-vn/src';
-import Dialogue from './screens/Dialogue';
-import History from './screens/History';
-import LoadingPage from './screens/LoadingPage';
+import HistoryScreen from './screens/HistoryScreen';
+import LoadingScreen from './screens/LoadingScreen';
 import MainMenu from './screens/MainMenu';
-import QuickActions from './screens/QuickActions';
-import QuickLoadAlert from './screens/QuickLoadAlert';
-import TextInput from './screens/TextInput';
+import TextInput from './screens/modals/TextInput';
+import NarrationScreen from './screens/NarrationScreen';
+import QuickTools from './screens/QuickTools';
+import { INTERFACE_DATA_USE_QUEY_KEY } from './use_query/useQueryInterface';
 
 export default function AppRoutes() {
-    const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const setNextStepLoading = useSetRecoilState(nextStepLoadingState);
+    const queryClient = useQueryClient()
+
     async function nextOnClick(props: StepLabelProps): Promise<void> {
         setNextStepLoading(true);
         try {
@@ -26,7 +26,7 @@ export default function AppRoutes() {
             }
             narration.goNext(props)
                 .then(() => {
-                    notifyReloadInterfaceDataEvent((p) => p + 1);
+                    queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
                     setNextStepLoading(false);
                 })
                 .catch((e) => {
@@ -44,14 +44,12 @@ export default function AppRoutes() {
     return (
         <Routes>
             <Route key={"main_menu"} path={"/"} element={<MainMenu />} />
-            <Route key={"main_menu"} path={"/loading"} element={<LoadingPage />} />
-            <Route key={"game"} path={"/game"}
+            <Route key={"main_menu"} path={"/loading"} element={<LoadingScreen />} />
+            <Route key={"narration"} path={"/narration"}
                 element={<>
-                    <History />
-                    <QuickLoadAlert />
-                    <QuickActions />
-                    <DialogueDataEventInterceptor />
-                    <Dialogue
+                    <HistoryScreen />
+                    <QuickTools />
+                    <NarrationScreen
                         nextOnClick={nextOnClick}
                     />
                     <SkipAutoInterceptor

@@ -8,23 +8,25 @@ import Typography from '@mui/joy/Typography';
 import { motion, Variants } from "framer-motion";
 import { useRef } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { dialogDataState } from '../atoms/dialogDataState';
 import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
 import { dialogueCardImageWidthState } from '../atoms/dialogueCardImageWidthState';
+import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import { typewriterIsAnimatedState } from '../atoms/typewriterIsAnimatedState';
+import NextButton from '../components/NextButton';
 import SliderResizer from '../components/SliderResizer';
 import TypewriterMarkdown from '../components/TypewriterMarkdown';
-import ChoicesMenu from './ChoicesMenu';
-import NextButton from './NextButton';
+import { useQueryDialogue } from '../use_query/useQueryInterface';
+import ChoiceMenu from './ChoiceMenu';
 
-export default function Dialogue({ nextOnClick }: {
+export default function NarrationScreen({ nextOnClick }: {
     nextOnClick: (props: StepLabelProps) => void,
 }) {
     const [cardHeight, setCardHeight] = useRecoilState(dialogueCardHeightState)
     const [cardImageWidth, setCardImageWidth] = useRecoilState(dialogueCardImageWidthState)
     const typewriterDelay = useRecoilValue(typewriterDelayState)
-    const { text, character, hidden } = useRecoilValue(dialogDataState)
+    const { data: { text, character } = {} } = useQueryDialogue()
+    const hidden = useRecoilValue(hideInterfaceState) || (text ? false : true)
     const setTypewriterIsAnimated = useSetRecoilState(typewriterIsAnimatedState)
     const cardVarians: Variants = {
         open: {
@@ -53,12 +55,10 @@ export default function Dialogue({ nextOnClick }: {
         open: {
             opacity: 1,
             x: 0,
-            pointerEvents: "auto",
         },
         closed: {
             opacity: 0,
             x: -100,
-            pointerEvents: "none",
         }
     }
     const paragraphRef = useRef<HTMLDivElement>(null);
@@ -74,32 +74,25 @@ export default function Dialogue({ nextOnClick }: {
                 top: 0,
             }}
         >
-            <ChoicesMenu
+            <ChoiceMenu
                 fullscreen={text ? false : true}
             />
-            <Box
-                sx={{
-                    height: '100%',
+            <SliderResizer
+                orientation="vertical"
+                max={100}
+                min={0}
+                value={cardHeight}
+                onChange={(_, value) => {
+                    if (typeof value === "number") {
+                        setCardHeight(value)
+                    }
                 }}
-                component={motion.div}
                 variants={cardVarians}
                 initial={"closed"}
                 animate={hidden ? "closed" : "open"}
                 exit={"closed"}
                 transition={{ type: "tween" }}
-            >
-                <SliderResizer
-                    orientation="vertical"
-                    max={100}
-                    min={0}
-                    value={cardHeight}
-                    onChange={(_, value) => {
-                        if (typeof value === "number") {
-                            setCardHeight(value)
-                        }
-                    }}
-                />
-            </Box>
+            />
             <Box
                 sx={{
                     position: "absolute",
@@ -155,14 +148,7 @@ export default function Dialogue({ nextOnClick }: {
                                 alt=""
                             />
                         </AspectRatio>}
-                        {character && <Box
-                            component={motion.div}
-                            variants={cardImageVarians}
-                            initial={"closed"}
-                            animate={character?.icon ? "open" : "closed"}
-                            exit={"closed"}
-                            transition={{ type: "tween" }}
-                        >
+                        {character &&
                             <SliderResizer
                                 orientation="horizontal"
                                 max={100}
@@ -179,8 +165,13 @@ export default function Dialogue({ nextOnClick }: {
                                         setCardImageWidth(value)
                                     }
                                 }}
+                                variants={cardImageVarians}
+                                initial={"closed"}
+                                animate={character?.icon ? "open" : "closed"}
+                                exit={"closed"}
+                                transition={{ type: "tween" }}
                             />
-                        </Box>}
+                        }
                         <CardContent>
                             {character && character.name && <Typography
                                 fontSize="xl"
