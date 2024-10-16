@@ -9,6 +9,7 @@ import { useRecoilValue } from 'recoil';
 import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import ChoiceButton from '../components/ChoiceButton';
+import { ChoiceMenuOption, ChoiceMenuOptionClose, narration } from "../pixi-vn/src";
 import { INTERFACE_DATA_USE_QUEY_KEY, useQueryChoiceMenuOptions } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utilities/navigate-utility';
 

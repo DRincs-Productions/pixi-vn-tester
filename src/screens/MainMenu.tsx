@@ -9,6 +9,7 @@ import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import MenuButton from '../components/MenuButton';
+import { addImage, canvas, clearAllGameDatas, narration, pixivnTestStartLabel } from '../pixi-vn/src';
 import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import useQueryLastSave from '../use_query/useQueryLastSave';
 import { useMyNavigate } from '../utilities/navigate-utility';
