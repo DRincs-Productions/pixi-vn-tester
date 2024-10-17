@@ -1,7 +1,7 @@
-import { canvas, narration } from '@drincs/pixi-vn'
 import { createRoot } from 'react-dom/client'
 import App from './App'
 import './index.css'
+import { canvas, narration } from './pixi-vn/src'
 import { gameEnd } from './utilities/actions-utility'
 
 // Canvas setup with PIXI

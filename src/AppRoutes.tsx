@@ -1,10 +1,10 @@
-import { narration } from '@drincs/pixi-vn';
 import { StepLabelProps } from '@drincs/pixi-vn/dist/override';
 import { useQueryClient } from '@tanstack/react-query';
 import { Route, Routes } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { nextStepLoadingState } from './atoms/nextStepLoadingState';
 import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
+import { narration } from './pixi-vn/src';
 import HistoryScreen from './screens/HistoryScreen';
 import LoadingScreen from './screens/LoadingScreen';
 import MainMenu from './screens/MainMenu';
