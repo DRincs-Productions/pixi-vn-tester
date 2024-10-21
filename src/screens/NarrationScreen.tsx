@@ -1,4 +1,3 @@
-import { StepLabelProps } from '@drincs/pixi-vn/dist/override';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
@@ -13,15 +12,12 @@ import { dialogueCardImageWidthState } from '../atoms/dialogueCardImageWidthStat
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import { typewriterIsAnimatedState } from '../atoms/typewriterIsAnimatedState';
-import NextButton from '../components/NextButton';
 import SliderResizer from '../components/SliderResizer';
 import TypewriterMarkdown from '../components/TypewriterMarkdown';
 import { useQueryDialogue } from '../use_query/useQueryInterface';
 import ChoiceMenu from './ChoiceMenu';
 
-export default function NarrationScreen({ nextOnClick }: {
-    nextOnClick: (props: StepLabelProps) => void,
-}) {
+export default function NarrationScreen() {
     const [cardHeight, setCardHeight] = useRecoilState(dialogueCardHeightState)
     const [cardImageWidth, setCardImageWidth] = useRecoilState(dialogueCardImageWidthState)
     const typewriterDelay = useRecoilValue(typewriterDelayState)
@@ -218,9 +214,6 @@ export default function NarrationScreen({ nextOnClick }: {
                         </CardContent>
                     </Card>
                 </Box>
-                <NextButton
-                    nextOnClick={nextOnClick}
-                />
             </Box>
         </Box>
     );
