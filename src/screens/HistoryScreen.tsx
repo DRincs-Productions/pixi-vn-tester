@@ -11,14 +11,14 @@ import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import ModalDialogCustom from '../components/ModalDialog';
-import { CharacterBaseModel, getCharacterById, narration } from '../pixi-vn/src';
+import { useQueryNarrativeHistory } from '../use_query/useQueryInterface';
 
 export default function HistoryScreen() {
     const [open, setOpen] = useRecoilState(openHistoryScreenState);
+    const { data = [] } = useQueryNarrativeHistory()
     const [searchString, setSearchString] = useState("")
     const { t } = useTranslation(["ui"]);
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
-    const { t: tNarration } = useTranslation(["narration"]);
 
     useEffect(() => {
         window.addEventListener('keydown', onkeydown);
@@ -73,17 +73,7 @@ export default function HistoryScreen() {
                 }}
             >
                 <Stack spacing={2} justifyContent="flex-end">
-                    {narration.narrativeHistory
-                        .map((step) => {
-                            let character = step.dialoge?.character ? getCharacterById(step.dialoge?.character) ?? new CharacterBaseModel(step.dialoge?.character, { name: tNarration(step.dialoge?.character) }) : undefined
-                            return {
-                                character: character?.name ? character.name + (character.surname ? " " + character.surname : "") : undefined,
-                                text: step.dialoge?.text || "",
-                                icon: character?.icon,
-                                choices: step.choices,
-                                inputValue: step.inputValue,
-                            }
-                        })
+                    {data
                         .filter((data) => {
                             if (!searchString) return true
                             return data.character?.toLowerCase().includes(searchString.toLowerCase()) || data.text?.toLowerCase().includes(searchString.toLowerCase())
