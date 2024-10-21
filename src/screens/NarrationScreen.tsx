@@ -13,7 +13,7 @@ import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import { typewriterIsAnimatedState } from '../atoms/typewriterIsAnimatedState';
 import SliderResizer from '../components/SliderResizer';
-import Typewriter from '../components/TypewriterMarkdown';
+import Typewriter from '../components/Typewriter';
 import { useQueryDialogue } from '../use_query/useQueryInterface';
 import ChoiceMenu from './ChoiceMenu';
 
