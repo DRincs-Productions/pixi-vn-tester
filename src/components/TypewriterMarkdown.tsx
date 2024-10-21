@@ -5,7 +5,7 @@ import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 
-function TypewriterMarkdownInternal({ children, letterVariants, dadElement, scrollOnLastItem }: {
+function TypewriterInternal({ children, letterVariants, dadElement, scrollOnLastItem }: {
     children: any
     letterVariants: Variants
     dadElement: (children: JSX.Element | JSX.Element[]) => JSX.Element | JSX.Element[]
@@ -57,7 +57,7 @@ function TypewriterMarkdownInternal({ children, letterVariants, dadElement, scro
     return dadElement(children)
 };
 
-export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplete, onAnimationStart, scroll }: {
+export default function Typewriter({ text, delay = 0, onAnimationComplete, onAnimationStart, scroll }: {
     text: string
     delay?: number
     onAnimationComplete?: () => void
@@ -87,7 +87,7 @@ export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplet
                 rehypePlugins={[rehypeRaw]}
                 components={{
                     p: ({ children }) => {
-                        return <TypewriterMarkdownInternal
+                        return <TypewriterInternal
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -101,7 +101,7 @@ export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplet
                         />
                     },
                     a: ({ children, href, style }) => {
-                        return <TypewriterMarkdownInternal
+                        return <TypewriterInternal
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -120,7 +120,7 @@ export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplet
                         />
                     },
                     code: ({ children, style }) => {
-                        return <TypewriterMarkdownInternal
+                        return <TypewriterInternal
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -138,7 +138,7 @@ export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplet
                         />
                     },
                     ul: ({ children, style }) => {
-                        return <TypewriterMarkdownInternal
+                        return <TypewriterInternal
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -155,7 +155,7 @@ export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplet
                         />
                     },
                     li: ({ children, style }) => {
-                        return <TypewriterMarkdownInternal
+                        return <TypewriterInternal
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -169,7 +169,7 @@ export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplet
                         />
                     },
                     strong: ({ children, style }) => {
-                        return <TypewriterMarkdownInternal
+                        return <TypewriterInternal
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -183,7 +183,7 @@ export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplet
                         />
                     },
                     em: ({ children, style }) => {
-                        return <TypewriterMarkdownInternal
+                        return <TypewriterInternal
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -203,7 +203,7 @@ export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplet
                         />
                     },
                     th: ({ children, style }) => {
-                        return <TypewriterMarkdownInternal
+                        return <TypewriterInternal
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -217,7 +217,7 @@ export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplet
                         />
                     },
                     del: ({ children, style }) => {
-                        return <TypewriterMarkdownInternal
+                        return <TypewriterInternal
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -231,7 +231,7 @@ export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplet
                         />
                     },
                     table: ({ children, style }) => {
-                        return <TypewriterMarkdownInternal
+                        return <TypewriterInternal
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -245,7 +245,7 @@ export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplet
                         />
                     },
                     span: ({ children, style }) => {
-                        return <TypewriterMarkdownInternal
+                        return <TypewriterInternal
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -259,7 +259,7 @@ export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplet
                         />
                     },
                     h1: ({ children, style }) => {
-                        return <TypewriterMarkdownInternal
+                        return <TypewriterInternal
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -276,7 +276,7 @@ export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplet
                         />
                     },
                     h2: ({ children, style }) => {
-                        return <TypewriterMarkdownInternal
+                        return <TypewriterInternal
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -293,7 +293,7 @@ export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplet
                         />
                     },
                     h3: ({ children, style }) => {
-                        return <TypewriterMarkdownInternal
+                        return <TypewriterInternal
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -310,7 +310,7 @@ export default function TypewriterMarkdown({ text, delay = 0, onAnimationComplet
                         />
                     },
                     h4: ({ children, style }) => {
-                        return <TypewriterMarkdownInternal
+                        return <TypewriterInternal
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}

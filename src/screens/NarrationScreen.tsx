@@ -13,7 +13,7 @@ import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import { typewriterIsAnimatedState } from '../atoms/typewriterIsAnimatedState';
 import SliderResizer from '../components/SliderResizer';
-import TypewriterMarkdown from '../components/TypewriterMarkdown';
+import Typewriter from '../components/TypewriterMarkdown';
 import { useQueryDialogue } from '../use_query/useQueryInterface';
 import ChoiceMenu from './ChoiceMenu';
 
@@ -198,7 +198,7 @@ export default function NarrationScreen() {
                                     marginBottom: 2,
                                 }}
                             >
-                                <TypewriterMarkdown
+                                <Typewriter
                                     text={text || ""}
                                     delay={typewriterDelay}
                                     onAnimationStart={() => setTypewriterIsAnimated(true)}
