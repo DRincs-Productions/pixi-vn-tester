@@ -1,5 +1,7 @@
 # Pixi’VN template (React + Vite + MUI joy)
 
+![pixi-vn-logo-react](https://github.com/user-attachments/assets/89adb630-db53-4c87-b67a-a367fa444f7b)
+
 This is a template for creating visual novels in React. It uses the Pixi’VN library and Vite as a build tool.
 This Template contains basic functionality inspired by the widespread Visual Noval engine Ren'Py.
 
@@ -7,7 +9,7 @@ This Template contains basic functionality inspired by the widespread Visual Nov
 
 The first page that appears is the main menu. From there, you can start the game, load a saved game, or go to the settings.
 
-The game page is in `/game` route. It contains the text box, character avatar, and canvas for the background image. The text box displays the text of the current dialogue. The character avatar displays the character speaking the dialogue. The background image is the background of the scene.
+The game page is in `/narration` route. It contains the text box, character avatar, and canvas for the background image. The text box displays the text of the current dialogue. The character avatar displays the character speaking the dialogue. The background image is the background of the scene.
 When a choice has to be made, the choices are displayed at the top of the screen.
 
 When you are in the game page, you can access with many features through a list of buttons located at the bottom. In this list you can save the game, load a saved game, skip the dialogue, auto play the dialogue, access to the history modal, and access to the settings modal.
@@ -50,7 +52,7 @@ If you use Visual Studio Code, you can use the debug configuration that comes wi
 * `Shift` + `L`: Quick load the game.
 * `Shift` + `H`: Open the history modal.
 * `Esc`: Open the settings modal.
-* `Shift` + `V`: Hide the Interface (Show only the canvas).
+* `Shift` + `V`: Hide the UI (Show only the canvas).
 
 ## Used libraries
 
@@ -64,12 +66,17 @@ Core libraries:
 * [PWA Vite Plugin](https://vite-pwa-org.netlify.app): A Vite plugin that provides PWA support. This allows the possibility of installing the game as a Progressive Web App.
 * [Recoil](https://recoiljs.org/): A state management library for React.
 * [React Router](https://reactrouter.com/): A library that provides routing for React applications.
+* [Tanstack Query](https://tanstack.com/tanstack-query/): A library that provides a set of tools for getting, caching, and updating game data.
+  <img width="44" alt="image" src="https://github.com/user-attachments/assets/bf70dddc-68c0-48f4-9c41-74c22f54e3d1">
+  You can use the following button to show Tanstack Query interactions with the game. (the button will be automatically hidden when released)
+
 
 UI libraries:
 
 * [Mui Joy](https://mui.com/joy-ui/getting-started/): A React UI framework that provides a set of components and styles for building a website.
 * [Framer Motion](https://www.framer.com/motion/): A simple yet powerful motion library for React.
 * [Notistack](https://iamhosseindhv.com/notistack): A library that provides snackbar notifications for React.
+* [React Color Palette](https://www.npmjs.com/package/react-color-palette): A library that provides a color picker for React.
 
 Text libraries:
 

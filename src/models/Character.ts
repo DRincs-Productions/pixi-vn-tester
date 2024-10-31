@@ -23,7 +23,7 @@ interface CharacterProps {
     color?: string;
 }
 
-export class Character extends CharacterStoredClass implements CharacterInterface {
+export default class Character extends CharacterStoredClass implements CharacterInterface {
     /**
      * @param id The id of the character.
      * @param props The properties of the character.

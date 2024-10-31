@@ -1,24 +1,30 @@
 import { addImage, canvas, clearAllGameDatas, narration } from '@drincs/pixi-vn';
 import Stack from '@mui/joy/Stack';
+import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSetRecoilState } from 'recoil';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
+import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
-import { reloadInterfaceDataEventAtom } from '../atoms/reloadInterfaceDataEventAtom';
 import MenuButton from '../components/MenuButton';
-import { loadGameSave } from '../utility/ActionsUtility';
-import { useMyNavigate } from '../utility/useMyNavigate';
+import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
+import useQueryLastSave from '../use_query/useQueryLastSave';
+import { useMyNavigate } from '../utilities/navigate-utility';
+import { loadSave } from '../utilities/save-utility';
 
 export default function MainMenu() {
     const navigate = useMyNavigate();
     const setOpenSettings = useSetRecoilState(openSettingsState);
-    const notifyReloadInterfaceDataEvent = useSetRecoilState(reloadInterfaceDataEventAtom);
     const setHideInterface = useSetRecoilState(hideInterfaceState);
+    const setGameSaveScreen = useSetRecoilState(openGameSaveScreenState);
     const { enqueueSnackbar } = useSnackbar();
-    const { t } = useTranslation(["translation"]);
+    const { t } = useTranslation(["ui"]);
+    const { t: tNarration } = useTranslation(["narration"]);
+    const queryClient = useQueryClient()
+    const { data: lastSave = null, isLoading } = useQueryLastSave()
 
     useEffect(() => {
         setHideInterface(false)
@@ -45,31 +51,45 @@ export default function MainMenu() {
         >
             <MenuButton
                 onClick={() => {
-                    canvas.removeAll()
-                    navigate("/game")
-                    narration.callLabel("start", {
-                        navigate: navigate,
-                        t: t,
-                        notify: (message, variant) => enqueueSnackbar(message, { variant }),
-                    }).then(() => {
-                        notifyReloadInterfaceDataEvent((prev) => prev + 1)
-                    })
+                    if (!lastSave) {
+                        return
+                    }
+                    loadSave(lastSave, navigate)
+                        .then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))
+                        .catch((e) => {
+                            enqueueSnackbar(t("fail_load"), { variant: 'error' })
+                            console.error(e)
+                        })
                 }}
                 transitionDelay={0.1}
+                loading={isLoading}
+                disabled={!isLoading && !lastSave}
+            >
+                {t("continue")}
+            </MenuButton>
+            <MenuButton
+                onClick={() => {
+                    canvas.removeAll()
+                    navigate("/narration")
+                    narration.callLabel("start", {
+                        navigate: navigate,
+                        t: tNarration,
+                        notify: (message, variant) => enqueueSnackbar(message, { variant }),
+                    }).then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))
+                }}
+                transitionDelay={0.2}
             >
                 {t("start")}
             </MenuButton>
             <MenuButton
-                onClick={() => {
-                    loadGameSave(navigate, () => notifyReloadInterfaceDataEvent((prev) => prev + 1))
-                }}
-                transitionDelay={0.2}
+                onClick={() => setGameSaveScreen(true)}
+                transitionDelay={0.3}
             >
                 {t("load")}
             </MenuButton>
             <MenuButton
-                onClick={() => { setOpenSettings(true) }}
-                transitionDelay={0.3}
+                onClick={() => setOpenSettings(true)}
+                transitionDelay={0.4}
             >
                 {t("settings")}
             </MenuButton>

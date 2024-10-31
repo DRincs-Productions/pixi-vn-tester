@@ -2,7 +2,7 @@ import { canvas, narration } from '@drincs/pixi-vn'
 import { createRoot } from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { gameEnd } from './utility/ActionsUtility'
+import { gameEnd } from './utilities/actions-utility'
 
 // Canvas setup with PIXI
 const body = document.body
@@ -37,5 +37,3 @@ narration.onGameEnd = async ({ navigate }) => {
 narration.onStepError = async (_error, { notify, t }) => {
     notify(t("allert_error_occurred"), "error")
 }
-
-// importInkText(startLabel)
