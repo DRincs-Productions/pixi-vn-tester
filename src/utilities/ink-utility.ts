@@ -1,14 +1,12 @@
-import { generateJsonInkTranslation, importInkText, onInkHashtagScript, onInkTranslate } from '@drincs/pixi-vn-ink';
+import { getCharacterById } from '@drincs/pixi-vn';
+import { importInkText, onInkHashtagScript, onInkTranslate, onReplaceTextAfterTranslation } from '@drincs/pixi-vn-ink';
 import startLabel from '../ink_labels/start.ink?raw';
-import strings_en from '../values/translations/strings_en.json';
 
 export async function initializeInk({ navigate, t }: {
     navigate: (path: string) => void
     t: (text: string) => string
 }) {
-    let labels = await importInkText(startLabel)
-    let json = generateJsonInkTranslation(labels, strings_en.narration)
-    console.log(json)
+    await importInkText(startLabel)
     onInkHashtagScript((script, _convertListStringToObj) => {
         if (script.length === 2) {
             if (script[0] === "navigate") {
@@ -16,7 +14,23 @@ export async function initializeInk({ navigate, t }: {
                 return true
             }
         }
+        if (script[0] === "rename" && script.length === 3) {
+            let character = getCharacterById(script[1])
+            if (character) {
+                character.name = script[2]
+            }
+            return true
+        }
         return false
+    })
+    onReplaceTextAfterTranslation((key) => {
+        let character = getCharacterById(key)
+        if (character) {
+            return character.name
+        }
+
+        // if return undefined, the system will not replace the character id
+        return undefined
     })
     onInkTranslate((text) => {
         return t(text)
