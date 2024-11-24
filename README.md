@@ -42,7 +42,7 @@ This command will start the development server. Open [http://localhost:5173](htt
 
 #### Debugging
 
-If you use Visual Studio Code, you can use the debug configuration that comes with the template. To do this, go to the debug section and select the `Launch Chrome` configuration.
+If you are using Visual Studio Code, you can use the debug configuration provided with the template. To do this, after launching `npm start`, go to the debug section and select the `Launch Chrome` configuration.
 
 ## Keyboard shortcuts (hotkeys)
 
