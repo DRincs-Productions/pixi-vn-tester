@@ -29,10 +29,6 @@ Before starting, you need to have Node.js installed on your computer. If you don
 * [vscode-color-picker](https://marketplace.visualstudio.com/items?itemName=antiantisepticeye.vscode-color-picker): A color picker for Visual Studio Code.
 * [Version Lens](https://marketplace.visualstudio.com/items?itemName=pflannery.vscode-versionlens): Shows the latest version for each package using code lens.
 
-### Change the project name
-
-By default, the project is named `my-app` and the title of the game is `My App`. You can search for all occurrences of `my-app` and `My App` in the project and replace them with the name of your game.
-
 ### Change the icon
 
 You can change the icon of the game by replacing the images in the `public` folder.
