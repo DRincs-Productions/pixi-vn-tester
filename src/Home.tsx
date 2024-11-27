@@ -1,7 +1,5 @@
 import { Box } from '@mui/joy';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import Routes from './AppRoutes';
 import Imports from './Imports';
 import GoBackEventInterceptor from './interceptors/GoBackEventInterceptor';
@@ -10,17 +8,9 @@ import RefreshSaveEventInterceptor from './interceptors/RefreshEventInterceptor'
 import GameSaveScreen from './screens/GameSaveScreen';
 import SaveLoadAlert from './screens/modals/SaveLoadAlert';
 import Settings from './screens/Settings';
-import { initializeInk } from './utilities/ink-utility';
-import { useMyNavigate } from './utilities/navigate-utility';
+import InkInitialization from './interceptors/InkInitialization';
 
 export default function Home() {
-    const navigate = useMyNavigate();
-    const { t: tNarration } = useTranslation(["narration"]);
-
-    useEffect(() => {
-        initializeInk({ navigate, t: tNarration })
-    }, [])
-
     return (
         <Imports>
             <Routes />
@@ -30,6 +20,7 @@ export default function Home() {
             <OnKeyEventInterceptor />
             <GoBackEventInterceptor />
             <RefreshSaveEventInterceptor />
+            <InkInitialization />
             <Box
                 sx={{
                     pointerEvents: "auto",
