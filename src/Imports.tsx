@@ -27,6 +27,6 @@ export default function Imports({ children }: {
                     </MyThemeProvider>
                 </QueryClientProvider>
             </RecoilRoot>
-        </BrowserRouter >
+        </BrowserRouter>
     );
 }
