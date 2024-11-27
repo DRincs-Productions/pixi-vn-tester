@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { BrowserRouter } from "react-router-dom";
 import LoadingScreen from "./screens/LoadingScreen";
 import { initializeIndexedDB } from "./utilities/indexedDB-utility";
 import { importAllInkLabels } from "./utilities/ink-utility";
@@ -15,11 +16,13 @@ export default function App() {
     })
     return (
         <ErrorBoundary fallback={<div>Something went wrong</div>}>
-            <Suspense
-                fallback={<LoadingScreen />}
-            >
-                <Home />
-            </Suspense>
+            <BrowserRouter>
+                <Suspense
+                    fallback={<LoadingScreen />}
+                >
+                    <Home />
+                </Suspense>
+            </BrowserRouter >
         </ErrorBoundary >
     )
 }
