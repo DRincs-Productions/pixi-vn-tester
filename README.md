@@ -34,6 +34,30 @@ Before starting, you need to have Node.js installed on your computer. If you don
 
 You can change the icon of the game by replacing the images in the `public` folder.
 
+### Writing/testing the narrative with Inky
+
+To write and test the narrative, you can use the **Inky editor**. Inky is a tool for writing interactive fiction using the Ink language. Of course, the special features introduced by pixi-vn will not be ignored by Inky. You can download it [here](https://www.inklestudios.com/ink/).
+
+To use Inky with this template, you can open the `src/main.ink` file in Inky. Ricorda che quando Importi nuovi file con Inky devi anche importarli in usando TypeScript:
+
+```ink
+// main.ink
+INCLUDE ink_labels/start.ink
+INCLUDE ink_labels/second.ink
+-> start
+```
+
+```tsx
+// utilities/ink-utility.ts
+import { importInkText } from '@drincs/pixi-vn-ink';
+import startLabel from '../ink_labels/start.ink?raw';
+import secondLabel from '../ink_labels/second.ink?raw';
+
+export async function importAllInkLabels() {
+    await importInkText([startLabel, secondLabel])
+}
+```
+
 ### Installation
 
 First, is necessary install the dependencies. To do this, open a terminal in the root folder of the project and run the following command:
