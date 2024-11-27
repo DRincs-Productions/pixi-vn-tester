@@ -2,11 +2,14 @@ import { getCharacterById } from '@drincs/pixi-vn';
 import { importInkText, onInkHashtagScript, onInkTranslate, onReplaceTextAfterTranslation } from '@drincs/pixi-vn-ink';
 import startLabel from '../ink_labels/start.ink?raw';
 
+export async function importAllInkLabels() {
+    await importInkText(startLabel)
+}
+
 export async function initializeInk({ navigate, t }: {
     navigate: (path: string) => void
     t: (text: string) => string
 }) {
-    await importInkText(startLabel)
     onInkHashtagScript((script, _convertListStringToObj) => {
         if (script.length === 2) {
             if (script[0] === "navigate") {
