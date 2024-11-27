@@ -19,6 +19,6 @@ export default function App() {
             >
                 <Home />
             </Suspense>
-        </ErrorBoundary >
+        </ErrorBoundary>
     )
 }
