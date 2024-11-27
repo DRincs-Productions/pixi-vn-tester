@@ -28,6 +28,7 @@ Before starting, you need to have Node.js installed on your computer. If you don
 * [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint): Integrates ESLint into VS Code.
 * [vscode-color-picker](https://marketplace.visualstudio.com/items?itemName=antiantisepticeye.vscode-color-picker): A color picker for Visual Studio Code.
 * [Version Lens](https://marketplace.visualstudio.com/items?itemName=pflannery.vscode-versionlens): Shows the latest version for each package using code lens.
+* [Ink](https://marketplace.visualstudio.com/items?itemName=bruno-dias.ink): Syntax highlighting for the Ink language.
 
 ### Change the icon
 
@@ -65,6 +66,24 @@ If you are using Visual Studio Code, you can use the debug configuration provide
 * `Esc`: Open the settings modal.
 * `Shift` + `V`: Hide the UI (Show only the canvas).
 
+## Custom hashtag scripts
+
+By using the [onInkHashtagScript](https://pixi-vn.web.app/ink/ink-hashtag.html) function, in this template the following features have been added.
+
+**Moving between screens**: This feature allows you to navigate between different screens. The syntax is as follows:
+
+`#` + `navigate` + `[route]`
+
+`route`: The route/path to navigate to. Read more about routes in the [Router documentation](https://pixi-vn.web.app/start/interface-navigate.html).
+
+```ink
+#navigate /narration
+```
+
+**Rename the character**: This feature allows you to change the name of the character speaking. The syntax is as follows:
+
+`#` + `rename` + `[character id]` + `[new name]`
+
 ## Used libraries
 
 This template uses the following libraries:
@@ -72,6 +91,7 @@ This template uses the following libraries:
 Core libraries:
 
 * [Pixi’VN](https://www.npmjs.com/package/@drincs/pixi-vn): A visual novel library.
+* [Pixi’VN - Ink Integration](https://www.npmjs.com/package/@drincs/pixi-vn-ink): A library that provides integration with the Ink language.
 * [Vite](https://vitejs.dev/): A build tool that aims to provide a faster and leaner development experience for modern web projects.
 * [Vite Checker](https://www.npmjs.com/package/vite-plugin-checker): A Vite plugin that checks TypeScript types and ESLint on each build.
 * [PWA Vite Plugin](https://vite-pwa-org.netlify.app): A Vite plugin that provides PWA support. This allows the possibility of installing the game as a Progressive Web App.
