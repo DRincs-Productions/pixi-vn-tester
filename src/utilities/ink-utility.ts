@@ -6,7 +6,7 @@ export async function importAllInkLabels() {
     await importInkText(startLabel)
 }
 
-export async function initializeInk({ navigate, t }: {
+export function initializeInk({ navigate, t }: {
     navigate: (path: string) => void
     t: (text: string) => string
 }) {
