@@ -86,8 +86,9 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw]}
                 components={{
-                    p: ({ children }) => {
+                    p: ({ children, key }) => {
                         return <TypewriterInternal
+                            key={key}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -100,8 +101,9 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }}
                         />
                     },
-                    a: ({ children, href, style }) => {
+                    a: ({ children, href, style, key }) => {
                         return <TypewriterInternal
+                            key={key}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -119,8 +121,9 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    code: ({ children, style }) => {
+                    code: ({ children, style, key }) => {
                         return <TypewriterInternal
+                            key={key}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -137,8 +140,9 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    ul: ({ children, style }) => {
+                    ul: ({ children, style, key }) => {
                         return <TypewriterInternal
+                            key={key}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -154,8 +158,9 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    li: ({ children, style }) => {
+                    li: ({ children, style, key }) => {
                         return <TypewriterInternal
+                            key={key}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -168,8 +173,9 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    strong: ({ children, style }) => {
+                    strong: ({ children, style, key }) => {
                         return <TypewriterInternal
+                            key={key}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -182,8 +188,9 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    em: ({ children, style }) => {
+                    em: ({ children, style, key }) => {
                         return <TypewriterInternal
+                            key={key}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -196,14 +203,16 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    hr: ({ style }) => {
+                    hr: ({ style, key }) => {
                         return <motion.hr
+                            key={key}
                             style={style}
                             variants={letterVariants}
                         />
                     },
-                    th: ({ children, style }) => {
+                    th: ({ children, style, key }) => {
                         return <TypewriterInternal
+                            key={key}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -216,8 +225,9 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    del: ({ children, style }) => {
+                    del: ({ children, style, key }) => {
                         return <TypewriterInternal
+                            key={key}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -230,8 +240,9 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    table: ({ children, style }) => {
+                    table: ({ children, style, key }) => {
                         return <TypewriterInternal
+                            key={key}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -244,8 +255,9 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    span: ({ children, style }) => {
+                    span: ({ children, style, key }) => {
                         return <TypewriterInternal
+                            key={key}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -258,8 +270,9 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    h1: ({ children, style }) => {
+                    h1: ({ children, style, key }) => {
                         return <TypewriterInternal
+                            key={key}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -275,8 +288,9 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    h2: ({ children, style }) => {
+                    h2: ({ children, style, key }) => {
                         return <TypewriterInternal
+                            key={key}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -292,8 +306,9 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    h3: ({ children, style }) => {
+                    h3: ({ children, style, key }) => {
                         return <TypewriterInternal
+                            key={key}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
@@ -309,8 +324,9 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    h4: ({ children, style }) => {
+                    h4: ({ children, style, key }) => {
                         return <TypewriterInternal
+                            key={key}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
