@@ -1,5 +1,4 @@
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormControl, ModalClose, RadioGroup, Sheet, Stack, Typography } from "@mui/joy";
 import { Theme, useMediaQuery } from '@mui/material';
 import { useEffect, useState } from 'react';
@@ -9,7 +8,6 @@ import { useRecoilState } from 'recoil';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import ModalDialogCustom from '../components/ModalDialog';
-import SettingButton from '../components/SettingButton';
 import { gameEnd } from '../utilities/actions-utility';
 import { useMyNavigate } from '../utilities/navigate-utility';
 import AutoSettingToggle from './settings/AutoSettingToggle';
@@ -19,6 +17,7 @@ import OpenHistorySettingButton from './settings/OpenHistorySettingButton';
 import SaveLoadSettingButtons from './settings/SaveLoadSettingButtons';
 import SkipSettingToggle from './settings/SkipSettingToggle';
 import ThemeSettings from './settings/ThemeSettings';
+import HideInterfaceSettingToggle from './settings/HideInterfaceSettingToggle';
 
 export default function Settings() {
     const [open, setOpen] = useRecoilState(openSettingsState);
@@ -92,23 +91,7 @@ export default function Settings() {
                                     <AutoSettingToggle />
                                     <OpenHistorySettingButton />
                                     <SaveLoadSettingButtons />
-                                    <SettingButton
-                                        checked={hideInterface}
-                                        onClick={() => setHideInterface((prev) => !prev)}
-                                    >
-                                        <VisibilityOffIcon />
-                                        <Typography level="title-md">{t("hide_ui")}</Typography>
-                                        <Typography
-                                            sx={{
-                                                position: 'absolute',
-                                                top: 10,
-                                                right: 10,
-                                            }}
-                                            level="body-md"
-                                        >
-                                            Shift+V
-                                        </Typography>
-                                    </SettingButton>
+                                    <HideInterfaceSettingToggle />
                                 </Box>
                             </RadioGroup>
                         </FormControl>
