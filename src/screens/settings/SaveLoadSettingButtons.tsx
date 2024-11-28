@@ -31,7 +31,7 @@ export default function SaveLoadSettingButtons() {
     const location = useLocation();
 
     return ([
-        <SettingButton
+        location.pathname === '/' ? null : <SettingButton
             onClick={() => {
                 putSaveIntoIndexDB()
                     .then((save) => {
@@ -87,7 +87,7 @@ export default function SaveLoadSettingButtons() {
             <SaveIcon />
             <Typography level="title-md">{t(`${t("save")}/${t("load")}`)}</Typography>
         </SettingButton>,
-        <SettingButton
+        location.pathname === '/' ? null : <SettingButton
             onClick={() => downloadGameSave()}
             disabled={location.pathname === '/'}
         >
