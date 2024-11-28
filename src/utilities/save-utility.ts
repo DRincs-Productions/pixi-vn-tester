@@ -27,7 +27,7 @@ export async function putSaveIntoIndexDB(info: Partial<GameSaveData> & { id?: nu
         image: image,
         ...info,
     }
-    if (!item.id) {
+    if (item.id === undefined) {
         let lastSave = await getLastRowFromIndexDB<GameSaveData & { id: number }>(INDEXED_DB_SAVE_TABLE)
         if (lastSave) {
             item.id = lastSave.id + 1
@@ -111,6 +111,8 @@ export async function loadRefreshSave(navigate: (path: string) => void) {
     if (jsonString) {
         navigate("/loading")
         let data: GameSaveData = JSON.parse(jsonString)
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+
         return loadSave(data, navigate)
             .then(() => {
                 localStorage.removeItem("refreshSave")

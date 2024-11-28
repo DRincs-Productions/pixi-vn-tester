@@ -1,11 +1,10 @@
-import { StepLabelProps } from '@drincs/pixi-vn/dist/override';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
-import { motion, Variants } from "framer-motion";
+import { motion, Variants } from "motion/react";
 import { useRef } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
@@ -13,15 +12,12 @@ import { dialogueCardImageWidthState } from '../atoms/dialogueCardImageWidthStat
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import { typewriterIsAnimatedState } from '../atoms/typewriterIsAnimatedState';
-import NextButton from '../components/NextButton';
 import SliderResizer from '../components/SliderResizer';
-import TypewriterMarkdown from '../components/TypewriterMarkdown';
+import Typewriter from '../components/Typewriter';
 import { useQueryDialogue } from '../use_query/useQueryInterface';
 import ChoiceMenu from './ChoiceMenu';
 
-export default function NarrationScreen({ nextOnClick }: {
-    nextOnClick: (props: StepLabelProps) => void,
-}) {
+export default function NarrationScreen() {
     const [cardHeight, setCardHeight] = useRecoilState(dialogueCardHeightState)
     const [cardImageWidth, setCardImageWidth] = useRecoilState(dialogueCardImageWidthState)
     const typewriterDelay = useRecoilValue(typewriterDelayState)
@@ -202,7 +198,7 @@ export default function NarrationScreen({ nextOnClick }: {
                                     marginBottom: 2,
                                 }}
                             >
-                                <TypewriterMarkdown
+                                <Typewriter
                                     text={text || ""}
                                     delay={typewriterDelay}
                                     onAnimationStart={() => setTypewriterIsAnimated(true)}
@@ -218,9 +214,6 @@ export default function NarrationScreen({ nextOnClick }: {
                         </CardContent>
                     </Card>
                 </Box>
-                <NextButton
-                    nextOnClick={nextOnClick}
-                />
             </Box>
         </Box>
     );

@@ -1,9 +1,9 @@
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { Box, Grid } from '@mui/joy';
 import { useQueryClient } from '@tanstack/react-query';
-import { motion, Variants } from "framer-motion";
+import { motion, Variants } from "motion/react";
 import { useSnackbar } from 'notistack';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
 import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
@@ -13,14 +13,9 @@ import { ChoiceMenuOption, ChoiceMenuOptionClose, narration } from "../pixi-vn/s
 import { INTERFACE_DATA_USE_QUEY_KEY, useQueryChoiceMenuOptions } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utilities/navigate-utility';
 
-type IProps = {
+export default function ChoiceMenu({ fullscreen = true }: {
     fullscreen?: boolean,
-}
-
-export default function ChoiceMenu(props: IProps) {
-    const {
-        fullscreen = true,
-    } = props;
+}) {
     const [loading, setLoading] = useState(false)
     const marginButton = useRecoilValue(dialogueCardHeightState)
     const height = 100 - marginButton
@@ -58,7 +53,7 @@ export default function ChoiceMenu(props: IProps) {
         closed: { opacity: 0, y: 20, transition: { duration: 0.2 } }
     };
 
-    function afterSelectChoice(item: ChoiceMenuOptionClose | ChoiceMenuOption<{}>) {
+    const afterSelectChoice = useCallback((item: ChoiceMenuOptionClose | ChoiceMenuOption<{}>) => {
         setLoading(true)
         narration.selectChoice(item, {
             navigate: navigate,
@@ -74,7 +69,7 @@ export default function ChoiceMenu(props: IProps) {
                 setLoading(false)
                 console.error(e)
             })
-    }
+    }, [enqueueSnackbar, navigate, queryClient, tNarration])
 
     return (
         <Box

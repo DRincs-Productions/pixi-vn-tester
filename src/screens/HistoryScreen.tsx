@@ -3,7 +3,7 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { Box, Chip, Input, Stack, Theme, Typography } from "@mui/joy";
 import Avatar from '@mui/joy/Avatar';
 import { useMediaQuery } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Markdown from 'react-markdown';
 import { useRecoilState } from 'recoil';
@@ -11,27 +11,27 @@ import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import ModalDialogCustom from '../components/ModalDialog';
-import { useQueryNarrativeHistory } from '../use_query/useQueryInterface';
+import { CharacterBaseModel, getCharacterById, narration } from '../pixi-vn/src';
 
 export default function HistoryScreen() {
     const [open, setOpen] = useRecoilState(openHistoryScreenState);
-    const { data = [] } = useQueryNarrativeHistory()
     const [searchString, setSearchString] = useState("")
     const { t } = useTranslation(["ui"]);
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
+    const { t: tNarration } = useTranslation(["narration"]);
+
+    const onkeydown = useCallback((event: KeyboardEvent) => {
+        if (event.code == 'KeyH' && event.shiftKey) {
+            setOpen((prev) => !prev)
+        }
+    }, [])
 
     useEffect(() => {
         window.addEventListener('keydown', onkeydown);
         return () => {
             window.removeEventListener('keydown', onkeydown);
         };
-    }, []);
-
-    function onkeydown(event: KeyboardEvent) {
-        if (event.code == 'KeyH' && event.shiftKey) {
-            setOpen((prev) => !prev)
-        }
-    }
+    }, [onkeydown]);
 
     return (
         <ModalDialogCustom
@@ -72,8 +72,18 @@ export default function HistoryScreen() {
                     flexDirection: 'column-reverse',
                 }}
             >
-                <Stack spacing={2} justifyContent="flex-end">
-                    {data
+                {open && <Stack spacing={2} justifyContent="flex-end">
+                    {narration.narrativeHistory
+                        .map((step) => {
+                            let character = step.dialoge?.character ? getCharacterById(step.dialoge?.character) ?? new CharacterBaseModel(step.dialoge?.character, { name: tNarration(step.dialoge?.character) }) : undefined
+                            return {
+                                character: character?.name ? character.name + (character.surname ? " " + character.surname : "") : undefined,
+                                text: step.dialoge?.text || "",
+                                icon: character?.icon,
+                                choices: step.choices,
+                                inputValue: step.inputValue,
+                            }
+                        })
                         .filter((data) => {
                             if (!searchString) return true
                             return data.character?.toLowerCase().includes(searchString.toLowerCase()) || data.text?.toLowerCase().includes(searchString.toLowerCase())
@@ -94,8 +104,8 @@ export default function HistoryScreen() {
                                             remarkPlugins={[remarkGfm]}
                                             rehypePlugins={[rehypeRaw]}
                                             components={{
-                                                p: ({ children, key }) => {
-                                                    return <p key={key} style={{ margin: 0 }}>{children}</p>
+                                                p: ({ children, id }) => {
+                                                    return <p key={id} style={{ margin: 0 }}>{children}</p>
                                                 },
                                             }}
                                         >
@@ -138,7 +148,7 @@ export default function HistoryScreen() {
                                 </Stack>
                             </React.Fragment>
                         })}
-                </Stack>
+                </Stack>}
             </Box>
         </ModalDialogCustom>
     );

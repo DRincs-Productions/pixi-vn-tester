@@ -3,6 +3,7 @@ import App from './App'
 import './index.css'
 import { canvas, narration } from './pixi-vn/src'
 import { gameEnd } from './utilities/actions-utility'
+import './values/characters'
 
 // Canvas setup with PIXI
 const body = document.body
