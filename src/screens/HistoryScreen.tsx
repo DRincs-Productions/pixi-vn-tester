@@ -72,7 +72,7 @@ export default function HistoryScreen() {
                     flexDirection: 'column-reverse',
                 }}
             >
-                <Stack spacing={2} justifyContent="flex-end">
+                {open && <Stack spacing={2} justifyContent="flex-end">
                     {narration.narrativeHistory
                         .map((step) => {
                             let character = step.dialoge?.character ? getCharacterById(step.dialoge?.character) ?? new CharacterBaseModel(step.dialoge?.character, { name: tNarration(step.dialoge?.character) }) : undefined
@@ -148,7 +148,7 @@ export default function HistoryScreen() {
                                 </Stack>
                             </React.Fragment>
                         })}
-                </Stack>
+                </Stack>}
             </Box>
         </ModalDialogCustom>
     );
