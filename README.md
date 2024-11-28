@@ -1,7 +1,6 @@
 # Pixi’VN template (React + Vite + MUI joy)
 
-![pixi-vn-cover](https://github.com/user-attachments/assets/af667bce-ade8-47f4-9b77-e59a6459e2a6)
-
+![pixi-vn-cover](https://github.com/user-attachments/assets/c67ea9f4-c91c-46ea-bfbe-6bc0d18b5de7)
 
 This is a template for creating visual novels in React. It uses the Pixi’VN library and Vite as a build tool.
 This Template contains basic functionality inspired by the widespread Visual Noval engine Ren'Py.
