@@ -104,14 +104,14 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }}
                         />
                     },
-                    a: ({ children, href, style, key }) => {
+                    a: ({ children, href, style, id }) => {
                         return <TypewriterInternal
-                            key={key}
+                            key={id}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.a
-                                key={`a-${key}`}
+                                key={`a-${id}`}
                                 href={href}
                                 target="_blank"
                                 style={{
@@ -125,14 +125,14 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    code: ({ children, style, key }) => {
+                    code: ({ children, style, id }) => {
                         return <TypewriterInternal
-                            key={key}
+                            key={id}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.code
-                                key={`code-${key}`}
+                                key={`code-${id}`}
                                 style={{
                                     ...style,
                                     backgroundColor: useTheme().palette.neutral[600],
@@ -145,14 +145,14 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    ul: ({ children, style, key }) => {
+                    ul: ({ children, style, id }) => {
                         return <TypewriterInternal
-                            key={key}
+                            key={id}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.ul
-                                key={`ul-${key}`}
+                                key={`ul-${id}`}
                                 style={{
                                     ...style,
                                     margin: 0,
@@ -164,14 +164,14 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    li: ({ children, style, key }) => {
+                    li: ({ children, style, id }) => {
                         return <TypewriterInternal
-                            key={key}
+                            key={id}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.li
-                                key={`li-${key}`}
+                                key={`li-${id}`}
                                 style={style}
                                 variants={letterVariants}
                             >
@@ -180,14 +180,14 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    strong: ({ children, style, key }) => {
+                    strong: ({ children, style, id }) => {
                         return <TypewriterInternal
-                            key={key}
+                            key={id}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.strong
-                                key={`strong-${key}`}
+                                key={`strong-${id}`}
                                 style={style}
                                 variants={letterVariants}
                             >
@@ -196,14 +196,14 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    em: ({ children, style, key }) => {
+                    em: ({ children, style, id }) => {
                         return <TypewriterInternal
-                            key={key}
+                            key={id}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.em
-                                key={`em-${key}`}
+                                key={`em-${id}`}
                                 style={style}
                                 variants={letterVariants}
                             >
@@ -212,21 +212,21 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    hr: ({ style, key }) => {
+                    hr: ({ style, id }) => {
                         return <motion.hr
-                            key={key}
+                            key={id}
                             style={style}
                             variants={letterVariants}
                         />
                     },
-                    th: ({ children, style, key }) => {
+                    th: ({ children, style, id }) => {
                         return <TypewriterInternal
-                            key={key}
+                            key={id}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.th
-                                key={`th-${key}`}
+                                key={`th-${id}`}
                                 style={style}
                                 variants={letterVariants}
                             >
@@ -235,14 +235,14 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    del: ({ children, style, key }) => {
+                    del: ({ children, style, id }) => {
                         return <TypewriterInternal
-                            key={key}
+                            key={id}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.del
-                                key={`del-${key}`}
+                                key={`del-${id}`}
                                 style={style}
                                 variants={letterVariants}
                             >
@@ -251,14 +251,14 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    table: ({ children, style, key }) => {
+                    table: ({ children, style, id }) => {
                         return <TypewriterInternal
-                            key={key}
+                            key={id}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.table
-                                key={`table-${key}`}
+                                key={`table-${id}`}
                                 style={style}
                                 variants={letterVariants}
                             >
@@ -267,14 +267,14 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    span: ({ children, style, key }) => {
+                    span: ({ children, style, id }) => {
                         return <TypewriterInternal
-                            key={key}
+                            key={id}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.span
-                                key={`span-${key}`}
+                                key={`span-${id}`}
                                 style={style}
                                 variants={letterVariants}
                             >
@@ -283,14 +283,14 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    h1: ({ children, style, key }) => {
+                    h1: ({ children, style, id }) => {
                         return <TypewriterInternal
-                            key={key}
+                            key={id}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.h1
-                                key={`h1-${key}`}
+                                key={`h1-${id}`}
                                 style={{
                                     ...style,
                                     margin: 0,
@@ -302,14 +302,14 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    h2: ({ children, style, key }) => {
+                    h2: ({ children, style, id }) => {
                         return <TypewriterInternal
-                            key={key}
+                            key={id}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.h2
-                                key={`h2-${key}`}
+                                key={`h2-${id}`}
                                 style={{
                                     ...style,
                                     margin: 0,
@@ -321,14 +321,14 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    h3: ({ children, style, key }) => {
+                    h3: ({ children, style, id }) => {
                         return <TypewriterInternal
-                            key={key}
+                            key={id}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.h3
-                                key={`h3-${key}`}
+                                key={`h3-${id}`}
                                 style={{
                                     ...style,
                                     margin: 0,
@@ -340,14 +340,14 @@ export default function Typewriter({ text, delay = 0, onAnimationComplete, onAni
                             }
                         />
                     },
-                    h4: ({ children, style, key }) => {
+                    h4: ({ children, style, id }) => {
                         return <TypewriterInternal
-                            key={key}
+                            key={id}
                             children={children}
                             letterVariants={letterVariants}
                             scrollOnLastItem={scroll}
                             dadElement={(children) => <motion.h4
-                                key={`h4-${key}`}
+                                key={`h4-${id}`}
                                 style={{
                                     ...style,
                                     margin: 0,
