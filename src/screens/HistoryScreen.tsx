@@ -4,7 +4,7 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { Box, Chip, Input, Stack, Theme, Typography } from "@mui/joy";
 import Avatar from '@mui/joy/Avatar';
 import { useMediaQuery } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Markdown from 'react-markdown';
 import { useRecoilState } from 'recoil';
@@ -20,18 +20,18 @@ export default function HistoryScreen() {
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
     const { t: tNarration } = useTranslation(["narration"]);
 
+    const onkeydown = useCallback((event: KeyboardEvent) => {
+        if (event.code == 'KeyH' && event.shiftKey) {
+            setOpen((prev) => !prev)
+        }
+    }, [])
+
     useEffect(() => {
         window.addEventListener('keydown', onkeydown);
         return () => {
             window.removeEventListener('keydown', onkeydown);
         };
-    }, []);
-
-    function onkeydown(event: KeyboardEvent) {
-        if (event.code == 'KeyH' && event.shiftKey) {
-            setOpen((prev) => !prev)
-        }
-    }
+    }, [onkeydown]);
 
     return (
         <ModalDialogCustom
