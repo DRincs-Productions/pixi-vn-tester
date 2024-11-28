@@ -1,5 +1,3 @@
-import AutoModeIcon from '@mui/icons-material/AutoMode';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
 import DownloadIcon from '@mui/icons-material/Download';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import FastForwardIcon from '@mui/icons-material/FastForward';
@@ -9,19 +7,14 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import HdrAutoIcon from '@mui/icons-material/HdrAuto';
 import HistoryIcon from '@mui/icons-material/History';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import ModeNightIcon from '@mui/icons-material/ModeNight';
 import SaveIcon from '@mui/icons-material/Save';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
-import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormControl, FormHelperText, FormLabel, IconButton, ModalClose, RadioGroup, Sheet, Slider, Stack, ToggleButtonGroup, Tooltip, Typography, useColorScheme } from "@mui/joy";
-import { Theme, useColorScheme as useColorSchemeMaterial, useMediaQuery } from '@mui/material';
+import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormControl, FormHelperText, FormLabel, ModalClose, RadioGroup, Sheet, Slider, Stack, Typography } from "@mui/joy";
+import { Theme, useMediaQuery } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
-import { Hue, useColor } from "react-color-palette";
-import "react-color-palette/css";
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -35,20 +28,16 @@ import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
-import { useEditColorProvider } from '../providers/ThemeProvider';
 import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../use_query/useQueryLastSave';
 import { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySaves';
 import { gameEnd } from '../utilities/actions-utility';
 import { useMyNavigate } from '../utilities/navigate-utility';
 import { downloadGameSave, loadGameSaveFromFile, putSaveIntoIndexDB } from '../utilities/save-utility';
+import ThemeSettings from './settings/ThemeSettings';
 
 export default function Settings() {
     const [open, setOpen] = useRecoilState(openSettingsState);
-    const { mode, setMode } = useColorScheme();
-    const { setMode: setModeMaterial } = useColorSchemeMaterial();
-    const { primaryColor, setPrimaryColor, setSolidColor, solidColor } = useEditColorProvider()
-    const [tempColor, setTempColor] = useColor(primaryColor);
     const navigate = useMyNavigate();
     const location = useLocation();
     const [openYouSure, setOpenYouSure] = useState(false)
@@ -74,17 +63,6 @@ export default function Settings() {
             window.removeEventListener('keydown', onkeydown);
         };
     }, []);
-
-    useEffect(() => {
-        // Debouncing
-        let timeout = setTimeout(() => {
-            setPrimaryColor(tempColor.hex)
-        }, 50);
-
-        return () => {
-            clearTimeout(timeout)
-        }
-    }, [tempColor]);
 
     function onkeydown(event: KeyboardEvent) {
         if (event.code == 'Escape') {
@@ -387,101 +365,7 @@ export default function Settings() {
                             {fullScreenEnabled ? t('exit_fullscreen') : t('enter_fullscreen')}
                         </Button>
 
-                        <Box>
-                            <FormLabel sx={{ typography: 'title-sm' }}>
-                                {t("theme_mode")}
-                            </FormLabel>
-                            <FormHelperText sx={{ typography: 'body-sm' }}>
-                                {t("theme_mode_description")}
-                            </FormHelperText>
-                        </Box>
-                        <ToggleButtonGroup
-                            value={mode}
-                            onChange={(_, newValue) => {
-                                if (newValue) {
-                                    setMode(newValue)
-                                    setModeMaterial(newValue)
-                                }
-                            }}
-                        >
-                            <Tooltip title="Light Mode">
-                                <span>
-                                    <IconButton value="light">
-                                        <LightModeIcon />
-                                    </IconButton>
-                                </span>
-                            </Tooltip>
-                            <Tooltip title="System Mode">
-                                <span>
-                                    <IconButton value="system">
-                                        <AutoModeIcon />
-                                    </IconButton>
-                                </span>
-                            </Tooltip>
-                            <Tooltip title="Dark Mode">
-                                <span>
-                                    <IconButton value="dark">
-                                        <DarkModeIcon />
-                                    </IconButton>
-                                </span>
-                            </Tooltip>
-                        </ToggleButtonGroup>
-
-                        <Box>
-                            <FormLabel sx={{ typography: 'title-sm' }}>
-                                {t("primary_color")}
-                            </FormLabel>
-                            <FormHelperText sx={{ typography: 'body-sm' }}>
-                                {t("primary_color_description")}
-                            </FormHelperText>
-                        </Box>
-                        <Box
-                            sx={{
-                                paddingX: 3,
-                            }}
-                        >
-                            <Hue
-                                color={tempColor}
-                                onChange={(color) => setTempColor(color)}
-                            />
-                        </Box>
-
-                        <Box>
-                            <FormLabel sx={{ typography: 'title-sm' }}>
-                                {t("solid_color")}
-                            </FormLabel>
-                            <FormHelperText sx={{ typography: 'body-sm' }}>
-                                {t("solid_color_description")}
-                            </FormHelperText>
-                        </Box>
-                        <ToggleButtonGroup
-                            value={solidColor}
-                            onChange={(_, newValue) => {
-                                if (newValue)
-                                    setSolidColor(newValue)
-                            }}
-                        >
-                            <Tooltip title="White">
-                                <span>
-                                    <IconButton value="white">
-                                        <WbIncandescentIcon />
-                                    </IconButton>
-                                </span>
-                            </Tooltip>
-                            <Tooltip title="Black">
-                                <span>
-                                    <IconButton value="black">
-                                        <ModeNightIcon />
-                                    </IconButton>
-                                </span>
-                            </Tooltip>
-                        </ToggleButtonGroup>
-                        <ToggleButtonGroup
-                            color="primary"
-                            variant="solid"
-                        >
-                            <Button>{t("example")}</Button>
-                        </ToggleButtonGroup>
+                        <ThemeSettings />
                     </DialogContent>
                     {location.pathname !== '/' && <>
                         <Divider sx={{ mt: 'auto' }} />
