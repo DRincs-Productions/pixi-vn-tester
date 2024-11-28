@@ -1,9 +1,7 @@
 import DownloadIcon from '@mui/icons-material/Download';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import FastForwardIcon from '@mui/icons-material/FastForward';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
-import HdrAutoIcon from '@mui/icons-material/HdrAuto';
 import HistoryIcon from '@mui/icons-material/History';
 import SaveIcon from '@mui/icons-material/Save';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
@@ -16,13 +14,11 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { autoInfoState } from '../atoms/autoInfoState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
 import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
-import { skipEnabledState } from '../atoms/skipEnabledState';
 import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
 import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
@@ -31,8 +27,10 @@ import { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySaves';
 import { gameEnd } from '../utilities/actions-utility';
 import { useMyNavigate } from '../utilities/navigate-utility';
 import { downloadGameSave, loadGameSaveFromFile, putSaveIntoIndexDB } from '../utilities/save-utility';
+import AutoSettingToggle from './settings/AutoSettingToggle';
 import DialoguesSettings from './settings/DialoguesSettings';
 import FullScreenSettings from './settings/FullScreenSettings';
+import SkipSettingToggle from './settings/SkipSettingToggle';
 import ThemeSettings from './settings/ThemeSettings';
 
 export default function Settings() {
@@ -41,17 +39,13 @@ export default function Settings() {
     const location = useLocation();
     const [openYouSure, setOpenYouSure] = useState(false)
     const { t } = useTranslation(["ui"]);
-    const [skip, setSkip] = useRecoilState(skipEnabledState)
-    const [auto, setAuto] = useRecoilState(autoInfoState)
     const setOpenHistory = useSetRecoilState(openHistoryScreenState);
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const openSaveScreen = useSetRecoilState(openGameSaveScreenState);
     const queryClient = useQueryClient()
     const { enqueueSnackbar } = useSnackbar();
-    const {
-        data: lastSave = null,
-    } = useQueryLastSave()
+    const { data: lastSave = null } = useQueryLastSave()
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
     useEffect(() => {
@@ -70,7 +64,6 @@ export default function Settings() {
     return (
         <>
             <Drawer
-                // size={'lg'}
                 variant="plain"
                 open={open}
                 onClose={() => setOpen(false)}
@@ -114,33 +107,8 @@ export default function Settings() {
                                         gap: 1.5,
                                     }}
                                 >
-                                    <SettingButton
-                                        checked={skip}
-                                        onClick={() => setSkip((prev) => !prev)}
-                                    >
-                                        <FastForwardIcon />
-                                        <Typography level="title-md">{t("skip")}</Typography>
-                                        <Typography
-                                            sx={{
-                                                position: 'absolute',
-                                                top: 10,
-                                                right: 10,
-                                            }}
-                                            level="body-md"
-                                        >
-                                            Press Space
-                                        </Typography>
-                                    </SettingButton>
-                                    <SettingButton
-                                        checked={auto.enabled}
-                                        onClick={() => setAuto((prev) => ({
-                                            ...prev,
-                                            enabled: !prev.enabled
-                                        }))}
-                                    >
-                                        <HdrAutoIcon />
-                                        <Typography level="title-md">{t("auto_forward_time_restricted")}</Typography>
-                                    </SettingButton>
+                                    <SkipSettingToggle />
+                                    <AutoSettingToggle />
                                     <SettingButton
                                         onClick={() => {
                                             setOpenHistory(true)
