@@ -2,7 +2,6 @@ import DownloadIcon from '@mui/icons-material/Download';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
-import HistoryIcon from '@mui/icons-material/History';
 import SaveIcon from '@mui/icons-material/Save';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -16,7 +15,6 @@ import { useLocation } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
-import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import ModalDialogCustom from '../components/ModalDialog';
@@ -30,6 +28,7 @@ import { downloadGameSave, loadGameSaveFromFile, putSaveIntoIndexDB } from '../u
 import AutoSettingToggle from './settings/AutoSettingToggle';
 import DialoguesSettings from './settings/DialoguesSettings';
 import FullScreenSettings from './settings/FullScreenSettings';
+import OpenHistorySettingButton from './settings/OpenHistorySettingButton';
 import SkipSettingToggle from './settings/SkipSettingToggle';
 import ThemeSettings from './settings/ThemeSettings';
 
@@ -39,7 +38,6 @@ export default function Settings() {
     const location = useLocation();
     const [openYouSure, setOpenYouSure] = useState(false)
     const { t } = useTranslation(["ui"]);
-    const setOpenHistory = useSetRecoilState(openHistoryScreenState);
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const openSaveScreen = useSetRecoilState(openGameSaveScreenState);
@@ -109,25 +107,7 @@ export default function Settings() {
                                 >
                                     <SkipSettingToggle />
                                     <AutoSettingToggle />
-                                    <SettingButton
-                                        onClick={() => {
-                                            setOpenHistory(true)
-                                            setOpen(false)
-                                        }}
-                                    >
-                                        <HistoryIcon />
-                                        <Typography level="title-md">{t("history")}</Typography>
-                                        <Typography
-                                            sx={{
-                                                position: 'absolute',
-                                                top: 10,
-                                                right: 10,
-                                            }}
-                                            level="body-md"
-                                        >
-                                            Shift+H
-                                        </Typography>
-                                    </SettingButton>
+                                    <OpenHistorySettingButton />
                                     <SettingButton
                                         onClick={() => {
                                             putSaveIntoIndexDB()
