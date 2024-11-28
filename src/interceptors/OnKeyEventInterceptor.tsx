@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -19,15 +19,7 @@ export default function EventInterceptor() {
     const { enqueueSnackbar } = useSnackbar();
     const { data: lastSave = null } = useQueryLastSave()
 
-    useEffect(() => {
-        window.addEventListener('keydown', onkeydown);
-
-        return () => {
-            window.removeEventListener('keydown', onkeydown);
-        };
-    }, [location, hideInterface, lastSave]);
-
-    function onkeydown(event: KeyboardEvent) {
+    const onkeydown = useCallback((event: KeyboardEvent) => {
         switch (event.code) {
             case 'Enter':
             case 'Space':
@@ -68,7 +60,15 @@ export default function EventInterceptor() {
                 }
                 break;
         }
-    }
+    }, [location, hideInterface, lastSave])
+
+    useEffect(() => {
+        window.addEventListener('keydown', onkeydown);
+
+        return () => {
+            window.removeEventListener('keydown', onkeydown);
+        };
+    }, [onkeydown]);
 
     return null
 }
