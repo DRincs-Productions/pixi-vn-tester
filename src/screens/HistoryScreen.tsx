@@ -104,8 +104,8 @@ export default function HistoryScreen() {
                                             remarkPlugins={[remarkGfm]}
                                             rehypePlugins={[rehypeRaw]}
                                             components={{
-                                                p: ({ children, key }) => {
-                                                    return <p key={key} style={{ margin: 0 }}>{children}</p>
+                                                p: ({ children, id }) => {
+                                                    return <p key={id} style={{ margin: 0 }}>{children}</p>
                                                 },
                                             }}
                                         >
