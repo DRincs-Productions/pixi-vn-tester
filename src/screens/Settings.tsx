@@ -3,8 +3,6 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
-import FullscreenIcon from '@mui/icons-material/Fullscreen';
-import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import HdrAutoIcon from '@mui/icons-material/HdrAuto';
 import HistoryIcon from '@mui/icons-material/History';
 import SaveIcon from '@mui/icons-material/Save';
@@ -34,6 +32,7 @@ import { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySaves';
 import { gameEnd } from '../utilities/actions-utility';
 import { useMyNavigate } from '../utilities/navigate-utility';
 import { downloadGameSave, loadGameSaveFromFile, putSaveIntoIndexDB } from '../utilities/save-utility';
+import FullScreenSettings from './settings/FullScreenSettings';
 import ThemeSettings from './settings/ThemeSettings';
 
 export default function Settings() {
@@ -42,7 +41,6 @@ export default function Settings() {
     const location = useLocation();
     const [openYouSure, setOpenYouSure] = useState(false)
     const [typewriterDelay, setTypewriterDelay] = useRecoilState(typewriterDelayState)
-    const [fullScreenEnabled, setFullScreenEnabled] = useState(false)
     const { t } = useTranslation(["ui"]);
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const [auto, setAuto] = useRecoilState(autoInfoState)
@@ -342,29 +340,7 @@ export default function Settings() {
                         <Typography level="title-md" fontWeight="bold">
                             {t("display")}
                         </Typography>
-                        <Box>
-                            <FormLabel sx={{ typography: 'title-sm' }}>
-                                {t("fullscreen")}
-                            </FormLabel>
-                            <FormHelperText sx={{ typography: 'body-sm' }}>
-                                {t("fullscreen_description")}
-                            </FormHelperText>
-                        </Box>
-                        <Button
-                            onClick={() => {
-                                if (fullScreenEnabled) {
-                                    document.exitFullscreen()
-                                    setFullScreenEnabled(false)
-                                } else {
-                                    document.documentElement.requestFullscreen()
-                                    setFullScreenEnabled(true)
-                                }
-                            }}
-                            startDecorator={fullScreenEnabled ? <FullscreenExitIcon /> : <FullscreenIcon />}
-                        >
-                            {fullScreenEnabled ? t('exit_fullscreen') : t('enter_fullscreen')}
-                        </Button>
-
+                        <FullScreenSettings />
                         <ThemeSettings />
                     </DialogContent>
                     {location.pathname !== '/' && <>
