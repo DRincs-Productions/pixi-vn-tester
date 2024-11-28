@@ -75,7 +75,7 @@ export default function GameSaveScreen() {
                     </span>
                 </Tooltip>
             </Stack>
-            <Grid
+            {open && <Grid
                 container
             >
                 {/* for 6 element */}
@@ -99,7 +99,7 @@ export default function GameSaveScreen() {
                         />
                     </Grid>
                 })}
-            </Grid>
+            </Grid>}
             <Pagination
                 count={999}
                 siblingCount={smScreen ? 2 : 7}
