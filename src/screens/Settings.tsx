@@ -1,34 +1,22 @@
-import DownloadIcon from '@mui/icons-material/Download';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
-import FolderOpenIcon from '@mui/icons-material/FolderOpen';
-import SaveIcon from '@mui/icons-material/Save';
-import SaveAsIcon from '@mui/icons-material/SaveAs';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormControl, ModalClose, RadioGroup, Sheet, Stack, Typography } from "@mui/joy";
 import { Theme, useMediaQuery } from '@mui/material';
-import { useQueryClient } from '@tanstack/react-query';
-import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
-import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
-import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
-import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
-import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../use_query/useQueryLastSave';
-import { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySaves';
 import { gameEnd } from '../utilities/actions-utility';
 import { useMyNavigate } from '../utilities/navigate-utility';
-import { downloadGameSave, loadGameSaveFromFile, putSaveIntoIndexDB } from '../utilities/save-utility';
 import AutoSettingToggle from './settings/AutoSettingToggle';
 import DialoguesSettings from './settings/DialoguesSettings';
 import FullScreenSettings from './settings/FullScreenSettings';
 import OpenHistorySettingButton from './settings/OpenHistorySettingButton';
+import SaveLoadSettingButtons from './settings/SaveLoadSettingButtons';
 import SkipSettingToggle from './settings/SkipSettingToggle';
 import ThemeSettings from './settings/ThemeSettings';
 
@@ -38,12 +26,7 @@ export default function Settings() {
     const location = useLocation();
     const [openYouSure, setOpenYouSure] = useState(false)
     const { t } = useTranslation(["ui"]);
-    const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
-    const openSaveScreen = useSetRecoilState(openGameSaveScreenState);
-    const queryClient = useQueryClient()
-    const { enqueueSnackbar } = useSnackbar();
-    const { data: lastSave = null } = useQueryLastSave()
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
     useEffect(() => {
@@ -108,77 +91,7 @@ export default function Settings() {
                                     <SkipSettingToggle />
                                     <AutoSettingToggle />
                                     <OpenHistorySettingButton />
-                                    <SettingButton
-                                        onClick={() => {
-                                            putSaveIntoIndexDB()
-                                                .then((save) => {
-                                                    queryClient.setQueryData([SAVES_USE_QUEY_KEY, save.id], save);
-                                                    queryClient.setQueryData([LAST_SAVE_USE_QUEY_KEY], save);
-                                                    enqueueSnackbar(t("success_save"), { variant: 'success' })
-                                                })
-                                                .catch(() => {
-                                                    enqueueSnackbar(t("fail_save"), { variant: 'error' })
-                                                })
-                                        }}
-                                    >
-                                        <SaveAsIcon />
-                                        <Typography level="title-md">{t("quick_save")}</Typography>
-                                        <Typography
-                                            sx={{
-                                                position: 'absolute',
-                                                top: 10,
-                                                right: 10,
-                                            }}
-                                            level="body-md"
-                                        >
-                                            Shift+S
-                                        </Typography>
-                                    </SettingButton>
-                                    <SettingButton
-                                        onClick={() => {
-                                            lastSave && setOpenLoadAlert({ open: true, data: lastSave, type: 'load' })
-                                            setOpen(false)
-                                        }}
-                                        disabled={!lastSave}
-                                    >
-                                        <FileUploadIcon />
-                                        <Typography level="title-md">{t("load_last_save")}</Typography>
-                                        <Typography
-                                            sx={{
-                                                position: 'absolute',
-                                                top: 10,
-                                                right: 10,
-                                            }}
-                                            level="body-md"
-                                        >
-                                            Shift+L
-                                        </Typography>
-                                    </SettingButton>
-                                    <SettingButton
-                                        onClick={() => {
-                                            openSaveScreen(true)
-                                            setOpen(false)
-                                        }}
-                                    >
-                                        <SaveIcon />
-                                        <Typography level="title-md">{t(`${t("save")}/${t("load")}`)}</Typography>
-                                    </SettingButton>
-                                    <SettingButton
-                                        onClick={() => downloadGameSave()}
-                                    >
-                                        <DownloadIcon />
-                                        <Typography level="title-md">{t("save_to_file")}</Typography>
-                                    </SettingButton>
-                                    <SettingButton
-                                        onClick={() => loadGameSaveFromFile(navigate, () => {
-                                            queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
-                                            enqueueSnackbar(t("success_load"), { variant: 'success' })
-                                            setOpen(false)
-                                        })}
-                                    >
-                                        <FolderOpenIcon />
-                                        <Typography level="title-md">{t("load_from_file")}</Typography>
-                                    </SettingButton>
+                                    <SaveLoadSettingButtons />
                                     <SettingButton
                                         checked={hideInterface}
                                         onClick={() => setHideInterface((prev) => !prev)}
