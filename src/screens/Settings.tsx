@@ -96,6 +96,7 @@ export default function Settings() {
                     <FullScreenSettings />
                     <ThemeSettings />
                 </DialogContent>
+                <Divider sx={{ mt: 'auto' }} />
                 <ReturnMainMenuButton />
             </Sheet>
         </Drawer>

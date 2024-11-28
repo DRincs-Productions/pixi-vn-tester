@@ -7,6 +7,7 @@ import { Typography } from "@mui/joy";
 import { useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { openGameSaveScreenState } from '../../atoms/openGameSaveScreenState';
 import { openSettingsState } from '../../atoms/openSettingsState';
@@ -27,6 +28,7 @@ export default function SaveLoadSettingButtons() {
     const queryClient = useQueryClient()
     const { enqueueSnackbar } = useSnackbar();
     const { data: lastSave = null } = useQueryLastSave()
+    const location = useLocation();
 
     return ([
         <SettingButton
@@ -41,6 +43,7 @@ export default function SaveLoadSettingButtons() {
                         enqueueSnackbar(t("fail_save"), { variant: 'error' })
                     })
             }}
+            disabled={location.pathname === '/'}
         >
             <SaveAsIcon />
             <Typography level="title-md">{t("quick_save")}</Typography>
@@ -86,6 +89,7 @@ export default function SaveLoadSettingButtons() {
         </SettingButton>,
         <SettingButton
             onClick={() => downloadGameSave()}
+            disabled={location.pathname === '/'}
         >
             <DownloadIcon />
             <Typography level="title-md">{t("save_to_file")}</Typography>

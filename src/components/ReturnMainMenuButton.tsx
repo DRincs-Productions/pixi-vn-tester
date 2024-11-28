@@ -1,5 +1,5 @@
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { Button, Divider, Stack, Typography } from "@mui/joy";
+import { Button, Stack, Typography } from "@mui/joy";
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
@@ -12,17 +12,16 @@ import { useMyNavigate } from '../utilities/navigate-utility';
 export default function ReturnMainMenuButton() {
     const openSettings = useSetRecoilState(openSettingsState);
     const navigate = useMyNavigate();
-    const location = useLocation();
     const [openDialog, setOpenDialog] = useState(false)
     const { t } = useTranslation(["ui"]);
 
-    if (location.pathname !== '/') {
+    const location = useLocation();
+    if (location.pathname === '/') {
         return null
     }
 
     return (
         <>
-            <Divider sx={{ mt: 'auto' }} />
             <Stack
                 direction="row"
                 justifyContent="space-between"

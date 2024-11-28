@@ -1,6 +1,7 @@
 import HistoryIcon from '@mui/icons-material/History';
 import { Typography } from "@mui/joy";
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { openHistoryScreenState } from '../../atoms/openHistoryScreenState';
 import { openSettingsState } from '../../atoms/openSettingsState';
@@ -10,6 +11,11 @@ export default function OpenHistorySettingButton() {
     const { t } = useTranslation(["ui"]);
     const setOpenHistory = useSetRecoilState(openHistoryScreenState);
     const openSettings = useSetRecoilState(openSettingsState);
+
+    const location = useLocation();
+    if (location.pathname === '/') {
+        return null
+    }
 
     return (
         <SettingButton
