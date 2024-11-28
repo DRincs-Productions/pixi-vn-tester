@@ -30,14 +30,20 @@ export default function EventInterceptor() {
             case 'KeyV':
                 if (event.shiftKey) {
                     setHideInterface((prev) => {
-                        if (location.pathname === '/')
+                        if (location.pathname === '/') {
+                            console.log("Can't hide interface on home page")
                             return false
+                        }
                         return !prev
                     })
                 }
                 break;
             case 'KeyS':
-                if (event.shiftKey && location.pathname !== '/') {
+                if (event.shiftKey) {
+                    if (location.pathname === '/') {
+                        console.log("Can't save on home page")
+                        break
+                    }
                     putSaveIntoIndexDB()
                         .then((save) => {
                             queryClient.setQueryData([SAVES_USE_QUEY_KEY, save.id], save);
@@ -52,7 +58,11 @@ export default function EventInterceptor() {
             case 'KeyL':
                 if (event.shiftKey) {
                     setAlertData((prev) => {
-                        if (prev.open || !lastSave) {
+                        if (prev.open) {
+                            return { ...prev, open: false }
+                        }
+                        if (!lastSave) {
+                            console.log("No save to load")
                             return { ...prev, open: false }
                         }
                         return { open: true, data: lastSave, type: 'load' }
