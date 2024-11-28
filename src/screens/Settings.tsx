@@ -8,7 +8,7 @@ import HistoryIcon from '@mui/icons-material/History';
 import SaveIcon from '@mui/icons-material/Save';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormControl, FormHelperText, FormLabel, ModalClose, RadioGroup, Sheet, Slider, Stack, Typography } from "@mui/joy";
+import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormControl, ModalClose, RadioGroup, Sheet, Stack, Typography } from "@mui/joy";
 import { Theme, useMediaQuery } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
@@ -23,7 +23,6 @@ import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
-import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import ModalDialogCustom from '../components/ModalDialog';
 import SettingButton from '../components/SettingButton';
 import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
@@ -32,6 +31,7 @@ import { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySaves';
 import { gameEnd } from '../utilities/actions-utility';
 import { useMyNavigate } from '../utilities/navigate-utility';
 import { downloadGameSave, loadGameSaveFromFile, putSaveIntoIndexDB } from '../utilities/save-utility';
+import DialoguesSettings from './settings/DialoguesSettings';
 import FullScreenSettings from './settings/FullScreenSettings';
 import ThemeSettings from './settings/ThemeSettings';
 
@@ -40,7 +40,6 @@ export default function Settings() {
     const navigate = useMyNavigate();
     const location = useLocation();
     const [openYouSure, setOpenYouSure] = useState(false)
-    const [typewriterDelay, setTypewriterDelay] = useRecoilState(typewriterDelayState)
     const { t } = useTranslation(["ui"]);
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const [auto, setAuto] = useRecoilState(autoInfoState)
@@ -255,87 +254,7 @@ export default function Settings() {
                         <Typography level="title-md" fontWeight="bold">
                             {t("dialogues")}
                         </Typography>
-                        <Box>
-                            <FormLabel sx={{ typography: 'title-sm' }}>
-                                {t("text_speed")}
-                            </FormLabel>
-                            <FormHelperText sx={{ typography: 'body-sm' }}>
-                                {t("text_speed_description")}
-                            </FormHelperText>
-                        </Box>
-                        <Box
-                            sx={{
-                                paddingX: 3,
-                            }}
-                        >
-                            <Slider
-                                defaultValue={typewriterDelay}
-                                getAriaValueText={(value) => `${value}ms`}
-                                step={10}
-                                marks={[
-                                    {
-                                        value: 0,
-                                        label: t('off'),
-                                    },
-                                    {
-                                        value: 200,
-                                        label: '200ms',
-                                    },
-                                ]}
-                                valueLabelDisplay="on"
-                                max={200}
-                                min={0}
-                                valueLabelFormat={(index) => {
-                                    if (index === 0) return t('off')
-                                    return `${index}ms`
-                                }}
-
-                                onChange={(_, value) => {
-                                    setTypewriterDelay(value as number || 0)
-                                }}
-                            />
-                        </Box>
-                        <Box>
-                            <FormLabel sx={{ typography: 'title-sm' }}>
-                                {t("auto_forward_time")}
-                            </FormLabel>
-                            <FormHelperText sx={{ typography: 'body-sm' }}>
-                                {t("auto_forward_time_description", { autoName: t("auto_forward_time_restricted"), textSpeedName: t("text_speed") })}
-                            </FormHelperText>
-                        </Box>
-                        <Box
-                            sx={{
-                                paddingX: 3,
-                            }}
-                        >
-                            <Slider
-                                defaultValue={auto.time}
-                                getAriaValueText={(value) => `${value}s`}
-                                step={1}
-                                marks={[
-                                    {
-                                        value: 1,
-                                        label: '1s',
-                                    },
-                                    {
-                                        value: 10,
-                                        label: '10s',
-                                    },
-                                ]}
-                                valueLabelDisplay="on"
-                                max={10}
-                                min={1}
-                                disabled={!auto}
-                                valueLabelFormat={(index) => index + "s"}
-                                onChange={(_, value) => {
-                                    if (value)
-                                        setAuto((prev) => ({
-                                            ...prev,
-                                            time: value as number
-                                        }))
-                                }}
-                            />
-                        </Box>
+                        <DialoguesSettings />
 
                         <Typography level="title-md" fontWeight="bold">
                             {t("display")}
