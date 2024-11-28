@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import ModalDialogCustom from '../components/ModalDialog';
 import { gameEnd } from '../utilities/actions-utility';
@@ -13,11 +12,11 @@ import { useMyNavigate } from '../utilities/navigate-utility';
 import AutoSettingToggle from './settings/AutoSettingToggle';
 import DialoguesSettings from './settings/DialoguesSettings';
 import FullScreenSettings from './settings/FullScreenSettings';
+import HideInterfaceSettingToggle from './settings/HideInterfaceSettingToggle';
 import OpenHistorySettingButton from './settings/OpenHistorySettingButton';
 import SaveLoadSettingButtons from './settings/SaveLoadSettingButtons';
 import SkipSettingToggle from './settings/SkipSettingToggle';
 import ThemeSettings from './settings/ThemeSettings';
-import HideInterfaceSettingToggle from './settings/HideInterfaceSettingToggle';
 
 export default function Settings() {
     const [open, setOpen] = useRecoilState(openSettingsState);
@@ -25,7 +24,6 @@ export default function Settings() {
     const location = useLocation();
     const [openYouSure, setOpenYouSure] = useState(false)
     const { t } = useTranslation(["ui"]);
-    const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
     useEffect(() => {
