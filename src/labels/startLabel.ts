@@ -172,7 +172,11 @@ const secondPart = newLabel("second_part", [
     () => narration.dialogue = { character: mc, text: "She had a few days' supply of heroin. She... she took it all at once." },
     () => narration.dialogue = { character: mc, text: "Locked herself in her room. Screamed at me, \"You hate me anyway!\" and wouldn't stop screaming it, even though I begged her to come out." },
     () => narration.dialogue = { character: mc, text: "Those were the last words I heard from her." },
-    () => narration.dialogue = { character: mc, text: "My sister and I were taken to be put into foster care. We were told we would be together, <>but we were put into separate homes." },
+    () => {
+        narration.dialogue = { character: mc, text: "My sister and I were taken to be put into foster care. We were told we would be together, " }
+        narration.dialogGlue = true
+    },
+    () => narration.dialogue = { character: mc, text: "but we were put into separate homes." },
     () => narration.dialogue = { character: mc, text: "..nobody wanted to adopt me; I was 15 at the time my mom killed herself. Teens don't get adopted." },
     () => narration.dialogue = { character: mc, text: "And when the first potential couple came in and heard about my story, they blamed me for everything- called me a \"demon spawn\"- and left in a huff." },
     () => narration.dialogue = { character: mc, text: "...I never got another chance." },
