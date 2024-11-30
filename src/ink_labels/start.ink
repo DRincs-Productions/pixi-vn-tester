@@ -29,7 +29,7 @@ steph: Hey! Everyone calls me Steph. I'll shake your hand.
 She puts out her hand, and I take it.
 
 mc: Thanks, good to meet you, Stephanie.
-steph: WOW, that is, like, the most perfect handshake I've ever had! Firm, but also gentle. Sly, you gotta shake his hand!
+steph: WOW, that is, like, the most perfect handshake I've ever had! Firm, but also gentle. Sly, you *gotta* shake his hand!
 sly: It's just a handshake...
 steph: Then just give it to him!
 james: Don't worry, Peter, she's just giving you the run-down. She's kinda like a father... I mean a mother... to us.
@@ -41,11 +41,11 @@ sly: Like a father?!?!
 I'm afraid to take her hand when she's mad, but I do.
 
 sly: Wow, that was a good handshake...
-james: Well, I mean, you are kinda acting like a father. Like, I can totally see it: I'm the daughter, and you as my father, you want to make sure I'm going out with the right guy... or something...
+james: Well, I mean, you are *kinda* acting like a father. Like, I can totally see it: I'm the daughter, and you as my father, you want to make sure I'm going out with the right guy... or something...
 mc: ...
 mc: ...
 steph: ...BWAHA HA!! JAMES!!!! WHAAAAT?????? YOU'RE SO AWKWARD!!!!
-mc: O-kay, I'm gonna go get settled in-
+mc: O-*kay*, I'm gonna go get settled in-
 steph: Wait! I've got a gift for you!
 mc: ...?
 sly: It's food.
@@ -60,12 +60,12 @@ steph: Oh! You gotta take in your luggage!
 
 === second_part ===
 
-She enters my my room before I'VE even had a chance to. \\n...I could've just come back and gotten the platter later...
+She enters my my room before I'VE even had a chance to. \\n\\n...I could've just come back and gotten the platter later...
 She sets it on a desk. I throw my two paper bags down beside the empty bed.
 
 steph: They got you a new mattress, right? That last guy was a druggie, did James tell tell you that?
-sly: We're the reason he got expelled!
-steph: Sly! If word gets out about that... well, actually, it wouldn't matter, he's the one who shot himself up.
+sly: *We're* the reason he got expelled!
+steph: Sly! If word gets out about that... well, actually, it wouldn't matter, *he's* the one who shot himself up.
 
 I'm fumbling for a new subject.
 
@@ -77,290 +77,180 @@ sly: Adopted family.
 steph: Sly and I were best friends growing up and James here needed a mama, so Sly adopted him!
 james: We're not actually related.
 mc: ...
-james: Yeah, I like to say that this last semester I was in foster care and Sly picked me up somewhere in there.
+james: Yeah, I like to say that this last semester I was in *foster care* and Sly picked me up somewhere in there.
 sly: James is just a baby. A freshman like you!
 james: And *you're* just a sophomore!
-
-I went to medical school for two years before coming here, I think that counts as at least 6 years!
+sly: I went to medical school for two years before coming here, I think that counts as *at least* 6 years!
 
 I'm dizzy, and my blood's rushing.
 
-Um... why did you switch degrees?
-
-My mom was all in the medical field, and since I'm great with kids- I had 6- 
-
-They were actually her siblings.
-
-Yeah, whatever. I tried it because I thought I'd love it, but I HATED it! When we started getting into anatomy, I realized how gross the whole thing is. I changed diapers, but that's a little different from changing livers, know what I mean?
-
-...
-
-So I'm trying out architecture now. What are you going for, Peter?
-
-...uh......just getting my Gen Eds out of the way right now...
-
-Why not do that at a community college?
-
-Did you get a full ride or something?
-
-...yeah...
+mc: Um... why did you switch degrees?
+sly: My mom was all in the medical field, and since I'm great with kids- I had 6- 
+james: They were actually her siblings.
+sly: Yeah, whatever. I tried it because I thought I'd love it, but I HATED it! When we started getting into anatomy, I realized how gross the whole thing is. I changed diapers, but that's a little different from changing *livers*, know what I mean?
+mc: ...
+sly: So I'm trying out architecture now. What are you going for, Peter?
+mc: ...uh......just getting my Gen Eds out of the way right now...
+sly: Why not do that at a community college?
+steph: Did you get a full ride or something?
+mc: ...yeah...
 
 I knew this wouldn't go anywhere good.
 
-Are you going to go visit your parents on the weekend?
-
-... .... .. .... ..... ..... ... ... ..
-
-It's no worry worry if you don't. mine drive me crazy so stay here.
-
-You've gotta live close by, right? Nobody comes to this college from afar, sorry, we're just not tha* hot of a scene.
-
-... ... .. . . .. .. . ......... ... . ... .. .... ... .. . . . ...... . . . . .. .. .. .... . ...
-
-Or maybe they'll come to visit you? My siblings will do that sometimes. It's quite a sight to have all 6 of them running around here, but everyone's pretty chill about it and I trust pretty much everyone here.
-
-At least, now that Sven's gone.
-
-James! You don't have to refer to him by name!!
-
-Why? Peter'll never meet him.
-
-Say, Peter, where's the rest of your luggage?
-
-...
-
-Is that all your luggage? Man, that sucks.
-
-...
-
-So... um... what are you going for, Stephanie?
-
-Oh, me?
+sly: Are you going to go visit your parents on the weekend?
+mc: ... .... .. .... ..... ..... ... ... ..
+james: It's no worry worry if you don't. mine drive me crazy so stay here.
+sly: You've gotta live close by, right? Nobody comes to this college from afar, sorry, we're just not tha* hot of a scene.
+mc: ... ... .. . . .. .. . ......... ... . ... .. .... ... .. . . . ...... . . . . .. .. .. .... . ...
+sly: Or maybe they'll come to visit you? My siblings will do that sometimes. It's quite a sight to have all 6 of them running around here, but everyone's pretty chill about it and I trust pretty much everyone here.
+james: At least, now that *Sven's* gone.
+steph: James! You don't have to refer to him by name!!
+james: Why? Peter'll never meet him.
+steph: Say, Peter, where's the rest of your luggage?
+mc: ...
+james: Is that all your luggage? Man, that sucks.
+mc: ...
+mc: So... um... what are you going for, Stephanie?
+steph: Oh, me?
 
 I shouldn't have asked her. I shouldn't have directed a question at her. She reminds me too much...
 
-I'm going for childhood education! Actually just have 1 more class; it wasn't available previous semester, so now I've got to take it this one!
-
-I'm honestly surprised my parents are bothering to pay for me to stay in the dorms right now, but both of them want me to get the "college experience".
-
-I think I've had plenty of it already, though.
-
-Hey. I wouldn't let you go anyway.
-
-...we'd see each other still.
-
-I'm going for computer science.
-
-Oh, cool! You like computers?
-
-Yeah, I used to use MS Paint all the time. Now I want to step up my game.
-
-I also installed Windows once. I just think computer skills are important.
-
-Steph and I are placing bets whether or not he'll switch degrees once he gets into the real classes. He's still just taking Gen Eds, so we won't know for at least another semester.
-
-Haha, Sly thinks I made a rash decision, but I think computers are what I wanna do with my life.
-
-James, you gotta figure out what you wa want to do in computers. You're not seeing the trees for the forest.
-
-...I think you said that wrong.
-
-No, you're always looking at these big ideas and ignoring the actual reality of things! Computer Science isn't just an easy degree either. I'm worried these classes are going to kill you!
-
-I'll be fine!
-
-Death.
-
-...hey Peter, are you okay?
-
-So, what snacks did you bring?
-
-Oh!
+steph: I'm going for childhood education! Actually just have 1 more class; it wasn't available previous semester, so now I've got to take it this one!
+steph: I'm honestly surprised my parents are bothering to pay for me to stay in the dorms right now, but both of them want me to get the *"college experience"*.
+steph: I think I've had plenty of it already, though.
+sly: Hey. *I* wouldn't let you go anyway.
+steph: ...we'd see each other still.
+james: I'm going for computer science.
+mc: Oh, cool! You like computers?
+james: Yeah, I used to use MS Paint all the time. Now I want to step up my game.
+james: I also installed Windows once. I just think computer skills are important.
+sly: Steph and I are placing bets whether or not he'll switch degrees once he gets into the real *classes*. \\n\\nHe's still just taking Gen Eds, so we won't know for at least another semester.
+james: Haha, Sly thinks I made a rash decision, but I think computers are what I wanna do with my life.
+steph: James, you gotta figure out what you wa want to *do* in computers. You're not seeing the trees for the forest.
+james: ...I think you said that wrong.
+steph: No, you're always looking at these big ideas and ignoring the actual *reality* of things! Computer Science isn't just an easy degree either. I'm worried these classes are going to kill you!
+james: I'll be fine!
+steph: Death.
+steph: ...hey Peter, are you okay?
+mc: So, what snacks did you bring?
+steph: Oh!
 
 She opens the tray. Inside are cookies, brownies, candies, a pie, cake pieces... James quickly grabs a few. Sly takes some too.
 
-How do you bake all this?!
-
-Baking helps me relax. It's really no work for me, and it's a good way to unwind!
-
-...I had to do all the cooking as a kid.
+mc: How do you bake all this?!
+steph: Baking helps me relax. It's really no work for me, and it's a good way to unwind!
+mc: ...I had to do all the cooking as a kid.
 
 ...did I just let that slip?
 
-Awesome! Maybe we can swap recipes sometime!
-
-I can do... I don't need... I mean...
-
-"You can do?" Is that what the kids are saying today?
-
-James, you are a kid!
-
-Sly, I am so out of the loop!
-
-Well, then, Peter, we'll have to try out your cooking someday!
-
-Oh! If you want... you can even come over today! You'll be surprised what you can make in a dorm with some know-how and tricks! Did you know you can make cake in a microwave?!?!
+steph: Awesome! Maybe we can swap recipes sometime!
+mc: I can do... I don't need... I mean...
+james: "You can do?" Is that what the kids are saying today?
+sly: James, you *are* a kid!
+james: Sly, I am so out of the loop!
+sly: Well, then, Peter, we'll have to try out your cooking someday!
+steph: Oh! If you want... you can even come over today! You'll be surprised what you can make in a dorm with some know-how and tricks! *Did you know you can make cake in a microwave?!?!*
 
 They can see I'm stressing out. I push it all down.
 
-...It's fine to be scared.
-
-?!
-
-I know you're an adult now, but it's okay to be scared. You don't have to feel ashamed of feeling.  It's okay to feel.
+sly: ...It's fine to be scared.
+mc: ?!
+sly: I know you're an adult now, but it's okay to be scared. You don't have to feel ashamed of feeling.  It's okay to feel.
 
 ...they have no idea. But I'm glad.
 
-...that's right.
-
-...who told you you're a scary guy, Peter? You don't seem scary at all.
-
-My mom.
+sly: ...that's right.
+james: ...who told you you're a scary guy, Peter? You don't seem scary at all.
+mc: My mom.
 
 I just said that. Why?
-
 Crap. Crap crap crap. Why am I crying?
 
-Are you okay?
+steph: Are you okay?
 
 Sly comes over and sits down beside me. She locks eyes with with me.
 
-...why are you scary?
+sly: ...why are you scary?
+mc: ...
+sly: Is that why your parents sent you here?
+james: Sly!
+mc: ...
+steph: ...I can't imagine being told by your own *mother* you're scary.
+mc: ...
+steph: ...but if you really *were*, I suspect you wouldn't be here.
+james: ...Right?
 
-...
-
-Is that why your parents sent you here?
-
-Sly!
-
-...
-
-...I can't imagine being told by your own mother you're scary.
-
-...
-
-...but if you really were, I suspect you wouldn't be here.
-
-...Right?
-
-...I want to run. But I don't know this place; there's nowhere to run. And I can't lose this room... So the best I can do is make them run.
-
+...I want to run. But I don't know this place; there's nowhere to run. And I can't lose this room... So the best I can do is make *them* run.
 By telling them the truth.
 
-...I'm the reason...
-
-...
+mc: ...I'm the reason...
+mc: ...
 
 If I tell them the truth, they'll leave me alone.
+...and I won't risk hurting any of *them* too.
 
-...and I won't risk hurting any of them too.
-
-...Mom committed suicide because of me...
+mc: ...Mom committed suicide because of me...
 
 ...
-
 ...why don't they leave?
-
 That's right, Sly's looking out for James.
+If I don't share *everything* now, she's going to get me framed for something and I won't have a place to live a anymore.
 
-If I don't share everything now, she's going to get me framed for something and I won't have a place to live a anymore.
-
-...she was...
-
-...
+mc: ...she was...
+mc: ...
 
 They just look at me sadly.
 
-...addicted to heroin and I couldn't tell anyone.
-
-...told me she'd gut me like a pig if I did.
-
-I recommended to her...
-
-...
-
-...I recommend to her "why don't you end this?" I told her I hated her. And what she did to my littl sister...
+mc: ...addicted to heroin and I couldn't tell *anyone*.
+mc: ...told me she'd gut me like a pig if I did.
+mc: I recommended to her...
+mc: ...
+mc: ...I recommend to her "why don't you end this?" I told her I *hated* her. *And* what she did to my littl sister...
 
 Crap, now I look like the villain again. But I am. Aren't I?
 
-...she sold all of my sister's dolls, toys, school supplies, for dirt cheap just to try to get another fix. She started stealing; she got in with the wrong crowd. She wanted out.
+mc: ...she sold all of my sister's dolls, toys, school supplies, for dirt cheap just to try to get another fix. She started stealing; she got in with the wrong crowd. She wanted out.
+mc: The police were coming though, because... because I called them. Because mean people were coming to hurt Mom.
+mc: She couldn't have that. I'd just royally $%*@!& up, and she threatened to *kill* me, but... she couldn't bring herself to do it.
+mc: She had a few days' supply of heroin. She... she took it all at once.
+mc: Locked herself in her room. Screamed at me, "You hate me anyway!" and wouldn't stop screaming it, even though I begged her to come out.
+mc: Those were the last words I heard from her.
+mc: My sister and I were taken to be put into foster care. We were told we would be together, <>
+but we were put into separate homes.
+mc ...nobody wanted to adopt me; I was 15 at the time my mom killed herself. Teens don't get adopted.
+mc: And when the first potential couple came in and heard about my story, they blamed me for everything- called me a "demon spawn"- and left in a huff.
+mc: ...I never got another chance.
+mc: I only have a place to live here now because I was a good student. But who knows about next semester, or next year? Or once I graduate?
+mc: I'm amazed that I got a room at all; just two weeks ago they said there was *nothing*.
 
-The police were coming though, because... because I called them. Because mean people were coming to hurt Mom.
-
-She couldn't have that. I'd just royally $%*@!& up, and she threatened to kil me, but... she couldn't bring herself to do it.
-
-She had a few days' supply of heroin. She... she took it all at once.
-
-Locked herself in her room. Screamed at me, "You hate me anyway!" and wouldn't stop screaming it, even though I begged her to come out.
-
-Those were the last words I heard from her.
-
-My sister and I were taken to be put into foster care. We were told we would be together,
-
-My sister and I were taken to be put into foster care. We were told we would be together, but we were put into separate homes.
-
-...nobody wanted to adopt me; I was 15 at the time my mom killed herself. Teens don't get adopted.
-
-And when the first potential couple came in and heard about my story, they blamed me for everything- called me a "demon spawn"- and left in a huff.
-
-...I never got another chance.
-
-I only have a place to live here now because I was a good student. But who knows about next semester, or next year? Or once I graduate?
-
-I'm amazed that I got a room at all; just two weeks ago they said there was nothing.
-
-...so there. Have I finally scared you away?
-
-I don't want to look at any of them.
-
-A hand gently rubs my back.
-
-You don't really want us to leave, do you?
-
-?!?!
-
-...
-
-...because if you're willing to be honest about whether you want to be here with us or alone elsewhere, we're willing to help you ou either way.
-
-It wasn't your fault.
-
+mc: ...so there. Have I finally scared you away?
+mc: I don't want to look at any of them.
+mc: A hand gently rubs my back.
+sly: You don't really want us to leave, do you?
+mc: ?!?!
+sly: ...
+sly: ...because if you're willing to be honest about whether you want to be here with us or alone elsewhere, *we're* willing to help you ou either way.
+sly: It wasn't your fault.
 I burst out crying.
-
-...I look like such an idiot.
-
-No you don't. And you probably saved your and your little sister's lives. If the people coming for your mom had gotten to your house, who knows what they would have done to you both.
-
+mc: ...I look like such an idiot.
+sly: No you don't. And you probably saved your *and* your little sister's lives. If the people coming for your mom had gotten to your house, *who* knows what they would have done to you both.
 I can't stop.
-
-You did the best you knew how.
-
+steph: You did the best you knew how.
 I feel a tissue press against my hands. I suddenly realize that snot is dripping through my fingers. Gross.
 
-I cried for like a week when I first came. These two are champs, don't worry about it.
-
-So, be honest with us right now. Do you want to stick around us for a while? Or, do you truly want to be left alone? Because we're all willing to deal with this "very dangerous" person.
-
-Will you be honest with your feelings and with us?
-
-...yes.
-
-Are you willing to try being a friend and having friends?
-
-...
-
-Because I'm willing to give you a shot.
-
-...absolutely.
+james: I cried for like a week when I first came. These two are champs, don't worry about it.
+sly: So, be honest with us right now. *Do you* want to stick around us for a while? Or, do you truly want to be left alone? Because we're all willing to deal with this "very dangerous" person.
+sly: Will you be honest with your feelings and with us?
+mc: ...yes.
+sly: Are you willing to try being a friend and having friends?
+mc: ...
+sly: Because I'm willing to give you a shot.
+mc: ...absolutely.
 
 I feel lighter. A wave of something I'm not sure I've ever felt washes over me.
-
 It's peace; it's rest; it's something different.
-
 Like, even though it'll be hard, maybe I could actually be open here.
-
 I think this is the beginning of what people call...
-
 ...freedom...
 
 -> DONE
