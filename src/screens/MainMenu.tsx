@@ -10,6 +10,7 @@ import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import MenuButton from '../components/MenuButton';
+import { NARRATION_ROUTE } from '../constans';
 import startLabel from '../labels/startLabel';
 import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import useQueryLastSave from '../use_query/useQueryLastSave';
@@ -74,7 +75,7 @@ export default function MainMenu() {
             <MenuButton
                 onClick={() => {
                     canvas.removeAll()
-                    navigate("/narration")
+                    navigate(NARRATION_ROUTE)
                     narration.callLabel(startLabel, {
                         navigate: navigate,
                         t: tNarration,

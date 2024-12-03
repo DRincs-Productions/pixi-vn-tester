@@ -1,4 +1,5 @@
 import { canvas, getSaveData, loadSaveData } from "@drincs/pixi-vn";
+import { LOADING_ROUTE, MAIN_MENU_ROUTE, NARRATION_ROUTE } from "../constans";
 import GameSaveData from "../models/GameSaveData";
 import { deleteRowFromIndexDB, getLastRowFromIndexDB, getListFromIndexDB, getRowFromIndexDB, INDEXED_DB_SAVE_TABLE, putRowIntoIndexDB } from "./indexedDB-utility";
 
@@ -15,7 +16,7 @@ export function getSave(image?: string): GameSaveData {
 }
 
 export async function loadSave(saveData: GameSaveData, navigate: (path: string) => void) {
-    navigate("/loading")
+    navigate(LOADING_ROUTE)
     // load the save data from the JSON string
     await loadSaveData(saveData.saveData, navigate)
 }
@@ -82,14 +83,14 @@ export function loadGameSaveFromFile(navigate: (path: string) => void, afterLoad
             const reader = new FileReader();
             reader.onload = (e) => {
                 const jsonString = e.target?.result as string;
-                navigate("/loading")
+                navigate(LOADING_ROUTE)
                 let data: GameSaveData = JSON.parse(jsonString)
                 // load the save data from the JSON string
                 loadSave(data, navigate)
                     .then(() => {
                         afterLoad && afterLoad();
                     }).catch(() => {
-                        navigate("/narration")
+                        navigate(NARRATION_ROUTE)
                     })
             };
             reader.readAsText(file);
@@ -109,7 +110,7 @@ export async function addRefreshSave() {
 export async function loadRefreshSave(navigate: (path: string) => void) {
     const jsonString = localStorage.getItem("refresh_save")
     if (jsonString) {
-        navigate("/loading")
+        navigate(LOADING_ROUTE)
         let data: GameSaveData = JSON.parse(jsonString)
 
         return loadSave(data, navigate)
@@ -117,10 +118,10 @@ export async function loadRefreshSave(navigate: (path: string) => void) {
                 localStorage.removeItem("refreshSave")
             })
             .catch(() => {
-                navigate("/")
+                navigate(MAIN_MENU_ROUTE)
             })
     }
     else {
-        navigate("/")
+        navigate(MAIN_MENU_ROUTE)
     }
 }
