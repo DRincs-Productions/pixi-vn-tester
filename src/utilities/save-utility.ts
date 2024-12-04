@@ -1,5 +1,5 @@
 import { canvas, getSaveData, loadSaveData } from "@drincs/pixi-vn";
-import { LOADING_ROUTE, MAIN_MENU_ROUTE, NARRATION_ROUTE } from "../constans";
+import { LOADING_ROUTE, MAIN_MENU_ROUTE, NARRATION_ROUTE, REFRESH_SAVE_LOCAL_STORAGE_KEY } from "../constans";
 import GameSaveData from "../models/GameSaveData";
 import { deleteRowFromIndexDB, getLastRowFromIndexDB, getListFromIndexDB, getRowFromIndexDB, INDEXED_DB_SAVE_TABLE, putRowIntoIndexDB } from "./indexedDB-utility";
 
@@ -103,19 +103,19 @@ export async function addRefreshSave() {
     const data = getSave()
     let jsonString = JSON.stringify(data);
     if (jsonString) {
-        localStorage.setItem("refresh_save", jsonString)
+        localStorage.setItem(REFRESH_SAVE_LOCAL_STORAGE_KEY, jsonString)
     }
 }
 
 export async function loadRefreshSave(navigate: (path: string) => void) {
-    const jsonString = localStorage.getItem("refresh_save")
+    const jsonString = localStorage.getItem(REFRESH_SAVE_LOCAL_STORAGE_KEY)
     if (jsonString) {
         navigate(LOADING_ROUTE)
         let data: GameSaveData = JSON.parse(jsonString)
 
         return loadSave(data, navigate)
             .then(() => {
-                localStorage.removeItem("refreshSave")
+                localStorage.removeItem(REFRESH_SAVE_LOCAL_STORAGE_KEY)
             })
             .catch(() => {
                 navigate(MAIN_MENU_ROUTE)
