@@ -30,7 +30,7 @@ export default function MainMenu() {
 
     useEffect(() => {
         setHideInterface(false)
-        let bg = addImage("background_main_menu", "https://andreannaking.com/wp-content/uploads/2021/12/Download-Beautiful-Nature-Landscape-Hd-Wallpaper-Full-HD-Wallpapers.jpg")
+        let bg = addImage("background_main_menu")
         bg.load()
 
         return () => {
