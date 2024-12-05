@@ -28,7 +28,7 @@ The settings modal allows you to change the text speed, go to full screen, edit 
 * `Esc`: Open the settings modal.
 * `Shift` + `V`: Hide the UI (Show only the canvas).
 
-## Used libraries
+### Used libraries
 
 This template uses the following libraries:
 
@@ -57,7 +57,7 @@ Text libraries:
 * [i18next](https://www.i18next.com/): A library that gives the possibility to manage multiple translations in the application.
 * [Reacr Markdown](https://www.npmjs.com/package/react-markdown): A library that allows you to render markdown in React components.
 
-## How to use
+### How to use
 
 Before starting, you need to have Node.js installed on your computer. If you don't have it, you can download it [here](https://nodejs.org/).
 
