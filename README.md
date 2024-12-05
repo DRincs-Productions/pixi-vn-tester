@@ -18,7 +18,7 @@ The history modal is a list of all the dialogues and choices that have been disp
 
 The settings modal allows you to change the text speed, go to full screen, edit theme colors, and change go to main menu. The settings for the audio have not been added nor the libraries to manage it, but I recommend adding them.
 
-## Keyboard shortcuts (hotkeys)
+### Keyboard shortcuts (hotkeys)
 
 * `Space` or `Enter`: Continue the dialogue.
 * `Keep Space` or `Keep Enter`: Skip the dialogue.
@@ -57,7 +57,7 @@ Text libraries:
 * [i18next](https://www.i18next.com/): A library that gives the possibility to manage multiple translations in the application.
 * [Reacr Markdown](https://www.npmjs.com/package/react-markdown): A library that allows you to render markdown in React components.
 
-### How to use
+## How to use
 
 Before starting, you need to have Node.js installed on your computer. If you don't have it, you can download it [here](https://nodejs.org/).
 
