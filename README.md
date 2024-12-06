@@ -18,69 +18,7 @@ The history modal is a list of all the dialogues and choices that have been disp
 
 The settings modal allows you to change the text speed, go to full screen, edit theme colors, and change go to main menu. The settings for the audio have not been added nor the libraries to manage it, but I recommend adding them.
 
-## How to use
-
-Before starting, you need to have Node.js installed on your computer. If you don't have it, you can download it [here](https://nodejs.org/).
-
-### Recommended Visual Studio Code extensions
-
-* [JavaScript and TypeScript Nightly](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-next): Provides JavaScript and TypeScript nightlies.
-* [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint): Integrates ESLint into VS Code.
-* [vscode-color-picker](https://marketplace.visualstudio.com/items?itemName=antiantisepticeye.vscode-color-picker): A color picker for Visual Studio Code.
-* [Version Lens](https://marketplace.visualstudio.com/items?itemName=pflannery.vscode-versionlens): Shows the latest version for each package using code lens.
-* [Ink](https://marketplace.visualstudio.com/items?itemName=bruno-dias.ink): Syntax highlighting for the Ink language.
-
-### Change the icon
-
-You can change the icon of the game by replacing the images in the `public` folder.
-
-### Writing/testing the narrative with Inky
-
-To write and test the narrative, you can use the **Inky editor**. Inky is a tool for writing interactive fiction using the Ink language. Of course, the special features introduced by pixi-vn will not be ignored by Inky. You can download it [here](https://www.inklestudios.com/ink/).
-
-To use Inky with this template, you can open the `src/main.ink` file in Inky. Ricorda che quando Importi nuovi file con Inky devi anche importarli in usando TypeScript:
-
-```ink
-// main.ink
-INCLUDE ink_labels/start.ink
-INCLUDE ink_labels/second.ink
--> start
-```
-
-```tsx
-// utilities/ink-utility.ts
-import { importInkText } from '@drincs/pixi-vn-ink';
-import startLabel from '../ink_labels/start.ink?raw';
-import secondLabel from '../ink_labels/second.ink?raw';
-
-export async function importAllInkLabels() {
-    await importInkText([startLabel, secondLabel])
-}
-```
-
-### Installation
-
-First, is necessary install the dependencies. To do this, open a terminal in the root folder of the project and run the following command:
-
-```bash
-npm install
-```
-
-### Start the web application
-
-To start the web application, run the following command:
-
-```bash
-npm start
-```
-
-This command will start the development server. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
-
-#### Debugging the web application
-
-If you are using Visual Studio Code, you can use the debug configuration provided with the template. To do this, after launching `npm start`, go to the debug section and select the `Launch Chrome` configuration.
-
-## Keyboard shortcuts (hotkeys)
+### Keyboard shortcuts (hotkeys)
 
 * `Space` or `Enter`: Continue the dialogue.
 * `Keep Space` or `Keep Enter`: Skip the dialogue.
@@ -90,32 +28,14 @@ If you are using Visual Studio Code, you can use the debug configuration provide
 * `Esc`: Open the settings modal.
 * `Shift` + `V`: Hide the UI (Show only the canvas).
 
-## Custom hashtag scripts
-
-By using the [onInkHashtagScript](https://pixi-vn.web.app/ink/ink-hashtag.html) function, in this template the following features have been added.
-
-**Moving between screens**: This feature allows you to navigate between different screens. The syntax is as follows:
-
-`#` + `navigate` + `[route]`
-
-`route`: The route/path to navigate to. Read more about routes in the [Router documentation](https://pixi-vn.web.app/start/interface-navigate.html).
-
-```ink
-#navigate /narration
-```
-
-**Rename the character**: This feature allows you to change the name of the character speaking. The syntax is as follows:
-
-`#` + `rename` + `[character id]` + `[new name]`
-
-## Used libraries
+### Used libraries
 
 This template uses the following libraries:
 
 Core libraries:
 
 * [Pixi’VN](https://www.npmjs.com/package/@drincs/pixi-vn): A visual novel library.
-* [Pixi’VN - Ink Integration](https://www.npmjs.com/package/@drincs/pixi-vn-ink): A library that provides integration with the Ink language.
+* [Pixi’VN - *ink* Integration](https://www.npmjs.com/package/@drincs/pixi-vn-ink): A library that provides integration with the *ink* language.
 * [Vite](https://vitejs.dev/): A build tool that aims to provide a faster and leaner development experience for modern web projects.
 * [Vite Checker](https://www.npmjs.com/package/vite-plugin-checker): A Vite plugin that checks TypeScript types and ESLint on each build.
 * [PWA Vite Plugin](https://vite-pwa-org.netlify.app): A Vite plugin that provides PWA support. This allows the possibility of installing the game as a Progressive Web App.
@@ -136,6 +56,79 @@ Text libraries:
 
 * [i18next](https://www.i18next.com/): A library that gives the possibility to manage multiple translations in the application.
 * [Reacr Markdown](https://www.npmjs.com/package/react-markdown): A library that allows you to render markdown in React components.
+
+## How to use
+
+Before starting, you need to have Node.js installed on your computer. If you don't have it, you can download it [here](https://nodejs.org/).
+
+### Recommended Visual Studio Code extensions
+
+* [JavaScript and TypeScript Nightly](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-next): Provides JavaScript and TypeScript nightlies.
+* [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint): Integrates ESLint into VS Code.
+* [vscode-color-picker](https://marketplace.visualstudio.com/items?itemName=antiantisepticeye.vscode-color-picker): A color picker for Visual Studio Code.
+* [Version Lens](https://marketplace.visualstudio.com/items?itemName=pflannery.vscode-versionlens): Shows the latest version for each package using code lens.
+* [Ink](https://marketplace.visualstudio.com/items?itemName=bruno-dias.ink): Syntax highlighting for the Ink language.
+
+### Change the icon
+
+You can change the icon of the game by replacing the images in the `public` folder.
+
+## *ink* - Custom hashtag scripts
+
+By using the [onInkHashtagScript](https://pixi-vn.web.app/ink/ink-hashtag.html) function, in this template the following features have been added.
+
+**Moving between screens**: This feature allows you to navigate between different screens. The syntax is as follows:
+
+`#` + `navigate` + `[route]`
+
+`route`: The route/path to navigate to. Read more about routes in the [Router documentation](https://pixi-vn.web.app/start/interface-navigate.html).
+
+```ink
+#navigate /narration
+```
+
+**Rename the character**: This feature allows you to change the name of the character speaking. The syntax is as follows:
+
+`#` + `rename` + `[character id]` + `[new name]`
+
+### *ink* - ink files in the project
+
+The `ink` folder contains the *ink* files that will be used in the game. In this project, all files `.ink`, that are in the `ink` folder, will be included automatically in the project. You can change this behavior by modifying the `src/utils/ink-utility.ts` file.
+
+### *ink* - Writing/testing the narrative with Inky
+
+To write and test the narrative, you can use the **Inky editor**. Inky is a tool for writing interactive fiction using the Ink language. Of course, the special features introduced by pixi-vn will not be ignored by Inky. You can download it [here](https://www.inklestudios.com/ink/).
+
+To use Inky with this template, you can open the `src/main.ink` file in Inky.
+
+```ink
+// main.ink
+INCLUDE ink/start.ink
+INCLUDE ink/second.ink
+-> start
+```
+
+## Installation
+
+First, is necessary install the dependencies. To do this, open a terminal in the root folder of the project and run the following command:
+
+```bash
+npm install
+```
+
+## Start the web application
+
+To start the web application, run the following command:
+
+```bash
+npm start
+```
+
+This command will start the development server. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+
+### Debugging the web application
+
+If you are using Visual Studio Code, you can use the debug configuration provided with the template. To do this, after launching `npm start`, go to the debug section and select the `Launch Chrome` configuration.
 
 ## Distribution
 
