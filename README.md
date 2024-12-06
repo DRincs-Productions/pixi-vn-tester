@@ -75,7 +75,7 @@ You can change the icon of the game by replacing the images in the `public` fold
 
 ### ink folder
 
-The `ink` folder contains the Ink files that will be used in the game. In this project, all files `.ink`, that are in the `ink` folder, will be included automatically in the `main.ink` file. You can change this behavior by modifying the `src/utilities/ink-utility.ts` file.
+The `ink` folder contains the Ink files that will be used in the game. In this project, all files `.ink`, that are in the `ink` folder, will be included automatically in the `main.ink` file. You can change this behavior by modifying the `src/utils/ink-utility.ts` file.
 
 ### Writing/testing the narrative with Inky
 
