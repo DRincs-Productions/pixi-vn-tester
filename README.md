@@ -71,7 +71,7 @@ Before starting, you need to have Node.js installed on your computer. If you don
 
 You can change the icon of the game by replacing the images in the `public` folder.
 
-### Installation
+## Installation
 
 First, is necessary install the dependencies. To do this, open a terminal in the root folder of the project and run the following command:
 
@@ -79,7 +79,7 @@ First, is necessary install the dependencies. To do this, open a terminal in the
 npm install
 ```
 
-### Start the web application
+## Start the web application
 
 To start the web application, run the following command:
 
@@ -89,7 +89,7 @@ npm start
 
 This command will start the development server. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 
-#### Debugging the web application
+### Debugging the web application
 
 If you are using Visual Studio Code, you can use the debug configuration provided with the template. To do this, after launching `npm start`, go to the debug section and select the `Launch Chrome` configuration.
 
