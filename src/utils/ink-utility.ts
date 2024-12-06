@@ -5,7 +5,7 @@ export async function importAllInkLabels() {
     const files = import.meta.glob<{ default: string }>('../ink/*.{ink,txt}');
     const fileEntries = await Promise.all(
         Object.entries(files).map(async ([path]) => {
-            const fileModule = await import(path + "?raw");
+            const fileModule = await import(/* @vite-ignore */path + "?raw");
             return fileModule.default;
         })
     );
