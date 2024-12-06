@@ -58,6 +58,8 @@ steph: He doesn't have to know that!!!
 mc: ...thanks... um...
 steph: Oh! You gotta take in your luggage!
 
+-> second_part
+
 === second_part ===
 
 She enters my my room before I'VE even had a chance to. \\n\\n...I could've just come back and gotten the platter later...
