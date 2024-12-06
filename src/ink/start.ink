@@ -1,7 +1,10 @@
 VAR _input_value_ = ""
 
 === start ===
+# show image bg bg01-hallway
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral01]
 james: You're my roommate's replacement, huh?
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
 james: Don't worry, you don't have much to live up to. Just don't use heroin like the last guy, and you' fine!
 mc: ...
 
