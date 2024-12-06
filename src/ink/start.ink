@@ -1,40 +1,45 @@
+VAR _input_value_ = ""
+
 === start ===
 james: You're my roommate's replacement, huh?
 james: Don't worry, you don't have much to live up to. Just don't use heroin like the last guy, and you' fine!
 mc: ...
 
 He thrusts out his hand.
+# request input type string default Peter
+What is your name?
+# rename liam_id {_input_value_}
 
-james: James!
-mc: ...Peter.
+james: [james]!
+mc: ...[mc].
 
 I take his hand and shake.
 
-james: Ooh, Peter! Nice, firm handshake! The last quy always gave me the dead fish. I already think we'r gonna get along fine.
+james: Ooh, [mc]! Nice, firm handshake! The last quy always gave me the dead fish. I already think we'r gonna get along fine.
 james: Come on in and...
 james: ...
 james: I know you're both watching, come on out already!
 
-sly: I just wanted to see what the new guy was like. Hey, you, Peter- be nice to our little brother, or you'll have to deal with *us*.
+sly: I just wanted to see what the new guy was like. Hey, you, [mc]- be nice to our little brother, or you'll have to deal with *us*.
 mc: ...
-james: Peter, this is Sly. Yes, that is her real name.
+james: [mc], this is [sly]. Yes, that is her real name.
 
 I put out my hand.
 
 sly: I'm not shakin' your hand until I decide you're an all-right dude. Sorry, policy.
 mc: Fair enough, I'm a pretty scary guy, or so l've been told.
-james: The redhead behind her is Stephanie.
-steph: Hey! Everyone calls me Steph. I'll shake your hand.
+james: The redhead behind her is [steph_fullname].
+steph: Hey! Everyone calls me [steph]. I'll shake your hand.
 
 She puts out her hand, and I take it.
 
-mc: Thanks, good to meet you, Stephanie.
-steph: WOW, that is, like, the most perfect handshake I've ever had! Firm, but also gentle. Sly, you *gotta* shake his hand!
+mc: Thanks, good to meet you, [steph_fullname].
+steph: WOW, that is, like, the most perfect handshake I've ever had! Firm, but also gentle. [sly], you *gotta* shake his hand!
 sly: It's just a handshake...
 steph: Then just give it to him!
-james: Don't worry, Peter, she's just giving you the run-down. She's kinda like a father... I mean a mother... to us.
+james: Don't worry, [mc], she's just giving you the run-down. She's kinda like a father... I mean a mother... to us.
 
-Sly thrusts her hand out to shake mine.
+[sly] thrusts her hand out to shake mine.
 
 sly: Like a father?!?!
 
@@ -49,9 +54,9 @@ mc: O-*kay*, I'm gonna go get settled in-
 steph: Wait! I've got a gift for you!
 mc: ...?
 sly: It's food.
-steph: Sly! SPOILERS!!!!
+steph: [sly]! SPOILERS!!!!
 
-Stephanie goes through the opposite door, and returns with a HUGE tinfoil-covered platter.
+[steph_fullname] goes through the opposite door, and returns with a HUGE tinfoil-covered platter.
 
 james: Looks like you baked way too much again.
 steph: He doesn't have to know that!!!
@@ -65,9 +70,9 @@ steph: Oh! You gotta take in your luggage!
 She enters my my room before I'VE even had a chance to. \\n\\n...I could've just come back and gotten the platter later...
 She sets it on a desk. I throw my two paper bags down beside the empty bed.
 
-steph: They got you a new mattress, right? That last guy was a druggie, did James tell tell you that?
+steph: They got you a new mattress, right? That last guy was a druggie, did [james] tell tell you that?
 sly: *We're* the reason he got expelled!
-steph: Sly! If word gets out about that... well, actually, it wouldn't matter, *he's* the one who shot himself up.
+steph: [sly]! If word gets out about that... well, actually, it wouldn't matter, *he's* the one who shot himself up.
 
 I'm fumbling for a new subject.
 
@@ -76,11 +81,11 @@ mc: So, you're all family?
 I realize too late this topic is no better:
 
 sly: Adopted family.
-steph: Sly and I were best friends growing up and James here needed a mama, so Sly adopted him!
+steph: [sly] and I were best friends growing up and [james] here needed a mama, so [sly] adopted him!
 james: We're not actually related.
 mc: ...
-james: Yeah, I like to say that this last semester I was in *foster care* and Sly picked me up somewhere in there.
-sly: James is just a baby. A freshman like you!
+james: Yeah, I like to say that this last semester I was in *foster care* and [sly] picked me up somewhere in there.
+sly: [james] is just a baby. A freshman like you!
 james: And *you're* just a sophomore!
 sly: I went to medical school for two years before coming here, I think that counts as *at least* 6 years!
 
@@ -91,7 +96,7 @@ sly: My mom was all in the medical field, and since I'm great with kids- I had 6
 james: They were actually her siblings.
 sly: Yeah, whatever. I tried it because I thought I'd love it, but I HATED it! When we started getting into anatomy, I realized how gross the whole thing is. I changed diapers, but that's a little different from changing *livers*, know what I mean?
 mc: ...
-sly: So I'm trying out architecture now. What are you going for, Peter?
+sly: So I'm trying out architecture now. What are you going for, [mc]?
 mc: ...uh......just getting my Gen Eds out of the way right now...
 sly: Why not do that at a community college?
 steph: Did you get a full ride or something?
@@ -106,13 +111,13 @@ sly: You've gotta live close by, right? Nobody comes to this college from afar, 
 mc: ... ... .. . . .. .. . ......... ... . ... .. .... ... .. . . . ...... . . . . .. .. .. .... . ...
 sly: Or maybe they'll come to visit you? My siblings will do that sometimes. It's quite a sight to have all 6 of them running around here, but everyone's pretty chill about it and I trust pretty much everyone here.
 james: At least, now that *Sven's* gone.
-steph: James! You don't have to refer to him by name!!
-james: Why? Peter'll never meet him.
-steph: Say, Peter, where's the rest of your luggage?
+steph: [james]! You don't have to refer to him by name!!
+james: Why? [mc]'ll never meet him.
+steph: Say, [mc], where's the rest of your luggage?
 mc: ...
 james: Is that all your luggage? Man, that sucks.
 mc: ...
-mc: So... um... what are you going for, Stephanie?
+mc: So... um... what are you going for, [steph_fullname]?
 steph: Oh, me?
 
 I shouldn't have asked her. I shouldn't have directed a question at her. She reminds me too much...
@@ -126,18 +131,18 @@ james: I'm going for computer science.
 mc: Oh, cool! You like computers?
 james: Yeah, I used to use MS Paint all the time. Now I want to step up my game.
 james: I also installed Windows once. I just think computer skills are important.
-sly: Steph and I are placing bets whether or not he'll switch degrees once he gets into the real *classes*. \\n\\nHe's still just taking Gen Eds, so we won't know for at least another semester.
-james: Haha, Sly thinks I made a rash decision, but I think computers are what I wanna do with my life.
-steph: James, you gotta figure out what you wa want to *do* in computers. You're not seeing the trees for the forest.
+sly: [steph] and I are placing bets whether or not he'll switch degrees once he gets into the real *classes*. \\n\\nHe's still just taking Gen Eds, so we won't know for at least another semester.
+james: Haha, [sly] thinks I made a rash decision, but I think computers are what I wanna do with my life.
+steph: [james], you gotta figure out what you wa want to *do* in computers. You're not seeing the trees for the forest.
 james: ...I think you said that wrong.
 steph: No, you're always looking at these big ideas and ignoring the actual *reality* of things! Computer Science isn't just an easy degree either. I'm worried these classes are going to kill you!
 james: I'll be fine!
 steph: Death.
-steph: ...hey Peter, are you okay?
+steph: ...hey [mc], are you okay?
 mc: So, what snacks did you bring?
 steph: Oh!
 
-She opens the tray. Inside are cookies, brownies, candies, a pie, cake pieces... James quickly grabs a few. Sly takes some too.
+She opens the tray. Inside are cookies, brownies, candies, a pie, cake pieces... [james] quickly grabs a few. [sly] takes some too.
 
 mc: How do you bake all this?!
 steph: Baking helps me relax. It's really no work for me, and it's a good way to unwind!
@@ -148,9 +153,9 @@ mc: ...I had to do all the cooking as a kid.
 steph: Awesome! Maybe we can swap recipes sometime!
 mc: I can do... I don't need... I mean...
 james: "You can do?" Is that what the kids are saying today?
-sly: James, you *are* a kid!
-james: Sly, I am so out of the loop!
-sly: Well, then, Peter, we'll have to try out your cooking someday!
+sly: [james], you *are* a kid!
+james: [sly], I am so out of the loop!
+sly: Well, then, [mc], we'll have to try out your cooking someday!
 steph: Oh! If you want... you can even come over today! You'll be surprised what you can make in a dorm with some know-how and tricks! *Did you know you can make cake in a microwave?!?!*
 
 They can see I'm stressing out. I push it all down.
@@ -162,7 +167,7 @@ sly: I know you're an adult now, but it's okay to be scared. You don't have to f
 ...they have no idea. But I'm glad.
 
 sly: ...that's right.
-james: ...who told you you're a scary guy, Peter? You don't seem scary at all.
+james: ...who told you you're a scary guy, [mc]? You don't seem scary at all.
 mc: My mom.
 
 I just said that. Why?
@@ -170,12 +175,12 @@ Crap. Crap crap crap. Why am I crying?
 
 steph: Are you okay?
 
-Sly comes over and sits down beside me. She locks eyes with with me.
+[sly] comes over and sits down beside me. She locks eyes with with me.
 
 sly: ...why are you scary?
 mc: ...
 sly: Is that why your parents sent you here?
-james: Sly!
+james: [sly]!
 mc: ...
 steph: ...I can't imagine being told by your own *mother* you're scary.
 mc: ...
@@ -195,7 +200,7 @@ mc: ...Mom committed suicide because of me...
 
 ...
 ...why don't they leave?
-That's right, Sly's looking out for James.
+That's right, [sly]'s looking out for [james].
 If I don't share *everything* now, she's going to get me framed for something and I won't have a place to live a anymore.
 
 mc: ...she was...
