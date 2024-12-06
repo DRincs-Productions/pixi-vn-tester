@@ -1,9 +1,20 @@
-import { narration, newLabel } from "@drincs/pixi-vn";
+import { canvas, ImageContainer, narration, newLabel, showImage } from "@drincs/pixi-vn";
 import { james, mc, sly, steph } from "../values/characters";
 
 const startLabel = newLabel("start", [
-    () => narration.dialogue = { character: james, text: "You're my roommate's replacement, huh?" },
-    () => narration.dialogue = { character: james, text: "Don't worry, you don't have much to live up to. Just don't use heroin like the last guy, and you' fine!" },
+    async () => {
+        await showImage("bg", "bg01-hallway");
+        let jamesImage = new ImageContainer({}, ["m01-body", "m01-eyes-smile", "m01-mouth-neutral01"]);
+        await jamesImage.load()
+        canvas.add("james", jamesImage);
+        narration.dialogue = { character: james, text: "You're my roommate's replacement, huh?" }
+    },
+    async () => {
+        let jamesImage = new ImageContainer({}, ["m01-body", "m01-eyes-grin", "m01-mouth-smile01"]);
+        await jamesImage.load()
+        canvas.add("james", jamesImage);
+        narration.dialogue = { character: james, text: "Don't worry, you don't have much to live up to. Just don't use heroin like the last guy, and you' fine!" }
+    },
     () => narration.dialogue = { character: mc, text: "..." },
     () => { narration.dialogue = "He thrusts out his hand." },
     () => narration.dialogue = { character: james, text: "James!" },
