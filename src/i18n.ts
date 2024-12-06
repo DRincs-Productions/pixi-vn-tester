@@ -1,3 +1,4 @@
+import { getCharacterById } from '@drincs/pixi-vn';
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
@@ -23,7 +24,18 @@ export const useI18n = () => {
                 resources: {
                     en: strings_en,
                     // Add more languages here
-                }
+                },
+                missingInterpolationHandler(_text, value, _options) {
+                    let key = value[1]
+                    let character = getCharacterById(key)
+                    if (character) {
+                        return character.name
+                    }
+                    if (key === "steph_fullname") {
+                        return "Stephanie"
+                    }
+                    return `[${key}]`
+                },
             });
     }
 }
