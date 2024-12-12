@@ -64,8 +64,15 @@ sly: I'm not shakin' your hand until I decide you're an all-right dude.
 # show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-serious01]
 # show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
 <> Sorry, policy.
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-smile00]
 mc: Fair enough, I'm a pretty scary guy, or so l've been told.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious01]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile00]
 james: The redhead behind her is [steph_fullname].
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
 steph: Hey! Everyone calls me [steph]. I'll shake your hand.
 
 She puts out her hand, and I take it.
