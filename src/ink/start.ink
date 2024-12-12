@@ -6,6 +6,7 @@ VAR _input_value_ = ""
 james: You're my roommate's replacement, huh?
 # show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
 james: Don't worry, you don't have much to live up to. Just don't use heroin like the last guy, and you' fine!
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
 mc: ...
 
 He thrusts out his hand.
@@ -13,12 +14,21 @@ He thrusts out his hand.
 What is your name?
 # rename mc { _input_value_ }
 
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
 james: [james]!
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
 mc: ...[mc].
 
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
 I take his hand and shake.
 
-james: Ooh, [mc]! Nice, firm handshake! The last quy always gave me the dead fish. I already think we'r gonna get along fine.
+# show imagecontainer james [m01-body m01-eyes-wow m01-mouth-wow01]
+james: Ooh, [mc]! Nice, firm handshake!
+# show imagecontainer james [m01-body m01-eyes-annoy m01-mouth-annoy01]
+<> The last quy always gave me the dead fish.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile01]
+<> I already think we'r gonna get along fine.
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
 james: Come on in and...
 james: ...
 james: I know you're both watching, come on out already!
