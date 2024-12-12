@@ -75,10 +75,18 @@ james: The redhead behind her is [steph_fullname].
 # show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
 steph: Hey! Everyone calls me [steph]. I'll shake your hand.
 
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-smile00]
 She puts out her hand, and I take it.
 
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 mc: Thanks, good to meet you, [steph_fullname].
-steph: WOW, that is, like, the most perfect handshake I've ever had! Firm, but also gentle. [sly], you *gotta* shake his hand!
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-wow01]
+steph: WOW, that is, like, the most perfect handshake I've ever had! Firm, but also gentle.
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset00]
+<> [sly], you *gotta* shake his hand!
 sly: It's just a handshake...
 steph: Then just give it to him!
 james: Don't worry, [mc], she's just giving you the run-down. She's kinda like a father... I mean a mother... to us.
