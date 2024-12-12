@@ -1,7 +1,7 @@
 import { narration } from '@drincs/pixi-vn';
 import { Button, Input } from '@mui/joy';
 import { useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
 import { typewriterIsAnimatedState } from '../../atoms/typewriterIsAnimatedState';
@@ -11,15 +11,11 @@ import { INTERFACE_DATA_USE_QUEY_KEY, useQueryDialogue, useQueryInputValue } fro
 
 export default function TextInput() {
     const { data: { text } = {} } = useQueryDialogue()
-    const { data: { isRequired, type, currentValue } = { currentValue: undefined, isRequired: false } } = useQueryInputValue();
+    const { data: { isRequired, type, currentValue } = { currentValue: undefined, isRequired: false } } = useQueryInputValue<string | number>();
     const open = (!useRecoilValue(typewriterIsAnimatedState)) && isRequired
     const [tempValue, setTempValue] = useState<string | number>();
     const queryClient = useQueryClient()
     const { t } = useTranslation(["ui"]);
-
-    useEffect(() => {
-        setTempValue(currentValue as string | number)
-    }, [currentValue])
 
     return (
         <ModalDialogCustom
@@ -38,14 +34,14 @@ export default function TextInput() {
                     color='primary'
                     variant="outlined"
                     onClick={() => {
-                        narration.inputValue = tempValue
+                        narration.inputValue = tempValue || currentValue
                         queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
                     }}
                 >
                     {t("confirm")}
                 </Button>
-                <Input
-                    value={tempValue}
+                {open && <Input
+                    defaultValue={currentValue || ""}
                     type={type}
                     onChange={(e) => {
                         let value: any = e.target.value;
@@ -54,7 +50,7 @@ export default function TextInput() {
                         }
                         setTempValue(value)
                     }}
-                />
+                />}
             </>}
         >
             {text && <Typewriter
