@@ -28,7 +28,7 @@ export default function EventInterceptor() {
                 }
                 break;
             case 'KeyV':
-                if (event.shiftKey) {
+                if (event.altKey) {
                     setHideInterface((prev) => {
                         if (location.pathname === '/') {
                             console.log("Can't hide interface on home page")
@@ -39,7 +39,7 @@ export default function EventInterceptor() {
                 }
                 break;
             case 'KeyS':
-                if (event.shiftKey) {
+                if (event.altKey) {
                     if (location.pathname === '/') {
                         console.log("Can't save on home page")
                         break
@@ -56,7 +56,7 @@ export default function EventInterceptor() {
                 }
                 break;
             case 'KeyL':
-                if (event.shiftKey) {
+                if (event.altKey) {
                     setAlertData((prev) => {
                         if (prev.open) {
                             return { ...prev, open: false }

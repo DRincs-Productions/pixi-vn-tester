@@ -56,7 +56,7 @@ export default function SaveLoadSettingButtons() {
                 }}
                 level="body-md"
             >
-                Shift+S
+                Alt+S
             </Typography>
         </SettingButton>,
         <SettingButton
@@ -77,7 +77,7 @@ export default function SaveLoadSettingButtons() {
                 }}
                 level="body-md"
             >
-                Shift+L
+                Alt+L
             </Typography>
         </SettingButton>,
         <SettingButton
