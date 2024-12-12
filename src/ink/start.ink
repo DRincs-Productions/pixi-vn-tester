@@ -49,16 +49,21 @@ sly: I just wanted to see what the new guy was like.
 mc: ...
 # show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile01]
 # show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
-# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile00]
 james: [mc], this is [sly].
-# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile01]
 # show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-smile00]
 # show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
 <> Yes, that is her real name.
 
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile00]
 I put out my hand.
 
-sly: I'm not shakin' your hand until I decide you're an all-right dude. Sorry, policy.
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset01]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
+sly: I'm not shakin' your hand until I decide you're an all-right dude.
+# show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-serious01]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
+<> Sorry, policy.
 mc: Fair enough, I'm a pretty scary guy, or so l've been told.
 james: The redhead behind her is [steph_fullname].
 steph: Hey! Everyone calls me [steph]. I'll shake your hand.
