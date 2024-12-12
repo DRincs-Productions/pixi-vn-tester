@@ -37,14 +37,24 @@ james: I know you're both watching, come on out already!
 
 # show imagecontainer james [m01-body m01-eyes-annoy m01-mouth-annoy00]
 # show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-soft01] xAlign 0.2 yAlign 1
-# show imagecontainer steph [fm02-body fm02-eyes-annoy fm02-mouth-annoy00] xAlign 0.8 yAlign 1
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00] xAlign 0.8 yAlign 1
 sly: I just wanted to see what the new guy was like.
-# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-grin00] xAlign 0.2 yAlign 1
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-smile01]
 <> Hey, you, [mc]- be nice to our little brother,
-# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-grin00] xAlign 0.2 yAlign 1
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-grin00]
 <> or you'll have to deal with *us*.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral00]
+# show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-grin00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile00]
 mc: ...
-james: [mc], this is [sly]. Yes, that is her real name.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile00]
+james: [mc], this is [sly].
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
+<> Yes, that is her real name.
 
 I put out my hand.
 
