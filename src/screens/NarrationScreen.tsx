@@ -123,7 +123,7 @@ export default function NarrationScreen() {
                             height: "100%",
                         }}
                     >
-                        {character && <AspectRatio
+                        {character?.icon && <AspectRatio
                             flex
                             ratio="1"
                             maxHeight={"20%"}
@@ -139,7 +139,7 @@ export default function NarrationScreen() {
                             transition={{ type: "tween" }}
                         >
                             <img
-                                src={character?.icon}
+                                src={character.icon}
                                 loading="lazy"
                                 alt=""
                             />
@@ -174,6 +174,7 @@ export default function NarrationScreen() {
                                 fontWeight="lg"
                                 sx={{
                                     color: character.color,
+                                    paddingLeft: 1,
                                 }}
                                 component={motion.div}
                                 variants={cardElementVarians}
