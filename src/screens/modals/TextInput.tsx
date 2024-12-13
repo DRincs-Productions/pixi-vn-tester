@@ -20,12 +20,7 @@ export default function TextInput() {
     return (
         <ModalDialogCustom
             open={open}
-            setOpen={(value) => {
-                if (!value) {
-                    narration.inputValue = tempValue
-                    queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
-                }
-            }}
+            setOpen={() => { }}
             canBeIgnored={false}
             color="primary"
             actions={<>
@@ -35,6 +30,7 @@ export default function TextInput() {
                     variant="outlined"
                     onClick={() => {
                         narration.inputValue = tempValue || currentValue
+                        setTempValue(undefined)
                         queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
                     }}
                 >
