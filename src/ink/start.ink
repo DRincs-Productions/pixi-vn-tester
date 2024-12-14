@@ -131,11 +131,27 @@ james: Well, I mean, you are *kinda* acting like a father.
 mc: ...
 # show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset00]
 mc: ...
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
 steph: ...BWAHA HA!! JAMES!!!! WHAAAAT?????? YOU'RE SO AWKWARD!!!!
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
 mc: O-*kay*, I'm gonna go get settled in-
-steph: Wait! I've got a gift for you!
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-wow01]
+steph: Wait!
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
+<> I've got a gift for you!
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
 mc: ...?
+# show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-smile01]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-upset00]
 sly: It's food.
+# show imagecontainer james [m01-body m01-eyes-concern m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-grin00]
+# show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset01]
 steph: [sly]! SPOILERS!!!!
 
 [steph_fullname] goes through the opposite door, and returns with a HUGE tinfoil-covered platter.
