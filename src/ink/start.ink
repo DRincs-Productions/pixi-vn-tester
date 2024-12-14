@@ -95,14 +95,29 @@ sly: It's just a handshake...
 # show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
 # show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset01]
 steph: Then just give it to him!
-james: Don't worry, [mc], she's just giving you the run-down. She's kinda like a father... I mean a mother... to us.
+# show imagecontainer james [m01-body m01-eyes-concern m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset00]
+james: Don't worry, [mc], she's just giving you the run-down.
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
+<> She's kinda like a father... I mean a mother... to us.
 
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
 [sly] thrusts her hand out to shake mine.
 
+# show imagecontainer james [m01-body m01-eyes-wow m01-mouth-wow01]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset01]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile00]
 sly: Like a father?!?!
 
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset00]
 I'm afraid to take her hand when she's mad, but I do.
 
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-wow01]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
 sly: Wow, that was a good handshake...
 james: Well, I mean, you are *kinda* acting like a father. Like, I can totally see it: I'm the daughter, and you as my father, you want to make sure I'm going out with the right guy... or something...
 mc: ...
