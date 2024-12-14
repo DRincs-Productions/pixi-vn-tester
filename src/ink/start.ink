@@ -119,8 +119,17 @@ I'm afraid to take her hand when she's mad, but I do.
 # show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-wow01]
 # show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
 sly: Wow, that was a good handshake...
-james: Well, I mean, you are *kinda* acting like a father. Like, I can totally see it: I'm the daughter, and you as my father, you want to make sure I'm going out with the right guy... or something...
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-smile00]
+james: Well, I mean, you are *kinda* acting like a father.
+# show imagecontainer james [m01-body m01-eyes-concern m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-upset00]
+<> Like, I can totally see it: I'm the daughter, and you as my father, you want to make sure I'm going out with the right guy... or something...
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
 mc: ...
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset00]
 mc: ...
 steph: ...BWAHA HA!! JAMES!!!! WHAAAAT?????? YOU'RE SO AWKWARD!!!!
 mc: O-*kay*, I'm gonna go get settled in-
