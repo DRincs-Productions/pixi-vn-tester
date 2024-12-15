@@ -178,12 +178,27 @@ steph: Oh! You gotta take in your luggage!
 
 === second_part ===
 
+# show image bg bg02-dorm
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
 She enters my my room before I'VE even had a chance to. \\n\\n...I could've just come back and gotten the platter later...
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
 She sets it on a desk. I throw my two paper bags down beside the empty bed.
 
-steph: They got you a new mattress, right? That last guy was a druggie, did [james] tell tell you that?
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
+steph: They got you a new mattress, right?
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous01]
+<> That last guy was a druggie, did [james] tell tell you that?
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-smile01]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 sly: *We're* the reason he got expelled!
-steph: [sly]! If word gets out about that... well, actually, it wouldn't matter, *he's* the one who shot himself up.
+# show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-grin00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-upset01]
+steph: [sly]! If word gets out about that...
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-grin00]
+# show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-nervous01]
+<> well, actually, it wouldn't matter, *he's* the one who shot himself up.
 
 I'm fumbling for a new subject.
 
