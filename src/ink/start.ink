@@ -8,7 +8,7 @@ james: You're my roommate's replacement, huh?
 james: Don't worry, you don't have much to live up to. Just don't use heroin like the last guy, and you'll be fine!
 # show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
 mc: ...
-
+		
 He thrusts out his hand.
 # request input type string default Peter
 What is your name?
@@ -79,7 +79,7 @@ steph: Hey! Everyone calls me [steph]. I'll shake your hand.
 # show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
 # show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
 # show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-smile00]
-She puts out her hand, and I take it.
+		She puts out her hand, and I take it.
 
 # show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
 # show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
@@ -119,7 +119,7 @@ sly: Like a father?!?!
 
 # show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
 # show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset00]
-I'm afraid to take her hand when she's mad, but I do.
+		I'm afraid to take her hand when she's mad, but I do.
 
 # show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
 # show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-wow01]
@@ -168,8 +168,8 @@ sly: It's food.
 steph: [sly]!
 # show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset01]
 <> SPOILERS!!!!
-
-// TODO animate steph
+	
+// TODO animate steph	
 # show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
 # show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
 # show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-nervous00]
@@ -202,7 +202,7 @@ She enters my room before I'VE even had a chance to.
 # show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
 <>  \\n\\n...I could've just come back and gotten the platter later...
 # show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
-She sets it on a desk. I throw my two paper bags down beside the empty bed.
+		She sets it on a desk. I throw my two paper bags down beside the empty bed.
 
 # show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
 # show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
@@ -445,129 +445,314 @@ steph: [james], you gotta figure out what you want to *do* in computers. You're 
 # show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
 # show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset00]
 james: ...I think you said that wrong.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral00]
+# show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset01]
 steph: No, you're always looking at these big ideas and ignoring the actual *reality* of things! Computer Science isn't just an easy degree either. I'm worried these classes are going to kill you!
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset00]
 james: I'll be fine!
+# show imagecontainer james [m01-body m01-eyes-wow m01-mouth-neutral00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset01]
 steph: Death.
-steph: ...hey [mc], are you okay?
+# show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset00]
+# show imagecontainer james [m01-body m01-eyes-concern m01-mouth-neutral01]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
+james: ...hey [mc], are you okay?
+# show imagecontainer james [m01-body m01-eyes-wow m01-mouth-neutral00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 mc: So, what snacks did you bring?
+# show imagecontainer james [m01-body m01-eyes-wow m01-mouth-neutral00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious01]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-wow01]
 steph: Oh!
 
-She opens the tray. Inside are cookies, brownies, candies, a pie, cake pieces... [james] quickly grabs a few. [sly] takes some too.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
+She opens the tray. Inside are cookies, brownies, candies, a pie, cake pieces...
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
+<> [james] quickly grabs a few.
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile01]
+<> [sly] takes some too.
 
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
 mc: How do you bake all this?!
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
 steph: Baking helps me relax. It's really no work for me, and it's a good way to unwind!
+# show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-smile00]
 mc: ...I had to do all the cooking as a kid.
 
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
 ...did I just let that slip?
 
-steph: Awesome! Maybe we can swap recipes sometime!
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious01]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
+steph: Awesome!
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+<> Maybe we can swap recipes sometime!
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
 mc: I can do... I don't need... I mean...
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile01]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 james: "You can do?" Is that what the kids are saying today?
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-smile01]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile00]
 sly: [james], you *are* a kid!
+# show imagecontainer james [m01-body m01-eyes-annoy m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-grin00]
 james: [sly], I am so out of the loop!
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile01]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
 sly: Well, then, [mc], we'll have to try out your cooking someday!
-steph: Oh! If you want... you can even come over today! You'll be surprised what you can make in a dorm with some know-how and tricks! *Did you know you can make cake in a microwave?!?!*
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-wow01]
+steph: Oh!
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-smile01]
+<> If you want...
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+<> you can even come over today!
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
+<> You'll be surprised what you can make in a dorm with some know-how and tricks!
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-smile01]
+<> *Did you know you can make cake in a microwave?!?!*
 
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile00]
 They can see I'm stressing out. I push it all down.
 
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile01]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 sly: ...It's fine to be scared.
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
 mc: ?!
-sly: I know you're an adult now, but it's okay to be scared. You don't have to feel ashamed of feeling.  It's okay to feel.
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious01]
+sly: I know you're an adult now, but it's okay to be scared. You don't have to feel ashamed of feeling. It's okay to feel.
 
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-nervous00]
 ...they have no idea. But I'm glad.
 
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile01]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile00]
 sly: ...that's right.
-james: ...who told you you're a scary guy, [mc]? You don't seem scary at all.
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+james: ...who told you you're a scary guy, [mc]?
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-smile00]
+<> You don't seem scary at all.
 mc: My mom.
-
-I just said that. Why?
+		
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral00]
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-serious01]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
+I just said that.
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-serious00]
+<> Why?
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
 Crap. Crap crap crap. Why am I crying?
 
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous01]
 steph: Are you okay?
 
-[sly] comes over and sits down beside me. She locks eyes with with me.
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
+[sly] comes over and sits down beside me. She locks eyes with me.
 
+# show imagecontainer james [m01-body m01-eyes-concern m01-mouth-concern00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious01]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
 sly: ...why are you scary?
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
 mc: ...
+# show imagecontainer james [m01-body m01-eyes-wow m01-mouth-annoy00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious01]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 sly: Is that why your parents sent you here?
+# show imagecontainer james [m01-body m01-eyes-wow m01-mouth-annoy01]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
 james: [sly]!
+# show imagecontainer james [m01-body m01-eyes-wow m01-mouth-neutral00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
 mc: ...
+# show imagecontainer james [m01-body m01-eyes-concern m01-mouth-concern00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous01]
 steph: ...I can't imagine being told by your own *mother* you're scary.
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
 mc: ...
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-concern00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-nervous01]
 steph: ...but if you really *were*, I suspect you wouldn't be here.
+# show imagecontainer james [m01-body m01-eyes-concern m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-upset00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile00]
 james: ...Right?
 
-...I want to run. But I don't know this place; there's nowhere to run. And I can't lose this room... So the best I can do is make *them* run.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+...I want to run. But I don't know this place; there's nowhere *to* run. And I can't lose this room... So the best I can do is make *them* run.
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
 By telling them the truth.
 
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
 mc: ...I'm the reason...
 mc: ...
 
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
 If I tell them the truth, they'll leave me alone.
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
 ...and I won't risk hurting any of *them* too.
 
 mc: ...Mom committed suicide because of me...
 
+# show imagecontainer james [m01-body m01-eyes-wow m01-mouth-concern00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-wow01]
 ...
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 ...why don't they leave?
+# show imagecontainer james [m01-body m01-eyes-concern m01-mouth-concern00]
 That's right, [sly]'s looking out for [james].
-If I don't share *everything* now, she's going to get me framed for something and I won't have a place to live a anymore.
+If I don't share *everything* now, she's going to get me framed for something and I won't have a place to live anymore.
 
 mc: ...she was...
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
 mc: ...
 
+# show imagecontainer james [m01-body m01-eyes-concern m01-mouth-concern00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
 They just look at me sadly.
 
 mc: ...addicted to heroin and I couldn't tell *anyone*.
 mc: ...told me she'd gut me like a pig if I did.
 mc: I recommended to her...
 mc: ...
-mc: ...I recommend to her "why don't you end this?" I told her I *hated* her. *And* what she did to my littl sister...
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
+mc: ...I recommend to her "why don't you end this?" I told her I *hated* her.
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+<> *And* what she did to my little sister...
 
-Crap, now I look like the villain again. But I am. Aren't I?
+# show imagecontainer james [m01-body m01-eyes-wow m01-mouth-concern00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-upset00]
+Crap, now I look like the villain again. But I *am*. Aren't I?
 
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset00]
 mc: ...she sold all of my sister's dolls, toys, school supplies, for dirt cheap just to try to get another fix. She started stealing; she got in with the wrong crowd. She wanted out.
+# show imagecontainer james [m01-body m01-eyes-concern m01-mouth-concern00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 mc: The police were coming though, because... because I called them. Because mean people were coming to hurt Mom.
-mc: She couldn't have that. I'd just royally $%*@!& up, and she threatened to *kill* me, but... she couldn't bring herself to do it.
-mc: She had a few days' supply of heroin. She... she took it all at once.
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
+mc: She couldn't have that. I'd just royally
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-wow01]
+<> $%*@!& up, and
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
+<> she threatened to *kill* me, but... she couldn't bring herself to do it.
+mc: She had a few days' supply of heroin. She...
+# show imagecontainer james [m01-body m01-eyes-wow m01-mouth-concern00]
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-wow01]
+<> she took it all at once.
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-serious01]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-wow01]
 mc: Locked herself in her room. Screamed at me, "You hate me anyway!" and wouldn't stop screaming it, even though I begged her to come out.
+# show imagecontainer james [m01-body m01-eyes-wow m01-mouth-cry00]
 mc: Those were the last words I heard from her.
-mc: My sister and I were taken to be put into foster care. We were told we would be together, <>
-but we were put into separate homes.
-mc ...nobody wanted to adopt me; I was 15 at the time my mom killed herself. Teens don't get adopted.
-mc: And when the first potential couple came in and heard about my story, they blamed me for everything- called me a "demon spawn"- and left in a huff.
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
+mc: My sister and I were taken to be put into foster care. We were told we would be together,
+<> but we were put into separate homes.
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
+mc: ...nobody wanted to adopt me; I was 15 at the time my mom killed herself. Teens don't get adopted.
+mc: And when the first potential couple came in and heard about my story, they blamed
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-nervous00]
+<> me for everything-
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-serious01]
+# show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset00]
+<> called me a "demon spawn"- and left
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-serious00]
+<> in a huff.
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-upset00]
 mc: ...I never got another chance.
 mc: I only have a place to live here now because I was a good student. But who knows about next semester, or next year? Or once I graduate?
 mc: I'm amazed that I got a room at all; just two weeks ago they said there was *nothing*.
 
 mc: ...so there. Have I finally scared you away?
+# show imagecontainer james [m01-body m01-eyes-cry m01-mouth-cry00]
+# show imagecontainer sly [fm01-body fm01-eyes-soft fm01-mouth-soft00]
+# show imagecontainer steph [fm02-body fm02-eyes-cry fm02-mouth-cry01]
 mc: I don't want to look at any of them.
 mc: A hand gently rubs my back.
 sly: You don't really want us to leave, do you?
 mc: ?!?!
 sly: ...
-sly: ...because if you're willing to be honest about whether you want to be here with us or alone elsewhere, *we're* willing to help you ou either way.
+sly: ...because if you're willing to be honest about whether you want to be here with us or alone elsewhere, *we're* willing to help you either way.
 sly: It wasn't your fault.
 I burst out crying.
 mc: ...I look like such an idiot.
-sly: No you don't. And you probably saved your *and* your little sister's lives. If the people coming for your mom had gotten to your house, *who* knows what they would have done to you both.
+sly: No you don't. And you probably saved your *and* your little sister's lives. If the people coming for your mom had gotten to your house, who *knows* what they would have done to you both.
 I can't stop.
 steph: You did the best you knew how.
 I feel a tissue press against my hands. I suddenly realize that snot is dripping through my fingers. Gross.
 
+# show imagecontainer james [m01-body m01-eyes-cry m01-mouth-smile01]
 james: I cried for like a week when I first came. These two are champs, don't worry about it.
-sly: So, be honest with us right now. *Do you* want to stick around us for a while? Or, do you truly want to be left alone? Because we're all willing to deal with this "very dangerous" person.
+# show imagecontainer james [m01-body m01-eyes-cry m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-soft fm01-mouth-soft01]
+# show imagecontainer steph [fm02-body fm02-eyes-cry fm02-mouth-cry01]
+sly: So, be honest with us right now.
+# show imagecontainer james [m01-body m01-eyes-cry m01-mouth-neutral00]
+<> *Do you* want to stick around us for a while? Or, do you truly want to be left alone? Because we're all willing to deal with this "very dangerous" person.
+# show imagecontainer steph [fm02-body fm02-eyes-cry fm02-mouth-nervous01]
 sly: Will you be honest with your feelings and with us?
+# show imagecontainer sly [fm01-body fm01-eyes-soft fm01-mouth-soft00]
 mc: ...yes.
+# show imagecontainer james [m01-body m01-eyes-cry m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-soft fm01-mouth-soft01]
+# show imagecontainer steph [fm02-body fm02-eyes-cry fm02-mouth-nervous00]
 sly: Are you willing to try being a friend and having friends?
+# show imagecontainer sly [fm01-body fm01-eyes-soft fm01-mouth-soft00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
 mc: ...
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-soft01]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 sly: Because I'm willing to give you a shot.
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-soft00]
+# show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-smile00]
 mc: ...absolutely.
 
+# show imagecontainer sly [fm01-body fm01-eyes-soft fm01-mouth-soft00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
 I feel lighter. A wave of something I'm not sure I've ever felt washes over me.
 It's peace; it's rest; it's something different.
 Like, even though it'll be hard, maybe I could actually be open here.
 I think this is the beginning of what people call...
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-grin00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
 ...freedom...
 
 -> DONE
