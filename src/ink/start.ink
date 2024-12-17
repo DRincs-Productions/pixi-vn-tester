@@ -5,7 +5,7 @@ VAR _input_value_ = ""
 # show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral01] xAlign 0.5 yAlign 1
 james: You're my roommate's replacement, huh?
 # show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
-james: Don't worry, you don't have much to live up to. Just don't use heroin like the last guy, and you' fine!
+james: Don't worry, you don't have much to live up to. Just don't use heroin like the last guy, and you'll be fine!
 # show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
 mc: ...
 
@@ -25,9 +25,9 @@ I take his hand and shake.
 # show imagecontainer james [m01-body m01-eyes-wow m01-mouth-wow01]
 james: Ooh, [mc]! Nice, firm handshake!
 # show imagecontainer james [m01-body m01-eyes-annoy m01-mouth-annoy01]
-<> The last quy always gave me the dead fish.
+<> The last guy always gave me the dead fish.
 # show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile01]
-<> I already think we'r gonna get along fine.
+<> I already think we're gonna get along fine.
 # show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
 james: Come on in and...
 # show imagecontainer james [m01-body m01-eyes-annoy m01-mouth-smile01]
@@ -64,8 +64,9 @@ sly: I'm not shakin' your hand until I decide you're an all-right dude.
 # show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-serious01]
 # show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
 <> Sorry, policy.
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
 # show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-smile00]
-mc: Fair enough, I'm a pretty scary guy, or so l've been told.
+mc: Fair enough, I'm a pretty scary guy, or so I've been told.
 # show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile01]
 # show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious01]
 # show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile00]
@@ -80,8 +81,10 @@ steph: Hey! Everyone calls me [steph]. I'll shake your hand.
 # show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-smile00]
 She puts out her hand, and I take it.
 
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
 # show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 mc: Thanks, good to meet you, [steph_fullname].
+# show imagecontainer james [m01-body m01-eyes-wow m01-mouth-smile00]
 # show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-serious00]
 # show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-wow01]
 steph: WOW, that is, like, the most perfect handshake I've ever had! Firm, but also gentle.
@@ -98,12 +101,15 @@ steph: Then just give it to him!
 # show imagecontainer james [m01-body m01-eyes-concern m01-mouth-smile01]
 # show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
 # show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset00]
-james: Don't worry, [mc], she's just giving you the run-down.
-# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset00]
+james: Don't worry, [mc], she's just giving you the run-down. She's kinda like a father
 # show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
-<> She's kinda like a father... I mean a mother... to us.
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-wow01]
+<> ...
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset00]
+<> I mean a mother... to us.
 
 # show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset00]
 [sly] thrusts her hand out to shake mine.
 
 # show imagecontainer james [m01-body m01-eyes-wow m01-mouth-wow01]
@@ -119,26 +125,33 @@ I'm afraid to take her hand when she's mad, but I do.
 # show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-wow01]
 # show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
 sly: Wow, that was a good handshake...
-# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
 # show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-serious00]
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
 # show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-smile00]
 james: Well, I mean, you are *kinda* acting like a father.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-soft fm01-mouth-serious00]
+<> Like, I can totally see it: I'm the daughter, and you as my father,
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
+<> you want to make sure I'm going out with the right guy...
 # show imagecontainer james [m01-body m01-eyes-concern m01-mouth-smile01]
 # show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-serious00]
 # show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-upset00]
-<> Like, I can totally see it: I'm the daughter, and you as my father, you want to make sure I'm going out with the right guy... or something...
-# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
+<> or something...
+# show imagecontainer james [m01-body m01-eyes-concern m01-mouth-grin00]
 mc: ...
 # show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset00]
-mc: ...
+sly: ...
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-wow01]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
+steph: ...BWAHAHA!!!!!
 # show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-serious00]
-# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
-steph: ...BWAHA HA!! JAMES!!!! WHAAAAT?????? YOU'RE SO AWKWARD!!!!
+<> JAMES!!!! WHAAAAT?????? YOU'RE SO AWKWARD!!!!
 # show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
-# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
-# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
 mc: O-*kay*, I'm gonna go get settled in-
-# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
 # show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
 # show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-wow01]
 steph: Wait!
