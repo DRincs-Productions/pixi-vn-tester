@@ -397,18 +397,53 @@ steph: Oh,
 # show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 I shouldn't have asked her. I shouldn't have directed a question at her. She reminds me too much...
 
-steph: I'm going for childhood education! Actually just have 1 more class; it wasn't available previous semester, so now I've got to take it this one!
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
+steph: I'm going for childhood education!
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+<> Actually just have 1 more class; it wasn't available previous semester, so now I've got to take it this one!
+# show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-smile01]
 steph: I'm honestly surprised my parents are bothering to pay for me to stay in the dorms right now, but both of them want me to get the *"college experience"*.
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile01]
 steph: I think I've had plenty of it already, though.
-sly: Hey. *I* wouldn't let you go anyway.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-smile01]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
+sly: Hey, *I* wouldn't let you go anyway.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-grin00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-nervous01]
 steph: ...we'd see each other still.
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-upset00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 james: I'm going for computer science.
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-nervous00]
 mc: Oh, cool! You like computers?
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-upset00]
 james: Yeah, I used to use MS Paint all the time. Now I want to step up my game.
+# show imagecontainer james [m01-body m01-eyes-concern m01-mouth-concern01]
+# show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-upset00]
+# show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset00]
 james: I also installed Windows once. I just think computer skills are important.
-sly: [steph] and I are placing bets whether or not he'll switch degrees once he gets into the real *classes*. \\n\\nHe's still just taking Gen Eds, so we won't know for at least another semester.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-smile01]
+sly: [steph] and I are placing bets whether or not he'll switch degrees once he gets into the *real* classes. \\n\\nHe's still just taking Gen Eds, so we won't know for at least another semester.
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
 james: Haha, [sly] thinks I made a rash decision, but I think computers are what I wanna do with my life.
-steph: [james], you gotta figure out what you wa want to *do* in computers. You're not seeing the trees for the forest.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral00]
+# show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset01]
+steph: [james], you gotta figure out what you want to *do* in computers. You're not seeing the trees for the forest.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset00]
 james: ...I think you said that wrong.
 steph: No, you're always looking at these big ideas and ignoring the actual *reality* of things! Computer Science isn't just an easy degree either. I'm worried these classes are going to kill you!
 james: I'll be fine!
