@@ -164,13 +164,18 @@ mc: ...?
 sly: It's food.
 # show imagecontainer james [m01-body m01-eyes-concern m01-mouth-grin00]
 # show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-grin00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-wow01]
+steph: [sly]!
 # show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset01]
-steph: [sly]! SPOILERS!!!!
+<> SPOILERS!!!!
 
 // TODO animate steph
 # show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
 # show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
-[steph_fullname] goes through the opposite door, and returns with a HUGE tinfoil-covered platter.
+# show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-nervous00]
+[steph_fullname] goes through the opposite door,
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
+<> and returns with a HUGE tinfoil-covered platter.
 
 # show imagecontainer james [m01-body m01-eyes-concern m01-mouth-smile01]
 # show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
@@ -192,8 +197,10 @@ steph: Oh! You gotta take in your luggage!
 === second_part ===
 
 # show image bg bg02-dorm
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
+She enters my room before I'VE even had a chance to.
 # show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
-She enters my my room before I'VE even had a chance to. \\n\\n...I could've just come back and gotten the platter later...
+<>  \\n\\n...I could've just come back and gotten the platter later...
 # show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
 She sets it on a desk. I throw my two paper bags down beside the empty bed.
 
@@ -201,7 +208,7 @@ She sets it on a desk. I throw my two paper bags down beside the empty bed.
 # show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
 steph: They got you a new mattress, right?
 # show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous01]
-<> That last guy was a druggie, did [james] tell tell you that?
+<> That last guy was a druggie, did [james] tell you that?
 # show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
 # show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-smile01]
 # show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
@@ -213,52 +220,181 @@ steph: [sly]! If word gets out about that...
 # show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-nervous01]
 <> well, actually, it wouldn't matter, *he's* the one who shot himself up.
 
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
 I'm fumbling for a new subject.
 
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 mc: So, you're all family?
 
-I realize too late this topic is no better:
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious01]
+I realize too late
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+<> this topic is no better:
 
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile01]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
 sly: Adopted family.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile01]
 steph: [sly] and I were best friends growing up and [james] here needed a mama, so [sly] adopted him!
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-smile00]
 james: We're not actually related.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset00]
 mc: ...
-james: Yeah, I like to say that this last semester I was in *foster care* and [sly] picked me up somewhere in there.
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
+james: Yeah, I like to say that this last semester I was in *foster care*
+<>  and [sly] picked me up somewhere in there.
+# show imagecontainer james [m01-body m01-eyes-annoy m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile01]
 sly: [james] is just a baby. A freshman like you!
+# show imagecontainer james [m01-body m01-eyes-annoy m01-mouth-annoy01]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 james: And *you're* just a sophomore!
+# show imagecontainer james [m01-body m01-eyes-wow m01-mouth-wow01]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-wow01]
 sly: I went to medical school for two years before coming here, I think that counts as *at least* 6 years!
 
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-upset00]
 I'm dizzy, and my blood's rushing.
 
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
 mc: Um... why did you switch degrees?
-sly: My mom was all in the medical field, and since I'm great with kids- I had 6- 
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious01]
+# show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-nervous00]
+sly: My mom was all in the medical field,
+# show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-smile00]
+<> and since I'm great with kids- I had 6-
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-neutral01]
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-upset01]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
 james: They were actually her siblings.
-sly: Yeah, whatever. I tried it because I thought I'd love it, but I HATED it! When we started getting into anatomy, I realized how gross the whole thing is. I changed diapers, but that's a little different from changing *livers*, know what I mean?
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset01]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
+sly: Yeah, whatever.
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious01]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile00]
+<> I tried it because I thought I'd love it,
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-upset01]
+<> but I HATED it!
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious01]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
+<> When we started getting into anatomy, I realized how *gross* the whole thing is. I changed diapers,
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-annoy00]
+<> but that's a little different from changing *livers*, know what I mean?
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-annoy00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
 mc: ...
-sly: So I'm trying out architecture now. What are you going for, [mc]?
-mc: ...uh......just getting my Gen Eds out of the way right now...
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-grin fm01-mouth-smile01]
+# show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-smile00]
+sly: So I'm trying out architecture now.
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile01]
+<> What are you going for, [mc]?
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
+mc: ...uh... ...just getting my Gen Eds out of the way right now...
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile01]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile00]
 sly: Why not do that at a community college?
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile01]
 steph: Did you get a full ride or something?
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile00]
 mc: ...yeah...
 
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
 I knew this wouldn't go anywhere good.
 
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile01]
 sly: Are you going to go visit your parents on the weekend?
-mc: ... .... .. .... ..... ..... ... ... ..
-james: It's no worry worry if you don't. mine drive me crazy so stay here.
-sly: You've gotta live close by, right? Nobody comes to this college from afar, sorry, we're just not tha* hot of a scene.
-mc: ... ... .. . . .. .. . ......... ... . ... .. .... ... .. . . . ...... . . . . .. .. .. .... . ...
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+mc: ... .... ..
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+<> .... ..... ..... ... ... ..
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious01]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-smile00]
+james: It's no worry if you don't,
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+<> mine drive me crazy so I stay here.
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-smile01]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile00]
+sly: You've gotta live close by, right? Nobody comes to this college from afar, sorry, we're just not that hot of a scene.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+mc: ... ... .. . . ..
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+<> .. . ......... ... . ... .. .... ... .. . .
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious01]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
+<> . ...... . . . . .. .. ..  .... .
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+<> ...
+# show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile01]
 sly: Or maybe they'll come to visit you? My siblings will do that sometimes. It's quite a sight to have all 6 of them running around here, but everyone's pretty chill about it and I trust pretty much everyone here.
-james: At least, now that *Sven's* gone.
+# show imagecontainer james [m01-body m01-eyes-annoy m01-mouth-annoy01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+james: At least, now that *Sven's*
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-upset00]
+<> gone.
+# show imagecontainer james [m01-body m01-eyes-wow m01-mouth-annoy00]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-upset01]
 steph: [james]! You don't have to refer to him by name!!
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-upset00]
 james: Why? [mc]'ll never meet him.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral00]
+# show imagecontainer steph [fm02-body fm02-eyes-joy fm02-mouth-nervous01]
 steph: Say, [mc], where's the rest of your luggage?
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
 mc: ...
-james: Is that all your luggage? Man, that sucks.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious01]
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-smile00]
+james: Is that all your luggage?
+# show imagecontainer james [m01-body m01-eyes-concern m01-mouth-neutral01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-upset00]
+<> Man, that sucks.
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-smile00]
+# show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-nervous00]
 mc: ...
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 mc: So... um... what are you going for, [steph_fullname]?
-steph: Oh, me?
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous01]
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious01]
+steph: Oh,
+# show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-serious00]
+<> me?
 
+# show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
 I shouldn't have asked her. I shouldn't have directed a question at her. She reminds me too much...
 
 steph: I'm going for childhood education! Actually just have 1 more class; it wasn't available previous semester, so now I've got to take it this one!
