@@ -702,7 +702,7 @@ mc: I'm amazed that I got a room at all; just two weeks ago they said there was 
 mc: ...so there. Have I finally scared you away?
 # show imagecontainer james [m01-body m01-eyes-cry m01-mouth-cry00]
 # show imagecontainer sly [fm01-body fm01-eyes-soft fm01-mouth-soft00]
-# show imagecontainer steph [fm02-body fm02-eyes-cry fm02-mouth-cry01]
+# show imagecontainer steph [fm02-body fm02-eyes-bawl fm02-mouth-cry01]
 mc: I don't want to look at any of them.
 mc: A hand gently rubs my back.
 sly: You don't really want us to leave, do you?
@@ -721,17 +721,17 @@ I feel a tissue press against my hands. I suddenly realize that snot is dripping
 james: I cried for like a week when I first came. These two are champs, don't worry about it.
 # show imagecontainer james [m01-body m01-eyes-cry m01-mouth-smile00]
 # show imagecontainer sly [fm01-body fm01-eyes-soft fm01-mouth-soft01]
-# show imagecontainer steph [fm02-body fm02-eyes-cry fm02-mouth-cry01]
+# show imagecontainer steph [fm02-body fm02-eyes-bawl fm02-mouth-cry01]
 sly: So, be honest with us right now.
 # show imagecontainer james [m01-body m01-eyes-cry m01-mouth-neutral00]
 <> *Do you* want to stick around us for a while? Or, do you truly want to be left alone? Because we're all willing to deal with this "very dangerous" person.
-# show imagecontainer steph [fm02-body fm02-eyes-cry fm02-mouth-nervous01]
+# show imagecontainer steph [fm02-body fm02-eyes-bawl fm02-mouth-nervous01]
 sly: Will you be honest with your feelings and with us?
 # show imagecontainer sly [fm01-body fm01-eyes-soft fm01-mouth-soft00]
 mc: ...yes.
 # show imagecontainer james [m01-body m01-eyes-cry m01-mouth-smile00]
 # show imagecontainer sly [fm01-body fm01-eyes-soft fm01-mouth-soft01]
-# show imagecontainer steph [fm02-body fm02-eyes-cry fm02-mouth-nervous00]
+# show imagecontainer steph [fm02-body fm02-eyes-bawl fm02-mouth-nervous00]
 sly: Are you willing to try being a friend and having friends?
 # show imagecontainer sly [fm01-body fm01-eyes-soft fm01-mouth-soft00]
 # show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00]
