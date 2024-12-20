@@ -11,8 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@drincs/pixi-vn": "^0.9.7",
-    "@drincs/pixi-vn-ink": "^0.4.1",
+    "@drincs/pixi-vn": "^0.9.8",
+    "@drincs/pixi-vn-ink": "^0.4.3",
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",
     "@mui/icons-material": "^6.1.10",
