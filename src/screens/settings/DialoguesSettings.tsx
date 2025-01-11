@@ -1,11 +1,10 @@
 import { Box, FormHelperText, FormLabel, Slider } from "@mui/joy";
 import { useTranslation } from 'react-i18next';
-import { useRecoilState } from 'recoil';
-import { typewriterDelayState } from "../../atoms/typewriterDelayState";
+import useTypewriterStore from "../../stores/typewriterDelayState";
 import useAutoInfoStore from "../../stores/useAutoInfoStore";
 
 export default function DialoguesSettings() {
-    const [typewriterDelay, setTypewriterDelay] = useRecoilState(typewriterDelayState)
+    const { delay: typewriterDelay, setDelay: setTypewriterDelay } = useTypewriterStore((state) => state)
     const { t } = useTranslation(["ui"]);
     const { enabled: autoEnabled, setTime: setAutoTime, time: autoTime } = useAutoInfoStore((state) => state)
 

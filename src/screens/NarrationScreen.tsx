@@ -8,17 +8,17 @@ import { motion, Variants } from "motion/react";
 import { useRef } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
-import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import { typewriterIsAnimatedState } from '../atoms/typewriterIsAnimatedState';
 import SliderResizer from '../components/SliderResizer';
 import TypewriterList from '../components/TypewriterList';
+import useTypewriterStore from '../stores/typewriterDelayState';
 import useDialogueCardStore from '../stores/useDialogueCardStore';
 import { useQueryDialogue } from '../use_query/useQueryInterface';
 import ChoiceMenu from './ChoiceMenu';
 
 export default function NarrationScreen() {
     const { height: cardHeight, setHeight: setCardHeight, imageWidth: cardImageWidth, setImageWidth: setCardImageWidth } = useDialogueCardStore((state) => state)
-    const typewriterDelay = useRecoilValue(typewriterDelayState)
+    const { delay: typewriterDelay } = useTypewriterStore((state) => state)
     const { data: { text, character } = {} } = useQueryDialogue()
     const hidden = useRecoilValue(hideInterfaceState) || (text ? false : true)
     const setTypewriterIsAnimated = useSetRecoilState(typewriterIsAnimatedState)
