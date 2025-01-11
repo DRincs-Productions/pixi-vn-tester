@@ -3,15 +3,16 @@ import { useSnackbar } from 'notistack';
 import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
-import { hideInterfaceState } from '../stores/useInterfaceStore';
+import useInterfaceStore from '../stores/useInterfaceStore';
 import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../use_query/useQueryLastSave';
 import { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySaves';
 import { putSaveIntoIndexDB } from '../utils/save-utility';
 
 export default function EventInterceptor() {
-    const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
+    const hideInterface = useInterfaceStore((state) => state.hidden);
+    const setHideInterface = useInterfaceStore((state) => state.setHidden);
     const setAlertData = useSetRecoilState(saveLoadAlertState);
     const queryClient = useQueryClient()
     const { t } = useTranslation(["ui"]);
@@ -29,13 +30,7 @@ export default function EventInterceptor() {
                 break;
             case 'KeyV':
                 if (event.altKey) {
-                    setHideInterface((prev) => {
-                        if (location.pathname === '/') {
-                            console.log("Can't hide interface on home page")
-                            return false
-                        }
-                        return !prev
-                    })
+                    setHideInterface(!hideInterface)
                 }
                 break;
             case 'KeyS':

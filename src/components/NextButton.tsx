@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { nextStepLoadingState } from '../atoms/nextStepLoadingState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
-import { hideInterfaceState } from '../stores/useInterfaceStore';
+import useInterfaceStore from '../stores/useInterfaceStore';
 import { INTERFACE_DATA_USE_QUEY_KEY, useQueryCanGoNext } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utils/navigate-utility';
 
@@ -16,7 +16,7 @@ export default function NextButton() {
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const nextStepLoading = useRecoilValue(nextStepLoadingState)
     const { data: canGoNext = false } = useQueryCanGoNext()
-    const hideNextButton = useRecoilValue(hideInterfaceState) || !canGoNext
+    const hideNextButton = useInterfaceStore((state) => state.hidden || !canGoNext);
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useMyNavigate();
     const { t } = useTranslation(["ui"]);

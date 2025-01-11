@@ -27,7 +27,7 @@ export default function QuickTools() {
     const navigate = useMyNavigate();
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
     const { t } = useTranslation(["ui"]);
-    const hiddenInterface = useInterfaceStore((state) => state.hidden);
+    const hideInterface = useInterfaceStore((state) => state.hidden);
     const setHideInterface = useInterfaceStore((state) => state.editHidden);
     const [skip, setSkip] = useRecoilState(skipEnabledState)
     const autoEnabled = useAutoInfoStore((state) => state.enabled)
@@ -64,40 +64,40 @@ export default function QuickTools() {
                     }
                 }}
                 initial={"closed"}
-                animate={hiddenInterface ? "closed" : "open"}
+                animate={hideInterface ? "closed" : "open"}
                 exit={"closed"}
                 transition={{ type: "tween" }}
             >
                 <TextMenuButton
                     onClick={() => goBack(navigate).then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))}
                     disabled={!canGoBack}
-                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t("back")}
                 </TextMenuButton>
                 <TextMenuButton
                     onClick={() => setOpenHistory(true)}
-                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t("history")}
                 </TextMenuButton>
                 <TextMenuButton
                     selected={skip}
                     onClick={() => setSkip((prev) => !prev)}
-                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t("skip")}
                 </TextMenuButton>
                 <TextMenuButton
                     selected={autoEnabled}
                     onClick={editAutoEnabled}
-                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t("auto_forward_time_restricted")}
                 </TextMenuButton>
                 <TextMenuButton
                     onClick={() => openSaveScreen(true)}
-                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t(`${t("save")}/${t("load")}`)}
                 </TextMenuButton>
@@ -113,20 +113,20 @@ export default function QuickTools() {
                                 enqueueSnackbar(t("fail_save"), { variant: 'error' })
                             })
                     }}
-                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t("quick_save_restricted")}
                 </TextMenuButton>
                 <TextMenuButton
                     onClick={() => lastSave && setOpenLoadAlert({ open: true, data: lastSave, type: 'load' })}
                     disabled={!lastSave}
-                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t("load_last_save_restricted")}
                 </TextMenuButton>
                 <TextMenuButton
                     onClick={() => setOpenSettings(true)}
-                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t("settings_restricted")}
                 </TextMenuButton>
@@ -152,7 +152,7 @@ export default function QuickTools() {
                     }
                 }}
                 initial={"closed"}
-                animate={!hiddenInterface ? "closed" : "open"}
+                animate={!hideInterface ? "closed" : "open"}
                 exit={"closed"}
                 transition={{ type: "tween" }}
             >

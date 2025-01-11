@@ -17,7 +17,19 @@ type InterfaceStoreType = {
 
 const useInterfaceStore = create<InterfaceStoreType>((set) => ({
     hidden: false,
-    editHidden: () => set((state) => ({ hidden: !state.hidden })),
-    setHidden: (value: boolean) => set({ hidden: value }),
+    editHidden: () => {
+        if (location.pathname === '/') {
+            console.log("Can't hide interface on home page")
+            return
+        }
+        set((state) => ({ hidden: !state.hidden }))
+    },
+    setHidden: (value: boolean) => {
+        if (location.pathname === '/') {
+            console.log("Can't hide interface on home page")
+            return
+        }
+        set({ hidden: value })
+    },
 }))
 export default useInterfaceStore;
