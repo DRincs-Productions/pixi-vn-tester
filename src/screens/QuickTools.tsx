@@ -5,7 +5,6 @@ import { motion } from "motion/react";
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { autoInfoState } from '../atoms/autoInfoState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
 import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
@@ -13,6 +12,7 @@ import { openSettingsState } from '../atoms/openSettingsState';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
+import useAutoInfoStore from '../stores/useAutoInfoStore';
 import { INTERFACE_DATA_USE_QUEY_KEY, useQueryCanGoBack } from '../use_query/useQueryInterface';
 import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../use_query/useQueryLastSave';
 import { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySaves';
@@ -29,7 +29,8 @@ export default function QuickTools() {
     const { t } = useTranslation(["ui"]);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const [skip, setSkip] = useRecoilState(skipEnabledState)
-    const [auto, setAuto] = useRecoilState(autoInfoState)
+    const autoEnabled = useAutoInfoStore((state) => state.enabled)
+    const editAutoEnabled = useAutoInfoStore((state) => state.editToggle)
     const { enqueueSnackbar } = useSnackbar();
     const queryClient = useQueryClient()
     const { data: lastSave = null } = useQueryLastSave()
@@ -87,11 +88,8 @@ export default function QuickTools() {
                     {t("skip")}
                 </TextMenuButton>
                 <TextMenuButton
-                    selected={auto.enabled}
-                    onClick={() => setAuto((prev) => ({
-                        ...prev,
-                        enabled: !prev.enabled,
-                    }))}
+                    selected={autoEnabled}
+                    onClick={editAutoEnabled}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t("auto_forward_time_restricted")}

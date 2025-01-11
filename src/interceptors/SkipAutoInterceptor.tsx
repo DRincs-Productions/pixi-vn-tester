@@ -4,10 +4,10 @@ import { useSnackbar } from 'notistack';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { autoInfoState } from '../atoms/autoInfoState';
 import { nextStepLoadingState } from '../atoms/nextStepLoadingState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import { typewriterIsAnimatedState } from '../atoms/typewriterIsAnimatedState';
+import useAutoInfoStore from '../stores/useAutoInfoStore';
 import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utils/navigate-utility';
 
@@ -15,7 +15,8 @@ export default function SkipAutoInterceptor() {
     const navigate = useMyNavigate();
     const { t: tNarration } = useTranslation(["narration"]);
     const skipEnabled = useRecoilValue(skipEnabledState)
-    const autoInfo = useRecoilValue(autoInfoState)
+    const autoEnabled = useAutoInfoStore((state) => state.enabled)
+    const autoTime = useAutoInfoStore((state) => state.time)
     const typewriterIsAnimated = useRecoilValue(typewriterIsAnimatedState)
     const [recheckSkip, setRecheckSkip] = useState<number>(0)
     const { enqueueSnackbar } = useSnackbar();
@@ -69,12 +70,12 @@ export default function SkipAutoInterceptor() {
         if (skipEnabled) {
             return
         }
-        if (autoInfo.enabled && !typewriterIsAnimated) {
-            if (autoInfo.time) {
-                let millisecond = autoInfo.time * 1000
+        if (autoEnabled && !typewriterIsAnimated) {
+            if (autoTime) {
+                let millisecond = autoTime * 1000
                 // Debouncing
                 let timeout = setTimeout(() => {
-                    if (autoInfo.enabled && !skipEnabled) {
+                    if (autoEnabled && !skipEnabled) {
                         nextOnClick()
                     }
                 }, millisecond);
@@ -84,7 +85,7 @@ export default function SkipAutoInterceptor() {
                 }
             }
         }
-    }, [autoInfo, typewriterIsAnimated, skipEnabled, nextOnClick])
+    }, [autoTime, autoEnabled, typewriterIsAnimated, skipEnabled, nextOnClick])
 
     return null
 }
