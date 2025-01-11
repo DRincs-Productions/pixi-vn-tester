@@ -9,10 +9,10 @@ import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { openGameSaveScreenState } from '../../atoms/openGameSaveScreenState';
 import { openSettingsState } from '../../atoms/openSettingsState';
 import { saveLoadAlertState } from '../../atoms/saveLoadAlertState';
 import SettingButton from '../../components/SettingButton';
+import useGameSaveScreenStore from '../../stores/useGameSaveScreenStore';
 import { INTERFACE_DATA_USE_QUEY_KEY } from '../../use_query/useQueryInterface';
 import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../../use_query/useQueryLastSave';
 import { SAVES_USE_QUEY_KEY } from '../../use_query/useQuerySaves';
@@ -23,7 +23,7 @@ export default function SaveLoadSettingButtons() {
     const navigate = useMyNavigate();
     const { t } = useTranslation(["ui"]);
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
-    const openSaveScreen = useSetRecoilState(openGameSaveScreenState);
+    const editOpenSaveScreen = useGameSaveScreenStore((state) => (state.editOpen))
     const openSettings = useSetRecoilState(openSettingsState);
     const queryClient = useQueryClient()
     const { enqueueSnackbar } = useSnackbar();
@@ -83,7 +83,7 @@ export default function SaveLoadSettingButtons() {
         <SettingButton
             key={"save_load_button"}
             onClick={() => {
-                openSaveScreen(true)
+                editOpenSaveScreen()
                 openSettings(false)
             }}
         >

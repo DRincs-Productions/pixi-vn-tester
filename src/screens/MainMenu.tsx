@@ -6,11 +6,11 @@ import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSetRecoilState } from 'recoil';
-import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import MenuButton from '../components/MenuButton';
 import { NARRATION_ROUTE } from '../constans';
 import startLabel from '../labels/startLabel';
+import useGameSaveScreenStore from '../stores/useGameSaveScreenStore';
 import useInterfaceStore from '../stores/useInterfaceStore';
 import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import useQueryLastSave from '../use_query/useQueryLastSave';
@@ -21,7 +21,7 @@ export default function MainMenu() {
     const navigate = useMyNavigate();
     const setOpenSettings = useSetRecoilState(openSettingsState);
     const editHideInterface = useInterfaceStore((state) => state.setHidden)
-    const setGameSaveScreen = useSetRecoilState(openGameSaveScreenState);
+    const editSaveScreen = useGameSaveScreenStore((state) => (state.editOpen))
     const { enqueueSnackbar } = useSnackbar();
     const { t } = useTranslation(["ui"]);
     const { t: tNarration } = useTranslation(["narration"]);
@@ -87,7 +87,7 @@ export default function MainMenu() {
                 {t("start")}
             </MenuButton>
             <MenuButton
-                onClick={() => setGameSaveScreen(true)}
+                onClick={editSaveScreen}
                 transitionDelay={0.3}
             >
                 {t("load")}

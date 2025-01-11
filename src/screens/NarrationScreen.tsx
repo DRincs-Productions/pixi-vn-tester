@@ -16,8 +16,8 @@ import { useQueryDialogue } from '../use_query/useQueryInterface';
 import ChoiceMenu from './ChoiceMenu';
 
 export default function NarrationScreen() {
-    const { cardHeight, cardImageWidth, setCardHeight, setCardImageWidth } = useDialogueCardStore(
-        useShallow((state) => ({ cardHeight: state.height, setCardHeight: state.setHeight, cardImageWidth: state.imageWidth, setCardImageWidth: state.setImageWidth })),
+    const { height: cardHeight, setHeight: setCardHeight, imageWidth: cardImageWidth, setImageWidth: setCardImageWidth } = useDialogueCardStore(
+        useShallow((state) => (state)),
     )
     const typewriterDelay = useTypewriterStore((state) => state.delay)
     const startTypewriter = useTypewriterStore((state) => state.start)

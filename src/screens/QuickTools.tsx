@@ -5,13 +5,13 @@ import { motion } from "motion/react";
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
 import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
 import useAutoInfoStore from '../stores/useAutoInfoStore';
+import useGameSaveScreenStore from '../stores/useGameSaveScreenStore';
 import useInterfaceStore from '../stores/useInterfaceStore';
 import { INTERFACE_DATA_USE_QUEY_KEY, useQueryCanGoBack } from '../use_query/useQueryInterface';
 import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../use_query/useQueryLastSave';
@@ -23,7 +23,7 @@ import { putSaveIntoIndexDB } from '../utils/save-utility';
 export default function QuickTools() {
     const setOpenSettings = useSetRecoilState(openSettingsState);
     const setOpenHistory = useSetRecoilState(openHistoryScreenState);
-    const openSaveScreen = useSetRecoilState(openGameSaveScreenState);
+    const editOpenSaveScreen = useGameSaveScreenStore((state) => (state.editOpen))
     const navigate = useMyNavigate();
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
     const { t } = useTranslation(["ui"]);
@@ -96,7 +96,7 @@ export default function QuickTools() {
                     {t("auto_forward_time_restricted")}
                 </TextMenuButton>
                 <TextMenuButton
-                    onClick={() => openSaveScreen(true)}
+                    onClick={editOpenSaveScreen}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t(`${t("save")}/${t("load")}`)}
