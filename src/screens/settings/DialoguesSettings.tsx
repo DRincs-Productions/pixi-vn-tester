@@ -7,9 +7,7 @@ import useAutoInfoStore from "../../stores/useAutoInfoStore";
 export default function DialoguesSettings() {
     const [typewriterDelay, setTypewriterDelay] = useRecoilState(typewriterDelayState)
     const { t } = useTranslation(["ui"]);
-    const autoEnabled = useAutoInfoStore((state) => state.enabled)
-    const autoTime = useAutoInfoStore((state) => state.time)
-    const setAutoTime = useAutoInfoStore((state) => state.setTime)
+    const { enabled: autoEnabled, setTime: setAutoTime, time: autoTime } = useAutoInfoStore((state) => state)
 
     return (
         <>

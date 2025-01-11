@@ -29,8 +29,7 @@ export default function QuickTools() {
     const { t } = useTranslation(["ui"]);
     const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
     const [skip, setSkip] = useRecoilState(skipEnabledState)
-    const autoEnabled = useAutoInfoStore((state) => state.enabled)
-    const editAutoEnabled = useAutoInfoStore((state) => state.editToggle)
+    const { enabled: autoEnabled, editToggle: editAutoEnabled } = useAutoInfoStore((state) => state)
     const { enqueueSnackbar } = useSnackbar();
     const queryClient = useQueryClient()
     const { data: lastSave = null } = useQueryLastSave()

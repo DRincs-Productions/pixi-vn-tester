@@ -7,18 +7,18 @@ import Typography from '@mui/joy/Typography';
 import { motion, Variants } from "motion/react";
 import { useRef } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
 import { dialogueCardImageWidthState } from '../atoms/dialogueCardImageWidthState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { typewriterDelayState } from '../atoms/typewriterDelayState';
 import { typewriterIsAnimatedState } from '../atoms/typewriterIsAnimatedState';
 import SliderResizer from '../components/SliderResizer';
 import TypewriterList from '../components/TypewriterList';
+import useDialogueCardStore from '../stores/useDialogueCardStore';
 import { useQueryDialogue } from '../use_query/useQueryInterface';
 import ChoiceMenu from './ChoiceMenu';
 
 export default function NarrationScreen() {
-    const [cardHeight, setCardHeight] = useRecoilState(dialogueCardHeightState)
+    const { height: cardHeight, setHeight: setCardHeight } = useDialogueCardStore((state) => state)
     const [cardImageWidth, setCardImageWidth] = useRecoilState(dialogueCardImageWidthState)
     const typewriterDelay = useRecoilValue(typewriterDelayState)
     const { data: { text, character } = {} } = useQueryDialogue()

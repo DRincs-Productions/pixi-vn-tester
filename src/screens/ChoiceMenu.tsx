@@ -7,9 +7,9 @@ import { useSnackbar } from 'notistack';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
-import { dialogueCardHeightState } from '../atoms/dialogueCardHeightState';
 import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import ChoiceButton from '../components/ChoiceButton';
+import useDialogueCardStore from '../stores/useDialogueCardStore';
 import { INTERFACE_DATA_USE_QUEY_KEY, useQueryChoiceMenuOptions } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utils/navigate-utility';
 
@@ -17,7 +17,7 @@ export default function ChoiceMenu({ fullscreen = true }: {
     fullscreen?: boolean,
 }) {
     const [loading, setLoading] = useState(false)
-    const marginButton = useRecoilValue(dialogueCardHeightState)
+    const { height: marginButton } = useDialogueCardStore((state) => state)
     const height = 100 - marginButton
     const { t: tNarration } = useTranslation(["narration"]);
     const navigate = useMyNavigate();

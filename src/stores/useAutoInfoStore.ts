@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-type AutoInfo = {
+type AutoInfoStoreType = {
     /**
      * Whether auto forward is enabled
      */
@@ -19,7 +19,7 @@ type AutoInfo = {
     setTime: (value: number) => void,
 }
 
-const useAutoInfoStore = create<AutoInfo>((set) => ({
+const useAutoInfoStore = create<AutoInfoStoreType>((set) => ({
     enabled: false,
     time: localStorage.getItem("auto_forward_second") ? parseInt(localStorage.getItem("auto_forward_second")!) : 1,
     editToggle: () => set((state) => ({ enabled: !state.enabled })),
