@@ -10,10 +10,6 @@ type AutoInfo = {
      */
     time: number,
     /**
-     * Force recheck the auto forward
-     */
-    update: number,
-    /**
      * Enable or disable auto forward
      */
     editToggle: () => void,
@@ -21,16 +17,11 @@ type AutoInfo = {
      * Set the time to wait before auto forwarding
      */
     setTime: (value: number) => void,
-    /**
-     * Set the update value
-     */
-    setUpdate: (value: number) => void,
 }
 
 const useAutoInfoStore = create<AutoInfo>((set) => ({
     enabled: false,
     time: localStorage.getItem("auto_forward_second") ? parseInt(localStorage.getItem("auto_forward_second")!) : 1,
-    update: 0,
     editToggle: () => set((state) => ({ enabled: !state.enabled })),
     setTime: (value: number) => {
         if (value) {
@@ -38,6 +29,5 @@ const useAutoInfoStore = create<AutoInfo>((set) => ({
             set({ time: value })
         }
     },
-    setUpdate: (value: number) => set({ update: value }),
 }))
 export default useAutoInfoStore;
