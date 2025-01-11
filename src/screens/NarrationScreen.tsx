@@ -6,9 +6,7 @@ import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { motion, Variants } from "motion/react";
 import { useRef } from 'react';
-import { useSetRecoilState } from 'recoil';
 import { useShallow } from 'zustand/react/shallow';
-import { typewriterIsAnimatedState } from '../atoms/typewriterIsAnimatedState';
 import SliderResizer from '../components/SliderResizer';
 import TypewriterList from '../components/TypewriterList';
 import useDialogueCardStore from '../stores/useDialogueCardStore';
@@ -22,9 +20,10 @@ export default function NarrationScreen() {
         useShallow((state) => ({ cardHeight: state.height, setCardHeight: state.setHeight, cardImageWidth: state.imageWidth, setCardImageWidth: state.setImageWidth })),
     )
     const typewriterDelay = useTypewriterStore((state) => state.delay)
+    const startTypewriter = useTypewriterStore((state) => state.start)
+    const endTypewriter = useTypewriterStore((state) => state.end)
     const { data: { text, character } = {} } = useQueryDialogue()
     const hidden = useInterfaceStore((state) => state.hidden || (text ? false : true));
-    const setTypewriterIsAnimated = useSetRecoilState(typewriterIsAnimatedState)
     const cardVarians: Variants = {
         open: {
             opacity: 1,
@@ -203,8 +202,8 @@ export default function NarrationScreen() {
                                 <TypewriterList
                                     text={text || ""}
                                     delay={typewriterDelay}
-                                    onAnimationStart={() => setTypewriterIsAnimated(true)}
-                                    onAnimationComplete={() => setTypewriterIsAnimated(false)}
+                                    onAnimationStart={startTypewriter}
+                                    onAnimationComplete={endTypewriter}
                                     scroll={typewriterDelay ? (offsetTop: number) => {
                                         if (paragraphRef.current) {
                                             let scrollTop = (offsetTop - (paragraphRef.current.clientHeight / 2))

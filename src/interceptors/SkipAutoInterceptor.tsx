@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { nextStepLoadingState } from '../atoms/nextStepLoadingState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
-import { typewriterIsAnimatedState } from '../atoms/typewriterIsAnimatedState';
 import useAutoInfoStore from '../stores/useAutoInfoStore';
+import useTypewriterStore from '../stores/useTypewriterStore';
 import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utils/navigate-utility';
 
@@ -17,7 +17,7 @@ export default function SkipAutoInterceptor() {
     const skipEnabled = useRecoilValue(skipEnabledState)
     const autoEnabled = useAutoInfoStore((state) => state.enabled)
     const autoTime = useAutoInfoStore((state) => state.time)
-    const typewriterIsAnimated = useRecoilValue(typewriterIsAnimatedState)
+    const typewriterInProgress = useTypewriterStore((state) => !state.inProgress)
     const [recheckSkip, setRecheckSkip] = useState<number>(0)
     const { enqueueSnackbar } = useSnackbar();
     const setNextStepLoading = useSetRecoilState(nextStepLoadingState);
@@ -70,7 +70,7 @@ export default function SkipAutoInterceptor() {
         if (skipEnabled) {
             return
         }
-        if (autoEnabled && !typewriterIsAnimated) {
+        if (autoEnabled && !typewriterInProgress) {
             if (autoTime) {
                 let millisecond = autoTime * 1000
                 // Debouncing
@@ -85,7 +85,7 @@ export default function SkipAutoInterceptor() {
                 }
             }
         }
-    }, [autoTime, autoEnabled, typewriterIsAnimated, skipEnabled, nextOnClick])
+    }, [autoTime, autoEnabled, typewriterInProgress, skipEnabled, nextOnClick])
 
     return null
 }

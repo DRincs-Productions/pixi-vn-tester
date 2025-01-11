@@ -9,6 +9,18 @@ type TypewriterStoreType = {
      * Set the delay in milliseconds between each character
      */
     setDelay: (value: number) => void,
+    /**
+     * The delay in milliseconds between each character
+     */
+    inProgress: boolean,
+    /**
+     * Start the typewriter effect
+     */
+    start: () => void,
+    /**
+     * End the typewriter effect
+     */
+    end: () => void,
 }
 
 const useTypewriterStore = create<TypewriterStoreType>((set) => ({
@@ -19,5 +31,8 @@ const useTypewriterStore = create<TypewriterStoreType>((set) => ({
             set({ delay: value })
         }
     },
+    inProgress: false,
+    start: () => set({ inProgress: true }),
+    end: () => set({ inProgress: false }),
 }))
 export default useTypewriterStore;
