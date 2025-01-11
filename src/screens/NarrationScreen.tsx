@@ -6,21 +6,24 @@ import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { motion, Variants } from "motion/react";
 import { useRef } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { hideInterfaceState } from '../atoms/hideInterfaceState';
+import { useSetRecoilState } from 'recoil';
+import { useShallow } from 'zustand/react/shallow';
 import { typewriterIsAnimatedState } from '../atoms/typewriterIsAnimatedState';
 import SliderResizer from '../components/SliderResizer';
 import TypewriterList from '../components/TypewriterList';
-import useTypewriterStore from '../stores/typewriterDelayState';
 import useDialogueCardStore from '../stores/useDialogueCardStore';
+import useInterfaceStore from '../stores/useInterfaceStore';
+import useTypewriterStore from '../stores/useTypewriterStore';
 import { useQueryDialogue } from '../use_query/useQueryInterface';
 import ChoiceMenu from './ChoiceMenu';
 
 export default function NarrationScreen() {
-    const { height: cardHeight, setHeight: setCardHeight, imageWidth: cardImageWidth, setImageWidth: setCardImageWidth } = useDialogueCardStore((state) => state)
-    const { delay: typewriterDelay } = useTypewriterStore((state) => state)
+    const { cardHeight, cardImageWidth, setCardHeight, setCardImageWidth } = useDialogueCardStore(
+        useShallow((state) => ({ cardHeight: state.height, setCardHeight: state.setHeight, cardImageWidth: state.imageWidth, setCardImageWidth: state.setImageWidth })),
+    )
+    const typewriterDelay = useTypewriterStore((state) => state.delay)
     const { data: { text, character } = {} } = useQueryDialogue()
-    const hidden = useRecoilValue(hideInterfaceState) || (text ? false : true)
+    const hidden = useInterfaceStore((state) => state.hidden || (text ? false : true));
     const setTypewriterIsAnimated = useSetRecoilState(typewriterIsAnimatedState)
     const cardVarians: Variants = {
         open: {

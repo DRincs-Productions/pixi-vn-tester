@@ -15,7 +15,8 @@ export default function SkipAutoInterceptor() {
     const navigate = useMyNavigate();
     const { t: tNarration } = useTranslation(["narration"]);
     const skipEnabled = useRecoilValue(skipEnabledState)
-    const { enabled: autoEnabled, time: autoTime } = useAutoInfoStore((state) => state)
+    const autoEnabled = useAutoInfoStore((state) => state.enabled)
+    const autoTime = useAutoInfoStore((state) => state.time)
     const typewriterIsAnimated = useRecoilValue(typewriterIsAnimatedState)
     const [recheckSkip, setRecheckSkip] = useState<number>(0)
     const { enqueueSnackbar } = useSnackbar();

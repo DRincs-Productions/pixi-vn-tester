@@ -6,9 +6,9 @@ import { useSnackbar } from 'notistack';
 import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { nextStepLoadingState } from '../atoms/nextStepLoadingState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
+import { hideInterfaceState } from '../stores/useInterfaceStore';
 import { INTERFACE_DATA_USE_QUEY_KEY, useQueryCanGoNext } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utils/navigate-utility';
 

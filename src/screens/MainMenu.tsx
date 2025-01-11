@@ -6,12 +6,12 @@ import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSetRecoilState } from 'recoil';
-import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
 import MenuButton from '../components/MenuButton';
 import { NARRATION_ROUTE } from '../constans';
 import startLabel from '../labels/startLabel';
+import useInterfaceStore from '../stores/useInterfaceStore';
 import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import useQueryLastSave from '../use_query/useQueryLastSave';
 import { useMyNavigate } from '../utils/navigate-utility';
@@ -20,7 +20,7 @@ import { loadSave } from '../utils/save-utility';
 export default function MainMenu() {
     const navigate = useMyNavigate();
     const setOpenSettings = useSetRecoilState(openSettingsState);
-    const setHideInterface = useSetRecoilState(hideInterfaceState);
+    const editHideInterface = useInterfaceStore((state) => state.setHidden)
     const setGameSaveScreen = useSetRecoilState(openGameSaveScreenState);
     const { enqueueSnackbar } = useSnackbar();
     const { t } = useTranslation(["ui"]);
@@ -29,7 +29,7 @@ export default function MainMenu() {
     const { data: lastSave = null, isLoading } = useQueryLastSave()
 
     useEffect(() => {
-        setHideInterface(false)
+        editHideInterface(false)
         let bg = addImage("background_main_menu")
         bg.load()
 

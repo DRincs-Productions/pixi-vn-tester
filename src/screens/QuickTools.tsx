@@ -5,7 +5,6 @@ import { motion } from "motion/react";
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { hideInterfaceState } from '../atoms/hideInterfaceState';
 import { openGameSaveScreenState } from '../atoms/openGameSaveScreenState';
 import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
@@ -13,6 +12,7 @@ import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
 import useAutoInfoStore from '../stores/useAutoInfoStore';
+import useInterfaceStore from '../stores/useInterfaceStore';
 import { INTERFACE_DATA_USE_QUEY_KEY, useQueryCanGoBack } from '../use_query/useQueryInterface';
 import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../use_query/useQueryLastSave';
 import { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySaves';
@@ -27,9 +27,11 @@ export default function QuickTools() {
     const navigate = useMyNavigate();
     const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
     const { t } = useTranslation(["ui"]);
-    const [hideInterface, setHideInterface] = useRecoilState(hideInterfaceState);
+    const hiddenInterface = useInterfaceStore((state) => state.hidden);
+    const setHideInterface = useInterfaceStore((state) => state.editHidden);
     const [skip, setSkip] = useRecoilState(skipEnabledState)
-    const { enabled: autoEnabled, editToggle: editAutoEnabled } = useAutoInfoStore((state) => state)
+    const autoEnabled = useAutoInfoStore((state) => state.enabled)
+    const editAutoEnabled = useAutoInfoStore((state) => state.editEnabled)
     const { enqueueSnackbar } = useSnackbar();
     const queryClient = useQueryClient()
     const { data: lastSave = null } = useQueryLastSave()
@@ -62,40 +64,40 @@ export default function QuickTools() {
                     }
                 }}
                 initial={"closed"}
-                animate={hideInterface ? "closed" : "open"}
+                animate={hiddenInterface ? "closed" : "open"}
                 exit={"closed"}
                 transition={{ type: "tween" }}
             >
                 <TextMenuButton
                     onClick={() => goBack(navigate).then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))}
                     disabled={!canGoBack}
-                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
                 >
                     {t("back")}
                 </TextMenuButton>
                 <TextMenuButton
                     onClick={() => setOpenHistory(true)}
-                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
                 >
                     {t("history")}
                 </TextMenuButton>
                 <TextMenuButton
                     selected={skip}
                     onClick={() => setSkip((prev) => !prev)}
-                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
                 >
                     {t("skip")}
                 </TextMenuButton>
                 <TextMenuButton
                     selected={autoEnabled}
                     onClick={editAutoEnabled}
-                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
                 >
                     {t("auto_forward_time_restricted")}
                 </TextMenuButton>
                 <TextMenuButton
                     onClick={() => openSaveScreen(true)}
-                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
                 >
                     {t(`${t("save")}/${t("load")}`)}
                 </TextMenuButton>
@@ -111,26 +113,26 @@ export default function QuickTools() {
                                 enqueueSnackbar(t("fail_save"), { variant: 'error' })
                             })
                     }}
-                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
                 >
                     {t("quick_save_restricted")}
                 </TextMenuButton>
                 <TextMenuButton
                     onClick={() => lastSave && setOpenLoadAlert({ open: true, data: lastSave, type: 'load' })}
                     disabled={!lastSave}
-                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
                 >
                     {t("load_last_save_restricted")}
                 </TextMenuButton>
                 <TextMenuButton
                     onClick={() => setOpenSettings(true)}
-                    sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
+                    sx={{ pointerEvents: !hiddenInterface ? "auto" : "none" }}
                 >
                     {t("settings_restricted")}
                 </TextMenuButton>
             </Stack >
             <IconButton
-                onClick={() => setHideInterface((prev) => !prev)}
+                onClick={setHideInterface}
                 sx={{
                     position: "absolute",
                     top: 0,
@@ -150,7 +152,7 @@ export default function QuickTools() {
                     }
                 }}
                 initial={"closed"}
-                animate={!hideInterface ? "closed" : "open"}
+                animate={!hiddenInterface ? "closed" : "open"}
                 exit={"closed"}
                 transition={{ type: "tween" }}
             >

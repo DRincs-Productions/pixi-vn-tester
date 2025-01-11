@@ -12,7 +12,7 @@ type AutoInfoStoreType = {
     /**
      * Enable or disable auto forward
      */
-    editToggle: () => void,
+    editEnabled: () => void,
     /**
      * Set the time to wait before auto forwarding
      */
@@ -22,7 +22,7 @@ type AutoInfoStoreType = {
 const useAutoInfoStore = create<AutoInfoStoreType>((set) => ({
     enabled: false,
     time: localStorage.getItem("auto_forward_second") ? parseInt(localStorage.getItem("auto_forward_second")!) : 1,
-    editToggle: () => set((state) => ({ enabled: !state.enabled })),
+    editEnabled: () => set((state) => ({ enabled: !state.enabled })),
     setTime: (value: number) => {
         if (value) {
             localStorage.setItem("auto_forward_second", value.toString())

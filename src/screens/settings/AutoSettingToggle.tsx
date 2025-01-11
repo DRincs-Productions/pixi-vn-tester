@@ -7,7 +7,8 @@ import useAutoInfoStore from '../../stores/useAutoInfoStore';
 
 export default function AutoSettingToggle() {
     const { t } = useTranslation(["ui"]);
-    const { enabled: autoEnabled, editToggle: editAutoEnabled } = useAutoInfoStore((state) => state)
+    const autoEnabled = useAutoInfoStore((state) => state.enabled)
+    const editAutoEnabled = useAutoInfoStore((state) => state.editEnabled)
 
     const location = useLocation();
     if (location.pathname === '/') {
