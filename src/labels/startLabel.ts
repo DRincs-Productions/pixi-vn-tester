@@ -1,4 +1,4 @@
-import { ChoiceMenuOption, ChoiceMenuOptionClose, narration, newLabel, showImage, showImageContainer } from "@drincs/pixi-vn";
+import { ChoiceMenuOption, ChoiceMenuOptionClose, moveIn, narration, newLabel, showImage, showImageContainer } from "@drincs/pixi-vn";
 import { james, mc, sly, steph } from "../values/characters";
 
 const steph_fullname = "Stephanie";
@@ -6,7 +6,10 @@ const steph_fullname = "Stephanie";
 const startLabel = newLabel("start", [
     async () => {
         await showImage("bg", "bg01-hallway");
-        await showImageContainer("james", ["m01-body", "m01-eyes-smile", "m01-mouth-neutral01"], { xAlign: 0.5, yAlign: 1 });
+        await moveIn("james", {
+            value: ["m01-body", "m01-eyes-smile", "m01-mouth-neutral01"],
+            options: { xAlign: 0.5, yAlign: 1 }
+        }, { direction: "right", speed: 300 })
         narration.dialogue = { character: james, text: `You're my roommate's replacement, huh?` }
     },
     async () => {
@@ -63,8 +66,14 @@ const startLabel = newLabel("start", [
     },
     async () => {
         await showImageContainer("james", ["m01-body", "m01-eyes-annoy", "m01-mouth-annoy00"])
-        await showImageContainer("sly", ["fm01-body", "fm01-eyes-wow", "fm01-mouth-soft01"], { xAlign: 0.2, yAlign: 1 });
-        await showImageContainer("steph", ["fm02-body", "fm02-eyes-nervous", "fm02-mouth-nervous00"], { xAlign: 0.8, yAlign: 1 });
+        await moveIn("sly", {
+            value: ["fm01-body", "fm01-eyes-wow", "fm01-mouth-soft01"],
+            options: { xAlign: 0.2, yAlign: 1 }
+        }, { direction: "right", speed: 300 })
+        await moveIn("steph", {
+            value: ["fm02-body", "fm02-eyes-nervous", "fm02-mouth-nervous00"],
+            options: { xAlign: 0.8, yAlign: 1 }
+        }, { direction: "left", speed: 300 })
         narration.dialogue = { character: sly, text: `I just wanted to see what the new guy was like.` }
     },
     async () => {
