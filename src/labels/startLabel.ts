@@ -1,4 +1,4 @@
-import { narration, newLabel, showImage, showImageContainer } from "@drincs/pixi-vn";
+import { ChoiceMenuOption, ChoiceMenuOptionClose, narration, newLabel, showImage, showImageContainer } from "@drincs/pixi-vn";
 import { james, mc, sly, steph } from "../values/characters";
 
 const steph_fullname = "Stephanie";
@@ -313,7 +313,13 @@ const startLabel = newLabel("start", [
         await showImageContainer("steph", ["fm02-body", "fm02-eyes-wow", "fm02-mouth-wow01"])
         narration.dialogue = { character: steph, text: `Oh! You gotta take in your luggage!` }
     },
-    async (props) => await narration.jumpLabel(secondPart, props),
+    async () => {
+        narration.dialogue = `You want continue to the next part?`
+        narration.choiceMenuOptions = [
+            new ChoiceMenuOption("Yes, I want to continue", secondPart, {}, { type: "jump" }),
+            new ChoiceMenuOptionClose("No, I want to stop here"),
+        ]
+    },
 ]);
 export default startLabel;
 
