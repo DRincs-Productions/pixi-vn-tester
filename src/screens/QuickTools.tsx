@@ -4,13 +4,12 @@ import { useQueryClient } from '@tanstack/react-query';
 import { motion } from "motion/react";
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
-import { useSetRecoilState } from 'recoil';
-import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
-import { openSettingsState } from '../atoms/openSettingsState';
 import TextMenuButton from '../components/TextMenuButton';
 import useAutoInfoStore from '../stores/useAutoInfoStore';
 import useGameSaveScreenStore from '../stores/useGameSaveScreenStore';
+import useHistoryScreenStore from '../stores/useHistoryScreenStore';
 import useInterfaceStore from '../stores/useInterfaceStore';
+import useSettingsScreenStore from '../stores/useSettingsScreenStore';
 import useSkipStore from '../stores/useSkipStore';
 import { INTERFACE_DATA_USE_QUEY_KEY, useQueryCanGoBack } from '../use_query/useQueryInterface';
 import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../use_query/useQueryLastSave';
@@ -20,8 +19,8 @@ import { useMyNavigate } from '../utils/navigate-utility';
 import { putSaveIntoIndexDB } from '../utils/save-utility';
 
 export default function QuickTools() {
-    const setOpenSettings = useSetRecoilState(openSettingsState);
-    const setOpenHistory = useSetRecoilState(openHistoryScreenState);
+    const editOpenSettings = useSettingsScreenStore((state) => (state.editOpen))
+    const editOpenHistory = useHistoryScreenStore((state) => (state.editOpen))
     const editOpenSaveScreen = useGameSaveScreenStore((state) => (state.editOpen))
     const navigate = useMyNavigate();
     const setOpenLoadAlert = useGameSaveScreenStore((state) => (state.editLoadAlert))
@@ -76,7 +75,7 @@ export default function QuickTools() {
                     {t("back")}
                 </TextMenuButton>
                 <TextMenuButton
-                    onClick={() => setOpenHistory(true)}
+                    onClick={editOpenHistory}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t("history")}
@@ -125,7 +124,7 @@ export default function QuickTools() {
                     {t("load_last_save_restricted")}
                 </TextMenuButton>
                 <TextMenuButton
-                    onClick={() => setOpenSettings(true)}
+                    onClick={editOpenSettings}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t("settings_restricted")}

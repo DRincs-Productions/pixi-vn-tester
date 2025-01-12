@@ -5,13 +5,12 @@ import { motion } from "motion/react";
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSetRecoilState } from 'recoil';
-import { openSettingsState } from '../atoms/openSettingsState';
 import MenuButton from '../components/MenuButton';
 import { NARRATION_ROUTE } from '../constans';
 import startLabel from '../labels/startLabel';
 import useGameSaveScreenStore from '../stores/useGameSaveScreenStore';
 import useInterfaceStore from '../stores/useInterfaceStore';
+import useSettingsScreenStore from '../stores/useSettingsScreenStore';
 import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import useQueryLastSave from '../use_query/useQueryLastSave';
 import { useMyNavigate } from '../utils/navigate-utility';
@@ -19,7 +18,7 @@ import { loadSave } from '../utils/save-utility';
 
 export default function MainMenu() {
     const navigate = useMyNavigate();
-    const setOpenSettings = useSetRecoilState(openSettingsState);
+    const setOpenSettings = useSettingsScreenStore((state) => (state.setOpen))
     const editHideInterface = useInterfaceStore((state) => state.setHidden)
     const editSaveScreen = useGameSaveScreenStore((state) => (state.editOpen))
     const { enqueueSnackbar } = useSnackbar();
