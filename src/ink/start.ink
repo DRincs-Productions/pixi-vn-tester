@@ -2,7 +2,7 @@ VAR _input_value_ = ""
 
 === start ===
 # show image bg bg01-hallway
-# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral01] xAlign 0.5 yAlign 1
+# show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral01] xAlign 0.5 yAlign 1 with movein direction right speed 300
 james: You're my roommate's replacement, huh?
 # show imagecontainer james [m01-body m01-eyes-grin m01-mouth-smile01]
 james: Don't worry, you don't have much to live up to. Just don't use heroin like the last guy, and you'll be fine!
@@ -36,8 +36,8 @@ james: ...
 james: I know you're both watching, come on out already!
 
 # show imagecontainer james [m01-body m01-eyes-annoy m01-mouth-annoy00]
-# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-soft01] xAlign 0.2 yAlign 1
-# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00] xAlign 0.8 yAlign 1
+# show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-soft01] xAlign 0.2 yAlign 1 with movein direction right speed 300
+# show imagecontainer steph [fm02-body fm02-eyes-nervous fm02-mouth-nervous00] xAlign 0.8 yAlign 1 with movein direction left speed 300
 sly: I just wanted to see what the new guy was like.
 # show imagecontainer sly [fm01-body fm01-eyes-upset fm01-mouth-smile01]
 <> Hey, you, [mc]- be nice to our little brother,
