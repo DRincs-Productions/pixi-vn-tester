@@ -3,16 +3,15 @@ import { Button, Input } from '@mui/joy';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRecoilValue } from 'recoil';
-import { typewriterIsAnimatedState } from '../../atoms/typewriterIsAnimatedState';
 import ModalDialogCustom from '../../components/ModalDialog';
 import Typewriter from '../../components/Typewriter';
+import useTypewriterStore from '../../stores/useTypewriterStore';
 import { INTERFACE_DATA_USE_QUEY_KEY, useQueryDialogue, useQueryInputValue } from '../../use_query/useQueryInterface';
 
 export default function TextInput() {
     const { data: { text } = {} } = useQueryDialogue()
     const { data: { isRequired, type, currentValue } = { currentValue: undefined, isRequired: false } } = useQueryInputValue<string | number>();
-    const open = (!useRecoilValue(typewriterIsAnimatedState)) && isRequired
+    const open = useTypewriterStore((state) => !state.inProgress && isRequired)
     const [tempValue, setTempValue] = useState<string | number>();
     const queryClient = useQueryClient()
     const { t } = useTranslation(["ui"]);
@@ -20,12 +19,7 @@ export default function TextInput() {
     return (
         <ModalDialogCustom
             open={open}
-            setOpen={(value) => {
-                if (!value) {
-                    narration.inputValue = tempValue
-                    queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
-                }
-            }}
+            setOpen={() => { }}
             canBeIgnored={false}
             color="primary"
             actions={<>
@@ -35,6 +29,7 @@ export default function TextInput() {
                     variant="outlined"
                     onClick={() => {
                         narration.inputValue = tempValue || currentValue
+                        setTempValue(undefined)
                         queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
                     }}
                 >
