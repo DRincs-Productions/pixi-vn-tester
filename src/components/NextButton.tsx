@@ -5,15 +5,16 @@ import { motion } from "motion/react";
 import { useSnackbar } from 'notistack';
 import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { nextStepLoadingState } from '../atoms/nextStepLoadingState';
-import { skipEnabledState } from '../atoms/skipEnabledState';
 import useInterfaceStore from '../stores/useInterfaceStore';
+import useSkipStore from '../stores/useSkipStore';
 import { INTERFACE_DATA_USE_QUEY_KEY, useQueryCanGoNext } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utils/navigate-utility';
 
 export default function NextButton() {
-    const [skip, setSkip] = useRecoilState(skipEnabledState)
+    const skipEnabled = useSkipStore((state) => state.enabled)
+    const setSkipEnabled = useSkipStore((state) => state.setEnabled)
     const nextStepLoading = useRecoilValue(nextStepLoadingState)
     const { data: canGoNext = false } = useQueryCanGoNext()
     const hideNextButton = useInterfaceStore((state) => state.hidden || !canGoNext);
@@ -54,13 +55,13 @@ export default function NextButton() {
 
     const onkeypress = useCallback((event: KeyboardEvent) => {
         if ((event.code == 'Enter' || event.code == 'Space')) {
-            setSkip(true)
+            setSkipEnabled(true)
         }
     }, [])
 
     const onkeyup = useCallback((event: KeyboardEvent) => {
         if ((event.code == 'Enter' || event.code == 'Space')) {
-            setSkip(false)
+            setSkipEnabled(false)
             nextOnClick()
         }
     }, [nextOnClick])
@@ -90,8 +91,8 @@ export default function NextButton() {
                 zIndex: 100,
             }}
             onClick={() => {
-                if (skip) {
-                    setSkip(false)
+                if (skipEnabled) {
+                    setSkipEnabled(false)
                 }
                 nextOnClick()
             }}

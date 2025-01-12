@@ -3,10 +3,10 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { nextStepLoadingState } from '../atoms/nextStepLoadingState';
-import { skipEnabledState } from '../atoms/skipEnabledState';
 import useAutoInfoStore from '../stores/useAutoInfoStore';
+import useSkipStore from '../stores/useSkipStore';
 import useTypewriterStore from '../stores/useTypewriterStore';
 import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utils/navigate-utility';
@@ -14,7 +14,7 @@ import { useMyNavigate } from '../utils/navigate-utility';
 export default function SkipAutoInterceptor() {
     const navigate = useMyNavigate();
     const { t: tNarration } = useTranslation(["narration"]);
-    const skipEnabled = useRecoilValue(skipEnabledState)
+    const skipEnabled = useSkipStore((state) => state.enabled)
     const autoEnabled = useAutoInfoStore((state) => state.enabled)
     const autoTime = useAutoInfoStore((state) => state.time)
     const typewriterInProgress = useTypewriterStore((state) => !state.inProgress)

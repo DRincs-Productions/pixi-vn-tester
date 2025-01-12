@@ -4,14 +4,14 @@ import { useQueryClient } from '@tanstack/react-query';
 import { motion } from "motion/react";
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
-import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
 import useAutoInfoStore from '../stores/useAutoInfoStore';
 import useGameSaveScreenStore from '../stores/useGameSaveScreenStore';
 import useInterfaceStore from '../stores/useInterfaceStore';
+import useSkipStore from '../stores/useSkipStore';
 import { INTERFACE_DATA_USE_QUEY_KEY, useQueryCanGoBack } from '../use_query/useQueryInterface';
 import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../use_query/useQueryLastSave';
 import { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySaves';
@@ -28,7 +28,8 @@ export default function QuickTools() {
     const { t } = useTranslation(["ui"]);
     const hideInterface = useInterfaceStore((state) => state.hidden);
     const setHideInterface = useInterfaceStore((state) => state.editHidden);
-    const [skip, setSkip] = useRecoilState(skipEnabledState)
+    const skipEnabled = useSkipStore((state) => state.enabled)
+    const editSkipEnabled = useSkipStore((state) => state.editEnabled)
     const autoEnabled = useAutoInfoStore((state) => state.enabled)
     const editAutoEnabled = useAutoInfoStore((state) => state.editEnabled)
     const { enqueueSnackbar } = useSnackbar();
@@ -81,8 +82,8 @@ export default function QuickTools() {
                     {t("history")}
                 </TextMenuButton>
                 <TextMenuButton
-                    selected={skip}
-                    onClick={() => setSkip((prev) => !prev)}
+                    selected={skipEnabled}
+                    onClick={editSkipEnabled}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >
                     {t("skip")}
