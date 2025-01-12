@@ -8,7 +8,7 @@ james: You're my roommate's replacement, huh?
 james: Don't worry, you don't have much to live up to. Just don't use heroin like the last guy, and you'll be fine!
 # show imagecontainer james [m01-body m01-eyes-smile m01-mouth-grin00]
 mc: ...
-		
+
 He thrusts out his hand.
 # request input type string default Peter
 What is your name?
@@ -168,8 +168,8 @@ sly: It's food.
 steph: [sly]!
 # show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-upset01]
 <> SPOILERS!!!!
-	
-// TODO animate steph	
+
+// TODO animate steph
 # show imagecontainer james [m01-body m01-eyes-grin m01-mouth-grin00]
 # show imagecontainer sly [fm01-body fm01-eyes-smile fm01-mouth-smile00]
 # show imagecontainer steph [fm02-body fm02-eyes-upset fm02-mouth-nervous00]
@@ -562,7 +562,7 @@ james: ...who told you you're a scary guy, [mc]?
 # show imagecontainer steph [fm02-body fm02-eyes-smile fm02-mouth-smile00]
 <> You don't seem scary at all.
 mc: My mom.
-		
+
 # show imagecontainer james [m01-body m01-eyes-smile m01-mouth-neutral00]
 # show imagecontainer sly [fm01-body fm01-eyes-wow fm01-mouth-serious01]
 # show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-nervous00]
