@@ -192,7 +192,11 @@ mc: ...thanks... um...
 # show imagecontainer steph [fm02-body fm02-eyes-wow fm02-mouth-wow01]
 steph: Oh! You gotta take in your luggage!
 
+You want continue to the next part?
+* Yes, I want to continue
 -> second_part
+* No, I want to stop here
+-> END
 
 === second_part ===
 
