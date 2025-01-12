@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { openSettingsState } from '../../atoms/openSettingsState';
-import { saveLoadAlertState } from '../../atoms/saveLoadAlertState';
 import SettingButton from '../../components/SettingButton';
 import useGameSaveScreenStore from '../../stores/useGameSaveScreenStore';
 import { INTERFACE_DATA_USE_QUEY_KEY } from '../../use_query/useQueryInterface';
@@ -22,7 +21,7 @@ import { downloadGameSave, loadGameSaveFromFile, putSaveIntoIndexDB } from '../.
 export default function SaveLoadSettingButtons() {
     const navigate = useMyNavigate();
     const { t } = useTranslation(["ui"]);
-    const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
+    const openLoadAlert = useGameSaveScreenStore((state) => (state.editLoadAlert))
     const editOpenSaveScreen = useGameSaveScreenStore((state) => (state.editOpen))
     const openSettings = useSetRecoilState(openSettingsState);
     const queryClient = useQueryClient()
@@ -62,7 +61,7 @@ export default function SaveLoadSettingButtons() {
         <SettingButton
             key={"load_last_save_button"}
             onClick={() => {
-                lastSave && setOpenLoadAlert({ open: true, data: lastSave, type: 'load' })
+                lastSave && openLoadAlert(lastSave)
                 openSettings(false)
             }}
             disabled={!lastSave}

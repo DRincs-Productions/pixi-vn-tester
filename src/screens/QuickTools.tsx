@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { openHistoryScreenState } from '../atoms/openHistoryScreenState';
 import { openSettingsState } from '../atoms/openSettingsState';
-import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import { skipEnabledState } from '../atoms/skipEnabledState';
 import TextMenuButton from '../components/TextMenuButton';
 import useAutoInfoStore from '../stores/useAutoInfoStore';
@@ -25,7 +24,7 @@ export default function QuickTools() {
     const setOpenHistory = useSetRecoilState(openHistoryScreenState);
     const editOpenSaveScreen = useGameSaveScreenStore((state) => (state.editOpen))
     const navigate = useMyNavigate();
-    const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
+    const setOpenLoadAlert = useGameSaveScreenStore((state) => (state.editLoadAlert))
     const { t } = useTranslation(["ui"]);
     const hideInterface = useInterfaceStore((state) => state.hidden);
     const setHideInterface = useInterfaceStore((state) => state.editHidden);
@@ -118,7 +117,7 @@ export default function QuickTools() {
                     {t("quick_save_restricted")}
                 </TextMenuButton>
                 <TextMenuButton
-                    onClick={() => lastSave && setOpenLoadAlert({ open: true, data: lastSave, type: 'load' })}
+                    onClick={() => lastSave && setOpenLoadAlert(lastSave)}
                     disabled={!lastSave}
                     sx={{ pointerEvents: !hideInterface ? "auto" : "none" }}
                 >

@@ -6,9 +6,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
 import { useShallow } from 'zustand/react/shallow';
-import { saveLoadAlertState } from '../atoms/saveLoadAlertState';
 import GameSaveSlot from '../components/GameSaveSlot';
 import ModalDialogCustom from '../components/ModalDialog';
 import { MAIN_MENU_ROUTE } from '../constans';
@@ -18,12 +16,11 @@ import { useMyNavigate } from '../utils/navigate-utility';
 import { downloadGameSave, loadGameSaveFromFile } from '../utils/save-utility';
 
 export default function GameSaveScreen() {
-    const { setOpen, open, page, setPage } = useGameSaveScreenStore(
+    const { setOpen, open, page, setPage, editDeleteAlert: openDeleteAlert, editLoadAlert: openLoadAlert, editOverwriteSaveAlert: openOverwriteSaveAlert, editSaveAlert: openSaveAlert } = useGameSaveScreenStore(
         useShallow((state) => (state)),
     )
     const { t } = useTranslation(["ui"]);
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down("lg"));
-    const setOpenLoadAlert = useSetRecoilState(saveLoadAlertState);
     const navigate = useMyNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const queryClient = useQueryClient()
@@ -87,16 +84,16 @@ export default function GameSaveScreen() {
                         <GameSaveSlot
                             saveId={id}
                             onSave={() => {
-                                setOpenLoadAlert({ open: true, data: id, type: "save", deafultName: "" });
+                                openSaveAlert(id);
                             }}
                             onOverwriteSave={(data) => {
-                                setOpenLoadAlert({ open: true, data: id, type: "overwrite_save", deafultName: data.name });
+                                openOverwriteSaveAlert(id, data.name);
                             }}
                             onLoad={(data) => {
-                                setOpenLoadAlert({ open: true, data: { ...data, id: id }, type: "load" });
+                                openLoadAlert({ ...data, id: id });
                             }}
                             onDelete={() => {
-                                setOpenLoadAlert({ open: true, data: id, type: "delete" });
+                                openDeleteAlert(id);
                             }}
                         />
                     </Grid>
