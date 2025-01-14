@@ -1,9 +1,9 @@
 import { Box } from '@mui/joy';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Routes from './AppRoutes';
-import useClosePageDetector from './detectors/useClosePageDetector';
-import useGoBackDetector from './detectors/useGoBackDetector';
-import useKeyboardDetector from './detectors/useKeyboardDetector';
+import useClosePageDetector from './hooks/useClosePageDetector';
+import useGoBackDetector from './hooks/useGoBackDetector';
+import useKeyboardDetector from './hooks/useKeyboardDetector';
 import Imports from './Imports';
 import GameSaveScreen from './screens/GameSaveScreen';
 import SaveLoadAlert from './screens/modals/SaveLoadAlert';

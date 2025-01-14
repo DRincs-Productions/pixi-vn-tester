@@ -5,7 +5,6 @@ import { motion } from "motion/react";
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import TextMenuButton from '../components/TextMenuButton';
-import useSkipAutoDetector from '../detectors/useSkipAutoDetector';
 import useAutoInfoStore from '../stores/useAutoInfoStore';
 import useGameSaveScreenStore from '../stores/useGameSaveScreenStore';
 import useHistoryScreenStore from '../stores/useHistoryScreenStore';
@@ -36,7 +35,6 @@ export default function QuickTools() {
     const queryClient = useQueryClient()
     const { data: lastSave = null } = useQueryLastSave()
     const { data: canGoBack = null } = useQueryCanGoBack()
-    useSkipAutoDetector()
 
     return (
         <>
