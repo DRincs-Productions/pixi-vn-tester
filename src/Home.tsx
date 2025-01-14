@@ -9,7 +9,7 @@ import GameSaveScreen from './screens/GameSaveScreen';
 import SaveLoadAlert from './screens/modals/SaveLoadAlert';
 import Settings from './screens/Settings';
 
-export default function Home() {
+function HomeChild() {
     useKeyboardDetector()
     useClosePageDetector()
     // Prevent the user from going back to the previous page
@@ -21,7 +21,7 @@ export default function Home() {
     })
 
     return (
-        <Imports>
+        <>
             <Routes />
             <Settings />
             <GameSaveScreen />
@@ -33,6 +33,10 @@ export default function Home() {
             >
                 <ReactQueryDevtools initialIsOpen={false} />
             </Box>
-        </Imports>
+        </>
     )
+}
+
+export default function Home() {
+    return (<Imports><HomeChild /></Imports>)
 }
