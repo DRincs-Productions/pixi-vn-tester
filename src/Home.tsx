@@ -8,6 +8,7 @@ import useNetworkDetector from './hooks/useNetworkDetector';
 import Imports from './Imports';
 import GameSaveScreen from './screens/GameSaveScreen';
 import SaveLoadAlert from './screens/modals/SaveLoadAlert';
+import OfflineScreen from './screens/OfflineScreen';
 import Settings from './screens/Settings';
 
 function HomeChild() {
@@ -28,6 +29,7 @@ function HomeChild() {
             <Settings />
             <GameSaveScreen />
             <SaveLoadAlert />
+            <OfflineScreen />
             <Box
                 sx={{
                     pointerEvents: "auto",
