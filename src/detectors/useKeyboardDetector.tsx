@@ -9,7 +9,7 @@ import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from '../use_query/useQueryL
 import { SAVES_USE_QUEY_KEY } from '../use_query/useQuerySaves';
 import { putSaveIntoIndexDB } from '../utils/save-utility';
 
-export default function EventInterceptor() {
+export default function useKeyboardDetector() {
     const hideInterface = useInterfaceStore((state) => state.hidden);
     const setHideInterface = useInterfaceStore((state) => state.setHidden);
     const setOpenLoadAlert = useGameSaveScreenStore((state) => (state.editLoadAlert))

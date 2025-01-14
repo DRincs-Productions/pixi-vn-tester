@@ -6,7 +6,7 @@ import { INTERFACE_DATA_USE_QUEY_KEY } from '../use_query/useQueryInterface';
 import { useMyNavigate } from '../utils/navigate-utility';
 import { addRefreshSave, loadRefreshSave } from '../utils/save-utility';
 
-export default function RefreshSaveEventInterceptor() {
+export default function useClosePageDetector() {
     const navigate = useMyNavigate();
     const queryClient = useQueryClient()
     const location = useLocation();

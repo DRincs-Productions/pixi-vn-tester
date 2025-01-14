@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 
-export default function GoBackEventInterceptor() {
+export default function useGoBackDetector() {
     const onpopstate = useCallback(() => {
         window.history.forward();
     }, [])

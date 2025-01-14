@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import NextButton from './components/NextButton';
 import { LOADING_ROUTE, MAIN_MENU_ROUTE, NARRATION_ROUTE } from './constans';
-import SkipAutoInterceptor from './interceptors/SkipAutoInterceptor';
 import HistoryScreen from './screens/HistoryScreen';
 import LoadingScreen from './screens/LoadingScreen';
 import MainMenu from './screens/MainMenu';
@@ -19,7 +18,6 @@ export default function AppRoutes() {
                     <HistoryScreen />
                     <QuickTools />
                     <NarrationScreen />
-                    <SkipAutoInterceptor />
                     <TextInput />
                     <NextButton />
                 </>}
