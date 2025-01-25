@@ -25,11 +25,11 @@
 		"editor.formatOnSave": true,
         "prettier.tabWidth": 2,
     },
-	"prettier.jsxSingleQuote": true,
-	"prettier.printWidth": 200,
-	"prettier.useTabs": false,
-	"prettier.singleAttributePerLine": false,
-	"prettier.tabWidth": 4,
+    "prettier.jsxSingleQuote": true,
+    "prettier.printWidth": 120,
+    "prettier.useTabs": false,
+    "prettier.singleAttributePerLine": false,
+    "prettier.tabWidth": 4,
     // reorganise imports
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit"
