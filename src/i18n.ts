@@ -1,29 +1,33 @@
-import i18n from 'i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import { initReactI18next } from 'react-i18next';
-import strings_en from '../src/values/translations/strings_en.json';
+import i18n from "i18next";
+import Backend from "i18next-chained-backend";
+import resourcesToBackend from "i18next-resources-to-backend";
+import { initReactI18next } from "react-i18next";
 
 const getUserLang = (): string => {
     let userLang: string = navigator.language || "en";
     return userLang?.toLocaleLowerCase()?.split("-")[0];
-}
+};
 
 export const useI18n = () => {
     if (!i18n.isInitialized) {
-        i18n
-            .use(LanguageDetector)
+        i18n.use(Backend)
             .use(initReactI18next)
             .init({
                 debug: false,
-                fallbackLng: 'en',
+                fallbackLng: "en",
                 lng: getUserLang(),
                 interpolation: {
                     escapeValue: false,
                 },
-                resources: {
-                    en: strings_en,
-                    // Add more languages here
-                }
+                load: "currentOnly",
+                backend: {
+                    backends: [
+                        resourcesToBackend(async (lng: string, ns: string) => {
+                            let object = await import(`./locales/strings_${lng}.json`);
+                            return object[ns];
+                        }),
+                    ],
+                },
             });
     }
-}
+};

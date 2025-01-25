@@ -1,28 +1,29 @@
-import { Button } from '@mui/joy';
-import { useQueryClient } from '@tanstack/react-query';
+import { narration } from "@drincs/pixi-vn";
+import { Button } from "@mui/joy";
+import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "motion/react";
-import { useSnackbar } from 'notistack';
-import { useCallback, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { hideInterfaceState } from '../atoms/hideInterfaceState';
-import { nextStepLoadingState } from '../atoms/nextStepLoadingState';
-import { skipEnabledState } from '../atoms/skipEnabledState';
-import { narration } from "../pixi-vn/src";
-import { INTERFACE_DATA_USE_QUEY_KEY, useQueryCanGoNext } from '../use_query/useQueryInterface';
-import { useMyNavigate } from '../utilities/navigate-utility';
+import { useSnackbar } from "notistack";
+import { useCallback } from "react";
+import { useTranslation } from "react-i18next";
+import useEventListener from "../hooks/useKeyDetector";
+import useInterfaceStore from "../stores/useInterfaceStore";
+import useSkipStore from "../stores/useSkipStore";
+import useStepStore from "../stores/useStepStore";
+import { INTERFACE_DATA_USE_QUEY_KEY, useQueryCanGoNext } from "../use_query/useQueryInterface";
+import { useMyNavigate } from "../utils/navigate-utility";
 
 export default function NextButton() {
-    const [skip, setSkip] = useRecoilState(skipEnabledState)
-    const nextStepLoading = useRecoilValue(nextStepLoadingState)
-    const { data: canGoNext = false } = useQueryCanGoNext()
-    const hideNextButton = useRecoilValue(hideInterfaceState) || !canGoNext
+    const skipEnabled = useSkipStore((state) => state.enabled);
+    const setSkipEnabled = useSkipStore((state) => state.setEnabled);
+    const nextStepLoading = useStepStore((state) => state.loading);
+    const { data: canGoNext = false } = useQueryCanGoNext();
+    const hideNextButton = useInterfaceStore((state) => state.hidden || !canGoNext);
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useMyNavigate();
     const { t } = useTranslation(["ui"]);
     const { t: tNarration } = useTranslation(["narration"]);
-    const setNextStepLoading = useSetRecoilState(nextStepLoadingState);
-    const queryClient = useQueryClient()
+    const setNextStepLoading = useStepStore((state) => state.setLoading);
+    const queryClient = useQueryClient();
 
     const nextOnClick = useCallback(async () => {
         setNextStepLoading(true);
@@ -31,55 +32,51 @@ export default function NextButton() {
                 setNextStepLoading(false);
                 return;
             }
-            narration.goNext({
-                t: tNarration,
-                navigate,
-                notify: (message, variant) => enqueueSnackbar(message, { variant }),
-            })
+            narration
+                .goNext({
+                    t: tNarration,
+                    navigate,
+                    notify: (message, variant) => enqueueSnackbar(message, { variant }),
+                })
                 .then(() => {
-                    queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
+                    queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });
                     setNextStepLoading(false);
                 })
                 .catch((e) => {
                     setNextStepLoading(false);
                     console.error(e);
-                })
+                });
             return;
         } catch (e) {
             setNextStepLoading(false);
             console.error(e);
             return;
         }
-    }, [tNarration, queryClient])
+    }, [tNarration, queryClient]);
 
-    const onkeypress = useCallback((event: KeyboardEvent) => {
-        if ((event.code == 'Enter' || event.code == 'Space')) {
-            setSkip(true)
-        }
-    }, [])
-
-    const onkeyup = useCallback((event: KeyboardEvent) => {
-        if ((event.code == 'Enter' || event.code == 'Space')) {
-            setSkip(false)
-            nextOnClick()
-        }
-    }, [nextOnClick])
-
-    useEffect(() => {
-        window.addEventListener("keypress", onkeypress);
-        window.addEventListener("keyup", onkeyup);
-
-        return () => {
-            window.removeEventListener("keypress", onkeypress);
-            window.removeEventListener("keyup", onkeyup);
-        };
-    }, [onkeypress, onkeyup]);
+    useEventListener({
+        type: "keypress",
+        listener: (event) => {
+            if (event.code == "Enter" || event.code == "Space") {
+                setSkipEnabled(true);
+            }
+        },
+    });
+    useEventListener({
+        type: "keyup",
+        listener: (event) => {
+            if (event.code == "Enter" || event.code == "Space") {
+                setSkipEnabled(false);
+                nextOnClick();
+            }
+        },
+    });
 
     return (
         <Button
-            variant="solid"
-            color="primary"
-            size="sm"
+            variant='solid'
+            color='primary'
+            size='sm'
             loading={nextStepLoading}
             sx={{
                 position: "absolute",
@@ -90,10 +87,10 @@ export default function NextButton() {
                 zIndex: 100,
             }}
             onClick={() => {
-                if (skip) {
-                    setSkip(false)
+                if (skipEnabled) {
+                    setSkipEnabled(false);
                 }
-                nextOnClick()
+                nextOnClick();
             }}
             component={motion.div}
             variants={{
@@ -104,7 +101,7 @@ export default function NextButton() {
                 closed: {
                     opacity: 0,
                     pointerEvents: "none",
-                }
+                },
             }}
             initial={"closed"}
             animate={hideNextButton ? "closed" : "open"}
