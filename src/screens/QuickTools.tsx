@@ -1,4 +1,3 @@
-import { narration } from "@drincs/pixi-vn";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { IconButton, Stack, useTheme } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
@@ -6,6 +5,7 @@ import { motion } from "motion/react";
 import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
 import TextMenuButton from "../components/TextMenuButton";
+import { narration } from "../pixi-vn/src";
 import useAutoInfoStore from "../stores/useAutoInfoStore";
 import useGameSaveScreenStore from "../stores/useGameSaveScreenStore";
 import useHistoryScreenStore from "../stores/useHistoryScreenStore";

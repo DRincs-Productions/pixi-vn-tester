@@ -1,8 +1,8 @@
-import { narration } from "@drincs/pixi-vn";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { narration } from "../pixi-vn/src";
 import useAutoInfoStore from "../stores/useAutoInfoStore";
 import useSkipStore from "../stores/useSkipStore";
 import useStepStore from "../stores/useStepStore";

@@ -1,4 +1,4 @@
-import { Assets } from "@drincs/pixi-vn";
+import { Assets } from "../pixi-vn/src";
 
 /**
  * Define all the assets that will be used in the game.

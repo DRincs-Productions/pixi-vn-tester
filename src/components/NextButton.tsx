@@ -1,4 +1,3 @@
-import { narration } from "@drincs/pixi-vn";
 import { Button } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "motion/react";
@@ -6,6 +5,7 @@ import { useSnackbar } from "notistack";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import useEventListener from "../hooks/useKeyDetector";
+import { narration } from "../pixi-vn/src";
 import useInterfaceStore from "../stores/useInterfaceStore";
 import useSkipStore from "../stores/useSkipStore";
 import useStepStore from "../stores/useStepStore";

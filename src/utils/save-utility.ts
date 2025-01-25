@@ -1,5 +1,6 @@
 import { LOADING_ROUTE, MAIN_MENU_ROUTE, NARRATION_ROUTE, REFRESH_SAVE_LOCAL_STORAGE_KEY } from "../constans";
 import GameSaveData from "../models/GameSaveData";
+import { canvas, getSaveData, loadSaveData } from "../pixi-vn/src";
 import {
     deleteRowFromIndexDB,
     getLastRowFromIndexDB,

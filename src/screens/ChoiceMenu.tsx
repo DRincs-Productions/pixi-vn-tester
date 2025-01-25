@@ -1,4 +1,3 @@
-import { ChoiceMenuOption, ChoiceMenuOptionClose, narration } from "@drincs/pixi-vn";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { Box, Grid } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
@@ -7,6 +6,7 @@ import { useSnackbar } from "notistack";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ChoiceButton from "../components/ChoiceButton";
+import { ChoiceMenuOption, ChoiceMenuOptionClose, narration } from "../pixi-vn/src";
 import useDialogueCardStore from "../stores/useDialogueCardStore";
 import useInterfaceStore from "../stores/useInterfaceStore";
 import { INTERFACE_DATA_USE_QUEY_KEY, useQueryChoiceMenuOptions } from "../use_query/useQueryInterface";

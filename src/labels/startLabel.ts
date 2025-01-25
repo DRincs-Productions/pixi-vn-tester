@@ -7,7 +7,7 @@ import {
     newLabel,
     showImage,
     showImageContainer,
-} from "@drincs/pixi-vn";
+} from "../pixi-vn/src";
 import { james, mc, sly, steph } from "../values/characters";
 
 const steph_fullname = "Stephanie";

@@ -1,10 +1,10 @@
-import { clearAllGameDatas } from "@drincs/pixi-vn";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Button, Stack, Typography } from "@mui/joy";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import ModalDialogCustom from "../components/ModalDialog";
+import { clearAllGameDatas } from "../pixi-vn/src";
 import useSettingsScreenStore from "../stores/useSettingsScreenStore";
 import { useMyNavigate } from "../utils/navigate-utility";
 
