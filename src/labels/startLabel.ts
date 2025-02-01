@@ -334,7 +334,7 @@ const startLabel = newLabel(
             await showImageContainer("james", ["m01-body", "m01-eyes-grin", "m01-mouth-grin00"]);
             await showImageContainer("sly", ["fm01-body", "fm01-eyes-smile", "fm01-mouth-smile00"]);
             await showImageContainer("steph", ["fm02-body", "fm02-eyes-upset", "fm02-mouth-nervous00"]);
-            moveOut("steph", { direction: "right", speed: 300 });
+            moveOut("steph", { direction: "left", speed: 300 });
             narration.dialogue = `${steph_fullname} goes through the opposite door,`;
         },
         async (props) => {
