@@ -1,4 +1,4 @@
-import { canvas, clearAllGameDatas, narration } from "@drincs/pixi-vn";
+import { canvas, clearAllGameDatas, Container, narration } from "@drincs/pixi-vn";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
@@ -15,6 +15,9 @@ canvas
         backgroundColor: "#303030",
     })
     .then(() => {
+        // Pixi.JS UI Layer
+        canvas.addLayer("CANVAS_UI_LAYER_NAME", new Container());
+
         // React setup with ReactDOM
         const root = document.getElementById("root");
         if (!root) {

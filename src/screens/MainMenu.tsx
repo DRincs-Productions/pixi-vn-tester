@@ -1,4 +1,4 @@
-import { addImage, canvas, narration } from "@drincs/pixi-vn";
+import { canvas, ImageSprite, narration } from "@drincs/pixi-vn";
 import Stack from "@mui/joy/Stack";
 import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "motion/react";
@@ -6,7 +6,7 @@ import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import MenuButton from "../components/MenuButton";
-import { NARRATION_ROUTE } from "../constans";
+import { CANVAS_UI_LAYER_NAME, NARRATION_ROUTE } from "../constans";
 import startLabel from "../labels/startLabel";
 import useGameSaveScreenStore from "../stores/useGameSaveScreenStore";
 import useInterfaceStore from "../stores/useInterfaceStore";
@@ -29,11 +29,12 @@ export default function MainMenu() {
 
     useEffect(() => {
         editHideInterface(false);
-        let bg = addImage("background_main_menu");
+        let bg = new ImageSprite({}, "background_main_menu");
         bg.load();
+        canvas.getLayer(CANVAS_UI_LAYER_NAME)?.addChild(bg);
 
         return () => {
-            canvas.remove("background_main_menu");
+            canvas.getLayer(CANVAS_UI_LAYER_NAME)?.removeChildren();
         };
     });
 
