@@ -21,7 +21,7 @@ export default function MainMenu() {
     const queryClient = useQueryClient();
     const { data: lastSave = null, isLoading } = useQueryLastSave();
     const gameProps = useGameProps();
-    const { t, navigate, notify } = gameProps;
+    const { uiTransition: t, navigate, notify } = gameProps;
 
     useEffect(() => {
         editHideInterface(false);

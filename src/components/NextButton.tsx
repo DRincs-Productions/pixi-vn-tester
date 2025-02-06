@@ -19,7 +19,7 @@ export default function NextButton() {
     const setNextStepLoading = useStepStore((state) => state.setLoading);
     const queryClient = useQueryClient();
     const gameProps = useGameProps();
-    const { t } = gameProps;
+    const { uiTransition: t } = gameProps;
 
     const nextOnClick = useCallback(async () => {
         setNextStepLoading(true);
