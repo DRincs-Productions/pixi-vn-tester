@@ -27,7 +27,10 @@ export default function MainMenu() {
         editHideInterface(false);
         let bg = new ImageSprite({}, "background_main_menu");
         bg.load();
-        canvas.getLayer(CANVAS_UI_LAYER_NAME)?.addChild(bg);
+        let layer = canvas.getLayer(CANVAS_UI_LAYER_NAME);
+        if (layer) {
+            layer.addChild(bg);
+        }
 
         return () => {
             canvas.getLayer(CANVAS_UI_LAYER_NAME)?.removeChildren();
