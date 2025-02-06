@@ -13,6 +13,6 @@ export default function useGameProps(): StepLabelProps {
         navigate,
         t,
         uiTransition,
-        notify: (message, variant) => enqueueSnackbar(uiTransition(message), { variant }),
+        notify: enqueueSnackbar,
     };
 }

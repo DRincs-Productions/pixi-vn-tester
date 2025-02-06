@@ -39,5 +39,5 @@ narration.onGameEnd = async ({ navigate }) => {
 };
 
 narration.onStepError = async (_error, { notify, t }) => {
-    notify(t("allert_error_occurred"), "error");
+    notify(t("allert_error_occurred"), { variant: "error" });
 };
