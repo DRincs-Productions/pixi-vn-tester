@@ -2,30 +2,26 @@ import { canvas, ImageSprite, narration } from "@drincs/pixi-vn";
 import Stack from "@mui/joy/Stack";
 import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "motion/react";
-import { useSnackbar } from "notistack";
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import MenuButton from "../components/MenuButton";
 import { CANVAS_UI_LAYER_NAME, NARRATION_ROUTE } from "../constans";
+import useGameProps from "../hooks/useGameProps";
 import startLabel from "../labels/startLabel";
 import useGameSaveScreenStore from "../stores/useGameSaveScreenStore";
 import useInterfaceStore from "../stores/useInterfaceStore";
 import useSettingsScreenStore from "../stores/useSettingsScreenStore";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../use_query/useQueryInterface";
 import useQueryLastSave from "../use_query/useQueryLastSave";
-import { useMyNavigate } from "../utils/navigate-utility";
 import { loadSave } from "../utils/save-utility";
 
 export default function MainMenu() {
-    const navigate = useMyNavigate();
     const setOpenSettings = useSettingsScreenStore((state) => state.setOpen);
     const editHideInterface = useInterfaceStore((state) => state.setHidden);
     const editSaveScreen = useGameSaveScreenStore((state) => state.editOpen);
-    const { enqueueSnackbar } = useSnackbar();
-    const { t } = useTranslation(["ui"]);
-    const { t: tNarration } = useTranslation(["narration"]);
     const queryClient = useQueryClient();
     const { data: lastSave = null, isLoading } = useQueryLastSave();
+    const gameProps = useGameProps();
+    const { t, navigate, notify } = gameProps;
 
     useEffect(() => {
         editHideInterface(false);
@@ -62,7 +58,7 @@ export default function MainMenu() {
                     loadSave(lastSave, navigate)
                         .then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))
                         .catch((e) => {
-                            enqueueSnackbar(t("fail_load"), { variant: "error" });
+                            notify(t("fail_load"), "error");
                             console.error(e);
                         });
                 }}
@@ -77,11 +73,7 @@ export default function MainMenu() {
                     canvas.removeAll();
                     navigate(NARRATION_ROUTE);
                     narration
-                        .callLabel(startLabel, {
-                            navigate: navigate,
-                            t: tNarration,
-                            notify: (message, variant) => enqueueSnackbar(message, { variant }),
-                        })
+                        .callLabel(startLabel, gameProps)
                         .then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }));
                 }}
                 transitionDelay={0.2}

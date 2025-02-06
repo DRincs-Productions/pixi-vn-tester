@@ -18,13 +18,18 @@ declare module "@drincs/pixi-vn" {
          */
         t: TFunction<[string], undefined>;
         /**
+         * Translate a key to a string using the UI strings.
+         * @param key The key to translate.
+         * @returns The translated string.
+         */
+        uiTransition: TFunction<[string], undefined>;
+        /**
          * Show a notification.
          * @param message The message to show.
          * @param variant The variant of the notification.
          * @returns
          */
         notify: (message: string, variant: VariantType) => void;
-        [key: string]: any;
     }
     interface CharacterInterface {
         /**
