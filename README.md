@@ -10,6 +10,9 @@ This repository is used to develop and debug the pixi-vn library.
 git clone https://github.com/DRincs-Productions/pixi-vn-tester
 git submodule update --init --recursive
 npm install
+cd src/pixi-vn
+npm install
+cd ../..
 ```
 
 ### Run the project
