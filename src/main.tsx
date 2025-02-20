@@ -1,7 +1,8 @@
 import { createRoot } from "react-dom/client";
 import App from "./App";
+import { CANVAS_UI_LAYER_NAME } from "./constans";
 import "./index.css";
-import { canvas, clearAllGameDatas, narration } from "./pixi-vn/src";
+import { canvas, clearAllGameDatas, Container, narration } from "./pixi-vn/src";
 import "./values/characters";
 
 // Canvas setup with PIXI
@@ -15,6 +16,9 @@ canvas
         backgroundColor: "#303030",
     })
     .then(() => {
+        // Pixi.JS UI Layer
+        canvas.addLayer(CANVAS_UI_LAYER_NAME, new Container());
+
         // React setup with ReactDOM
         const root = document.getElementById("root");
         if (!root) {
@@ -36,5 +40,5 @@ narration.onGameEnd = async ({ navigate }) => {
 };
 
 narration.onStepError = async (_error, { notify, t }) => {
-    notify(t("allert_error_occurred"), "error");
+    notify(t("allert_error_occurred"), { variant: "error" });
 };
