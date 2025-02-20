@@ -8,9 +8,11 @@ This repository is used to develop and debug the pixi-vn library.
 
 ```bash
 git clone https://github.com/DRincs-Productions/pixi-vn-tester
+cd pixi-vn-tester
 git submodule update --init --recursive
 npm install
 cd src/pixi-vn
+git checkout main
 npm install
 cd ../..
 ```
