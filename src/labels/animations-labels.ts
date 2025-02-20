@@ -1,4 +1,4 @@
-import { canvas, moveIn, newLabel, ZoomTicker } from "@drincs/pixi-vn";
+import { canvas, moveIn, newLabel, ZoomTicker } from "../pixi-vn/src";
 
 export const animation01 = newLabel("animation_01", [
     async () => {
