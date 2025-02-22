@@ -2,3 +2,6 @@
 	path = src/pixi-vn
 	url = https://github.com/DRincs-Productions/pixi-vn
 	brach = main
+[submodule "src/labels-test"]
+	path = src/labels-test
+	url = https://github.com/DRincs-Productions/pixi-vn-labels-test
