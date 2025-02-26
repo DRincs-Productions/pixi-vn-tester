@@ -15,6 +15,10 @@ cd src/pixi-vn
 git checkout main
 npm install
 cd ../..
+cd src/labels-test
+git checkout main
+npm install
+cd ../..
 ```
 
 ### Run the project
