@@ -17,7 +17,6 @@ npm install
 cd ../..
 cd src/labels-test
 git checkout main
-npm install
 cd ../..
 ```
 
