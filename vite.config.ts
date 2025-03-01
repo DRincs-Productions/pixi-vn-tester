@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
@@ -10,6 +11,7 @@ export default defineConfig({
         checker({
             typescript: true,
         }),
+        tailwindcss(),
         VitePWA({
             // you can generate the icons using: https://favicon.io/favicon-converter/
             // and the maskable icon using: https://progressier.com/maskable-icons-editor

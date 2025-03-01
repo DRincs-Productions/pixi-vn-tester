@@ -17,6 +17,7 @@
     "@mui/icons-material": "^6.4.6",
     "@mui/joy": "^5.0.0-beta.51",
     "@mui/material": "^6.4.6",
+    "@tailwindcss/vite": "^4.0.9",
     "@tanstack/react-query": "^5.66.9",
     "i18next": "^24.2.2",
     "i18next-chained-backend": "^4.6.2",
@@ -33,6 +34,7 @@
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
     "shade-generator": "^1.2.7",
+    "tailwindcss": "^4.0.9",
     "vite-plugin-checker": "^0.9.0",
     "zustand": "^5.0.3"
   },
@@ -47,6 +49,7 @@
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
+    "tailwindcss-motion": "^1.1.0",
     "typescript": "^5.7.3",
     "vite": "^6.2.0",
     "vite-plugin-pwa": "^0.21.1"
