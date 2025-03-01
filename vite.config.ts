@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
 import { VitePWA } from "vite-plugin-pwa";
 
-// https://vitejs.dev/config/
+// https://vite.dev/config/
 export default defineConfig({
     plugins: [
         react(),
