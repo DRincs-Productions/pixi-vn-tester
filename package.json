@@ -30,6 +30,7 @@
     "react-error-boundary": "^5.0.0",
     "react-i18next": "^15.4.1",
     "react-markdown": "^10.0.0",
+    "react-markdown-typewriter": "^1.0.0",
     "react-router-dom": "^7.2.0",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
