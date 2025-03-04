@@ -224,10 +224,20 @@ export default function NarrationScreen() {
                                                 remarkPlugins={[remarkGfm]}
                                                 rehypePlugins={[rehypeRaw]}
                                                 delay={typewriterDelay}
-                                                scrollRef={paragraphRef}
                                                 motionProps={{
                                                     onAnimationStart: startTypewriter,
                                                     onAnimationComplete: endTypewriter,
+                                                    onCharacterAnimationComplete: (ref) => {
+                                                        if (paragraphRef.current && ref.current) {
+                                                            let scrollTop =
+                                                                ref.current.offsetTop -
+                                                                paragraphRef.current.clientHeight / 2;
+                                                            paragraphRef.current.scrollTo({
+                                                                top: scrollTop,
+                                                                behavior: "auto",
+                                                            });
+                                                        }
+                                                    },
                                                 }}
                                             >
                                                 {text}
