@@ -204,7 +204,7 @@ export default function NarrationScreen() {
                                 }}
                             >
                                 <p style={{ margin: 0, padding: 0 }}>
-                                    {oldText ? (
+                                    {
                                         <span>
                                             <Markdown
                                                 remarkPlugins={[remarkGfm]}
@@ -216,8 +216,8 @@ export default function NarrationScreen() {
                                                 {oldText}
                                             </Markdown>
                                         </span>
-                                    ) : null}
-                                    {text ? (
+                                    }
+                                    {
                                         <span>
                                             <span> </span>
                                             <MarkdownTypewriter
@@ -243,7 +243,7 @@ export default function NarrationScreen() {
                                                 {text}
                                             </MarkdownTypewriter>
                                         </span>
-                                    ) : null}
+                                    }
                                 </p>
                             </Sheet>
                         </CardContent>
