@@ -52,7 +52,7 @@ export function useQueryDialogue() {
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, DIALOGUE_USE_QUEY_KEY],
         queryFn: ({ queryKey }) => {
             let dialogue = narration.dialogue;
-            let newText: string | undefined = dialogue?.text;
+            let text: string | undefined = dialogue?.text;
             let newCharacter: CharacterBaseModel | undefined = undefined;
             if (dialogue) {
                 newCharacter = dialogue.character ? getCharacterById(dialogue.character) : undefined;
@@ -61,23 +61,19 @@ export function useQueryDialogue() {
                 }
             }
 
-            let prevData = queryClient.getQueryData<DialogueModel>(queryKey);
-            if (
-                prevData &&
-                newText &&
-                newCharacter?.id === prevData?.character?.id &&
-                newText.startsWith(prevData.text || "" + prevData.oldText || "")
-            ) {
-                let oldText = prevData.text || "" + prevData.oldText || "";
+            let prevData = queryClient.getQueryData<DialogueModel>(queryKey) || {};
+            let oldText = (prevData.oldText || "") + (prevData.text || "");
+            if (text && newCharacter?.id === prevData?.character?.id && text.startsWith(oldText)) {
+                let newText = text.slice(oldText.length);
                 return {
-                    text: newText.slice(oldText.length),
+                    text: newText,
                     oldText: oldText,
                     character: newCharacter,
                 };
             }
 
             return {
-                text: newText,
+                text: text,
                 character: newCharacter,
             };
         },
