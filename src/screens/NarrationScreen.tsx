@@ -5,7 +5,7 @@ import CardContent from "@mui/joy/CardContent";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 import { motion, Variants } from "motion/react";
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import Markdown from "react-markdown";
 import { MarkdownTypewriter } from "react-markdown-typewriter";
 import rehypeRaw from "rehype-raw";
@@ -64,6 +64,16 @@ export default function NarrationScreen() {
         },
     };
     const paragraphRef = useRef<HTMLDivElement>(null);
+
+    const handleCharacterAnimationComplete = useCallback((ref: { current: HTMLSpanElement | null }) => {
+        if (paragraphRef.current && ref.current) {
+            let scrollTop = ref.current.offsetTop - paragraphRef.current.clientHeight / 2;
+            paragraphRef.current.scrollTo({
+                top: scrollTop,
+                behavior: "auto",
+            });
+        }
+    }, []);
 
     return (
         <Box
@@ -227,17 +237,7 @@ export default function NarrationScreen() {
                                                 motionProps={{
                                                     onAnimationStart: startTypewriter,
                                                     onAnimationComplete: endTypewriter,
-                                                    onCharacterAnimationComplete: (ref) => {
-                                                        if (paragraphRef.current && ref.current) {
-                                                            let scrollTop =
-                                                                ref.current.offsetTop -
-                                                                paragraphRef.current.clientHeight / 2;
-                                                            paragraphRef.current.scrollTo({
-                                                                top: scrollTop,
-                                                                behavior: "auto",
-                                                            });
-                                                        }
-                                                    },
+                                                    onCharacterAnimationComplete: handleCharacterAnimationComplete,
                                                 }}
                                             >
                                                 {text}
