@@ -6,7 +6,6 @@ import "./index.css";
 import "./labels";
 import "./values/characters";
 
-// Canvas setup with PIXI
 const body = document.body;
 if (!body) {
     throw new Error("body element not found");
