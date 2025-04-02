@@ -11,7 +11,7 @@ if (!body) {
     throw new Error("body element not found");
 }
 
-Game.initialize(body, {
+Game.init(body, {
     height: 1080,
     width: 1920,
     backgroundColor: "#303030",
