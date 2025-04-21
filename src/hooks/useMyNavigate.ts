@@ -6,11 +6,11 @@ import { NavigateFunction, NavigateOptions, To, useNavigate } from "react-router
 export default function useMyNavigate(): NavigateFunction {
     const navigate = useNavigate();
 
-    return (to: To | number, options?: NavigateOptions) => {
+    return async (to: To | number, options?: NavigateOptions) => {
         if (typeof to === "number") {
-            navigate(to);
+            await navigate(to);
         } else {
-            navigate(to, options);
+            await navigate(to, options);
         }
         window.history.pushState(null, window.location.href, window.location.href);
     };
