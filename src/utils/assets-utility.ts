@@ -10,7 +10,7 @@ export async function defineAssets() {
     Assets.init({ manifest });
 
     // The game will not start until these asserts are loaded.
-    await Assets.load("main_menu");
+    await Assets.loadBundle("main_menu");
 
     // The game will start immediately, but these asserts will be loaded in the background.
     // Assets.load('flowerTop')
