@@ -13,5 +13,6 @@ export async function defineAssets() {
     await Assets.loadBundle("main_menu");
 
     // The game will start immediately, but these asserts will be loaded in the background.
-    // Assets.load('flowerTop')
+    // Assets.backgroundLoadBundle("main_menu");
+    // Assets.backgroundLoad("background_main_menu");
 }
