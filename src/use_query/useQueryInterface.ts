@@ -66,6 +66,9 @@ export function useQueryDialogue() {
             let oldText = (prevData.oldText || "") + (prevData.text || "");
             if (text && newCharacter?.id === prevData?.character?.id && text.startsWith(oldText)) {
                 let newText = text.slice(oldText.length);
+                if (!newText && oldText && newCharacter === prevData?.character) {
+                    return prevData;
+                }
                 return {
                     text: newText,
                     oldText: oldText,
