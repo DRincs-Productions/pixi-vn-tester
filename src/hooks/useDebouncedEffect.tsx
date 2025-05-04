@@ -14,13 +14,20 @@ export default function useDebouncedEffect(
          * @default 1000
          */
         delay?: number;
+        /**
+         * Whether the effect is enabled or not.
+         * @default true
+         */
+        enabled?: boolean;
     } = {},
     dependencies: any[] = []
 ) {
-    const { delay = 1000 } = options;
+    const { delay = 1000, enabled = true } = options;
 
     useEffect(() => {
-        const timeout = setTimeout(callback, delay);
-        return () => clearTimeout(timeout);
+        if (enabled) {
+            const timeout = setTimeout(callback, delay);
+            return () => clearTimeout(timeout);
+        }
     }, dependencies);
 }
