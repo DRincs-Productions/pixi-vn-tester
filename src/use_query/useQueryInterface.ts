@@ -1,4 +1,4 @@
-import { CharacterInterface, getCharacterById, narration, stepHistory } from "@drincs/pixi-vn";
+import { CharacterInterface, getCharacterById, narration, RegisteredCharacters, stepHistory } from "@drincs/pixi-vn";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import Character from "../models/Character";
@@ -56,7 +56,7 @@ export function useQueryDialogue() {
             let text: string | undefined = dialogue?.text;
             let newCharacter: CharacterInterface | undefined = undefined;
             if (dialogue) {
-                newCharacter = dialogue.character ? getCharacterById(dialogue.character) : undefined;
+                newCharacter = dialogue.character ? RegisteredCharacters.get(dialogue.character) : undefined;
                 if (!newCharacter && dialogue.character) {
                     newCharacter = new Character(dialogue.character, { name: tNarration(dialogue.character) });
                 }
