@@ -34,7 +34,7 @@ export default function useInterval(
             }
         }
 
-        if (enabled) {
+        if (enabled && delay > 0) {
             const id = setInterval(tick, delay);
             return () => clearInterval(id);
         }
