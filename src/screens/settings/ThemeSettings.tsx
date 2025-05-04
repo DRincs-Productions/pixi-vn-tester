@@ -27,7 +27,7 @@ export default function ThemeSettings() {
     const [tempColor, setTempColor] = useColor(primaryColor);
     const { t } = useTranslation(["ui"]);
 
-    useDebouncedEffect(() => setPrimaryColor(tempColor.hex), 50, [tempColor]);
+    useDebouncedEffect(() => setPrimaryColor(tempColor.hex), { delay: 50 }, [tempColor]);
 
     return (
         <>
