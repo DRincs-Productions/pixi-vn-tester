@@ -1,6 +1,7 @@
 import { narration } from "@drincs/pixi-vn";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect } from "react";
+import { useShallow } from "zustand/react/shallow";
 import { SKIP_DELAY } from "../constans";
 import useAutoInfoStore from "../stores/useAutoInfoStore";
 import useSkipStore from "../stores/useSkipStore";
@@ -11,11 +12,11 @@ import useGameProps from "./useGameProps";
 import useInterval from "./useInterval";
 
 export default function useSkipAutoDetector() {
-    const skipEnabled = useSkipStore((state) => state.enabled);
-    const autoEnabled = useAutoInfoStore((state) => state.enabled);
-    const autoTime = useAutoInfoStore((state) => state.time);
-    const typewriterInProgress = useTypewriterStore((state) => state.inProgress);
-    const setNextStepLoading = useStepStore((state) => state.setLoading);
+    const skipEnabled = useSkipStore(useShallow((state) => state.enabled));
+    const autoEnabled = useAutoInfoStore(useShallow((state) => state.enabled));
+    const autoTime = useAutoInfoStore(useShallow((state) => state.time));
+    const typewriterInProgress = useTypewriterStore(useShallow((state) => state.inProgress));
+    const setNextStepLoading = useStepStore(useShallow((state) => state.setLoading));
     const queryClient = useQueryClient();
     const gameProps = useGameProps();
 
