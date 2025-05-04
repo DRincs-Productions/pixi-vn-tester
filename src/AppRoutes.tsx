@@ -25,8 +25,8 @@ function NarrationElement() {
     return (
         <>
             <HistoryScreen />
-            <QuickTools />
             <NarrationScreen />
+            <QuickTools />
             <TextInput />
             <NextButton />
         </>
