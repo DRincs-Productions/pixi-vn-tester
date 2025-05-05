@@ -229,37 +229,33 @@ function NarrationScreenText(props: { paragraphRef: RefObject<HTMLDivElement | n
 
     return (
         <p style={{ margin: 0, padding: 0 }}>
-            {
-                <span>
-                    <Markdown
-                        remarkPlugins={[remarkGfm]}
-                        rehypePlugins={[rehypeRaw]}
-                        components={{
-                            p: (props) => <span {...props} />,
-                        }}
-                    >
-                        {oldText}
-                    </Markdown>
-                </span>
-            }
-            {
-                <span>
-                    <span> </span>
-                    <MarkdownTypewriterHooks
-                        remarkPlugins={[remarkGfm]}
-                        rehypePlugins={[rehypeRaw]}
-                        delay={typewriterDelay}
-                        motionProps={{
-                            onAnimationStart: startTypewriter,
-                            onAnimationComplete: endTypewriter,
-                            onCharacterAnimationComplete: handleCharacterAnimationComplete,
-                        }}
-                        fallback={<>...</>}
-                    >
-                        {text}
-                    </MarkdownTypewriterHooks>
-                </span>
-            }
+            <span>
+                <Markdown
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
+                    components={{
+                        p: (props) => <span {...props} />,
+                    }}
+                >
+                    {oldText}
+                </Markdown>
+            </span>
+            <span>
+                <span> </span>
+                <MarkdownTypewriterHooks
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
+                    delay={typewriterDelay}
+                    motionProps={{
+                        onAnimationStart: startTypewriter,
+                        onAnimationComplete: endTypewriter,
+                        onCharacterAnimationComplete: handleCharacterAnimationComplete,
+                    }}
+                    fallback={<>...</>}
+                >
+                    {text}
+                </MarkdownTypewriterHooks>
+            </span>
         </p>
     );
 }
