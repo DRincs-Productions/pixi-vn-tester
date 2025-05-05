@@ -5,9 +5,9 @@ import CardContent from "@mui/joy/CardContent";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 import { motion, Variants } from "motion/react";
-import { RefObject, Suspense, useCallback, useRef } from "react";
+import { RefObject, useCallback, useRef } from "react";
 import Markdown from "react-markdown";
-import { MarkdownTypewriterAsync } from "react-markdown-typewriter";
+import { MarkdownTypewriterHooks } from "react-markdown-typewriter";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { useShallow } from "zustand/react/shallow";
@@ -245,20 +245,19 @@ function NarrationScreenText(props: { paragraphRef: RefObject<HTMLDivElement | n
             {
                 <span>
                     <span> </span>
-                    <Suspense fallback={<>...</>}>
-                        <MarkdownTypewriterAsync
-                            remarkPlugins={[remarkGfm]}
-                            rehypePlugins={[rehypeRaw]}
-                            delay={typewriterDelay}
-                            motionProps={{
-                                onAnimationStart: startTypewriter,
-                                onAnimationComplete: endTypewriter,
-                                onCharacterAnimationComplete: handleCharacterAnimationComplete,
-                            }}
-                        >
-                            {text}
-                        </MarkdownTypewriterAsync>
-                    </Suspense>
+                    <MarkdownTypewriterHooks
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeRaw]}
+                        delay={typewriterDelay}
+                        motionProps={{
+                            onAnimationStart: startTypewriter,
+                            onAnimationComplete: endTypewriter,
+                            onCharacterAnimationComplete: handleCharacterAnimationComplete,
+                        }}
+                        fallback={<>...</>}
+                    >
+                        {text}
+                    </MarkdownTypewriterHooks>
                 </span>
             }
         </p>
