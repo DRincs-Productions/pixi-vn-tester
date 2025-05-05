@@ -21,7 +21,7 @@ function ErrorFallback({ error }: { error: Error }) {
         >
             <h2
                 style={{
-                    color: "white",
+                    color: "red",
                     fontSize: "2rem",
                     textAlign: "center",
                     marginTop: "1rem",
