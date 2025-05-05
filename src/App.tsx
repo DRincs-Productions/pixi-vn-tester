@@ -12,9 +12,33 @@ const Home = lazy(async () => {
 
 function ErrorFallback({ error }: { error: Error }) {
     return (
-        <div role='alert'>
-            <h2>Something went wrong</h2>
-            <p>{error.message}</p>
+        <div
+            role='alert'
+            style={{
+                pointerEvents: "auto",
+                backgroundColor: "black",
+            }}
+        >
+            <h2
+                style={{
+                    color: "white",
+                    fontSize: "2rem",
+                    textAlign: "center",
+                    marginTop: "1rem",
+                }}
+            >
+                Something went wrong
+            </h2>
+            <p
+                style={{
+                    color: "white",
+                    fontSize: "1.5rem",
+                    textAlign: "center",
+                    marginTop: "1rem",
+                }}
+            >
+                {error.message}
+            </p>
         </div>
     );
 }
