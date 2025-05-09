@@ -1,7 +1,7 @@
 import { Button } from "@mui/joy";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
-import useGoNext from "../hooks/useGoNext";
+import useNarrationFunctions from "../hooks/useNarrationFunctions";
 import useInterfaceStore from "../stores/useInterfaceStore";
 import useSkipStore from "../stores/useSkipStore";
 import useStepStore from "../stores/useStepStore";
@@ -14,7 +14,7 @@ export default function NextButton() {
     const goBackLoading = useStepStore((state) => state.backLoading);
     const { data: canGoNext = false } = useQueryCanGoNext();
     const hideNextButton = useInterfaceStore((state) => state.hidden || !canGoNext);
-    const { goNext } = useGoNext();
+    const { goNext } = useNarrationFunctions();
     const { t } = useTranslation(["ui"]);
 
     return (
