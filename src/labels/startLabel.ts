@@ -380,7 +380,7 @@ const startLabel = newLabel(
 );
 export default startLabel;
 
-const secondPart = newLabel("second_part", [
+export const secondPart = newLabel("second_part", [
     async () => {
         await showImage("bg", "bg02-dorm");
         await showImageContainer("steph", ["fm02-body", "fm02-eyes-wow", "fm02-mouth-nervous00"]);
