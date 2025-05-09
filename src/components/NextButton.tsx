@@ -1,6 +1,6 @@
 import { Button } from "@mui/joy";
 import { motion } from "motion/react";
-import useGameProps from "../hooks/useGameProps";
+import { useTranslation } from "react-i18next";
 import useGoNext from "../hooks/useGoNext";
 import useInterfaceStore from "../stores/useInterfaceStore";
 import useSkipStore from "../stores/useSkipStore";
@@ -15,8 +15,7 @@ export default function NextButton() {
     const { data: canGoNext = false } = useQueryCanGoNext();
     const hideNextButton = useInterfaceStore((state) => state.hidden || !canGoNext);
     const { goNext } = useGoNext();
-    const gameProps = useGameProps();
-    const { uiTransition: t } = gameProps;
+    const { t } = useTranslation(["ui"]);
 
     return (
         <Button
