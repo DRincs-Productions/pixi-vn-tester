@@ -1,4 +1,4 @@
-import { ChoiceMenuOption, ChoiceMenuOptionClose, narration, stepHistory } from "@drincs/pixi-vn";
+import { narration, stepHistory, StoredIndexedChoiceInterface } from "@drincs/pixi-vn";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { useShallow } from "zustand/react/shallow";
@@ -51,7 +51,7 @@ export default function useNarrationFunctions() {
     }, [gameProps, queryClient]);
 
     const selectChoice = useCallback(
-        async (item: ChoiceMenuOptionClose | ChoiceMenuOption<{}>) => {
+        async (item: StoredIndexedChoiceInterface) => {
             setNextStepLoading(true);
             return narration
                 .selectChoice(item, gameProps)
