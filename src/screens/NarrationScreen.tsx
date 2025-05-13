@@ -248,7 +248,11 @@ function NarrationScreenText(props: { paragraphRef: RefObject<HTMLDivElement | n
                     delay={typewriterDelay}
                     motionProps={{
                         onAnimationStart: startTypewriter,
-                        onAnimationComplete: endTypewriter,
+                        onAnimationComplete: (definition: "visible" | "hidden") => {
+                            if (definition == "visible") {
+                                endTypewriter();
+                            }
+                        },
                         onCharacterAnimationComplete: handleCharacterAnimationComplete,
                     }}
                     fallback={<>...</>}
