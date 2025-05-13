@@ -11,6 +11,7 @@ import { MarkdownTypewriterHooks } from "react-markdown-typewriter";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { useShallow } from "zustand/react/shallow";
+import AnimatedDots from "../components/AnimatedDots";
 import SliderResizer from "../components/SliderResizer";
 import useDialogueCardStore from "../stores/useDialogueCardStore";
 import useInterfaceStore from "../stores/useInterfaceStore";
@@ -255,7 +256,7 @@ function NarrationScreenText(props: { paragraphRef: RefObject<HTMLDivElement | n
                         },
                         onCharacterAnimationComplete: handleCharacterAnimationComplete,
                     }}
-                    fallback={<>...</>}
+                    fallback={<AnimatedDots />}
                 >
                     {text}
                 </MarkdownTypewriterHooks>
