@@ -9,9 +9,7 @@ const CAN_GO_BACK_USE_QUEY_KEY = "can_go_back_use_quey_key";
 export function useQueryCanGoBack() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CAN_GO_BACK_USE_QUEY_KEY],
-        queryFn: async () => {
-            return stepHistory.canGoBack;
-        },
+        queryFn: async () => stepHistory.canGoBack,
     });
 }
 
@@ -19,9 +17,7 @@ const CHOICE_MENU_OPTIONS_USE_QUEY_KEY = "choice_menu_options_use_quey_key";
 export function useQueryChoiceMenuOptions() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CHOICE_MENU_OPTIONS_USE_QUEY_KEY],
-        queryFn: async () => {
-            return narration.choiceMenuOptions || [];
-        },
+        queryFn: async () => narration.choiceMenuOptions || [],
     });
 }
 
@@ -29,13 +25,11 @@ const INPUT_VALUE_USE_QUEY_KEY = "input_value_use_quey_key";
 export function useQueryInputValue<T>() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, INPUT_VALUE_USE_QUEY_KEY],
-        queryFn: async () => {
-            return {
-                isRequired: narration.isRequiredInput,
-                type: narration.inputType,
-                currentValue: narration.inputValue as T | undefined,
-            };
-        },
+        queryFn: async () => ({
+            isRequired: narration.isRequiredInput,
+            type: narration.inputType,
+            currentValue: narration.inputValue as T | undefined,
+        }),
     });
 }
 
@@ -88,9 +82,7 @@ const CAN_GO_NEXT_USE_QUEY_KEY = "can_go_next_use_quey_key";
 export function useQueryCanGoNext() {
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, CAN_GO_NEXT_USE_QUEY_KEY],
-        queryFn: async () => {
-            return narration.canGoNext && !narration.isRequiredInput;
-        },
+        queryFn: async () => narration.canGoNext && !narration.isRequiredInput,
     });
 }
 
@@ -101,33 +93,33 @@ export function useQueryNarrativeHistory({ searchString }: { searchString?: stri
     return useQuery({
         queryKey: [INTERFACE_DATA_USE_QUEY_KEY, NARRATIVE_HISTORY_USE_QUEY_KEY, searchString],
         queryFn: async () => {
-            return stepHistory.narrativeHistory
-                .map((step) => {
-                    let character = step.dialogue?.character;
-                    if (typeof character === "string") {
-                        character = new Character(character, { name: tNarration(character) });
-                    }
-                    let text = step.dialogue?.text || "";
-                    if (Array.isArray(text)) {
-                        text = text.join(" ");
-                    }
-                    return {
-                        character: character?.name
-                            ? character.name + (character.surname ? " " + character.surname : "")
-                            : undefined,
-                        text: text,
-                        icon: character?.icon,
-                        choices: step.choices,
-                        inputValue: step.inputValue,
-                    };
-                })
-                .filter((data) => {
-                    if (!searchString) return true;
-                    return (
-                        data.character?.toLowerCase().includes(searchString.toLowerCase()) ||
-                        data.text?.toLowerCase().includes(searchString.toLowerCase())
-                    );
-                });
+            const promises = stepHistory.narrativeHistory.map(async (step) => {
+                let character = step.dialogue?.character;
+                if (typeof character === "string") {
+                    character = new Character(character, { name: tNarration(character) });
+                }
+                let text = step.dialogue?.text || "";
+                if (Array.isArray(text)) {
+                    text = text.join(" ");
+                }
+                return {
+                    character: character?.name
+                        ? character.name + (character.surname ? " " + character.surname : "")
+                        : undefined,
+                    text: text,
+                    icon: character?.icon,
+                    choices: step.choices,
+                    inputValue: step.inputValue,
+                };
+            });
+            const data = await Promise.all(promises);
+            return data.filter((data) => {
+                if (!searchString) return true;
+                return (
+                    data.character?.toLowerCase().includes(searchString.toLowerCase()) ||
+                    data.text?.toLowerCase().includes(searchString.toLowerCase())
+                );
+            });
         },
     });
 }
