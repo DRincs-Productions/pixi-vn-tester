@@ -26,8 +26,8 @@ export default function NarrationScreen() {
         imageWidth: cardImageWidth,
         setImageWidth: setCardImageWidth,
     } = useDialogueCardStore(useShallow((state) => state));
-    const { data: { text, character, oldText } = {} } = useQueryDialogue();
-    const hidden = useInterfaceStore((state) => state.hidden || (text || oldText ? false : true));
+    const { data: { animatedText, character, text } = {} } = useQueryDialogue();
+    const hidden = useInterfaceStore((state) => state.hidden || (animatedText || text ? false : true));
     const cardVarians: Variants = {
         open: {
             opacity: 1,
@@ -74,7 +74,7 @@ export default function NarrationScreen() {
                 top: 0,
             }}
         >
-            <ChoiceMenu fullscreen={text || oldText ? false : true} />
+            <ChoiceMenu fullscreen={animatedText || text ? false : true} />
             <SliderResizer
                 orientation='vertical'
                 max={100}
@@ -216,7 +216,7 @@ function NarrationScreenText(props: { paragraphRef: RefObject<HTMLDivElement | n
     const typewriterDelay = useTypewriterStore(useShallow((state) => state.delay));
     const startTypewriter = useTypewriterStore(useShallow((state) => state.start));
     const endTypewriter = useTypewriterStore(useShallow((state) => state.end));
-    const { data: { text, oldText } = {} } = useQueryDialogue();
+    const { data: { animatedText, text } = {} } = useQueryDialogue();
 
     const handleCharacterAnimationComplete = useCallback((ref: { current: HTMLSpanElement | null }) => {
         if (paragraphRef.current && ref.current) {
@@ -238,7 +238,7 @@ function NarrationScreenText(props: { paragraphRef: RefObject<HTMLDivElement | n
                         p: (props) => <span {...props} />,
                     }}
                 >
-                    {oldText}
+                    {text}
                 </Markdown>
             </span>
             <span>
@@ -258,7 +258,7 @@ function NarrationScreenText(props: { paragraphRef: RefObject<HTMLDivElement | n
                     }}
                     fallback={<AnimatedDots />}
                 >
-                    {text}
+                    {animatedText}
                 </MarkdownTypewriterHooks>
             </span>
         </p>
