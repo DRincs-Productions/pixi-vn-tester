@@ -30,7 +30,7 @@ export default function ChoiceMenu() {
             direction='column'
             justifyContent='center'
             alignItems='center'
-            spacing={2}
+            rowSpacing={2}
             sx={{
                 overflow: "auto",
                 height: "100%",
