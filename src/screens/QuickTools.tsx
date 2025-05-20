@@ -44,7 +44,7 @@ export default function QuickTools() {
                 : `motion-opacity-in-0 motion-translate-y-in-[50%]`,
         [hidden]
     );
-    const iconVarians = useMemo(() => (hidden ? `motion-scale-in-0` : `motion-scale-out-0`), [hidden]);
+    const iconVarians = useMemo(() => (hidden ? `motion-preset-pop` : `motion-scale-out-0`), [hidden]);
 
     return (
         <>
@@ -128,7 +128,6 @@ export default function QuickTools() {
                     position: "absolute",
                     top: 0,
                     right: 0,
-                    pointerEvents: hidden ? "auto" : "none",
                 }}
                 className={iconVarians}
             >
