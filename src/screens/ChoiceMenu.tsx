@@ -1,6 +1,5 @@
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { Grid } from "@mui/joy";
-import { motion, Variants } from "motion/react";
 import ChoiceButton from "../components/ChoiceButton";
 import useNarrationFunctions from "../hooks/useNarrationFunctions";
 import useInterfaceStore from "../stores/useInterfaceStore";
@@ -12,33 +11,6 @@ export default function ChoiceMenu() {
     const { data: menu = [] } = useQueryChoiceMenuOptions();
     const hidden = useInterfaceStore((state) => state.hidden || menu.length == 0);
     const { selectChoice } = useNarrationFunctions();
-    const gridVariants: Variants = {
-        open: {
-            clipPath: "inset(0% 0% 0% 0% round 10px)",
-            transition: {
-                type: "spring",
-                bounce: 0,
-                duration: 0.7,
-                staggerChildren: 0.05,
-            },
-        },
-        closed: {
-            clipPath: "inset(10% 50% 90% 50% round 10px)",
-            transition: {
-                type: "spring",
-                bounce: 0,
-                duration: 0.3,
-            },
-        },
-    };
-    const itemVariants: Variants = {
-        open: {
-            opacity: 1,
-            y: 0,
-            transition: { type: "spring", stiffness: 300, damping: 24 },
-        },
-        closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
-    };
 
     return (
         <Grid
@@ -54,9 +26,6 @@ export default function ChoiceMenu() {
                 width: "100%",
                 pointerEvents: hidden ? "none" : "auto",
             }}
-            component={motion.div}
-            variants={gridVariants}
-            animate={hidden ? "closed" : "open"}
         >
             {menu?.map((item, index) => {
                 return (
@@ -64,8 +33,11 @@ export default function ChoiceMenu() {
                         key={"choice-" + index}
                         justifyContent='center'
                         alignItems='center'
-                        component={motion.div}
-                        variants={itemVariants}
+                        className={
+                            hidden
+                                ? "motion-opacity-out-0 motion-translate-y-out-[50%]"
+                                : `motion-opacity-in-0 motion-translate-y-in-[50%] motion-delay-[${index * 200}ms]`
+                        }
                     >
                         <ChoiceButton
                             loading={nextStepLoading}
