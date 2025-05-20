@@ -39,8 +39,7 @@ export default function QuickTools() {
     const { goBack } = useNarrationFunctions();
     const motionClass = useOpacityTranslateMotion({
         hidden,
-        distance: 100,
-        direction: "down",
+        distance: 0,
     });
     const visibilityIconMotionClass = useOpacityTranslateMotion({
         hidden: !hidden,
@@ -58,9 +57,6 @@ export default function QuickTools() {
                     height: "100%",
                     width: "100%",
                     paddingLeft: { xs: 1, sm: 2, md: 4, lg: 6, xl: 8 },
-                    position: "absolute",
-                    marginBottom: 0,
-                    bottom: 0,
                 }}
                 className={motionClass}
             >

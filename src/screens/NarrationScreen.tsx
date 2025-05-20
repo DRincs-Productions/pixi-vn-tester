@@ -177,11 +177,7 @@ export default function NarrationScreen() {
                                         color: character.color,
                                         paddingLeft: 1,
                                     }}
-                                    component={motion.div}
-                                    variants={cardElementVarians}
-                                    initial={"closed"}
-                                    animate={character.name ? "open" : "closed"}
-                                    exit={"closed"}
+                                    className={`motion-opacity-in-0 motion-translate-x-in-[-3%]`}
                                 >
                                     {character.name + (character.surname ? " " + character.surname : "")}
                                 </Typography>
