@@ -44,10 +44,7 @@ export default function QuickTools() {
             }`,
         [hidden]
     );
-    const iconMenuClassName = useMemo(
-        () => `transition-transform duration-300 ${!hidden ? "scale-0 pointer-events-none" : "scale-100"}`,
-        [hidden]
-    );
+    const iconMenuClassName = useMemo(() => (hidden ? `motion-scale-in-0` : `motion-scale-out-0`), [hidden]);
 
     return (
         <>
