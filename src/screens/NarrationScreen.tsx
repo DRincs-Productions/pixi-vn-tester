@@ -4,8 +4,7 @@ import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
-import { motion, Variants } from "motion/react";
-import { RefObject, useCallback, useRef } from "react";
+import { RefObject, useCallback, useMemo, useRef } from "react";
 import Markdown from "react-markdown";
 import { MarkdownTypewriterHooks } from "react-markdown-typewriter";
 import rehypeRaw from "rehype-raw";
@@ -21,34 +20,32 @@ import ChoiceMenu from "./ChoiceMenu";
 
 export default function NarrationScreen() {
     const {
-        height: cardHeight,
+        height: cardHeightTemp,
         setHeight: setCardHeight,
         imageWidth: cardImageWidth,
         setImageWidth: setCardImageWidth,
     } = useDialogueCardStore(useShallow((state) => state));
     const { data: { animatedText, character, text } = {} } = useQueryDialogue();
     const hidden = useInterfaceStore((state) => state.hidden || (animatedText || text ? false : true));
-    const cardVarians: Variants = {
-        open: {
-            opacity: 1,
-            y: 0,
-        },
-        closed: {
-            opacity: 0,
-            y: 200,
-            pointerEvents: "none",
-        },
-    };
-    const cardImageVarians: Variants = {
-        open: {
-            opacity: 1,
-            x: 0,
-        },
-        closed: {
-            opacity: 0,
-            x: -100,
-        },
-    };
+    const cardHeight = animatedText || text ? cardHeightTemp : 0;
+    const cardVarians = useMemo(
+        () =>
+            hidden
+                ? `motion-opacity-out-0 motion-translate-y-out-[50%]`
+                : `motion-opacity-in-0 motion-translate-y-in-[50%]`,
+        [hidden]
+    );
+    const sliderVarians = useMemo(
+        () =>
+            hidden
+                ? `motion-opacity-out-0 motion-translate-y-out-[25%]`
+                : `motion-opacity-in-0 motion-translate-y-in-[25%]`,
+        [hidden]
+    );
+    const cardImageVarians = useMemo(
+        () => (!hidden && character?.icon ? `motion-opacity-in-0 motion-translate-x-in-[-5%]` : `motion-opacity-out-0`),
+        [hidden, character?.icon]
+    );
     const paragraphRef = useRef<HTMLDivElement>(null);
 
     return (
@@ -76,13 +73,10 @@ export default function NarrationScreen() {
                         sx: {
                             top: 0,
                             paddingBottom: { xs: "0.9rem", sm: "1rem", md: "1.1rem", lg: "1.3rem", xl: "1.4rem" },
+                            pointerEvents: !hidden ? "auto" : "none",
                         },
                     }}
-                    variants={cardVarians}
-                    initial={"closed"}
-                    animate={hidden ? "closed" : "open"}
-                    exit={"closed"}
-                    transition={{ type: "tween" }}
+                    className={sliderVarians}
                 />
                 <Box sx={{ flex: 1, minHeight: 0 }}>
                     <ChoiceMenu />
@@ -92,13 +86,9 @@ export default function NarrationScreen() {
                         flex: "0 0 auto",
                         height: `${cardHeight}%`,
                         minHeight: 0,
+                        pointerEvents: !hidden ? "auto" : "none",
                     }}
-                    component={motion.div}
-                    variants={cardVarians}
-                    initial={"closed"}
-                    animate={hidden ? "closed" : "open"}
-                    exit={"closed"}
-                    transition={{ type: "tween" }}
+                    className={cardVarians}
                 >
                     <Card
                         key={"dialogue-card"}
@@ -124,30 +114,27 @@ export default function NarrationScreen() {
                                 <img src={character.icon} loading='lazy' alt='' />
                             </AspectRatio>
                         )}
-                        {character && (
-                            <SliderResizer
-                                orientation='horizontal'
-                                max={100}
-                                min={0}
-                                value={cardImageWidth}
-                                onChange={(_, value) => {
-                                    if (typeof value === "number") {
-                                        if (value > 75) {
-                                            value = 75;
-                                        }
-                                        if (value < 5) {
-                                            value = 5;
-                                        }
-                                        setCardImageWidth(value);
+                        <SliderResizer
+                            orientation='horizontal'
+                            max={100}
+                            min={0}
+                            value={cardImageWidth}
+                            onChange={(_, value) => {
+                                if (typeof value === "number") {
+                                    if (value > 75) {
+                                        value = 75;
                                     }
-                                }}
-                                variants={cardImageVarians}
-                                initial={"closed"}
-                                animate={character?.icon ? "open" : "closed"}
-                                exit={"closed"}
-                                transition={{ type: "tween" }}
-                            />
-                        )}
+                                    if (value < 5) {
+                                        value = 5;
+                                    }
+                                    setCardImageWidth(value);
+                                }
+                            }}
+                            sx={{
+                                pointerEvents: !hidden && character?.icon ? "auto" : "none",
+                            }}
+                            className={cardImageVarians}
+                        />
                         <CardContent>
                             {character && character.name && (
                                 <Typography

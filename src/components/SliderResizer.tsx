@@ -7,6 +7,7 @@ export default function SliderResizer(
 ) {
     const { orientation, sx, key, stackProps, ...rest } = props;
     const { sx: stackSX, ...stackRest } = stackProps || {};
+    const { pointerEvents } = (sx || {}) as any;
 
     return (
         <Stack
@@ -38,10 +39,10 @@ export default function SliderResizer(
                     "--Slider-thumbSize": orientation === "vertical" ? "16px" : "42px",
                     "& .MuiSlider-thumb": {
                         cursor: orientation === "vertical" ? "row-resize" : "col-resize",
-                        pointerEvents: "auto",
+                        pointerEvents: pointerEvents ?? "auto",
                     },
                     ...sx,
-                    pointerEvents: "none",
+                    pointerEvents: pointerEvents ?? "none",
                 }}
                 {...rest}
             />
