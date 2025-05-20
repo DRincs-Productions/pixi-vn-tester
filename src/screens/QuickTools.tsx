@@ -2,9 +2,9 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { IconButton, Stack, useTheme } from "@mui/joy";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import TextMenuButton from "../components/TextMenuButton";
-import { useOpacityTranslateMotion } from "../hooks/motion-hooks";
 import useNarrationFunctions from "../hooks/useNarrationFunctions";
 import useAutoInfoStore from "../stores/useAutoInfoStore";
 import useGameSaveScreenStore from "../stores/useGameSaveScreenStore";
@@ -37,14 +37,17 @@ export default function QuickTools() {
     const { data: canGoBack = null } = useQueryCanGoBack();
     const nextStepLoading = useStepStore((state) => state.loading);
     const { goBack } = useNarrationFunctions();
-    const motionClass = useOpacityTranslateMotion({
-        hidden,
-        distance: 100,
-    });
-    const visibilityIconMotionClass = useOpacityTranslateMotion({
-        hidden: !hidden,
-        distance: 0,
-    });
+    const textMenuClassName = useMemo(
+        () =>
+            `transition-all duration-300 ${
+                hidden ? "opacity-0 translate-y-4 pointer-events-none" : "opacity-100 translate-y-0"
+            }`,
+        [hidden]
+    );
+    const iconMenuClassName = useMemo(
+        () => `transition-transform duration-300 ${!hidden ? "scale-0 pointer-events-none" : "scale-100"}`,
+        [hidden]
+    );
 
     return (
         <>
@@ -58,7 +61,7 @@ export default function QuickTools() {
                     width: "100%",
                     paddingLeft: { xs: 1, sm: 2, md: 4, lg: 6, xl: 8 },
                 }}
-                className={motionClass}
+                className={textMenuClassName}
             >
                 <TextMenuButton
                     onClick={() => {
@@ -127,7 +130,7 @@ export default function QuickTools() {
                     right: 0,
                     pointerEvents: hidden ? "auto" : "none",
                 }}
-                className={visibilityIconMotionClass}
+                className={iconMenuClassName}
             >
                 <VisibilityOffIcon
                     sx={{
