@@ -1,10 +1,9 @@
 import { Slider, SliderProps, Stack, StackProps, useTheme } from "@mui/joy";
-import { AnimationProps, motion } from "motion/react";
 
 export default function SliderResizer(
     props: SliderProps & {
         stackProps?: StackProps;
-    } & AnimationProps
+    }
 ) {
     const { orientation, sx, key, stackProps, ...rest } = props;
     const { sx: stackSX, ...stackRest } = stackProps || {};
@@ -44,7 +43,6 @@ export default function SliderResizer(
                     ...sx,
                     pointerEvents: "none",
                 }}
-                component={motion.div}
                 {...rest}
             />
         </Stack>

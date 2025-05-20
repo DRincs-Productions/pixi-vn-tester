@@ -40,8 +40,8 @@ export default function QuickTools() {
     const textMenuVarians = useMemo(
         () =>
             hidden
-                ? `motion-opacity-out-0 motion-translate-y-out-[5%]`
-                : `motion-opacity-in-0 motion-translate-y-in-[5%]`,
+                ? `motion-opacity-out-0 motion-translate-y-out-[50%]`
+                : `motion-opacity-in-0 motion-translate-y-in-[50%]`,
         [hidden]
     );
     const iconVarians = useMemo(() => (hidden ? `motion-scale-in-0` : `motion-scale-out-0`), [hidden]);
@@ -54,9 +54,12 @@ export default function QuickTools() {
                 alignItems='flex-end'
                 spacing={{ xs: 0.5, sm: 1, md: 2 }}
                 sx={{
-                    height: "100%",
-                    width: "100%",
+                    position: "absolute",
+                    height: { xs: "0.9rem", sm: "1rem", md: "1.1rem", lg: "1.3rem", xl: "1.4rem" },
                     paddingLeft: { xs: 1, sm: 2, md: 4, lg: 6, xl: 8 },
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
                 }}
                 className={textMenuVarians}
             >
