@@ -38,7 +38,7 @@ export default function NarrationScreen() {
     const sliderVarians = useMemo(
         () =>
             hidden
-                ? `motion-opacity-out-0 motion-translate-y-out-[25%]`
+                ? `motion-duration-200/opacity motion-opacity-out-0 motion-translate-y-out-[25%]`
                 : `motion-opacity-in-0 motion-translate-y-in-[25%]`,
         [hidden]
     );
