@@ -37,14 +37,14 @@ export default function QuickTools() {
     const { data: canGoBack = null } = useQueryCanGoBack();
     const nextStepLoading = useStepStore((state) => state.loading);
     const { goBack } = useNarrationFunctions();
-    const textMenuClassName = useMemo(
+    const textMenuVarians = useMemo(
         () =>
-            `transition-all duration-300 ${
-                hidden ? "opacity-0 translate-y-4 pointer-events-none" : "opacity-100 translate-y-0"
-            }`,
+            hidden
+                ? `motion-opacity-out-0 motion-translate-y-out-[5%]`
+                : `motion-opacity-in-0 motion-translate-y-in-[5%]`,
         [hidden]
     );
-    const iconMenuClassName = useMemo(() => (hidden ? `motion-scale-in-0` : `motion-scale-out-0`), [hidden]);
+    const iconVarians = useMemo(() => (hidden ? `motion-scale-in-0` : `motion-scale-out-0`), [hidden]);
 
     return (
         <>
@@ -58,7 +58,7 @@ export default function QuickTools() {
                     width: "100%",
                     paddingLeft: { xs: 1, sm: 2, md: 4, lg: 6, xl: 8 },
                 }}
-                className={textMenuClassName}
+                className={textMenuVarians}
             >
                 <TextMenuButton
                     onClick={() => {
@@ -127,7 +127,7 @@ export default function QuickTools() {
                     right: 0,
                     pointerEvents: hidden ? "auto" : "none",
                 }}
-                className={iconMenuClassName}
+                className={iconVarians}
             >
                 <VisibilityOffIcon
                     sx={{
