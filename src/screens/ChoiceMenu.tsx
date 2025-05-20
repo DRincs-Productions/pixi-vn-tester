@@ -37,6 +37,7 @@ export default function ChoiceMenu() {
                 gap: 1,
                 width: "100%",
                 pointerEvents: hidden ? "none" : "auto",
+                margin: 0,
             }}
         >
             {open &&

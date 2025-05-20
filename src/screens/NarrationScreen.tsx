@@ -73,8 +73,10 @@ export default function NarrationScreen() {
                         sx: {
                             top: 0,
                             paddingBottom: { xs: "0.9rem", sm: "1rem", md: "1.1rem", lg: "1.3rem", xl: "1.4rem" },
-                            pointerEvents: !hidden ? "auto" : "none",
                         },
+                    }}
+                    sx={{
+                        pointerEvents: !hidden ? "auto" : "none",
                     }}
                     className={sliderVarians}
                 />
