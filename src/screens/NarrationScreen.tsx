@@ -145,7 +145,7 @@ export default function NarrationScreen() {
                                 sx={{
                                     color: character?.color,
                                     paddingLeft: 1,
-                                    height: 30,
+                                    height: { sx: undefined, md: 30 },
                                     marginLeft: 2,
                                 }}
                                 className={
@@ -167,8 +167,8 @@ export default function NarrationScreen() {
                                     flex: 1,
                                     overflow: "auto",
                                     height: "100%",
-                                    marginX: 3,
-                                    marginBottom: 3,
+                                    marginX: { xs: 0, md: 3 },
+                                    marginBottom: { xs: 0, md: 3 },
                                 }}
                             >
                                 <NarrationScreenText paragraphRef={paragraphRef} />
