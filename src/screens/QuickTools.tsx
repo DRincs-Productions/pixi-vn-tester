@@ -39,7 +39,7 @@ export default function QuickTools() {
     const { goBack } = useNarrationFunctions();
     const motionClass = useOpacityTranslateMotion({
         hidden,
-        distance: 0,
+        distance: 100,
     });
     const visibilityIconMotionClass = useOpacityTranslateMotion({
         hidden: !hidden,
