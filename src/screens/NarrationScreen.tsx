@@ -39,18 +39,6 @@ export default function NarrationScreen() {
             pointerEvents: "none",
         },
     };
-    const cardElementVarians: Variants = {
-        open: {
-            opacity: 1,
-            scale: 1,
-            pointerEvents: "auto",
-        },
-        closed: {
-            opacity: 0,
-            scale: 0,
-            pointerEvents: "none",
-        },
-    };
     const cardImageVarians: Variants = {
         open: {
             opacity: 1,
@@ -66,47 +54,44 @@ export default function NarrationScreen() {
     return (
         <Box
             sx={{
-                height: "95%",
-                width: "100%",
                 position: "absolute",
-                left: 0,
-                right: 0,
-                top: 0,
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                width: "100%",
             }}
         >
-            <ChoiceMenu fullscreen={animatedText || text ? false : true} />
-            <SliderResizer
-                orientation='vertical'
-                max={100}
-                min={0}
-                value={cardHeight}
-                onChange={(_, value) => {
-                    if (typeof value === "number") {
-                        setCardHeight(value);
-                    }
-                }}
-                variants={cardVarians}
-                initial={"closed"}
-                animate={hidden ? "closed" : "open"}
-                exit={"closed"}
-                transition={{ type: "tween" }}
-            />
-            <Box
-                sx={{
-                    position: "absolute",
-                    height: `${cardHeight}%`,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                }}
-            >
+            <Box sx={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
+                <SliderResizer
+                    orientation='vertical'
+                    max={100}
+                    min={0}
+                    value={cardHeight}
+                    onChange={(_, value) => {
+                        if (typeof value === "number") {
+                            setCardHeight(value);
+                        }
+                    }}
+                    stackProps={{
+                        sx: {
+                            top: 0,
+                            paddingBottom: { xs: "0.9rem", sm: "1rem", md: "1.1rem", lg: "1.3rem", xl: "1.4rem" },
+                        },
+                    }}
+                    variants={cardVarians}
+                    initial={"closed"}
+                    animate={hidden ? "closed" : "open"}
+                    exit={"closed"}
+                    transition={{ type: "tween" }}
+                />
+                <Box sx={{ flex: 1, minHeight: 0 }}>
+                    <ChoiceMenu />
+                </Box>
                 <Box
                     sx={{
-                        position: "absolute",
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        height: "100%",
+                        flex: "0 0 auto",
+                        height: `${cardHeight}%`,
+                        minHeight: 0,
                     }}
                     component={motion.div}
                     variants={cardVarians}
@@ -134,12 +119,7 @@ export default function NarrationScreen() {
                                     height: "100%",
                                     minWidth: `${cardImageWidth}%`,
                                 }}
-                                component={motion.div}
-                                variants={cardElementVarians}
-                                initial={"closed"}
-                                animate={character?.icon ? "open" : "closed"}
-                                exit={"closed"}
-                                transition={{ type: "tween" }}
+                                className={`motion-scale-x-in-0`}
                             >
                                 <img src={character.icon} loading='lazy' alt='' />
                             </AspectRatio>
@@ -203,6 +183,13 @@ export default function NarrationScreen() {
                     </Card>
                 </Box>
             </Box>
+            <Box
+                sx={{
+                    flex: "0 0 auto",
+                    height: { xs: "0.9rem", sm: "1rem", md: "1.1rem", lg: "1.3rem", xl: "1.4rem" },
+                    minHeight: 0,
+                }}
+            ></Box>
         </Box>
     );
 }
