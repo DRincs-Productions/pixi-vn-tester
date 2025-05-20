@@ -98,6 +98,7 @@ export default function NarrationScreen() {
                             gap: 1,
                             padding: 0,
                             height: "100%",
+                            marginX: { xs: "0.9rem", sm: "1rem", md: "1.1rem", lg: "1.3rem", xl: "1.4rem" },
                         }}
                     >
                         {character?.icon && (
@@ -136,19 +137,23 @@ export default function NarrationScreen() {
                             className={cardImageVarians}
                         />
                         <CardContent>
-                            {character && character.name && (
-                                <Typography
-                                    fontSize='xl'
-                                    fontWeight='lg'
-                                    sx={{
-                                        color: character.color,
-                                        paddingLeft: 1,
-                                    }}
-                                    className={`motion-opacity-in-0 motion-translate-x-in-[-3%]`}
-                                >
-                                    {character.name + (character.surname ? " " + character.surname : "")}
-                                </Typography>
-                            )}
+                            <Typography
+                                fontSize='xl'
+                                fontWeight='lg'
+                                sx={{
+                                    color: character?.color,
+                                    paddingLeft: 1,
+                                    height: 30,
+                                    marginLeft: 2,
+                                }}
+                                className={
+                                    character && character.name
+                                        ? `motion-opacity-in-0 motion-translate-x-in-[-3%]`
+                                        : `motion-opacity-out-0`
+                                }
+                            >
+                                {`${character?.name || ""} ${character?.surname || ""}`}
+                            </Typography>
                             <Sheet
                                 ref={paragraphRef}
                                 sx={{
@@ -160,8 +165,8 @@ export default function NarrationScreen() {
                                     flex: 1,
                                     overflow: "auto",
                                     height: "100%",
-                                    marginRight: 2,
-                                    marginBottom: 2,
+                                    marginX: 3,
+                                    marginBottom: 3,
                                 }}
                             >
                                 <NarrationScreenText paragraphRef={paragraphRef} />
