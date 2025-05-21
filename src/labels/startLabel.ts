@@ -389,7 +389,7 @@ export const secondPart = newLabel("second_part", [
     async () => {
         await showImageContainer("steph", ["fm02-body", "fm02-eyes-joy", "fm02-mouth-smile00"]);
         narration.dialogGlue = true;
-        narration.dialogue = ` \n\n...I could've just come back and gotten the platter later...`;
+        narration.dialogue = `\n\n...I could've just come back and gotten the platter later...`;
     },
     async () => {
         await showImageContainer("james", ["m01-body", "m01-eyes-smile", "m01-mouth-grin00"]);
@@ -481,7 +481,7 @@ export const secondPart = newLabel("second_part", [
     },
     async () => {
         narration.dialogGlue = true;
-        narration.dialogue = ` and ${sly.name} picked me up somewhere in there.`;
+        narration.dialogue = `and ${sly.name} picked me up somewhere in there.`;
     },
     async () => {
         await showImageContainer("james", ["m01-body", "m01-eyes-annoy", "m01-mouth-smile00"]);
