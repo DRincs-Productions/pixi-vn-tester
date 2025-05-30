@@ -18,7 +18,7 @@ export default function ChoiceMenu() {
     const { selectChoice } = useNarrationFunctions();
     const [open, setOpen] = useState(false);
 
-    useDebouncedEffect(() => setOpen(!(hidden || menu.length == 0 || typewriterInProgress)), { delay: 50 }, [
+    useDebouncedEffect(() => setOpen(!(hidden || menu.length == 0 || typewriterInProgress)), { delay: 100 }, [
         hidden,
         menu,
         typewriterInProgress,
@@ -41,6 +41,7 @@ export default function ChoiceMenu() {
                 pointerEvents: hidden ? "none" : "auto",
                 margin: 0,
             }}
+            role='menu'
         >
             {menu.map((item, index) => (
                 <Grid
@@ -55,7 +56,11 @@ export default function ChoiceMenu() {
                 >
                     <ChoiceButton
                         loading={nextStepLoading}
-                        onClick={() => selectChoice(item)}
+                        onClick={() =>
+                            selectChoice(item).then(() => {
+                                setOpen(false);
+                            })
+                        }
                         sx={{
                             left: 0,
                             right: 0,
