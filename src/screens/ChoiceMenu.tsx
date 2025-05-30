@@ -24,6 +24,8 @@ export default function ChoiceMenu() {
         typewriterInProgress,
     ]);
 
+    if (!open) return null;
+
     return (
         <Grid
             container
@@ -40,33 +42,30 @@ export default function ChoiceMenu() {
                 margin: 0,
             }}
         >
-            {open &&
-                menu?.map((item, index) => {
-                    return (
-                        <Grid
-                            key={"choice-" + index}
-                            justifyContent='center'
-                            alignItems='center'
-                            className={
-                                hidden
-                                    ? "motion-opacity-out-0 motion-translate-y-out-[50%]"
-                                    : `motion-opacity-in-0 motion-translate-y-in-[50%] motion-delay-[${index * 200}ms]`
-                            }
-                        >
-                            <ChoiceButton
-                                loading={nextStepLoading}
-                                onClick={() => selectChoice(item)}
-                                sx={{
-                                    left: 0,
-                                    right: 0,
-                                }}
-                                startDecorator={item.type == "close" ? <KeyboardReturnIcon /> : undefined}
-                            >
-                                {item.text}
-                            </ChoiceButton>
-                        </Grid>
-                    );
-                })}
+            {menu.map((item, index) => (
+                <Grid
+                    key={"choice-" + index}
+                    justifyContent='center'
+                    alignItems='center'
+                    className={
+                        hidden
+                            ? "motion-opacity-out-0 motion-translate-y-out-[50%]"
+                            : `motion-opacity-in-0 motion-translate-y-in-[50%] motion-delay-[${index * 200}ms]`
+                    }
+                >
+                    <ChoiceButton
+                        loading={nextStepLoading}
+                        onClick={() => selectChoice(item)}
+                        sx={{
+                            left: 0,
+                            right: 0,
+                        }}
+                        startDecorator={item.type === "close" ? <KeyboardReturnIcon /> : undefined}
+                    >
+                        {item.text}
+                    </ChoiceButton>
+                </Grid>
+            ))}
         </Grid>
     );
 }
