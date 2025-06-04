@@ -22,5 +22,11 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }],
+  
+  "baseUrl": "src",
+  "paths": {
+    "@drincs/pixi-vn/*": ["pixi-vn/src/*"],
+    "@drincs/pixi-vn": ["pixi-vn/src/index.ts"]
+  }
 }
