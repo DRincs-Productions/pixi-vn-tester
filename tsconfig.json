@@ -19,14 +19,13 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "src",
+    "paths": {
+      "@drincs/pixi-vn/*": ["pixi-vn/src/*"],
+      "@drincs/pixi-vn": ["pixi-vn/src/index.ts"]
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }],
-  
-  "baseUrl": "src",
-  "paths": {
-    "@drincs/pixi-vn/*": ["pixi-vn/src/*"],
-    "@drincs/pixi-vn": ["pixi-vn/src/index.ts"]
-  }
 }

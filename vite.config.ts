@@ -1,5 +1,6 @@
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
+import { fileURLToPath, URL } from "node:url"; // AGGIUNGI QUESTA RIGA
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
 import { VitePWA } from "vite-plugin-pwa";
@@ -39,6 +40,11 @@ export default defineConfig({
             },
         }),
     ],
+    resolve: {
+        alias: {
+            "@drincs/pixi-vn": fileURLToPath(new URL("./src/pixi-vn/src", import.meta.url)),
+        },
+    },
     define: {
         __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
         __APP_NAME__: JSON.stringify(process.env.npm_package_name),
