@@ -1,7 +1,7 @@
-import { SaveData as PiviVNSaveData } from "../pixi-vn/src";
+import { GameState } from "@drincs/pixi-vn";
 
 export default interface GameSaveData {
-    saveData: PiviVNSaveData;
+    saveData: GameState;
     gameVersion: string;
     date: Date;
     name: string;

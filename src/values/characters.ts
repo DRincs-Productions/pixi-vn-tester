@@ -1,5 +1,5 @@
+import { RegisteredCharacters } from "@drincs/pixi-vn";
 import Character from "../models/Character";
-import { saveCharacter } from "../pixi-vn/src";
 
 export const mc = new Character("mc", {
     name: "Me",
@@ -20,4 +20,4 @@ export const sly = new Character("sly", {
     color: "#6d00ac",
 });
 
-saveCharacter([mc, james, steph, sly]);
+RegisteredCharacters.add([mc, james, steph, sly]);
