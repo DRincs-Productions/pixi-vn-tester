@@ -23,7 +23,9 @@
     "baseUrl": "src",
     "paths": {
       "@drincs/pixi-vn/*": ["pixi-vn/src/*"],
-      "@drincs/pixi-vn": ["pixi-vn/src/index.ts"]
+      "@drincs/pixi-vn": ["pixi-vn/src/index.ts"],
+      "@drincs/pixi-vn-ink/*": ["pixi-vn-ink/src/*"],
+      "@drincs/pixi-vn-ink": ["pixi-vn-ink/src/index.ts"]
     }
   },
   "include": ["src"],

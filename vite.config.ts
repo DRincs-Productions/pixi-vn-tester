@@ -44,6 +44,7 @@ export default defineConfig({
     resolve: {
         alias: {
             "@drincs/pixi-vn": fileURLToPath(new URL("./src/pixi-vn/src", import.meta.url)),
+            "@drincs/pixi-vn-ink": fileURLToPath(new URL("./src/pixi-vn-ink/src", import.meta.url)),
         },
     },
     define: {
