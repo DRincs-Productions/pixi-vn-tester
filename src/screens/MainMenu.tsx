@@ -7,7 +7,6 @@ import { CANVAS_UI_LAYER_NAME, NARRATION_ROUTE } from "../constans";
 import useGameProps from "../hooks/useGameProps";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../hooks/useQueryInterface";
 import useQueryLastSave from "../hooks/useQueryLastSave";
-import startLabel from "../labels/startLabel";
 import { canvas, ImageSprite, narration } from "../pixi-vn/src";
 import useGameSaveScreenStore from "../stores/useGameSaveScreenStore";
 import useInterfaceStore from "../stores/useInterfaceStore";
@@ -74,7 +73,7 @@ export default function MainMenu() {
             <MenuButton
                 onClick={() => {
                     canvas.removeAll();
-                    narration.callLabel(startLabel, gameProps).then(() => {
+                    narration.callLabel("start", gameProps).then(() => {
                         queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] });
                         navigate(NARRATION_ROUTE);
                     });

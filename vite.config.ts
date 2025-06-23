@@ -40,6 +40,7 @@ export default defineConfig({
             },
         }),
     ],
+    assetsInclude: ["**/*.ink"],
     resolve: {
         alias: {
             "@drincs/pixi-vn": fileURLToPath(new URL("./src/pixi-vn/src", import.meta.url)),
