@@ -205,7 +205,7 @@ function NarrationScreenText({ paragraphRef }: { paragraphRef: RefObject<HTMLDiv
     }, []);
 
     return (
-        <p style={{ margin: 0, padding: 0 }}>
+        <p className={"prose lg:prose-xl"} style={{ margin: 0, padding: 0 }}>
             <span>
                 <Markdown
                     remarkPlugins={[remarkGfm]}
