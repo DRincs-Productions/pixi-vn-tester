@@ -18,15 +18,9 @@ type InterfaceStoreType = {
 const useInterfaceStore = create<InterfaceStoreType>((set) => ({
     hidden: false,
     editHidden: () => {
-        if (location.pathname === "/") {
-            return;
-        }
         set((state) => ({ hidden: !state.hidden }));
     },
     setHidden: (value: boolean) => {
-        if (location.pathname === "/") {
-            return;
-        }
         set({ hidden: value });
     },
 }));

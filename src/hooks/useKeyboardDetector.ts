@@ -12,7 +12,6 @@ import { SAVES_USE_QUEY_KEY } from "./useQuerySaves";
 
 export default function useKeyboardDetector() {
     const hideInterface = useInterfaceStore((state) => state.hidden);
-    const setHideInterface = useInterfaceStore((state) => state.setHidden);
     const setOpenLoadAlert = useGameSaveScreenStore((state) => state.editLoadAlert);
     const queryClient = useQueryClient();
     const { t } = useTranslation(["ui"]);
@@ -23,11 +22,6 @@ export default function useKeyboardDetector() {
     const onkeydown = useCallback(
         (event: KeyboardEvent) => {
             switch (event.code) {
-                case "KeyV":
-                    if (event.altKey) {
-                        setHideInterface(!hideInterface);
-                    }
-                    break;
                 case "KeyS":
                     if (event.altKey) {
                         if (location.pathname === "/") {
