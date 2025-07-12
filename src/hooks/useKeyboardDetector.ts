@@ -23,12 +23,6 @@ export default function useKeyboardDetector() {
     const onkeydown = useCallback(
         (event: KeyboardEvent) => {
             switch (event.code) {
-                case "Enter":
-                case "Space":
-                    if (hideInterface) {
-                        setHideInterface(false);
-                    }
-                    break;
                 case "KeyV":
                     if (event.altKey) {
                         setHideInterface(!hideInterface);
