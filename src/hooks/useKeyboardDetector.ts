@@ -4,14 +4,12 @@ import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import useGameSaveScreenStore from "../stores/useGameSaveScreenStore";
-import useInterfaceStore from "../stores/useInterfaceStore";
 import { putSaveIntoIndexDB } from "../utils/save-utility";
 import useEventListener from "./useKeyDetector";
 import useQueryLastSave, { LAST_SAVE_USE_QUEY_KEY } from "./useQueryLastSave";
 import { SAVES_USE_QUEY_KEY } from "./useQuerySaves";
 
 export default function useKeyboardDetector() {
-    const hideInterface = useInterfaceStore((state) => state.hidden);
     const setOpenLoadAlert = useGameSaveScreenStore((state) => state.editLoadAlert);
     const queryClient = useQueryClient();
     const { t } = useTranslation(["ui"]);
@@ -50,7 +48,7 @@ export default function useKeyboardDetector() {
                     break;
             }
         },
-        [location, hideInterface, lastSave, queryClient, t]
+        [location, lastSave, queryClient, t]
     );
 
     useEventListener({ type: "keydown", listener: onkeydown });
