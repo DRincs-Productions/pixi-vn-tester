@@ -8,13 +8,14 @@ import useInterfaceStore from "../stores/useInterfaceStore";
 export default function VisibilityButton() {
     const hidden = useInterfaceStore(useShallow((state) => state.hidden));
     const editHideInterface = useInterfaceStore((state) => state.editHidden);
+    const showInterface = useInterfaceStore((state) => state.show);
     const iconVarians = useMemo(() => (hidden ? `motion-preset-pop` : `motion-scale-out-0`), [hidden]);
 
     useEffect(() => {
         return () => {
-            if (hidden) editHideInterface();
+            showInterface();
         };
-    }, [hidden, editHideInterface]);
+    }, [showInterface]);
 
     useEventListener({
         type: "keyup",
