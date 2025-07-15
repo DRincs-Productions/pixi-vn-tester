@@ -6,9 +6,7 @@ import { defineAssets } from "./utils/assets-utility";
 import { initializeIndexedDB } from "./utils/indexedDB-utility";
 
 const Home = lazy(async () => {
-    await import("./values");
-    await import("./labels");
-    await Promise.all([initializeIndexedDB(), defineAssets(), useI18n()]);
+    await Promise.all([import("./values"), import("./labels"), initializeIndexedDB(), defineAssets(), useI18n()]);
     return import("./Home");
 });
 
