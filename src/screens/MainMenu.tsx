@@ -1,3 +1,5 @@
+import { canvas, ImageSprite, narration } from "@drincs/pixi-vn";
+import { Box, CircularProgress } from "@mui/joy";
 import Stack from "@mui/joy/Stack";
 import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "motion/react";
@@ -8,7 +10,6 @@ import useGameProps from "../hooks/useGameProps";
 import { INTERFACE_DATA_USE_QUEY_KEY } from "../hooks/useQueryInterface";
 import useQueryLastSave from "../hooks/useQueryLastSave";
 import startLabel from "../labels/startLabel";
-import { canvas, ImageSprite, narration } from "../pixi-vn/src";
 import useGameSaveScreenStore from "../stores/useGameSaveScreenStore";
 import useInterfaceStore from "../stores/useInterfaceStore";
 import useSettingsScreenStore from "../stores/useSettingsScreenStore";
@@ -70,7 +71,7 @@ export default function MainMenu() {
                 }}
                 transitionDelay={0.1}
                 loading={isLoading}
-                disabled={!isLoading && !lastSave}
+                disabled={(!isLoading && !lastSave) || loading}
             >
                 {t("continue")}
             </MenuButton>
@@ -80,7 +81,7 @@ export default function MainMenu() {
                     canvas.removeAll();
                     await navigate(NARRATION_ROUTE);
                     narration
-                        .callLabel(startLabel, gameProps)
+                        .call(startLabel, gameProps)
                         .then(() => queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] }))
                         .finally(() => setLoading(false));
                 }}
@@ -95,6 +96,19 @@ export default function MainMenu() {
             <MenuButton onClick={() => setOpenSettings(true)} transitionDelay={0.4}>
                 {t("settings")}
             </MenuButton>
+            {loading && (
+                <Box
+                    sx={{
+                        position: "absolute",
+                        right: 0,
+                        bottom: 0,
+                        padding: 0.5,
+                    }}
+                    className='motion-preset-pop'
+                >
+                    <CircularProgress />
+                </Box>
+            )}
         </Stack>
     );
 }
