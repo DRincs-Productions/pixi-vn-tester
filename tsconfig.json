@@ -23,7 +23,15 @@
     "baseUrl": "src",
     "paths": {
       "@drincs/pixi-vn/*": ["pixi-vn/src/*"],
-      "@drincs/pixi-vn": ["pixi-vn/src/index.ts"]
+      "@drincs/pixi-vn": ["pixi-vn/src/index.ts"],
+      "@drincs/pixi-vn/pixi.js": ["pixi-vn/src/pixi-js/index.ts"],
+      "@drincs/pixi-vn/narration": ["pixi-vn/src/narration/index.ts"],
+      "@drincs/pixi-vn/history": ["pixi-vn/src/history/index.ts"],
+      "@drincs/pixi-vn/storage": ["pixi-vn/src/storage/index.ts"],
+      "@drincs/pixi-vn/canvas": ["pixi-vn/src/canvas/index.ts"],
+      "@drincs/pixi-vn/sound": ["pixi-vn/src/sound/index.ts"],
+      "@drincs/pixi-vn/characters": ["pixi-vn/src/characters/index.ts"],
+      "@drincs/pixi-vn/unifier": ["pixi-vn/src/unifier/index.ts"],
     }
   },
   "include": ["src"],

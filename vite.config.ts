@@ -42,6 +42,14 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
+            "@drincs/pixi-vn/pixi.js": fileURLToPath(new URL("./src/pixi-vn/src/pixi-js", import.meta.url)),
+            "@drincs/pixi-vn/narration": fileURLToPath(new URL("./src/pixi-vn/src/narration", import.meta.url)),
+            "@drincs/pixi-vn/history": fileURLToPath(new URL("./src/pixi-vn/src/history", import.meta.url)),
+            "@drincs/pixi-vn/storage": fileURLToPath(new URL("./src/pixi-vn/src/storage", import.meta.url)),
+            "@drincs/pixi-vn/canvas": fileURLToPath(new URL("./src/pixi-vn/src/canvas", import.meta.url)),
+            "@drincs/pixi-vn/sound": fileURLToPath(new URL("./src/pixi-vn/src/sound", import.meta.url)),
+            "@drincs/pixi-vn/characters": fileURLToPath(new URL("./src/pixi-vn/src/characters", import.meta.url)),
+            "@drincs/pixi-vn/unifier": fileURLToPath(new URL("./src/pixi-vn/src/unifier", import.meta.url)),
             "@drincs/pixi-vn": fileURLToPath(new URL("./src/pixi-vn/src", import.meta.url)),
         },
     },
