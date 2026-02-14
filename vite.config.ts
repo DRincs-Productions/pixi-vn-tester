@@ -1,7 +1,6 @@
-import { vitePluginPixivn } from "@drincs/pixi-vn/vite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import { fileURLToPath, URL } from "node:url"; // AGGIUNGI QUESTA RIGA
+import path from "path";
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
 import { VitePWA } from "vite-plugin-pwa";
@@ -40,21 +39,24 @@ export default defineConfig({
                 ],
             },
         }),
-        vitePluginPixivn(),
     ],
     resolve: {
         alias: {
-            "@drincs/pixi-vn/pixi.js": fileURLToPath(new URL("./src/pixi-vn/src/pixi-js", import.meta.url)),
-            "@drincs/pixi-vn/narration": fileURLToPath(new URL("./src/pixi-vn/src/narration", import.meta.url)),
-            "@drincs/pixi-vn/history": fileURLToPath(new URL("./src/pixi-vn/src/history", import.meta.url)),
-            "@drincs/pixi-vn/storage": fileURLToPath(new URL("./src/pixi-vn/src/storage", import.meta.url)),
-            "@drincs/pixi-vn/canvas": fileURLToPath(new URL("./src/pixi-vn/src/canvas", import.meta.url)),
-            "@drincs/pixi-vn/sound": fileURLToPath(new URL("./src/pixi-vn/src/sound", import.meta.url)),
-            "@drincs/pixi-vn/characters": fileURLToPath(new URL("./src/pixi-vn/src/characters", import.meta.url)),
-            "@drincs/pixi-vn/unifier": fileURLToPath(new URL("./src/pixi-vn/src/unifier", import.meta.url)),
-            "@drincs/pixi-vn": fileURLToPath(new URL("./src/pixi-vn/src", import.meta.url)),
+            "@drincs/pixi-vn/pixi.js": path.resolve(__dirname, "./pixi-vn/src/pixi-js"),
+            "@drincs/pixi-vn/narration": path.resolve(__dirname, "./pixi-vn/src/narration"),
+            "@drincs/pixi-vn/history": path.resolve(__dirname, "./pixi-vn/src/history"),
+            "@drincs/pixi-vn/storage": path.resolve(__dirname, "./pixi-vn/src/storage"),
+            "@drincs/pixi-vn/canvas": path.resolve(__dirname, "./pixi-vn/src/canvas"),
+            "@drincs/pixi-vn/sound": path.resolve(__dirname, "./pixi-vn/src/sound"),
+            "@drincs/pixi-vn/characters": path.resolve(__dirname, "./pixi-vn/src/characters"),
+            "@drincs/pixi-vn/unifier": path.resolve(__dirname, "./pixi-vn/src/unifier"),
+            "@drincs/pixi-vn": path.resolve(__dirname, "./pixi-vn/src"),
         },
     },
+    optimizeDeps: {
+        exclude: ["@drincs/pixi-vn"],
+    },
+
     define: {
         __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
         __APP_NAME__: JSON.stringify(process.env.npm_package_name),
