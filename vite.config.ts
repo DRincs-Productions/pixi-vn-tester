@@ -1,3 +1,4 @@
+import { vitePluginPixivn } from "@drincs/pixi-vn/vite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { fileURLToPath, URL } from "node:url"; // AGGIUNGI QUESTA RIGA
@@ -39,6 +40,7 @@ export default defineConfig({
                 ],
             },
         }),
+        vitePluginPixivn(),
     ],
     resolve: {
         alias: {
@@ -63,7 +65,9 @@ export default defineConfig({
                 manualChunks: {
                     "lib/@mui/joy": ["@mui/joy"],
                     "lib/react-markdown": ["react-markdown", "rehype-raw", "remark-gfm"],
+                    "lib/pixi.js": ["pixi.js"],
                     "lib/@drincs/pixi-vn": ["@drincs/pixi-vn"],
+                    "lib/spine": ["@drincs/pixi-vn-spine"],
                 },
             },
         },
